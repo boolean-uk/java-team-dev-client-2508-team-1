@@ -5,7 +5,7 @@ async function login(email, password) {
 }
 
 async function register(email, password) {
-  await post('users', { email, password }, false);
+  await post('signup', { email, password }, false); // Boolean had wrong code
   return await login(email, password);
 }
 
