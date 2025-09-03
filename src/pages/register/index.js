@@ -83,6 +83,3 @@ const Register = () => {
 };
 
 export default Register;
-
-// email: dave@email.com
-// password: @Qwert123456
