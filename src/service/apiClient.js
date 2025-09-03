@@ -5,7 +5,7 @@ async function login(email, password) {
 }
 
 async function register(email, password) {
-  await post('users', { email, password }, false);
+  await post('signup', { email, password }, false); // changed from users to signup
   return await login(email, password);
 }
 
