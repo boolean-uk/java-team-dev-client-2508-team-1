@@ -31,6 +31,7 @@ const StepTwo = ({ data, setData }) => {
             value={data.mobile}
             name="mobile"
             label={'Mobile*'}
+            placeholder={'Enter mobile number'}
             required
           />
           <p className="text-blue1">*Required</p>

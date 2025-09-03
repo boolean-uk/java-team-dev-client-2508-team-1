@@ -1,5 +1,5 @@
 
-const NumberInput = ({ value, onChange, name, label, icon, type = 'number'}) => {
+const NumberInput = ({ value, onChange, name, label, icon, type = 'number',placeholder}) => {
   
     return (
       <div className="inputwrapper">
@@ -10,7 +10,7 @@ const NumberInput = ({ value, onChange, name, label, icon, type = 'number'}) => 
           value={value}
           onChange={onChange}
           className={icon && 'input-has-icon'}
-          placeholder="Enter numbers only" 
+          placeholder={placeholder} 
 
           onInput={(e) => {
             if (e.target.value.length > 8) {
