@@ -3,6 +3,7 @@ import Stepper from '../../components/stepper';
 import useAuth from '../../hooks/useAuth';
 import StepOne from './stepOne';
 import StepTwo from './stepTwo';
+import StepFour from './stepFour';
 import './style.css';
 
 const Welcome = () => {
@@ -11,7 +12,9 @@ const Welcome = () => {
   const [profile, setProfile] = useState({
     firstName: '',
     lastName: '',
+    username: '',
     githubUsername: '',
+    mobile: '',
     bio: ''
   });
 
@@ -23,9 +26,10 @@ const Welcome = () => {
       [name]: value
     });
   };
+  
 
   const onComplete = () => {
-    onCreateProfile(profile.firstName, profile.lastName, profile.githubUsername, profile.bio);
+    onCreateProfile(profile.firstName, profile.lastName, profile.username, profile.githubUsername, profile.mobile, profile.bio);
   };
 
   return (
@@ -38,6 +42,7 @@ const Welcome = () => {
       <Stepper header={<WelcomeHeader />} onComplete={onComplete}>
         <StepOne data={profile} setData={onChange} />
         <StepTwo data={profile} setData={onChange} />
+        <StepFour data={profile} setData={onChange} />
       </Stepper>
     </main>
   );
