@@ -1,5 +1,6 @@
 
 import Form from '../../../components/form';
+import NumberInput from '../../../components/form/numberInput';
 import TextInput from '../../../components/form/textInput';
 
 const StepTwo = ({ data, setData }) => {
@@ -15,15 +16,17 @@ const StepTwo = ({ data, setData }) => {
             value={data.username}
             name="username"
             label={'Username*'}
+            placeholder={'Enter username'}
             required
           />
           <TextInput
             onChange={setData}
             value={data.githubUsername}
             name="githubUsername"
-            label={'Github Username'}
+            label={'GitHub Username'}
+            placeholder={'Enter GitHub username'}
           />
-           <TextInput
+           <NumberInput
             onChange={setData}
             value={data.mobile}
             name="mobile"

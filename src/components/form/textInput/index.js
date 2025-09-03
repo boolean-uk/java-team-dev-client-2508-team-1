@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const TextInput = ({ value, onChange, name, label, icon, type = 'text' }) => {
+const TextInput = ({ value, onChange, name, label, icon, type = 'text', placeholder }) => {
   const [input, setInput] = useState('');
   const [showpassword, setShowpassword] = useState(false);
   if (type === 'password') {
@@ -11,6 +11,7 @@ const TextInput = ({ value, onChange, name, label, icon, type = 'text' }) => {
           type={type}
           name={name}
           value={value}
+          placeholder = {placeholder}
           onChange={(e) => {
             onChange(e);
             setInput(e.target.value);
@@ -36,6 +37,7 @@ const TextInput = ({ value, onChange, name, label, icon, type = 'text' }) => {
           type={type}
           name={name}
           value={value}
+          placeholder = {placeholder}
           onChange={onChange}
           className={icon && 'input-has-icon'}
         />
