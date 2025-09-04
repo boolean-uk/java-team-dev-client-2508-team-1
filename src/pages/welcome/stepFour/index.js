@@ -1,6 +1,6 @@
 import Form from '../../../components/form';
 
-const StepTwo = ({ data, setData }) => {
+const StepFour = ({ data, setData }) => {
   return (
     <>
       <div className="welcome-formheader">
@@ -16,4 +16,4 @@ const StepTwo = ({ data, setData }) => {
   );
 };
 
-export default StepTwo;
+export default StepFour;
