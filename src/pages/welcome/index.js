@@ -25,9 +25,9 @@ const Welcome = () => {
       ...profile,
       [name]: value
     });
+
   };
   
-
   const onComplete = () => {
     onCreateProfile(profile.firstName, profile.lastName, profile.username, profile.githubUsername, profile.mobile, profile.bio);
   };
@@ -39,7 +39,7 @@ const Welcome = () => {
         <p className="text-blue1">Create your profile to get started</p>
       </div>
 
-      <Stepper header={<WelcomeHeader />} onComplete={onComplete}>
+      <Stepper data={profile} header={<WelcomeHeader />} onComplete={onComplete}>
         <StepOne data={profile} setData={onChange} />
         <StepTwo data={profile} setData={onChange} />
         <StepFour data={profile} setData={onChange} />

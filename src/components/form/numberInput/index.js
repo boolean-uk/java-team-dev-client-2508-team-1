@@ -13,8 +13,8 @@ const NumberInput = ({ value, onChange, name, label, icon, type = 'number',place
           placeholder={placeholder} 
 
           onInput={(e) => {
-            if (e.target.value.length > 8) {
-                e.target.value = e.target.value.slice(0, 8);
+            if (e.target.value.length > 11) {
+                e.target.value = e.target.value.slice(0, 11);
               }}}
         />
         {icon && <span className="input-icon">{icon}</span>}

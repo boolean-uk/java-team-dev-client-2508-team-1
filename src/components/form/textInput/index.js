@@ -29,7 +29,7 @@ const TextInput = ({ value, onChange, name, label, icon, type = 'text', placehol
         </button>
       </div>
     );
-  } else {
+  }  else {
     return (
       <div className="inputwrapper">
         {label && <label htmlFor={name}>{label}</label>}
@@ -45,7 +45,7 @@ const TextInput = ({ value, onChange, name, label, icon, type = 'text', placehol
       </div>
     );
   }
-};
+}
 
 const EyeLogo = () => {
   return (
