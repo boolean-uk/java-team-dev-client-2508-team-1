@@ -1,14 +1,16 @@
 import { useState } from 'react';
 import Form from '../../../components/form';
-import TextInput from '../../../components/form/textInput';
 import DropdownMenu from '../../../components/dropdown';
 import { getRoles } from '@testing-library/react';
+import Calendar from '../../../components/calendar/Calendar';
 
 const StepThree = ({ data, setData }) => {
 
     const [selectedRole, setSelectedRole] = useState("");
     const [selectedSpecialism, setSelectedSpecialism] = useState("");
     const [selectedCohort, setSelectedCohort] = useState("");
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
 
     const cohorts = [{value:"c1", label:"c1"}, {value:"c2", label:"c2"}];
     const specialisms = [{value:"s1", label:"s1"}, {value:"s2", label:"s2"}];
@@ -37,17 +39,17 @@ const StepThree = ({ data, setData }) => {
                     onChange={setSelectedCohort}
                     placeholder='Cohorts*'
                 />
-                <TextInput
-                    onChange={setData}
-                    value={data.startDate}
-                    name="startDate"
-                    label={"Start Date*"}
+                <Calendar 
+                    label="Start Date*"
+                    selectedDate={startDate}
+                    onChange={(date) => setStartDate(date)}
+                    placeholder="Start Date" 
                 />
-                <TextInput
-                    onChange={setData}
-                    value={data.endDate}
-                    name="endDate"
-                    label={"End Date*"}
+                <Calendar 
+                    label="End Date*"
+                    selectedDate={endDate}
+                    onChange={(date) => setEndDate(date)}
+                    placeholder="End Date" 
                 />
                 <p className="text-blue1">*Required</p>
             </div>
