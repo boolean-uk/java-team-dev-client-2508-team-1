@@ -1,27 +1,27 @@
 import { useState } from 'react';
 
 const TextInput = ({ value, onChange, name, label, icon, type = 'text' }) => {
-  const [input, setInput] = useState('');
   const [showpassword, setShowpassword] = useState(false);
+  const [typ, setTyp] = useState(type);
   if (type === 'password') {
     return (
       <div className="inputwrapper">
         <label htmlFor={name}>{label}</label>
         <input
-          type={type}
+          type={typ}
           name={name}
           value={value}
           onChange={(e) => {
             onChange(e);
-            setInput(e.target.value);
           }}
         />
-        {showpassword && <input type="text" name={name} value={input} className="passwordreveal" />}
         <button
           className={`showpasswordbutton formbutton ${showpassword === true && '__faded'}`}
           onClick={(e) => {
             e.preventDefault();
+            
             setShowpassword(!showpassword);
+            (showpassword) ? setTyp("password"):setTyp("text") ;
           }}
         >
           <EyeLogo />
