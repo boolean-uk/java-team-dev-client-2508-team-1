@@ -11,20 +11,13 @@ const StepTwo = ({ data, setData }) => {
       </div>
       <Form className="welcome-form">
         <div className="welcome-form-inputs">
-           <TextInput
+            <TextInput
             onChange={setData}
-            value={data.username}
-            name="username"
-            label={'Username*'}
-            placeholder={'Enter username'}
+            value={data.email}
+            name="email"
+            label={'Email*'}
+            placeholder={'Email'}
             required
-          />
-          <TextInput
-            onChange={setData}
-            value={data.githubUsername}
-            name="githubUsername"
-            label={'GitHub Username'}
-            placeholder={'Enter GitHub username'}
           />
            <NumberInput
             onChange={setData}
@@ -34,6 +27,16 @@ const StepTwo = ({ data, setData }) => {
             placeholder={'Enter mobile number'}
             required
           />
+            <TextInput
+            onChange={setData}
+            value={data.password}
+            name="password"
+            label={'Password*'}
+            placeholder={'Password'}
+            required
+            type={"password"}
+          />
+
           <p className="text-blue1">*Required</p>
         </div>
       </Form>

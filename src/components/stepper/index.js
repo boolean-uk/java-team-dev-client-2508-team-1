@@ -66,7 +66,7 @@ const Stepper = ({ header, children, onComplete, data }) => {
           text={currentStep === children.length - 1 ? 'Submit' : 'Next'}
           classes="blue"
           onClick={() => {
-              if (validateName(data.firstName) && validateName(data.lastName)) {
+              if (validateName(data.firstName) && validateName(data.lastName) &&validateUsername(data)) {
                 onNextClick();
               }
             }}
@@ -76,7 +76,7 @@ const Stepper = ({ header, children, onComplete, data }) => {
           text={currentStep === children.length - 1 ? 'Submit' : 'Next'}
           classes="blue"
           onClick={() => {
-              if (validateUsername(data) && validateMobile(data.mobile)) {
+              if (validateMobile(data.mobile)) {
                 onNextClick();
               }
             }}

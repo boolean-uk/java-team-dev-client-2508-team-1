@@ -23,7 +23,7 @@ const StepOne = ({ data, setData }) => {
             value={data.firstName}
             name="firstName"
             label={'First Name*'}
-            placeholder={'Enter first name'}
+            placeholder={'First Name'}
             required
           />
           <TextInput 
@@ -31,9 +31,23 @@ const StepOne = ({ data, setData }) => {
           value={data.lastName} 
           name="lastName" 
           label={'Last Name*'} 
-          placeholder={'Enter last name'}
+          placeholder={'Last Name'}
           required />
-        
+           <TextInput
+            onChange={setData}
+            value={data.username}
+            name="username"
+            label={'Username*'}
+            placeholder={'Username'}
+            required
+          />
+          <TextInput
+            onChange={setData}
+            value={data.githubUsername}
+            name="githubUsername"
+            label={'GitHub Username'}
+            placeholder={'GitHub Username'}
+          />
           <p className="text-blue1">*Required</p>
         </div>
       </Form>
