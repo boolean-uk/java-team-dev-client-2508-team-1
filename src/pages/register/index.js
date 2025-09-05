@@ -37,21 +37,7 @@ const Register = () => {
       return false;
     }
   } 
-  
-  const checkEmailExists = async (email) => {
-    try {
-      const response = await fetch('/api/check-email', { 
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      });
-      const data = await response.json();
-      return data.exists; 
-    }
-    catch (error) {
-      return true; 
-    }
-  };
+
 
   return (
     <div className="bg-blue register credentialpage">
@@ -93,15 +79,18 @@ const Register = () => {
           </form>
           <Button
             text="Sign up"
-            onClick={() => {
+            onClick={async () => {
               if (validateEmail(formData.email) && validatePassword(formData.password)) {
-                const exists = checkEmailExists(formData.email);
-                if (exists) {
-                  alert('Email is already registered.');
-                  return;
+                try {
+                  await onRegister(formData.email, formData.password);
+                } 
+                catch (err) {
+                  if (err.status === 400) {
+                    alert("Email is already in use");
+                  }
                 }
-                onRegister(formData.email, formData.password);
-              }}}
+              }
+            }}
             classes="green width-full"
           />
         </div>
