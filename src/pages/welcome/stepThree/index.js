@@ -1,17 +1,9 @@
-import { useState } from 'react';
 import Form from '../../../components/form';
 import TextInput from '../../../components/form/textInput';
-import DropdownMenu from '../../../components/dropdown';
-import { getRoles } from '@testing-library/react';
 
 const StepThree = ({ data, setData }) => {
 
-    const [selectedRole, setSelectedRole] = useState("");
-    const [selectedSpecialism, setSelectedSpecialism] = useState("");
-    const [selectedCohort, setSelectedCohort] = useState("");
 
-    const cohorts = [{value:"c1", label:"c1"}, {value:"c2", label:"c2"}];
-    const specialisms = [{value:"s1", label:"s1"}, {value:"s2", label:"s2"}];
     return (
         <>
         <div className='welcome-formheader'>
@@ -19,35 +11,30 @@ const StepThree = ({ data, setData }) => {
         </div>
         <Form className="welcome-form">
             <div className='welcome-form-inputs'>
-                <DropdownMenu
-                    options={getRoles}
-                    value={selectedRole}
-                    onChange={setSelectedRole}
-                    placeholder='Role*'
+               <TextInput
+                    name="role"
+                    label={'Role*'}
+                    value={'Student'}
                 />
-                <DropdownMenu
-                    options={specialisms}
-                    value={selectedSpecialism}
-                    onChange={setSelectedSpecialism}
-                    placeholder='Specialism*'
-                />
-                <DropdownMenu
-                    options={cohorts}
-                    value={selectedCohort}
-                    onChange={setSelectedCohort}
-                    placeholder='Cohorts*'
+                <TextInput 
+                    name="specialism" 
+                    label={'Specialism*'} 
+                    value={'Software Developer'}
                 />
                 <TextInput
-                    onChange={setData}
-                    value={data.startDate}
+                    name="cohort"
+                    label={'Cohort*'}
+                    value={'Cohort 4'}
+                />
+                <TextInput
                     name="startDate"
-                    label={"Start Date*"}
+                    label={'Start Date*'}
+                    value={'August 2025'}
                 />
                 <TextInput
-                    onChange={setData}
-                    value={data.endDate}
                     name="endDate"
-                    label={"End Date*"}
+                    label={'End Date*'}
+                    value={'December 2025'}
                 />
                 <p className="text-blue1">*Required</p>
             </div>

@@ -18,7 +18,12 @@ const Welcome = () => {
     username: '',
     githubUsername: '',
     mobile: '',
-    bio: ''
+    bio: '',
+    role: '',
+    specialism: '',
+    cohort: '',
+    startDate: '',
+    endDate: ''
   });
 
   const onChange = (event) => {
@@ -37,9 +42,18 @@ const Welcome = () => {
       profile.username,
       profile.mobile,
       profile.githubUsername,
-      profile.bio
+      profile.bio,
+      profile.role,
+      profile.specialism,
+      profile.cohort,
+      profile.startDate,
+      profile.endDate
     );
   };
+
+
+
+
 
   return (
     <main className="welcome">
