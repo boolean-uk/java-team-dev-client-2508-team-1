@@ -1,19 +1,8 @@
-import { useState } from 'react';
 import Form from '../../../components/form';
-import DropdownMenu from '../../../components/dropdown';
-import { getRoles } from '@testing-library/react';
-import Calendar from '../../../components/calendar/Calendar';
+import TextInput from '../../../components/form/textInput';
+// import LockIcon from '../../../assets/icons/lockIcon'
 
-const StepThree = ({ data, setData }) => {
-
-    const [selectedRole, setSelectedRole] = useState("");
-    const [selectedSpecialism, setSelectedSpecialism] = useState("");
-    const [selectedCohort, setSelectedCohort] = useState("");
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
-
-    const cohorts = [{value:"c1", label:"c1"}, {value:"c2", label:"c2"}];
-    const specialisms = [{value:"s1", label:"s1"}, {value:"s2", label:"s2"}];
+const StepThree = ({ data, setData }) => {    
     return (
         <>
         <div className='welcome-formheader'>
@@ -21,35 +10,31 @@ const StepThree = ({ data, setData }) => {
         </div>
         <Form className="welcome-form">
             <div className='welcome-form-inputs'>
-                <DropdownMenu
-                    options={getRoles}
-                    value={selectedRole}
-                    onChange={setSelectedRole}
-                    placeholder='Role*'
+                <TextInput
+                    name="role"
+                    label={'Role*'}
+                    value={'Student'}
                 />
-                <DropdownMenu
-                    options={specialisms}
-                    value={selectedSpecialism}
-                    onChange={setSelectedSpecialism}
-                    placeholder='Specialism*'
+                <TextInput 
+                    name="specialism" 
+                    label={'Specialism*'} 
+                    value={'Software Developer'}
                 />
-                <DropdownMenu
-                    options={cohorts}
-                    value={selectedCohort}
-                    onChange={setSelectedCohort}
-                    placeholder='Cohorts*'
+                <TextInput
+                    name="cohort"
+                    label={'Cohort*'}
+                    value={'Cohort 4'}
                 />
-                <Calendar 
-                    label="Start Date*"
-                    selectedDate={startDate}
-                    onChange={(date) => setStartDate(date)}
-                    placeholder="Start Date" 
+                <TextInput
+                    name="startDate"
+                    label={'Start Date*'}
+                    value={'August 2025'}
                 />
-                <Calendar 
-                    label="End Date*"
-                    selectedDate={endDate}
-                    onChange={(date) => setEndDate(date)}
-                    placeholder="End Date" 
+                <TextInput
+                    name="endDate"
+                    label={'End Date*'}
+                    value={'December 2025'}
+
                 />
                 <p className="text-blue1">*Required</p>
             </div>
