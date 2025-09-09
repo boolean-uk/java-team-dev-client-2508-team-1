@@ -6,6 +6,7 @@ import StepTwo from './stepTwo';
 import StepFour from './stepFour';
 import './style.css';
 import { useFormData } from '../../context/form';
+import StepThree from './stepThree';
 
 const Welcome = () => {
   const { onCreateProfile } = useAuth();
@@ -49,7 +50,8 @@ const Welcome = () => {
 
       <Stepper data={profile} header={<WelcomeHeader />} onComplete={onComplete}>
         <StepOne data={profile} setData={onChange} />
-        <StepTwo data={profile} setData={onChange} formData={formData} />
+        <StepTwo data={profile} setData={onChange} formData={formData}/>
+        <StepThree data={profile} setData={onChange} />
         <StepFour data={profile} setData={onChange} />
       </Stepper>
     </main>
