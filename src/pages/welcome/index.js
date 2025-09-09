@@ -5,9 +5,11 @@ import StepOne from './stepOne';
 import StepTwo from './stepTwo';
 import StepFour from './stepFour';
 import './style.css';
+import { useFormData } from '../../context/form';
 
 const Welcome = () => {
   const { onCreateProfile } = useAuth();
+  const { formData } = useFormData();
 
   const [profile, setProfile] = useState({
     firstName: '',
@@ -25,11 +27,17 @@ const Welcome = () => {
       ...profile,
       [name]: value
     });
-
   };
-  
+
   const onComplete = () => {
-    onCreateProfile(profile.firstName, profile.lastName, profile.username, profile.githubUsername, profile.mobile, profile.bio);
+    onCreateProfile(
+      profile.firstName,
+      profile.lastName,
+      profile.username,
+      profile.mobile,
+      profile.githubUsername,
+      profile.bio
+    );
   };
 
   return (
@@ -41,7 +49,7 @@ const Welcome = () => {
 
       <Stepper data={profile} header={<WelcomeHeader />} onComplete={onComplete}>
         <StepOne data={profile} setData={onChange} />
-        <StepTwo data={profile} setData={onChange} />
+        <StepTwo data={profile} setData={onChange} formData={formData} />
         <StepFour data={profile} setData={onChange} />
       </Stepper>
     </main>

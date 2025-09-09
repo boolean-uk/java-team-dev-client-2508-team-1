@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 const TextInput = ({ value, onChange, name, label, icon, type = 'text', placeholder }) => {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState(value);
   const [showpassword, setShowpassword] = useState(false);
   if (type === 'password') {
     return (
@@ -29,7 +29,7 @@ const TextInput = ({ value, onChange, name, label, icon, type = 'text', placehol
         </button>
       </div>
     );
-  }  else {
+  } else {
     return (
       <div className="inputwrapper">
         {label && <label htmlFor={name}>{label}</label>}

@@ -3,7 +3,7 @@ import Form from '../../../components/form';
 import NumberInput from '../../../components/form/numberInput';
 import TextInput from '../../../components/form/textInput';
 
-const StepTwo = ({ data, setData }) => {
+const StepTwo = ({ data, setData, formData }) => {
   return (
     <>
       <div className="welcome-formheader">
@@ -12,12 +12,12 @@ const StepTwo = ({ data, setData }) => {
       <Form className="welcome-form">
         <div className="welcome-form-inputs">
             <TextInput
-            onChange={setData}
-            value={data.email}
+            value={formData.email}
             name="email"
             label={'Email*'}
-            placeholder={'Email'}
+            placeholder={formData.email}
             required
+            
           />
            <NumberInput
             onChange={setData}
@@ -28,14 +28,13 @@ const StepTwo = ({ data, setData }) => {
             required
           />
             <TextInput
-            onChange={setData}
-            value={data.password}
-            name="password"
-            label={'Password*'}
-            placeholder={'Password'}
-            required
-            type={"password"}
-          />
+              value={formData.password}
+              placeholder={formData.password}
+              name="password"
+              label={'Password *'}
+              type={'password'}
+            />
+          {console.log(formData.password)}
 
           <p className="text-blue1">*Required</p>
         </div>
