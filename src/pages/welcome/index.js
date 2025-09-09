@@ -13,11 +13,16 @@ const Welcome = () => {
     firstName: '',
     lastName: '',
     githubUsername: '',
-    bio: ''
+    bio: '',
+    role: '',
+    specialism: '',
+    cohort: '',
+    startDate: '',
+    endDate:''
   });
 
   const onChange = (event) => {
-    const { name, value } = event.target;
+    const { name, value } = event.target
 
     setProfile({
       ...profile,
@@ -26,7 +31,7 @@ const Welcome = () => {
   };
 
   const onComplete = () => {
-    onCreateProfile(profile.firstName, profile.lastName, profile.githubUsername, profile.bio);
+    onCreateProfile(profile.firstName, profile.lastName, profile.githubUsername, profile.bio, profile.role, profile.specialism, profile.cohort);
   };
 
   return (
