@@ -36,7 +36,16 @@ const Login = () => {
           </form>
           <Button
             text="Log in"
-            onClick={() => onLogin(formData.email, formData.password)}
+            onClick={async () => {
+              try {
+                await onLogin(formData.email, formData.password);
+              }  
+              catch (err) {
+                if (err.status === 401) {
+                  alert("Email or password is wrong");
+                }
+              }
+            }}
             classes="green width-full"
           />
         </div>
