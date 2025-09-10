@@ -23,7 +23,8 @@ const Welcome = () => {
     specialism: '',
     cohort: '',
     startDate: '',
-    endDate: ''
+    endDate: '',
+    photo: ''
   });
 
   const onChange = (event) => {
@@ -47,10 +48,25 @@ const Welcome = () => {
       profile.specialism,
       profile.cohort,
       profile.startDate,
-      profile.endDate
+      profile.endDate,
+      profile.photo
     );
   };
 
+
+  const handleFileChange = (event, close) => {
+		
+    const file = event.target.files[0];
+        if (file) {
+          const url = URL.createObjectURL(file)
+          setProfile(prevProfile => ({
+            ...prevProfile,
+            photo: url
+          }));
+          close()
+    console.log("profile:" + profile.photo)
+      }
+    }
 
 
 
@@ -63,7 +79,7 @@ const Welcome = () => {
       </div>
 
       <Stepper data={profile} header={<WelcomeHeader />} onComplete={onComplete}>
-        <StepOne data={profile} setData={onChange} />
+        <StepOne data={profile} setData={onChange} handleFileChange={handleFileChange}/>
         <StepTwo data={profile} setData={onChange} formData={formData}/>
         <StepThree data={profile} setData={onChange} />
         <StepFour data={profile} setData={onChange} />
