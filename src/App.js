@@ -9,6 +9,8 @@ import { AuthProvider, ProtectedRoute } from './context/auth';
 import { ModalProvider } from './context/modal';
 import Welcome from './pages/welcome';
 import { FormProvider } from './context/form';
+import Cohort from './pages/cohort';
+
 
 const App = () => {
   return (
@@ -21,7 +23,6 @@ const App = () => {
             <Route path="register" element={<Register />} />
             <Route path="loading" element={<Loading />} />
             <Route path="verification" element={<Verification />} />
-
             <Route
               index
               element={
@@ -35,6 +36,14 @@ const App = () => {
               element={
                 <ProtectedRoute disabledNav={true}>
                   <Welcome />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="cohorts"
+              element={
+                <ProtectedRoute>
+                  <Cohort />
                 </ProtectedRoute>
               }
             />

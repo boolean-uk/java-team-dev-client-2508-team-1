@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 const TextInput = ({ value, onChange, name, label, icon, type = 'text', placeholder }) => {
-  const [input, setInput] = useState(value);
   const [showpassword, setShowpassword] = useState(false);
   const [typ, setTyp] = useState(type);
   if (type === 'password') {
