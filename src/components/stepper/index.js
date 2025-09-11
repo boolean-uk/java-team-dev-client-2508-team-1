@@ -4,7 +4,7 @@ import Button from '../button';
 import './style.css';
 import { useState } from 'react';
 
-const Stepper = ({ header, children, onComplete }) => {
+const Stepper = ({ header, children, onComplete, data }) => {
   const [currentStep, setCurrentStep] = useState(0);
 
   const onBackClick = () => {
@@ -22,6 +22,34 @@ const Stepper = ({ header, children, onComplete }) => {
     setCurrentStep(currentStep + 1);
   };
 
+  const validateName = (data) => {
+    if(!data) {
+      alert("OBSS!!! Please write Firstname and Lastname")
+      return false
+    } else {
+      return true
+    }
+  }
+  
+  const validateUsername = (data) => {
+    if(data.username.length < 7) {
+      alert("Username is too short. Input must be at least 7 characters long")
+      return false
+    } else {
+      return true
+    }
+  }
+
+   const validateMobile = (data) => {
+    if(data.length < 8) {
+      alert("Mobile number is too short. Input must be at least 8 characters long")
+      return false
+    } else {
+      return true
+    }
+  }
+
+
   return (
     <Card>
       {header}
@@ -33,11 +61,31 @@ const Stepper = ({ header, children, onComplete }) => {
 
       <div className="stepper-buttons">
         <Button text="Back" classes="offwhite" onClick={onBackClick} />
-        <Button
+        {currentStep === 0 ? 
+        (<Button
+          text={currentStep === children.length - 1 ? 'Submit' : 'Next'}
+          classes="blue"
+          onClick={() => {
+              if (validateName(data.firstName) && validateName(data.lastName) &&validateUsername(data)) {
+                onNextClick();
+              }
+            }}
+        />) : 
+        currentStep === 1 ? 
+        (<Button
+          text={currentStep === children.length - 1 ? 'Submit' : 'Next'}
+          classes="blue"
+          onClick={() => {
+              if (validateMobile(data.mobile)) {
+                onNextClick();
+              }
+            }}
+        />) : 
+        (<Button
           text={currentStep === children.length - 1 ? 'Submit' : 'Next'}
           classes="blue"
           onClick={onNextClick}
-        />
+        />) }
       </div>
     </Card>
   );

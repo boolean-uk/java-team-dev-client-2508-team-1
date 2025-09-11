@@ -22,14 +22,31 @@ const StepOne = ({ data, setData }) => {
             onChange={setData}
             value={data.firstName}
             name="firstName"
-            label={'First name'}
+            label={'First Name*'}
+            placeholder={'First Name'}
+            required
           />
-          <TextInput onChange={setData} value={data.lastName} name="lastName" label={'Last name'} />
+          <TextInput 
+          onChange={setData} 
+          value={data.lastName} 
+          name="lastName" 
+          label={'Last Name*'} 
+          placeholder={'Last Name'}
+          required />
+           <TextInput
+            onChange={setData}
+            value={data.username}
+            name="username"
+            label={'Username*'}
+            placeholder={'Username'}
+            required
+          />
           <TextInput
             onChange={setData}
             value={data.githubUsername}
             name="githubUsername"
-            label={'Github Username'}
+            label={'GitHub Username'}
+            placeholder={'GitHub Username'}
           />
           <p className="text-blue1">*Required</p>
         </div>

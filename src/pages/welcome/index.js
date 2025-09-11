@@ -3,16 +3,27 @@ import Stepper from '../../components/stepper';
 import useAuth from '../../hooks/useAuth';
 import StepOne from './stepOne';
 import StepTwo from './stepTwo';
+import StepFour from './stepFour';
 import './style.css';
+import { useFormData } from '../../context/form';
+import StepThree from './stepThree';
 
 const Welcome = () => {
   const { onCreateProfile } = useAuth();
+  const { formData } = useFormData();
 
   const [profile, setProfile] = useState({
     firstName: '',
     lastName: '',
+    username: '',
     githubUsername: '',
-    bio: ''
+    mobile: '',
+    bio: '',
+    role: '',
+    specialism: '',
+    cohort: '',
+    startDate: '',
+    endDate: ''
   });
 
   const onChange = (event) => {
@@ -25,8 +36,24 @@ const Welcome = () => {
   };
 
   const onComplete = () => {
-    onCreateProfile(profile.firstName, profile.lastName, profile.githubUsername, profile.bio);
+    onCreateProfile(
+      profile.firstName,
+      profile.lastName,
+      profile.username,
+      profile.mobile,
+      profile.githubUsername,
+      profile.bio,
+      profile.role,
+      profile.specialism,
+      profile.cohort,
+      profile.startDate,
+      profile.endDate
+    );
   };
+
+
+
+
 
   return (
     <main className="welcome">
@@ -35,9 +62,11 @@ const Welcome = () => {
         <p className="text-blue1">Create your profile to get started</p>
       </div>
 
-      <Stepper header={<WelcomeHeader />} onComplete={onComplete}>
+      <Stepper data={profile} header={<WelcomeHeader />} onComplete={onComplete}>
         <StepOne data={profile} setData={onChange} />
-        <StepTwo data={profile} setData={onChange} />
+        <StepTwo data={profile} setData={onChange} formData={formData}/>
+        <StepThree data={profile} setData={onChange} />
+        <StepFour data={profile} setData={onChange} />
       </Stepper>
     </main>
   );
