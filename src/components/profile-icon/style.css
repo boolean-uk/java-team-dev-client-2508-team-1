@@ -1,13 +1,17 @@
 .user {
-    display: flex;              
-    flex-direction: row;        
-    align-items: center;     
-    gap: 12px;                  
-    width: 100%;
-    padding: 20px 10px;
+    display: flex;
+    align-items: center; 
+    padding: 8px 12px;
+    gap: 12px;
 }
 
-/* sirkel */
+.user-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto; 
+  min-width: 0;     
+}
+
 .profile-circle{
     min-width: 40px;
     height: 40px;
@@ -20,16 +24,17 @@
 
 
 .user-name {
-    margin: 0;
-    white-space: nowrap; /* hindrer at navnet brytes om du vil */
-    padding-top: 4px;
-    font-weight: 600;
-    font-size: 1.1rem;
+  margin: 0;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+} 
+
+.pop-up {
+    position: absolute;
+    top: 100%;    /* under .edit-icon */
+    right: 0;     /* høyrejustert med ikonet */
+    margin-top: 8px;
+    z-index: 100;
 }
-
-/* tre prikker helt til høyre */
-.edit-name {
-    margin-left: auto;   /* skyver dette elementet til høyre */
-}
-
-

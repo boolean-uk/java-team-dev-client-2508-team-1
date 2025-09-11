@@ -9,8 +9,7 @@ const Teachers = () => {
         <Card>
             <h4 className="border-line">Teachers</h4>
             <section className="teachers-list">
-                <UserIcon initials="AJ" name="Alice Johnson" role="Software Development"/>
-                
+                <UserIcon initials="AJ" firstname="Alice" lastname = "Johnson" role="Software Development"/>
             </section>
         </Card>
         </>

@@ -1,6 +1,8 @@
 import './style.css';
+import SeeProfile from '../seeProfile';
+import Popup from 'reactjs-popup';
 
-const UserIcon = ({initials, name, role}) => {
+const UserIcon = ({initials, firstname, lastname, role}) => {
 
     return (
             <div className="user">
@@ -10,15 +12,22 @@ const UserIcon = ({initials, name, role}) => {
                 </div>
             </div>
             <div className="user-info">
-                <p className = "user-name">{name}</p> 
+                <p className = "user-name">{firstname} {lastname}</p> 
                 <p className = "user-role" >{role}</p>
             </div>
-            <div className="edit-icon">
-                <p>...</p>
-            </div>
-            </div>
-                
-    );
+            <Popup trigger= { <div className="edit-icon"> 
+                <p>...</p>  </div> } position="right center"
+                closeOnDocumentClick
+                arrow={false}>
+                <SeeProfile 
+                        initials={initials} 
+                        firstname = {firstname} 
+                        lastname = {lastname} 
+                        role = {role}   
+                        />
+            </Popup>
+            </div> 
+    )   
 }
 
 export default UserIcon;
