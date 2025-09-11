@@ -1,7 +1,11 @@
+import Teachers from './teachers';
+
 const Cohort = () => {
-    return (
-        <p></p>
-    )
+    return(
+        <>
+        <Teachers/>
+        </>
+    );    
 }
 
 export default Cohort;

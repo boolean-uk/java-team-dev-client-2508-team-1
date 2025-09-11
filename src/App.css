@@ -14,3 +14,8 @@
 .ReactModal__Html--open {
   overflow: hidden;
 }
+
+.border-line {
+  border-bottom: 1px solid var(--color-blue5);
+  padding: 20px 10px;
+}
