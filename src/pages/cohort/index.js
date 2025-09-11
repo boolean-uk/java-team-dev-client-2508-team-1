@@ -1,6 +1,15 @@
+import Exercises from "./exercises";
+
 const Cohort = () => {
     return (
-        <p></p>
+        <>
+            <main>
+                
+            </main>
+            <aside>
+                <Exercises />
+            </aside>
+        </>
     )
 }
 

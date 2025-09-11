@@ -1,0 +1,8 @@
+.paragraph-text {
+  color: var(--color-blue1);
+  margin-bottom: 15px;
+}
+
+.see-more-button {
+  background-color: var(--color-blue5);
+}
