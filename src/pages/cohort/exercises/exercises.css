@@ -1,8 +1,27 @@
-.paragraph-text {
+.value {
+  color: var(--color-blue1);
+  margin-bottom: 15px;
+}
+
+.label {
   color: var(--color-blue1);
   margin-bottom: 15px;
 }
 
 .see-more-button {
   background-color: var(--color-blue5);
+}
+
+.exercise-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.label {
+  font-weight: 500;
+}
+
+.value {
+  color: var(--color-blue1);
 }
