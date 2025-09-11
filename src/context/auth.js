@@ -19,7 +19,7 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
 
-    if (storedToken) {
+    if (storedToken && !token) {
       setToken(storedToken);
       navigate(location.state?.from?.pathname || '/');
     }
