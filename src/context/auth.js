@@ -45,15 +45,17 @@ const AuthProvider = ({ children }) => {
 
   const handleRegister = async (email, password) => {
     const res = await register(email, password);
-    setToken(res.data.token);
+    
+    localStorage.setItem('token', res.data.token);
 
+    setToken(res.data.token);
     navigate('/verification');
   };
 
-  const handleCreateProfile = async (firstName, lastName, githubUrl, bio) => {
+  const handleCreateProfile = async (first_name, last_name, username, github_username, mobile, bio, role, specialism, cohort, start_date, end_date, photo) => {
     const { userId } = jwt_decode(token);
 
-    await createProfile(userId, firstName, lastName, githubUrl, bio);
+    await createProfile(userId, first_name, last_name, username, github_username, mobile, bio, role, specialism, cohort, start_date, end_date, photo);
 
     localStorage.setItem('token', token);
     navigate('/');

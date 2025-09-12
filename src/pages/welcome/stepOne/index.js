@@ -64,16 +64,16 @@ const StepOne = ({ data, setData, handleFileChange }) => {
         <div className="welcome-form-inputs">
           <TextInput
             onChange={setData}
-            value={data.firstName}
-            name="firstName"
+            value={data.first_name}
+            name="first_name"
             label={'First Name*'}
             placeholder={'First Name'}
             required
           />
           <TextInput 
           onChange={setData} 
-          value={data.lastName} 
-          name="lastName" 
+          value={data.last_name} 
+          name="last_name" 
           label={'Last Name*'} 
           placeholder={'Last Name'}
           required />
@@ -87,8 +87,8 @@ const StepOne = ({ data, setData, handleFileChange }) => {
           />
           <TextInput
             onChange={setData}
-            value={data.githubUsername}
-            name="githubUsername"
+            value={data.github_username}
+            name="github_username"
             label={'GitHub Username'}
             placeholder={'GitHub Username'}
           />

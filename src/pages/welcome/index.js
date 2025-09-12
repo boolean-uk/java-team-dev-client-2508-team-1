@@ -13,17 +13,17 @@ const Welcome = () => {
   const { formData } = useFormData();
 
   const [profile, setProfile] = useState({
-    firstName: '',
-    lastName: '',
+    first_name: '',
+    last_name: '',
     username: '',
-    githubUsername: '',
+    github_username: '',
     mobile: '',
     bio: '',
-    role: '',
-    specialism: '',
-    cohort: '',
-    startDate: '',
-    endDate: '',
+    role: 'ROLE_STUDENT',
+    specialism: 'Software Development',
+    cohort: 1,
+    start_date: '2025-09-14',
+    end_date: '2025-10-15',
     photo: ''
   });
 
@@ -38,17 +38,17 @@ const Welcome = () => {
 
   const onComplete = () => {
     onCreateProfile(
-      profile.firstName,
-      profile.lastName,
+      profile.first_name,
+      profile.last_name,
       profile.username,
       profile.mobile,
-      profile.githubUsername,
+      profile.github_username,
       profile.bio,
       profile.role,
       profile.specialism,
       profile.cohort,
-      profile.startDate,
-      profile.endDate,
+      profile.start_date,
+      profile.end_date,
       profile.photo
     );
   };
