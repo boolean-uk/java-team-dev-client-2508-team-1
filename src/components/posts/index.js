@@ -15,7 +15,7 @@ const Posts = () => {
         return (
           <Post
             key={post.id}
-            name={`${post.author.firstName} ${post.author.lastName}`}
+            name={`${post.author.first_name} ${post.author.last_name}`}
             date={post.createdAt}
             content={post.content}
             comments={post.comments}

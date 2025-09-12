@@ -24,13 +24,13 @@ const Stepper = ({ header, children, onComplete, data }) => {
 
   const validateName = (data) => {
     if(!data) {
-      alert("OBSS!!! Please write Firstname and Lastname")
+      alert("OBSS!!! Please write first_name and last_name")
       return false
     } else {
       return true
     }
   }
-  
+
   const validateUsername = (data) => {
     if(data.username.length < 7) {
       alert("Username is too short. Input must be at least 7 characters long")
@@ -49,7 +49,6 @@ const Stepper = ({ header, children, onComplete, data }) => {
     }
   }
 
-
   return (
     <Card>
       {header}
@@ -66,7 +65,7 @@ const Stepper = ({ header, children, onComplete, data }) => {
           text={currentStep === children.length - 1 ? 'Submit' : 'Next'}
           classes="blue"
           onClick={() => {
-              if (validateName(data.firstName) && validateName(data.lastName) &&validateUsername(data)) {
+              if (validateName(data.first_name) && validateName(data.last_name) &&validateUsername(data)) {
                 onNextClick();
               }
             }}

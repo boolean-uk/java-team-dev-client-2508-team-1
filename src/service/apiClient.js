@@ -9,8 +9,14 @@ async function register(email, password) {
   return await login(email, password);
 }
 
-async function createProfile(userId, firstName, lastName, githubUrl, bio) {
-  return await patch(`users/${userId}`, { firstName, lastName, githubUrl, bio });
+async function createProfile(userId, first_name, last_name, username, github_username, mobile, bio, role, specialism, cohort, start_date, end_date, photo) {
+  console.log(userId, first_name, last_name, username, github_username, mobile, bio, role, specialism, cohort, start_date, end_date, photo)
+
+  cohort = parseInt(cohort)
+  photo = JSON.stringify(photo)
+
+  await post(`profiles`, { userId, first_name, last_name, username, github_username, mobile, bio, role, specialism, cohort, start_date, end_date, photo });
+  return await patch(`users/${userId}`, {})
 }
 
 async function getPosts() {
