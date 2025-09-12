@@ -1,3 +1,4 @@
+import Teachers from './teachers';
 import Exercises from "./exercises";
 
 const Cohort = () => {
@@ -7,10 +8,12 @@ const Cohort = () => {
                 
             </main>
             <aside>
+                 <Teachers/>
                 <Exercises />
             </aside>
         </>
     )
+
 }
 
 export default Cohort;

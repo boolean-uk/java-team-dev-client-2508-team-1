@@ -6,11 +6,6 @@ import TextInput from '../../../components/form/textInput';
 import Card from '../../../components/card';
 
 
-
-
-
-
-
 const StepOne = ({ data, setData, handleFileChange }) => {
   return (
     <>
