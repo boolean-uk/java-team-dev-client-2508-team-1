@@ -25,7 +25,7 @@
 .welcome-form-inputs {
   display: grid;
   grid-template-rows: repeat(auto, auto);
-  gap: 58px;
+  gap: 5px;
   margin-bottom: 48px;
 }
 .welcome-form-popup-wrapper {
@@ -41,4 +41,36 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 24px;
+}
+
+.welcome-counter {
+  margin-left: 10px;
+  font-size: 10px;
+  color:grey
+}
+
+.bio-label {
+  font-size: 10px;
+}
+
+.bio-heading {
+  font-size: 25px;
+}
+
+.addHeadshot {
+  height: 55px;
+  color:#64648c;
+  display: flex;
+}
+
+
+
+.upload-label {
+  background-color: var(--color-blue);
+  color: white;
+  padding: 14px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 20px;
 }

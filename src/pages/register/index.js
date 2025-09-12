@@ -1,14 +1,14 @@
-import { useState } from 'react';
 import Button from '../../components/button';
 import TextInput from '../../components/form/textInput';
 import useAuth from '../../hooks/useAuth';
 import CredentialsCard from '../../components/credentials';
 import './register.css';
 import ReactPasswordChecklist from 'react-password-checklist';
+import { useFormData } from '../../context/form';
 
 const Register = () => {
   const { onRegister } = useAuth();
-  const [formData, setFormData] = useState({ email: '', password: '' });
+  const {formData, setFormData} = useFormData()
 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -16,7 +16,7 @@ const Register = () => {
   };
 
   const validateEmail = (email) => {
-    const mailFormat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+  const mailFormat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     if (email.match(mailFormat)) {
       return true; 
     } 
