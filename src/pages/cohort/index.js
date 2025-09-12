@@ -1,15 +1,22 @@
 import Students from "./students";
-// import Teachers from "./teachers";
-// import Exercises from "./exercises";
+
+import Teachers from './teachers';
+import Exercises from "./exercises";
 
 const Cohort = () => {
     return (
         <>
-        <main>
-            <Students />
-        </main>
+            <main>
+                <Students />
+            </main>
+
+            <aside>
+                 <Teachers/>
+                <Exercises />
+            </aside>
         </>
     )
+
 }
 
 export default Cohort;

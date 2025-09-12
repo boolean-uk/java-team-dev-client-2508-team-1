@@ -1,0 +1,40 @@
+.user {
+    display: flex;
+    align-items: center; 
+    padding: 8px 12px;
+    gap: 12px;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto; 
+  min-width: 0;     
+}
+
+.profile-circle{
+    min-width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #4cc0e5;
+}
+
+
+.user-name {
+  margin: 0;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+} 
+
+.pop-up {
+    position: absolute;
+    top: 100%;    /* under .edit-icon */
+    right: 0;     /* høyrejustert med ikonet */
+    margin-top: 8px;
+    z-index: 100;
+}
