@@ -5,8 +5,8 @@ const user = {
     email: 'test@email.com',
     cohortId: 1,
     role: 'STUDENT',
-    firstName: 'Joe',
-    lastName: 'Bloggs',
+    first_name: 'Joe',
+    last_name: 'Bloggs',
     bio: 'Lorem ipsum dolor sit amet.',
     githubUrl: 'https://github.com/vherus'
   }
@@ -23,8 +23,8 @@ const posts = [
       id: 1,
       cohortId: 1,
       role: 'STUDENT',
-      firstName: 'Sam',
-      lastName: 'Fletcher',
+      first_name: 'Sam',
+      last_name: 'Fletcher',
       bio: 'Lorem ipsum dolor sit amet.',
       githubUrl: 'https://github.com/vherus'
     }
@@ -39,8 +39,8 @@ const posts = [
       id: 2,
       cohortId: 1,
       role: 'STUDENT',
-      firstName: 'Dolor',
-      lastName: 'Lobortis',
+      first_name: 'Dolor',
+      last_name: 'Lobortis',
       bio: 'Lorem ipsum dolor sit amet.',
       githubUrl: 'https://github.com/vherus'
     },

@@ -27,12 +27,12 @@ const StepThree = ({ data, setData }) => {
                     value={'Cohort 4'}
                 />
                 <TextInput
-                    name="startDate"
+                    name="start_date"
                     label={'Start Date*'}
                     value={'August 2025'}
                 />
                 <TextInput
-                    name="endDate"
+                    name="end_date"
                     label={'End Date*'}
                     value={'December 2025'}
                 />

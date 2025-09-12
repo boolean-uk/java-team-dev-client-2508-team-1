@@ -34,8 +34,6 @@ const StepTwo = ({ data, setData, formData }) => {
               label={'Password *'}
               type={'password'}
             />
-          {console.log(formData.password)}
-
           <p className="text-blue1">*Required</p>
         </div>
       </Form>
