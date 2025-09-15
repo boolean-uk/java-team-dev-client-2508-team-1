@@ -6,17 +6,32 @@ const Posts = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    getPosts().then(setPosts);
+    async function fetchPosts() {
+      try {
+        const posts = await getPosts();
+        setPosts(posts);
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+        setPosts([]);
+      }
+    }
+    fetchPosts();
   }, []);
+
 
   return (
     <>
       {posts.map((post) => {
+        // Handle missing author gracefully
+        const authorName = post.author 
+          ? `${post.author.first_name || 'Unknown'} ${post.author.last_name || 'User'}`
+          : 'Unknown User';
+        
         return (
           <Post
             key={post.id}
-            name={`${post.author.first_name} ${post.author.last_name}`}
-            date={post.createdAt}
+            name={authorName}
+            date={post.createdAt || 'Unknown date'}
             content={post.content}
             comments={post.comments}
           />
