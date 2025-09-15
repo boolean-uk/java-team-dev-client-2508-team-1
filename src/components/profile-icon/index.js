@@ -16,7 +16,7 @@ const UserIcon = ({initials, firstname, lastname, role}) => {
                 <p className = "user-role" >{role}</p>
             </div>
             <Popup trigger= { <div className="edit-icon"> 
-                <p>...</p>  </div> } position="right center"
+                <p>...</p>  </div> } position="left center"
                 closeOnDocumentClick
                 arrow={false}>
                 <SeeProfile 
