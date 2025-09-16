@@ -8,7 +8,7 @@ async function register(email, password) {
   await post('signup', { email, password }, false);
   return await login(email, password);
 }
-
+/* eslint-disable camelcase */
 async function createProfile(userId, first_name, last_name, username, github_username, mobile, bio, role, specialism, cohort, start_date, end_date, photo) {
   console.log(userId, first_name, last_name, username, github_username, mobile, bio, role, specialism, cohort, start_date, end_date, photo)
 
@@ -23,6 +23,12 @@ async function getPosts() {
   const res = await get('posts');
   console.log(res.data.posts + " <- this is from apiClient.js");
   return res.data.posts;
+}
+
+async function getStudents() {
+  const res = await get('cohorts/1');
+  console.log(res.data.cohort.profiles, " <- this is from getStudents apiClient.js");
+  return res.data.cohort.profiles;
 }
 
 async function post(endpoint, data, auth = true) {
@@ -65,4 +71,4 @@ async function request(method, endpoint, data, auth = true) {
   return response.json();
 }
 
-export { login, getPosts, register, createProfile };
+export { login, getPosts, register, createProfile, getStudents };

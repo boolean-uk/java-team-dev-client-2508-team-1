@@ -1,18 +1,28 @@
 import Card from "../../../components/card";
 import './style.css';
-import UserIcon from "../../../components/profile-icon";
+import Teacher from "./teacher";
 
 const Teachers = () => {
 
+    const teachers = [
+        { id: 1, name: 'John Doe' },
+        { id: 2, name: 'Jane Smith' }
+    ];
+
     return (
-        <>
         <Card>
-            <h4 className="border-line">Teachers</h4>
-            <section className="teachers-list">
-                <UserIcon initials="AJ" firstname="Alice" lastname = "Johnson" role="Software Development"/>
-            </section>
+            <article className="cohort">
+                <section>
+                    <h3>Teachers</h3>
+                </section>
+                
+                <section className="cohort-teachers-container border-top">
+                    {teachers.map((teacher) => (
+                        <Teacher key={teacher.id} name={teacher.name} />
+                    ))}
+                </section>
+            </article>
         </Card>
-        </>
     );
 }
 
