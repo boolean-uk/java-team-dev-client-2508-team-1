@@ -9,7 +9,6 @@ const StepFour = ({ data, setData }) => {
       </div>
       <Form className="welcome-form">
         <div className="welcome-form-inputs">
-          <label className='bio-label'>Bio</label>
           <textarea 
           name="bio" 
           value={data.bio} 

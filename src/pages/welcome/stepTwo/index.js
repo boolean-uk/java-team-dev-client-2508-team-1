@@ -16,6 +16,7 @@ const StepTwo = ({ data, setData, formData }) => {
             name="email"
             label={'Email*'}
             placeholder={formData.email}
+            readOnly={true}
             required
             
           />
@@ -29,9 +30,10 @@ const StepTwo = ({ data, setData, formData }) => {
           />
             <TextInput
               value={formData.password}
-              placeholder={formData.password}
               name="password"
-              label={'Password *'}
+              label={'Password*'}
+              placeholder={formData.password}
+              readOnly={true}
               type={'password'}
             />
           <p className="text-blue1">*Required</p>
