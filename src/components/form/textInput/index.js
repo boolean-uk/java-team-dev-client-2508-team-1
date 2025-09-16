@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const TextInput = ({ value, onChange, name, label, icon, type = 'text', placeholder }) => {
+const TextInput = ({ value, onChange, name, label, icon, type = 'text', placeholder, readOnly = false }) => {
   const [showpassword, setShowpassword] = useState(false);
   const [input, setInput] = useState(value);
   if (type === 'password') {
@@ -16,6 +16,7 @@ const TextInput = ({ value, onChange, name, label, icon, type = 'text', placehol
             onChange(e);
             setInput(e.target.value)
           }}
+          readOnly={readOnly}
         />
         {showpassword && <input type="text" name={name} value={input} className="passwordreveal" />}
         <button
@@ -40,6 +41,7 @@ const TextInput = ({ value, onChange, name, label, icon, type = 'text', placehol
           value={value}
           placeholder = {placeholder}
           onChange={onChange}
+          readOnly={readOnly}
           className={icon && 'input-has-icon'}
         />
         {icon && <span className="input-icon">{icon}</span>}
