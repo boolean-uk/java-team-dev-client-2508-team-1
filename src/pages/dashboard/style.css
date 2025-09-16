@@ -19,3 +19,57 @@ aside {
   max-width: 100% !important;
   background-color: var(--color-blue5);
 }
+
+
+
+
+.course-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+  font-size: 20px
+}
+
+.course-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Farger per kurs */
+.software-icon {
+  background: #28C846;
+}
+
+.front-icon {
+  background: #6E6EDC;
+}
+
+.data-icon {
+  background: #46A0FA;
+}
+
+.course-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.cohort-name {
+  margin-left: 50px;
+  font-size: 16px;
+  color: #64648C;
+  margin-top: 4px;
+}
+
+.cohort-info {
+  margin-top: 10px;
+}
+
+.course-name {
+  font-size: 20px;
+  font-weight: bold
+}

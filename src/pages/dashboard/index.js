@@ -7,11 +7,14 @@ import TextInput from '../../components/form/textInput';
 import Posts from '../../components/posts';
 import useModal from '../../hooks/useModal';
 import './style.css';
+import Cohorts from './cohorts';
 
 const Dashboard = () => {
   const [searchVal, setSearchVal] = useState('');
+  const [role, setRole] = useState("teacher")
 
   const onChange = (e) => {
+    setRole("teacher") // midlertidig for å unngå kompileringsfeil
     setSearchVal(e.target.value);
   };
 
@@ -49,9 +52,14 @@ const Dashboard = () => {
           </form>
         </Card>
 
-        <Card>
+        { role === "student" ? (
+           <Card>
           <h4>My Cohort</h4>
         </Card>
+        ) : (
+          <Cohorts/>
+        )}
+       
       </aside>
     </>
   );

@@ -22,7 +22,7 @@ const SeeProfile = ({initials, firstname, lastname, role}) => {
             <section className="user-panel-options border-top">
               <ul>
                 <li>
-                  <NavLink to="/">
+                  <NavLink to="/profile">
                     <ProfileIcon /> <p>Profile</p>
                   </NavLink>
                 </li>

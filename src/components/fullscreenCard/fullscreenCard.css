@@ -1,0 +1,57 @@
+.fullscreen-card {
+  width: 80vw;
+  height: 100vh;
+  background: white;
+  padding: 0;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+
+  border: 1px solid #e6ebf5;
+  border-radius: 12px;
+}
+
+.top-bar {
+  height: calc(100vh / 8); 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.user-icon {
+  display: flex;
+  align-items: center;
+}
+
+.edit {
+  background-color: var(--color-blue5);
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.save {
+  background-color: var(--color-blue);
+  color: white
+}
+
+.cancel {
+  background-color: var(--color-blue5);
+}
+
+.border-top {
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+.bottom-buttons {
+  display: flex;
+  justify-content: flex-end; 
+  gap: 10px; 
+  padding: 20px;
+}
