@@ -9,20 +9,49 @@ async function register(email, password) {
   return await login(email, password);
 }
 
-async function createProfile(userId, first_name, last_name, username, github_username, mobile, bio, role, specialism, cohort, start_date, end_date, photo) {
-  console.log(userId, first_name, last_name, username, github_username, mobile, bio, role, specialism, cohort, start_date, end_date, photo)
+async function createProfile(userId, 
+  first_name, 
+  last_name, 
+  username, 
+  github_username, 
+  mobile, 
+  bio,  
+  role, 
+  specialism, 
+  cohort, 
+  start_date, 
+  end_date, 
+  photo) {
+
 
   cohort = parseInt(cohort)
   photo = JSON.stringify(photo)
 
-  await post(`profiles`, { userId, first_name, last_name, username, github_username, mobile, bio, role, specialism, cohort, start_date, end_date, photo });
-  return await patch(`users/${userId}`, {})
+  return await post(`profiles`, { userId, 
+    first_name, 
+    last_name, 
+    username, 
+    github_username, 
+    mobile, 
+    bio, 
+    role, 
+    specialism, 
+    cohort, 
+    start_date, 
+    end_date, 
+    photo }
+  );
 }
 
 async function getPosts() {
   const res = await get('posts');
   console.log(res.data.posts + " <- this is from apiClient.js");
   return res.data.posts;
+}
+
+async function getUserById(id) {
+  const res = await get(`users/${id}`);
+  return res.data.user;
 }
 
 async function post(endpoint, data, auth = true) {
@@ -65,4 +94,4 @@ async function request(method, endpoint, data, auth = true) {
   return response.json();
 }
 
-export { login, getPosts, register, createProfile };
+export { login, getPosts, register, createProfile, getUserById };

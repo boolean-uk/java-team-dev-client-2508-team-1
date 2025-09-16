@@ -1,6 +1,7 @@
 import React from 'react';
 import './fullscreenCard.css';
 import UserIcon from "../profile-icon"; 
+import ProfileData from '../../pages/profile/profile-data';
 
 const FullScreenCard = ({ children }) => {
   return (
@@ -17,7 +18,7 @@ const FullScreenCard = ({ children }) => {
       </div>
       <section className="post-interactions-container border-top"></section>
 
-
+      <ProfileData />
       <div className="bottom-buttons">
         <button className="cancel">Cancel</button>
         <br></br><br></br>
