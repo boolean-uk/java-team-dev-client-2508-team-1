@@ -42,3 +42,12 @@ nav p {
 .nav-item.active {
   background-color: #d3d3d3b2; /* Grå bakgrunn når aktiv */
 }
+
+
+.no-line {
+  border: none;
+}
+
+.border-line {
+  border-bottom: 1px solid var(--color-blue5);
+}
