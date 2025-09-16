@@ -18,7 +18,7 @@ import LogsIcon from '../../assets/icons/logsIcon';
 const Navigation = () => {
   const { token } = useAuth();
   const [active, setActive] = useState(1)
-  const [role, setRole] = useState("student") // midlertidig
+  const [role, setRole] = useState("teacher") // midlertidig
   
   if (!token) {
     setRole("student")  // midlertidig for å unngå kompileringsfeil

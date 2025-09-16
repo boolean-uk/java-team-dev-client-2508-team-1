@@ -45,7 +45,7 @@ async function createProfile(userId,
 
 async function getPosts() {
   const res = await get('posts');
-  console.log(res.data.posts + " <- this is from apiClient.js");
+
   return res.data.posts;
 }
 
@@ -94,4 +94,5 @@ async function request(method, endpoint, data, auth = true) {
   return response.json();
 }
 
-export { login, getPosts, register, createProfile, getUserById };
+export { login, getPosts, register, createProfile, get, getUserById };
+
