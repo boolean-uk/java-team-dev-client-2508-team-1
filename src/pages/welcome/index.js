@@ -64,7 +64,6 @@ const Welcome = () => {
             photo: url
           }));
           close()
-    console.log("profile:" + profile.photo)
       }
     }
 

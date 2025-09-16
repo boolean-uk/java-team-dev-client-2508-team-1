@@ -10,7 +10,6 @@ async function register(email, password) {
 }
 
 async function createProfile(userId, first_name, last_name, username, github_username, mobile, bio, role, specialism, cohort, start_date, end_date, photo) {
-  console.log(userId, first_name, last_name, username, github_username, mobile, bio, role, specialism, cohort, start_date, end_date, photo)
 
   cohort = parseInt(cohort)
   photo = JSON.stringify(photo)
@@ -21,9 +20,13 @@ async function createProfile(userId, first_name, last_name, username, github_use
 
 async function getPosts() {
   const res = await get('posts');
-  console.log(res.data.posts + " <- this is from apiClient.js");
   return res.data.posts;
 }
+async function getComments(postId) {
+  const res = await get(`posts/${String(postId)}/comments`);
+  return res.data.comments;
+}
+
 
 async function post(endpoint, data, auth = true) {
   return await request('POST', endpoint, data, auth);
@@ -65,4 +68,4 @@ async function request(method, endpoint, data, auth = true) {
   return response.json();
 }
 
-export { login, getPosts, register, createProfile };
+export { login, getPosts, register, createProfile, post, getComments };

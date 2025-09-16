@@ -21,7 +21,7 @@ const Header = () => {
   }
 
   return (
-    <header>
+    <header className="app-header">
       <FullLogo textColour="white" />
 
       <div className="profile-icon" onClick={onClickProfileIcon}>
