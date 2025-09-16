@@ -1,0 +1,84 @@
+.create-comment {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 12px;
+    align-items: center;
+    margin-top: 8px
+}
+
+.profile-icon--sm {
+    width: 40px;
+    height: 40px
+}
+
+.profile-icon--sm p {
+    line-height: 40px;
+    font-size: 1rem
+}
+
+.create-comment__input-wrapper {
+    position: relative;
+    width: 100%
+}
+
+.create-comment__input {
+    width: 100%;
+    border: 1px solid var(--color-blue5);
+    border-radius: 24px;
+    padding: 12px 50px 12px 16px;
+    font-family: Lexend;
+    background: var(--color-blue5);
+    outline: none
+}
+
+.create-comment__input::placeholder {
+    color: var(--color-blue1)
+}
+
+.create-comment__send {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s ease
+}
+
+.create-comment__send--active {
+    background: var(--color-blue5)
+}
+
+.create-comment__send--active svg {
+    color: white
+}
+
+/* .create-comment__send:not(.create-comment__send--active) {
+    cursor: not-allowed
+} */
+
+
+.create-comment__send:not(.create-comment__send--active) svg {
+    color: var(--color-blue1)
+}
+
+.create-comment__send svg {
+    width: 18px;
+    height: 18px;
+    transition: color 0.2s ease
+}
+.create-comment__send:hover {
+  background-color: #e0e0e0; /* darker on hover */
+}
+.create-comment__message {
+    grid-column: 1 / -1;
+    color: var(--color-blue1);
+    margin-top: 6px
+}

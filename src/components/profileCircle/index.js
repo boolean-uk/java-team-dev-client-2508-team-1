@@ -10,8 +10,8 @@ import Menu from '../menu';
 import MenuItem from '../menu/menuItem';
 import './style.css';
 
-const ProfileCircle = ({ initials }) => {
-  const [isMenuVisible, setIsMenuVisible] = useState(false);
+const ProfileCircle = ({ initials, menuVisible }) => {
+  const [isMenuVisible, setIsMenuVisible] = useState(menuVisible || false);
 
   return (
     <div className="profile-circle" onClick={() => setIsMenuVisible(!isMenuVisible)}>

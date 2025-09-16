@@ -9,6 +9,7 @@ async function register(email, password) {
   return await login(email, password);
 }
 
+
 async function createProfile(userId, 
   first_name, 
   last_name, 
@@ -22,7 +23,6 @@ async function createProfile(userId,
   start_date, 
   end_date, 
   photo) {
-
 
   cohort = parseInt(cohort)
   photo = JSON.stringify(photo)
@@ -48,6 +48,11 @@ async function getPosts() {
 
   return res.data.posts;
 }
+async function getComments(postId) {
+  const res = await get(`posts/${String(postId)}/comments`);
+  return res.data.comments;
+}
+
 
 async function getUserById(id) {
   const res = await get(`users/${id}`);
@@ -94,5 +99,7 @@ async function request(method, endpoint, data, auth = true) {
   return response.json();
 }
 
-export { login, getPosts, register, createProfile, get, getUserById };
+
+export { login, getPosts, register, createProfile, get, getUserById, getComments, post };
+
 
