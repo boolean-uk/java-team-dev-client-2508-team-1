@@ -10,7 +10,7 @@ import { ModalProvider } from './context/modal';
 import Welcome from './pages/welcome';
 import { FormProvider } from './context/form';
 import Cohort from './pages/cohort';
-
+import ProfilePage from './pages/profile';
 
 const App = () => {
   return (
@@ -44,6 +44,14 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <Cohort />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="profile"
+              element={
+                <ProtectedRoute>
+                  <ProfilePage />
                 </ProtectedRoute>
               }
             />
