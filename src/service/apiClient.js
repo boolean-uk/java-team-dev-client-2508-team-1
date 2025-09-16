@@ -21,7 +21,7 @@ async function createProfile(userId, first_name, last_name, username, github_use
 
 async function getPosts() {
   const res = await get('posts');
-  console.log(res.data.posts + " <- this is from apiClient.js");
+
   return res.data.posts;
 }
 
@@ -65,4 +65,4 @@ async function request(method, endpoint, data, auth = true) {
   return response.json();
 }
 
-export { login, getPosts, register, createProfile };
+export { login, getPosts, register, createProfile, get };
