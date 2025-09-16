@@ -27,3 +27,18 @@ nav svg {
 nav p {
   line-height: 24px;
 }
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  background-color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.nav-item.active {
+  background-color: #d3d3d3b2; /* Grå bakgrunn når aktiv */
+}
