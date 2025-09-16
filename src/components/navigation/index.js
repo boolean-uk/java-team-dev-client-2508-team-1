@@ -38,13 +38,13 @@ const Navigation = () => {
             <p>Home</p>
         </NavLink>
         </li>
-        <li>
-
-          <NavLink to="/profile">
-            <ProfileIcon />
-            <p>Profile</p>
-          </NavLink>
-
+       <li>
+          <NavLink to="/profile"
+           className={() => active === 2 ? "nav-item active" : "nav-item"}
+            onClick={() => setActive(2)}>
+              {active === 2 ? (<ProfileIconFilled/>) : (<ProfileIcon colour/>)}
+                   <p>Profile</p>
+             </NavLink>
         </li>
         <li>
           <NavLink to="/cohorts"
