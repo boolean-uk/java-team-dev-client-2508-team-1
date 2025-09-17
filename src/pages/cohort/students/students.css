@@ -3,25 +3,21 @@
   row-gap: 20px;
 }
 
-.cohort-details {
+.cohort-course-date-wrapper {
   display: grid;
-  grid-template-columns: 56px auto 48px;
+  grid-template-columns: 56px 1fr 126px;
+  align-items: center;
   column-gap: 20px;
+  padding: 15px;
+  background: #fff;
 }
 
 .cohort-course-date {
-  display: grid;
-  grid-template-columns: 56px 1fr;
-  grid-template-rows: auto auto;
-  gap: 0.5rem;
+  display: flex;
   align-items: center;
+  gap: 1rem;
 }
 
-.specialism-circle {
-  position: relative;
-  grid-column: 1 / span 2;
-  grid-row: 1 / span 2;
-}
 
 .cohort-title {
   grid-column: 2;
@@ -83,4 +79,37 @@
     border-top: 1px solid #ccc;
     padding-top: 20px;
     padding-bottom: 10px;
+}
+
+.course-nav-buttons button {
+  margin-left: 0.5rem;
+  padding: 0.5rem;
+}
+
+.software-icon {
+  background: #28C846;
+}
+
+.front-icon {
+  background: #6E6EDC;
+}
+
+.data-icon {
+  background: #46A0FA;
+}
+
+.course-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.course-nav-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.course-nav-buttons button {
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  cursor: pointer;
 }
