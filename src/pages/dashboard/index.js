@@ -16,12 +16,12 @@ import jwtDecode from 'jwt-decode';
 
 const Dashboard = () => {
   const [searchVal, setSearchVal] = useState('');
-  const [role, setRole] = useState("teacher")
   const onPostAddedRef = useRef(null);
   const { token } = useAuth();
   const decodedToken = jwtDecode(token || localStorage.getItem('token')) || {};
   const fullName = `${decodedToken.firstName || decodedToken.first_name || 'Current'} ${decodedToken.lastName || decodedToken.last_name || 'User'}`;
   const initials = fullName?.match(/\b(\w)/g)?.join('') || 'NO';
+  const  { userRole } = useUserRoleData();
 
   const onChange = (e) => {
     setSearchVal(e.target.value);
