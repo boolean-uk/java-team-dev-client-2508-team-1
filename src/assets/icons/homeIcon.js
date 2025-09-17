@@ -1,9 +1,7 @@
-const HomeIcon = ({ colour = '#64648C' }) => {
+const HomeIcon = () => {
   return (
-    <svg width="33" height="36" viewBox="0 0 33 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0.5 36V12L16.6 0L32.5 12V36H20.8V21.75H12.15V36H0.5Z" fill={colour} />
-    </svg>
-  );
+    <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="#64648C"><path d="M220-180h150v-250h220v250h150v-390L480-765 220-570v390Zm-60 60v-480l320-240 320 240v480H530v-250H430v250H160Zm320-353Z"/></svg>
+    );
 };
 
 export default HomeIcon;

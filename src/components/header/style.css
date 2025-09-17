@@ -1,16 +1,14 @@
-header {
+.app-header {
   grid-column: span 3;
   display: grid;
   grid-template-columns: 1fr 50px;
   background-color: #000046;
   padding: 20px 64px;
 }
-
-header .profile-icon {
+.app-header .profile-icon {
   cursor: pointer;
 }
-
-header .user-panel {
+.app-header .user-panel {
   position: absolute;
   right: 60px;
   top: 85px;

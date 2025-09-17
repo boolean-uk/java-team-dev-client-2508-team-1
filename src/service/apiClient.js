@@ -9,19 +9,55 @@ async function register(email, password) {
   return await login(email, password);
 }
 /* eslint-disable camelcase */
-async function createProfile(userId, first_name, last_name, username, github_username, mobile, bio, role, specialism, cohort, start_date, end_date, photo) {
-  console.log(userId, first_name, last_name, username, github_username, mobile, bio, role, specialism, cohort, start_date, end_date, photo)
+
+
+
+async function createProfile(userId, 
+  first_name, 
+  last_name, 
+  username, 
+  github_username, 
+  mobile, 
+  bio,  
+  role, 
+  specialism, 
+  cohort, 
+  start_date, 
+  end_date, 
+  photo) {
 
   cohort = parseInt(cohort)
   photo = JSON.stringify(photo)
 
-  await post(`profiles`, { userId, first_name, last_name, username, github_username, mobile, bio, role, specialism, cohort, start_date, end_date, photo });
-  return await patch(`users/${userId}`, {})
+  return await post(`profiles`, { userId, 
+    first_name, 
+    last_name, 
+    username, 
+    github_username, 
+    mobile, 
+    bio, 
+    role, 
+    specialism, 
+    cohort, 
+    start_date, 
+    end_date, 
+    photo }
+  );
 }
 
 async function getPosts() {
   const res = await get('posts');
   return res.data.posts;
+}
+async function getComments(postId) {
+  const res = await get(`posts/${String(postId)}/comments`);
+  return res.data.comments;
+}
+
+
+async function getUserById(id) {
+  const res = await get(`users/${id}`);
+  return res.data.user;
 }
 
 async function getStudents() {
@@ -78,4 +114,7 @@ async function request(method, endpoint, data, auth = true) {
   return response.json();
 }
 
-export { login, getPosts, register, createProfile, getStudents, getTeachers };
+
+export { login, getPosts, register, createProfile, get, getUserById, getComments, post, getTeachers, getStudents };
+
+

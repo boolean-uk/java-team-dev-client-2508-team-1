@@ -21,7 +21,7 @@ const Header = () => {
   }
 
   return (
-    <header>
+    <header className="app-header">
       <FullLogo textColour="white" />
 
       <div className="profile-icon" onClick={onClickProfileIcon}>
@@ -45,7 +45,7 @@ const Header = () => {
             <section className="user-panel-options border-top">
               <ul>
                 <li>
-                  <NavLink to="/">
+                  <NavLink to="/profile">
                     <ProfileIcon /> <p>Profile</p>
                   </NavLink>
                 </li>

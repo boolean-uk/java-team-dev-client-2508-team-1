@@ -13,30 +13,34 @@ const StepThree = ({ data, setData }) => {
             <div className='welcome-form-inputs'>
                <TextInput
                     name="role"
-                    label={'Role*'}
+                    label={'Role'}
                     value={'Student'}
+                    readOnly={true}
                 />
                 <TextInput 
                     name="specialism" 
-                    label={'Specialism*'} 
+                    label={'Specialism'} 
                     value={'Software Developer'}
+                    readOnly={true}
                 />
                 <TextInput
                     name="cohort"
-                    label={'Cohort*'}
+                    label={'Cohort'}
                     value={'Cohort 4'}
+                    readOnly={true}
                 />
                 <TextInput
                     name="start_date"
-                    label={'Start Date*'}
+                    label={'Start Date'}
                     value={'August 2025'}
+                    readOnly={true}
                 />
                 <TextInput
                     name="end_date"
-                    label={'End Date*'}
+                    label={'End Date'}
                     value={'December 2025'}
+                    readOnly={true}
                 />
-                <p className="text-blue1">*Required</p>
             </div>
         </Form>
         </>
