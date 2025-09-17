@@ -1,8 +1,19 @@
 import './style.css';
 import SeeProfile from '../seeProfile';
 import Popup from 'reactjs-popup';
+import useAuth from '../../hooks/useAuth';
+import jwtDecode from 'jwt-decode';
 
 const UserIcon = ({initials, firstname, lastname, role}) => {
+    const { token } = useAuth();
+    let userIdFromToken = null;
+
+    try {
+        const decoded = jwtDecode(token);
+        userIdFromToken = decoded.userId;
+    } catch (err) {
+        console.error('Error by UserIcon', err);
+    }
 
     return (
             <div className="user">
@@ -20,11 +31,12 @@ const UserIcon = ({initials, firstname, lastname, role}) => {
                 closeOnDocumentClick
                 arrow={false}>
                 <SeeProfile 
-                        initials={initials} 
-                        firstname = {firstname} 
-                        lastname = {lastname} 
-                        role = {role}   
-                        />
+                    initials={initials} 
+                    firstname = {firstname} 
+                    lastname = {lastname} 
+                    role = {role}
+                    userId={userIdFromToken}   
+                />
             </Popup>
             </div> 
     )   

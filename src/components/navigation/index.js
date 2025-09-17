@@ -14,6 +14,7 @@ import NotesIconFilled from '../../assets/icons/notesIconFilled';
 import NotesIcon from '../../assets/icons/notesIcon';
 import LogsIconFilled from '../../assets/icons/logsIconFilled';
 import LogsIcon from '../../assets/icons/logsIcon';
+import jwtDecode from 'jwt-decode';
 
 const Navigation = () => {
   const { token } = useAuth();
@@ -25,7 +26,13 @@ const Navigation = () => {
     return null;
   }
 
- 
+  let userIdFromToken = null;
+  try {
+    const decoded = jwtDecode(token);
+    userIdFromToken = decoded.userId;
+  } catch (err) {
+    console.error("Error when decoding by navigation", err);
+  }
 
   return (
     <nav>
@@ -39,12 +46,12 @@ const Navigation = () => {
         </NavLink>
         </li>
        <li>
-          <NavLink to="/profile"
+          <NavLink to={`/profile/${userIdFromToken}`}
            className={() => active === 2 ? "nav-item active" : "nav-item"}
             onClick={() => setActive(2)}>
               {active === 2 ? (<ProfileIconFilled/>) : (<ProfileIcon colour/>)}
                    <p>Profile</p>
-             </NavLink>
+          </NavLink>
         </li>
         <li>
           <NavLink to="/cohorts"

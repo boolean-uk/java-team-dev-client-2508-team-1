@@ -1,8 +1,9 @@
 .fullscreen-card {
-  width: 80vw;
-  height: 100vh;
+  width: 150%;              
+  height: auto;           
+  min-height: 80vh;       
   background: white;
-  padding: 0;
+  padding: 2rem;           
   box-sizing: border-box;
 
   display: flex;
@@ -10,26 +11,53 @@
 
   border: 1px solid #e6ebf5;
   border-radius: 12px;
+  margin: 0 auto;          
 }
 
 .top-bar {
-  height: calc(100vh / 8); 
+  height: auto;           
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
+  padding: 1rem 2rem;       
   box-sizing: border-box;
 }
 
-.user-icon {
+.profile-container {
   display: flex;
+  flex-direction: row;
+  gap: 3rem;
+  padding: 3rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.4rem;        
+  flex-wrap: wrap;          
+}
+
+.photo-section {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
   align-items: center;
+}
+
+.profile-photo {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.info-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .edit {
   background-color: var(--color-blue5);
   border: none;
-  color: #007bff;
+
   cursor: pointer;
   font-size: 16px;
 }
@@ -43,15 +71,31 @@
   background-color: var(--color-blue5);
 }
 
-.border-top {
-  border-top: 1px solid #ccc;
-  padding-top: 20px;
-  padding-bottom: 10px;
-}
-
 .bottom-buttons {
   display: flex;
   justify-content: flex-end; 
   gap: 10px; 
   padding: 20px;
+}
+
+.photo-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.name-text {
+  margin-top: 0.5rem;
+  font-weight: 600;
+  font-size: 1.6rem;
+  text-align: center;
+}
+
+.bio-text {
+  margin-top: 0.5rem;
+  text-align: center;
+  font-style: italic;
+  color: #555;
+  font-size: 1.4rem;
+  max-width: 200px;
 }

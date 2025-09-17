@@ -7,6 +7,7 @@ import CogIcon from '../../assets/icons/cogIcon';
 import LogoutIcon from '../../assets/icons/logoutIcon';
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
+import jwtDecode from 'jwt-decode';
 
 const Header = () => {
   const { token, onLogout } = useAuth();
@@ -18,6 +19,14 @@ const Header = () => {
 
   if (!token) {
     return null;
+  }
+
+  let userIdFromToken = null;
+  try {
+    const decoded = jwtDecode(token);
+    userIdFromToken = decoded.userId;
+  } catch (err) {
+    console.error("Error when decoding by header", err);
   }
 
   return (
@@ -45,7 +54,7 @@ const Header = () => {
             <section className="user-panel-options border-top">
               <ul>
                 <li>
-                  <NavLink to="/profile">
+                  <NavLink to={`/profile/${userIdFromToken}`} >
                     <ProfileIcon /> <p>Profile</p>
                   </NavLink>
                 </li>
