@@ -12,8 +12,8 @@ const Comment = ({ name, content, postId, commentId}) => {
   const showModal = () => {
     setModal('Edit comment', 
     <EditCommentModal postText={content} postId={postId} name={name} commentId={commentId} />);
-    openModal();
-  };
+    openModal(); 
+  };  
 
   return (
     <div className="comment">
