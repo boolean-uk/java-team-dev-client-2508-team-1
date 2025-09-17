@@ -8,6 +8,8 @@ async function register(email, password) {
   await post('signup', { email, password }, false);
   return await login(email, password);
 }
+/* eslint-disable camelcase */
+
 
 
 async function createProfile(userId, 
@@ -45,7 +47,6 @@ async function createProfile(userId,
 
 async function getPosts() {
   const res = await get('posts');
-
   return res.data.posts;
 }
 async function getComments(postId) {
@@ -57,6 +58,20 @@ async function getComments(postId) {
 async function getUserById(id) {
   const res = await get(`users/${id}`);
   return res.data.user;
+}
+
+async function getStudents() {
+  // CHANGE ENDPOINT!!! make it dynamic based on cohort of logged in user
+  const res = await get('cohorts/1');
+  const students = res.data.cohort.profiles.filter((userid) => userid?.role?.name === "ROLE_STUDENT");
+  return students;
+}
+
+async function getTeachers() {
+  // CHANGE ENDPOINT!!! make it dynamic based on cohort of logged in user
+  const res = await get('cohorts/1');
+  const teachers = res.data.cohort.profiles.filter((userid) => userid?.role?.name === "ROLE_TEACHER");
+  return teachers;
 }
 
 async function post(endpoint, data, auth = true) {
@@ -100,6 +115,6 @@ async function request(method, endpoint, data, auth = true) {
 }
 
 
-export { login, getPosts, register, createProfile, get, getUserById, getComments, post };
+export { login, getPosts, register, createProfile, get, getUserById, getComments, post, getTeachers, getStudents };
 
 
