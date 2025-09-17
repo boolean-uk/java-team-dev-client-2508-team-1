@@ -4,24 +4,7 @@ import useAuth from '../../../hooks/useAuth';
 import jwtDecode from 'jwt-decode';
 import './profile-data.css'
 
-const ProfileData = () => {
-  const [user, setUser] = useState(null);
-  const { token } = useAuth();
-  const { userId } = jwtDecode(token);
-
-  useEffect(() => {
-    async function fetchUser() {
-      try {
-        const data = await getUserById(userId);
-        setUser(data);
-      } catch (error) {
-        console.error('Error fetching user:', error);
-      }
-    }
-    fetchUser();
-  }, [userId]);
-
-  if (!user) return <div>Loading...</div>;
+const ProfileData = ({ user }) => {
 
   const { email } = user;
   const { name: roleName } = user.roles[0];
