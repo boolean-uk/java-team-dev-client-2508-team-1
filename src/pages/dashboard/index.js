@@ -9,6 +9,8 @@ import useModal from '../../hooks/useModal';
 import './style.css';
 import Cohorts from './cohorts';
 import { useUserRoleData } from '../../context/userRole.';
+import Students from './students';
+import TeachersDashboard from './teachers';
 
 const Dashboard = () => {
   const [searchVal, setSearchVal] = useState('');
@@ -57,7 +59,11 @@ const Dashboard = () => {
           <h4>My Cohort</h4>
         </Card>
         ) : (
+          <>
           <Cohorts/>
+          <Students/>
+          <TeachersDashboard/>
+          </>
         )}
        
       </aside>

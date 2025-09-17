@@ -13,13 +13,12 @@
 }
 
 .profile-circle{
-    min-width: 40px;
-    height: 40px;
+    min-width: 56px;
+    height: 56px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #4cc0e5;
 }
 
 

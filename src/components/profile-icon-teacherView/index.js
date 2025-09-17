@@ -1,8 +1,8 @@
+import EditIconTeacher from './editIconTeacher';
 import './style.css';
-import SeeProfile from '../seeProfile';
-import Popup from 'reactjs-popup';
 
-const UserIcon = ({initials, firstname, lastname, role}) => {
+
+const ProfileIconTeacher = ({initials, firstname, lastname, role}) => {
 
     const styleGuideColors = [
     "#28C846", 
@@ -44,19 +44,9 @@ const UserIcon = ({initials, firstname, lastname, role}) => {
                 <p className = "user-name">{firstname} {lastname}</p> 
                 <p className = "user-role" >{role}</p>
             </div>
-            <Popup trigger= { <div className="edit-icon"> 
-                <p>•••</p>  </div> } position="left center"
-                closeOnDocumentClick
-                arrow={false}>
-                <SeeProfile 
-                        initials={initials} 
-                        firstname = {firstname} 
-                        lastname = {lastname} 
-                        role = {role}   
-                        />
-            </Popup>
-            </div> 
+            <EditIconTeacher/>
+           </div>
     )   
 }
 
-export default UserIcon;
+export default ProfileIconTeacher;
