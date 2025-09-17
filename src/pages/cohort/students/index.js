@@ -3,6 +3,7 @@ import Card from "../../../components/card";
 import Student from "./student";
 import './students.css';
 import { getStudents } from "../../../service/apiClient";
+import { SoftwareIcon } from "../../../assets/icons/specialismIcon";
 
 function Students() {
     const [students, setStudents] = useState([]);
@@ -30,8 +31,15 @@ function Students() {
                 </section>
 
                 <div className="cohort-course-date border-top">
-                    <p>Software Development, Cohort 4</p>
-                    <small>January 2023 - June 2023</small>
+                    <div className="specialism-sircle">
+                        {<SoftwareIcon />}
+                    </div>
+                    <div className="cohort-title">
+                        Software Development, Cohort 4
+                    </div>
+                    <div className="cohort-dates">
+                        January 2023 - June 2023
+                    </div>
                 </div>
 
                 <section className="cohort-students-container border-top">

@@ -9,7 +9,31 @@
   column-gap: 20px;
 }
 
-.cohort-course-date, .student-name {
+.cohort-course-date {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  grid-template-rows: auto auto;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.specialism-circle {
+  position: relative;
+  grid-column: 1 / span 2;
+  grid-row: 1 / span 2;
+}
+
+.cohort-title {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.cohort-dates {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.student-name {
   padding-top: 4px;
 }
 

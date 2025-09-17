@@ -21,14 +21,21 @@ async function createProfile(userId, first_name, last_name, username, github_use
 
 async function getPosts() {
   const res = await get('posts');
-  console.log(res.data.posts + " <- this is from apiClient.js");
   return res.data.posts;
 }
 
 async function getStudents() {
+  // CHANGE ENDPOINT!!! make it dynamic based on cohort of logged in user
   const res = await get('cohorts/1');
-  console.log(res.data.cohort.profiles, " <- this is from getStudents apiClient.js");
-  return res.data.cohort.profiles;
+  const students = res.data.cohort.profiles.filter((userid) => userid?.role?.name === "ROLE_STUDENT");
+  return students;
+}
+
+async function getTeachers() {
+  // CHANGE ENDPOINT!!! make it dynamic based on cohort of logged in user
+  const res = await get('cohorts/1');
+  const teachers = res.data.cohort.profiles.filter((userid) => userid?.role?.name === "ROLE_TEACHER");
+  return teachers;
 }
 
 async function post(endpoint, data, auth = true) {
@@ -71,4 +78,4 @@ async function request(method, endpoint, data, auth = true) {
   return response.json();
 }
 
-export { login, getPosts, register, createProfile, getStudents };
+export { login, getPosts, register, createProfile, getStudents, getTeachers };
