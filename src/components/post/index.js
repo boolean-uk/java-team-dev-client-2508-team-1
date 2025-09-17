@@ -17,11 +17,11 @@ const Post = ({ post }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(post.likes || 0);
   const [isAnimating, setIsAnimating] = useState(false);
-
+  console.log('Post data:', post);
   const authorName = post.user.profile
     ? `${post.user.profile.firstName || 'Unknown'} ${post.user.profile.lastName || 'User'}`
     : 'Unknown User';
-  const userInitials = authorName.match(/\b(\w)/g);
+  const userInitials = authorName?.match(/\b(\w)/g);
 
   const showModal = () => {
     setModal('Edit post', <EditPostModal postText={post.content} postId={post.id} name={authorName} />);
