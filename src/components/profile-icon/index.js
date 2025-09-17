@@ -44,8 +44,18 @@ const UserIcon = ({initials, firstname, lastname, role}) => {
                 <p className = "user-name">{firstname} {lastname}</p> 
                 <p className = "user-role" >{role}</p>
             </div>
-            <Popup trigger= { <div className="edit-icon"> 
-                <p>•••</p>  </div> } position="left center"
+            <Popup trigger= { 
+                <div className="edit-icon-wrapper">
+                <div className="icon-button">
+                    <span className="dots">
+                    <span className="dot">•</span>
+                    <span className="dot">•</span>
+                    <span className="dot">•</span>
+                </span>
+                </div>
+                </div>
+                 
+                } position="left center"
                 closeOnDocumentClick
                 arrow={false}>
                 <SeeProfile 
@@ -60,3 +70,6 @@ const UserIcon = ({initials, firstname, lastname, role}) => {
 }
 
 export default UserIcon;
+
+
+  
