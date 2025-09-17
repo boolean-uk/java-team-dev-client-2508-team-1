@@ -90,6 +90,9 @@ async function post(endpoint, data, auth = true) {
   return await request('POST', endpoint, data, auth);
 }
 
+async function put(endpoint, data, auth = true) {
+  return await request('PUT', endpoint, data, auth);
+}
 async function patch(endpoint, data, auth = true) {
   return await request('PATCH', endpoint, data, auth);
 }
@@ -127,6 +130,6 @@ async function request(method, endpoint, data, auth = true) {
 }
 
 
-export { login, getPosts, register, createProfile, get, getUserById, getComments, post, getMyCohortProfiles, patch };
+export { login, getPosts, register, createProfile, get, getUserById, getComments, post, getMyCohortProfiles, patch, put };
 
 

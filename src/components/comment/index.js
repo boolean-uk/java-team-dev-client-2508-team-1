@@ -1,7 +1,19 @@
+import useModal from '../../hooks/useModal';
+import EditCommentModal from '../editCommentModal';
 import './style.css';
 
-const Comment = ({ name, content }) => {
+const Comment = ({ name, content, postId, commentId}) => {
+  const { openModal, setModal } = useModal();
+
   const initials = name?.match(/\b(\w)/g);
+
+ 
+  
+  const showModal = () => {
+    setModal('Edit comment', 
+    <EditCommentModal postText={content} postId={postId} name={name} commentId={commentId} />);
+    openModal();
+  };
 
   return (
     <div className="comment">
@@ -14,7 +26,7 @@ const Comment = ({ name, content }) => {
         <h6 className="comment__author">{name}</h6>
         <p className="comment__content">{content}</p>
       </div>
-      <button className="comment__menu" aria-label="Comment options">•••</button>
+      <button className="comment__menu" aria-label="Comment options" onClick={showModal} >•••</button>
     </div>
   );
 };

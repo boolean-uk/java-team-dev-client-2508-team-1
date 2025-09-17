@@ -1,72 +1,105 @@
-import { useState } from 'react';
+import { forwardRef, useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 import { post } from '../../service/apiClient';
 import jwtDecode from 'jwt-decode';
 import SendIcon from '../../assets/icons/sendIcon';
 import './style.css';
 
-// eslint-disable-next-line camelcase
-
-const CreateComment = ({ postId }) => {
-
-
+const CreateComment = forwardRef(({ postId, onCommentAdded }, ref) => {
   const { token } = useAuth();
-
-
-  
   const [message, setMessage] = useState(null);
   const [text, setText] = useState('');
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const decodedToken = jwtDecode(token || localStorage.getItem('token')) || {};
+  const fullName = `${decodedToken.firstName || decodedToken.first_name || 'Current'} ${decodedToken.lastName || decodedToken.last_name || 'User'}`;
+  const initials = fullName?.match(/\b(\w)/g)?.join('') || 'NO';
   const onChange = (e) => {
     setText(e.target.value);
   };
 
-  const onSubmit = async () => {
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    if (!text.trim() || isSubmitting) return;
+
+    setIsSubmitting(true);
     try {
-  const { userId } = jwtDecode(token || localStorage.getItem('token')) || {};
+      const decodedToken = jwtDecode(token || localStorage.getItem('token')) || {};
+      const { userId } = decodedToken;
+      
       if (!userId) {
         setMessage('Could not determine user. Please log in again.');
+        setIsSubmitting(false);
         return;
       }
 
-      const postResponse = await post(`posts/${String(postId)}/comments`, { body: text, userId });
-      console.log('Comment created successfully:', postResponse);
-      setMessage('Posted! Closing modal in 1.5 seconds...');
+      const response = await post(`posts/${String(postId)}/comments`, { body: text, userId });
+      console.log('Comment created successfully:', response);
+      
+      // Store the comment text before clearing
+      const commentText = text;
+      
+      // Clear the input and show success message
+      setText('');
+      setMessage('Comment posted successfully!');
+      
+      // Create a properly structured comment object for immediate display
+      // Try to get user info from token, fallback to defaults
+      const firstName = decodedToken.firstName || decodedToken.first_name || 'Current';
+      const lastName = decodedToken.lastName || decodedToken.last_name || 'User';
+      
+      const newComment = {
+        id: response.data?.id || Date.now(),
+        body: commentText,
+        user: {
+          id: userId,
+          profile: {
+            firstName,
+            lastName
+          }
+        },
+        timeCreated: new Date().toISOString()
+      };
+      
+      // Call the callback to update the parent component
+      if (onCommentAdded) {
+        onCommentAdded(newComment);
+      }
+      
+      // Clear success message after 2 seconds
       setTimeout(() => {
         setMessage(null);
-      }, 1500);
+      }, 2000);
+      
     } catch (error) {
-      console.error('Error creating post:', error);
-      setMessage('Failed to create post. Please try again.');
+      console.error('Error creating comment:', error);
+      setMessage('Failed to post comment. Please try again.');
+      setTimeout(() => {
+        setMessage(null);
+      }, 3000);
+    } finally {
+      setIsSubmitting(false);
     }
-
-
-    window.location.reload();
-
-    console.log('Submitting comment:', text);
-
-
   };
 
   return (
-    <div className="create-comment">
+    <form className="create-comment" onSubmit={onSubmit}>
       <div className="profile-icon profile-icon--sm">
-        <p>AJ</p>
+        <p>{initials}</p>
       </div>
 
       <div className="create-comment__input-wrapper">
         <input
+          ref={ref}
           className="create-comment__input"
           type="text"
-          onChange={onChange}
-          value={text}
           placeholder="Add a comment..."
+          value={text}
+          onChange={onChange}
         />
         <button
-          type="button"
-          className={`create-comment__send ${text.length ? 'create-comment__send--active' : ''}`}
-          onClick={onSubmit}
-          disabled={!text.length}
+          className="create-comment__submit"
+          type="submit"
+          disabled={!text.trim() || isSubmitting}
           aria-label="Send comment"
         >
           <SendIcon />
@@ -74,8 +107,10 @@ const CreateComment = ({ postId }) => {
       </div>
 
       {message && <p className="create-comment__message">{message}</p>}
-    </div>
+    </form>
   );
-};
+});
+
+CreateComment.displayName = 'CreateComment';
 
 export default CreateComment;
