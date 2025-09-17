@@ -14,14 +14,14 @@ import NotesIconFilled from '../../assets/icons/notesIconFilled';
 import NotesIcon from '../../assets/icons/notesIcon';
 import LogsIconFilled from '../../assets/icons/logsIconFilled';
 import LogsIcon from '../../assets/icons/logsIcon';
+import { useUserRoleData } from '../../context/userRole.';
 
 const Navigation = () => {
   const { token } = useAuth();
   const [active, setActive] = useState(1)
-  const [role, setRole] = useState("teacher") // midlertidig
+  const{userRole} = useUserRoleData()
   
   if (!token) {
-    setRole("student")  // midlertidig for å unngå kompileringsfeil
     return null;
   }
 
@@ -54,7 +54,7 @@ const Navigation = () => {
             <p>Cohort</p>
           </NavLink>
         </li>
-        <li className={role === "student" ? "no-line" : "border-line"}>
+        <li className={userRole === 2 ? "no-line" : "border-line"}>
           <NavLink to="/"
           className={() => active === 4 ? "nav-item active" : "nav-item"}
           onClick={() => setActive(4)}>
@@ -63,7 +63,7 @@ const Navigation = () => {
           </NavLink>
         </li>
 
-        {role === "teacher" ? (
+        {userRole === 1 ? (
           <>
           <li>
             <NavLink to="/"
