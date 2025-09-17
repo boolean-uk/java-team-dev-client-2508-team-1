@@ -1,39 +1,111 @@
 import { useEffect, useState } from 'react';
 import { getUserById } from '../../../service/apiClient';
+import useAuth from '../../../hooks/useAuth';
+import jwtDecode from 'jwt-decode';
+import './profile-data.css'
 
 const ProfileData = () => {
   const [user, setUser] = useState(null);
+  const { token } = useAuth();
+  const { userId } = jwtDecode(token);
 
   useEffect(() => {
     async function fetchUser() {
       try {
-        const data = await getUserById(1);
+        const data = await getUserById(userId);
         setUser(data);
       } catch (error) {
         console.error('Error fetching user:', error);
       }
     }
     fetchUser();
-    console.log("heres the user " + setUser)
-  }, []);
+  }, [userId]);
 
   if (!user) return <div>Loading...</div>;
 
   const { email } = user;
-  const { id } = user.cohort  
-  const { name } = user.roles[0]
-  const { firstName, lastName, githubUrl, mobile, specialism, bio } = user.profile;
+  const { name: roleName } = user.roles[0];
+  const { firstName, lastName, githubUrl, mobile, specialism, bio, photo } = user.profile;
+
+  const getReadableRole = (role) => {
+    switch (role) {
+      case 'ROLE_STUDENT':
+        return 'Student';
+      case 'ROLE_TEACHER':
+        return 'Teacher';
+      case 'ROLE_ADMIN': 
+        return 'Administrator'  
+      default:
+        return role; 
+    }
+  };
 
   return (
-    <main>
-      <h2 className="fullname">Full Name: {firstName} {lastName}</h2>
-      <p className="email">Email: {email} </p>
-      <p className="bio">Bio: {bio} </p>
-      <p className="mobile">Mobile: {mobile}</p>
-      <p className="githubURL">Github URL: {githubUrl}</p>
-      <p className="cohort">Cohort: {id}</p>
-      <p className="specialism">Specialism: {specialism}</p>
-      <p className="role">Role: {name}</p>
+    <main className="profile-container">
+      <div className="photo-section">
+        <img
+          src={photo || "https://placeholderimage.org/api/image/150x150?text=User"}
+          alt=""
+          className="profile-photo"
+        />
+        {(firstName || lastName) && (
+          <p className="name-text">{firstName} {lastName}</p>
+        )}
+        {bio && <p className="bio-text">{bio}</p>}
+      </div>
+
+      <div className="info-section">
+        {(firstName || lastName) && (
+          <div className="info-row">
+            <span className="label">Full Name:</span>
+            <span className="value">{firstName} {lastName}</span>
+          </div>
+        )}
+
+        {email && (
+          <div className="info-row">
+            <span className="label">Email:</span>
+            <span className="value">{email}</span>
+          </div>
+        )}
+
+        {mobile && (
+          <div className="info-row">
+            <span className="label">Mobile:</span>
+            <span className="value">{mobile}</span>
+          </div>
+        )}
+
+        {githubUrl && githubUrl.trim() !== '' && (
+          <div className="info-row">
+            <span className="label">Github URL:</span>
+            <span className="value">
+              <a
+                href={githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+              {githubUrl}
+              </a>
+          </span>
+          </div>
+        )}
+
+
+        {specialism && (
+          <div className="info-row">
+            <span className="label">Specialism:</span>
+            <span className="value">{specialism}</span>
+          </div>
+        )}
+
+        {roleName && (
+          <div className="info-row">
+            <span className="label">Role:</span>
+            <span className="value">{getReadableRole(roleName)}</span>
+          </div>
+        )}
+      </div>
     </main>
   );
 };

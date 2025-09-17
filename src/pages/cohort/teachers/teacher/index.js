@@ -1,10 +1,10 @@
 import ProfileCircle from "../../../../components/profileCircle";
 
-const Student = ({ name }) => {
+const Teacher = ({ name }) => {
     
     return (
     <>
-    <div className="student-details">
+    <div className="teacher-details">
       <div>
         {<ProfileCircle initials={name.split(" ").map((n)=>n[0]).join("").toUpperCase()}/>}
       </div>
@@ -16,4 +16,4 @@ const Student = ({ name }) => {
   );
 };
 
-export default Student;
+export default Teacher;
