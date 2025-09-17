@@ -8,7 +8,7 @@ import { put } from '../../service/apiClient';
 
 
 
-const EditPostModal = ({ postText, postId, name }) => {
+const EditCommentModal = ({ postText, postId, name, commentId}) => {
   const { closeModal } = useModal();
   const { token } = useAuth();
   const [message, setMessage] = useState(null);
@@ -27,7 +27,7 @@ const EditPostModal = ({ postText, postId, name }) => {
         return;
       }
 
-    const postResponse = await put(`posts/${String(postId)}`, { content: text, userId });
+    const postResponse = await put(`posts/${String(postId)}/comments/${String(commentId)}`, { body: text, userId });
       console.log('Post updated successfully:', postResponse);
       setMessage('Posted! Closing modal in 1.5 seconds...');
       setTimeout(() => {
@@ -74,4 +74,4 @@ const EditPostModal = ({ postText, postId, name }) => {
   );
 };
 
-export default EditPostModal;
+export default EditCommentModal;
