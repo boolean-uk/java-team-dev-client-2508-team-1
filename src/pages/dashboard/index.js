@@ -8,13 +8,13 @@ import Posts from '../../components/posts';
 import useModal from '../../hooks/useModal';
 import './style.css';
 import Cohorts from './cohorts';
+import { useUserRoleData } from '../../context/userRole.';
 
 const Dashboard = () => {
   const [searchVal, setSearchVal] = useState('');
-  const [role, setRole] = useState("teacher")
+  const {userRole} = useUserRoleData()
 
   const onChange = (e) => {
-    setRole("teacher") // midlertidig for å unngå kompileringsfeil
     setSearchVal(e.target.value);
   };
 
@@ -52,7 +52,7 @@ const Dashboard = () => {
           </form>
         </Card>
 
-        { role === "student" ? (
+        { userRole === 2 ? (
            <Card>
           <h4>My Cohort</h4>
         </Card>
