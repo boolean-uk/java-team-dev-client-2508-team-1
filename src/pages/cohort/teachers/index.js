@@ -1,7 +1,7 @@
 import Card from "../../../components/card";
 import './style.css';
 import Teacher from "./teacher";
-import { getTeachers } from "../../../service/apiClient";
+import { getMyCohortProfiles } from "../../../service/apiClient";
 import { useEffect, useState } from "react";
 
 const Teachers = () => {
@@ -11,7 +11,7 @@ const Teachers = () => {
     useEffect(() => {
         async function fetchTeachers() {
             try {
-                const data = await getTeachers();
+                const data = await getMyCohortProfiles("teacher");
                 setTeachers(data);
             } catch (error) {
                 console.error('fetchTeachers() in cohort/teachers/index.js:', error);

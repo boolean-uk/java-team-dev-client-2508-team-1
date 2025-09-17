@@ -1,4 +1,7 @@
 import { API_URL } from './constants';
+/* eslint-disable-next-line camelcase */
+import jwt_decode from 'jwt-decode';
+
 
 async function login(email, password) {
   return await post('login', { email, password }, false);
@@ -60,18 +63,27 @@ async function getUserById(id) {
   return res.data.user;
 }
 
-async function getStudents() {
-  // CHANGE ENDPOINT!!! make it dynamic based on cohort of logged in user
-  const res = await get('cohorts/1');
-  const students = res.data.cohort.profiles.filter((userid) => userid?.role?.name === "ROLE_STUDENT");
-  return students;
-}
+async function getMyCohortProfiles(role) {
+  const token = localStorage.getItem('token');
 
-async function getTeachers() {
-  // CHANGE ENDPOINT!!! make it dynamic based on cohort of logged in user
-  const res = await get('cohorts/1');
-  const teachers = res.data.cohort.profiles.filter((userid) => userid?.role?.name === "ROLE_TEACHER");
-  return teachers;
+  if (!token) {
+    console.error('No token found');
+  }
+
+  const { userId } = jwt_decode(token);
+  const user = await getUserById(userId);
+  const res = await get(`cohorts/${user.profile.cohort.id}`);
+
+  if (role === "teacher") { 
+    const teachers = res.data.cohort.profiles.filter((userid) => userid?.role?.name === "ROLE_TEACHER");
+    return teachers;
+  }
+  else if (role === "student") { 
+    const students = res.data.cohort.profiles.filter((userid) => userid?.role?.name === "ROLE_STUDENT");
+    return students;
+  }
+
+  
 }
 
 async function post(endpoint, data, auth = true) {
@@ -115,6 +127,6 @@ async function request(method, endpoint, data, auth = true) {
 }
 
 
-export { login, getPosts, register, createProfile, get, getUserById, getComments, post, getTeachers, getStudents };
+export { login, getPosts, register, createProfile, get, getUserById, getComments, post, getMyCohortProfiles, patch };
 
 

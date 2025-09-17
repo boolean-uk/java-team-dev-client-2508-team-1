@@ -2,23 +2,52 @@ import { useEffect, useState } from "react";
 import Card from "../../../components/card";
 import Student from "./student";
 import './students.css';
-import { getStudents } from "../../../service/apiClient";
+import { getMyCohortProfiles, getUserById } from "../../../service/apiClient";
 import { SoftwareIcon } from "../../../assets/icons/specialismIcon";
+import jwtDecode from "jwt-decode";
 
 function Students() {
     const [students, setStudents] = useState([]);
+    const [course, setCourse] = useState("");
+    const [cohortId, setCohortId] = useState("");
 
     useEffect(() => {
         async function fetchStudents() {
             try {
-                const data = await getStudents();
+                const data = await getMyCohortProfiles("student");
                 setStudents(data);
             } catch (error) {
                 console.error('fetchStudents() in cohort/students/index.js:', error);
             }
         }
 
+        async function fetchCourse() {
+            try {
+                const token = localStorage.getItem("token");
+                const { userId } = jwtDecode(token);
+
+                const data = await getUserById(userId);
+                setCourse(data.profile.cohort.cohort_courses[0].name);
+            } catch (error) {
+                console.error('fetchCourse() in cohort/students/index.js:', error);
+            }
+        }
+
+        async function fetchCohortId() {
+            try {
+                const token = localStorage.getItem("token");
+                const { userId } = jwtDecode(token);
+                const data = await getUserById(userId);
+
+                setCohortId(data.profile.cohort.id);
+            } catch (error) {
+                console.error('fetchCourse() in cohort/students/index.js:', error);
+            }
+        }
+
         fetchStudents();
+        fetchCourse();
+        fetchCohortId();
     }, []);
 
 
@@ -35,10 +64,10 @@ function Students() {
                         {<SoftwareIcon />}
                     </div>
                     <div className="cohort-title">
-                        Software Development, Cohort 4
+                        <p>{course}, Cohort {cohortId}</p>
                     </div>
                     <div className="cohort-dates">
-                        January 2023 - June 2023
+                        <small>January 2023 - June 2023</small>
                     </div>
                 </div>
 
@@ -52,7 +81,5 @@ function Students() {
         </Card>
     )
 }
-
-/* <Student key={student.id} name={student.firstName} /> */
 
 export default Students;
