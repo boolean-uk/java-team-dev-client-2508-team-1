@@ -28,6 +28,11 @@
   grid-row: 1;
 }
 
+.cohort-title p {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
 .cohort-dates {
   grid-column: 2;
   grid-row: 2;
@@ -36,13 +41,7 @@
 .student-name {
   padding-top: 4px;
 }
-
-.cohort-course-date p {
-  font-weight: 600;
-  font-size: 1.1rem;
-}
-
-.cohort-course-date small {
+.cohort-dates small {
   color: #64648c;
 }
 
