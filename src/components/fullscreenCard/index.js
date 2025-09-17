@@ -5,8 +5,9 @@ import useAuth from '../../hooks/useAuth';
 import jwtDecode from 'jwt-decode';
 import { getUserById } from '../../service/apiClient';
 import ProfileCircle from '../profileCircle';
+import '../../pages/loading';
 
-const FullScreenCard = ({ children }) => {
+const FullScreenCard = () => {
   const [user, setUser] = useState(null);
   const { token } = useAuth();
   const { userId } = jwtDecode(token);
@@ -26,7 +27,14 @@ const FullScreenCard = ({ children }) => {
   console.log(user)
 
   if (!user || !user.profile) {
-    return <div>Loading...</div>;
+    return <div>
+        <div className="">
+            <h3>Loading...</h3>
+            <div className="loadingscreen-loader">
+            <span></span>
+            </div>
+        </div>
+        </div>
   }
 
   const firstname = user.profile.firstName;
@@ -42,7 +50,7 @@ const FullScreenCard = ({ children }) => {
         <button className="edit">Edit Profile</button> </div>
       <section className="post-interactions-container border-top"></section>
 
-      <ProfileData />
+      <ProfileData user={user}/>
       <div className="bottom-buttons">
         <button className="cancel">Cancel</button>
         <br></br><br></br>

@@ -12,6 +12,8 @@ import { FormProvider } from './context/form';
 import Cohort from './pages/cohort';
 import ProfilePage from './pages/profile';
 import { UserRoleProvider } from './context/userRole.';
+import ProfileData from './pages/profile/profile-data';
+import FullScreenCard from './components/fullscreenCard';
 
 const App = () => {
   return (
