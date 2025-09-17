@@ -8,6 +8,9 @@ import Posts from '../../components/posts';
 import useModal from '../../hooks/useModal';
 import './style.css';
 import Cohorts from './cohorts';
+import { useUserRoleData } from '../../context/userRole.';
+import Students from './students';
+import TeachersDashboard from './teachers';
 import useAuth from '../../hooks/useAuth';
 import jwtDecode from 'jwt-decode';
 
@@ -21,7 +24,6 @@ const Dashboard = () => {
   const initials = fullName?.match(/\b(\w)/g)?.join('') || 'NO';
 
   const onChange = (e) => {
-    setRole("teacher") // midlertidig for å unngå kompileringsfeil
     setSearchVal(e.target.value);
   };
 
@@ -90,12 +92,16 @@ useEffect(() => {
           </form>
         </Card>
 
-        { role === "student" ? (
+        { userRole === 2 ? (
            <Card>
           <h4>My Cohort</h4>
         </Card>
         ) : (
+          <>
           <Cohorts/>
+          <Students/>
+          <TeachersDashboard/>
+          </>
         )}
        
       </aside>

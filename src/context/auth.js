@@ -52,6 +52,7 @@ const AuthProvider = ({ children }) => {
     navigate('/verification');
   };
 
+  /* eslint-disable camelcase */
   const handleCreateProfile = async (first_name, last_name, username, github_username, mobile, bio, role, specialism, cohort, start_date, end_date, photo) => {
     const { userId } = jwt_decode(token);
 

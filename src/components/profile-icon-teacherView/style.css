@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: column;
   flex: 1 1 auto; 
-  min-width: 0;     
+  min-width: 0;   
 }
 
 .profile-circle{
@@ -24,20 +24,19 @@
 
 .user-name {
   margin: 0;
+  font-size: 20px;
   font-weight: 600;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color:#000046;
+
 } 
 
-.pop-up {
-    position: absolute;
-    top: 100%;    /* under .edit-icon */
-    right: 0;     /* høyrejustert med ikonet */
-    margin-top: 8px;
-    z-index: 100;
+.user-role {
+  font-size: 16px;  
+  color:#64648C
 }
-
 
 .edit-icon-wrapper {
   position: relative;
@@ -68,4 +67,11 @@
 
 .dot {
   line-height: 1;
+}
+
+.menu-left {
+  position: absolute;
+  left: -500px; /* juster avstanden etter behov */
+  top: 0;
+  z-index: 1000;
 }

@@ -27,6 +27,14 @@ const Header = () => {
     return null;
   }
 
+  let userIdFromToken = null;
+  try {
+    const decoded = jwtDecode(token);
+    userIdFromToken = decoded.userId;
+  } catch (err) {
+    console.error("Error when decoding by header", err);
+  }
+
   return (
     <header className="app-header">
       <FullLogo textColour="white" />
@@ -52,7 +60,7 @@ const Header = () => {
             <section className="user-panel-options border-top">
               <ul>
                 <li>
-                  <NavLink to="/profile">
+                  <NavLink to={`/profile/${userIdFromToken}`} >
                     <ProfileIcon /> <p>Profile</p>
                   </NavLink>
                 </li>

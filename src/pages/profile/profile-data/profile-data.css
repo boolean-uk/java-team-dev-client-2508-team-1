@@ -1,0 +1,48 @@
+.profile-container {
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+  padding: 3rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.4rem; 
+}
+
+.info-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; 
+}
+
+.info-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 1.6rem; 
+}
+
+.label {
+  font-weight: 600;
+  margin-right: 1rem;
+  min-width: 150px;
+}
+
+.value {
+  font-weight: 400;
+  flex: 1;
+}
+
+.value a {
+  color: #0077cc;
+  text-decoration: underline;
+  font-size: 1.6rem;
+}
+
+.bio-text {
+  margin-top: 1rem;
+  text-align: center;
+  font-style: italic;
+  color: #555;
+  font-size: 1.4rem;
+  max-width: 450px;
+}

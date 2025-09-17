@@ -7,6 +7,8 @@
   grid-template-columns: 151px 2fr 1fr;
   grid-template-rows: 96px auto;
   background-color: #f0f5fa;
+
+  height: auto;
   min-height: 100vh;
 }
 

@@ -11,12 +11,14 @@ import Welcome from './pages/welcome';
 import { FormProvider } from './context/form';
 import Cohort from './pages/cohort';
 import ProfilePage from './pages/profile';
+import { UserRoleProvider } from './context/userRole.';
 
 const App = () => {
   return (
     <>
       <AuthProvider>
         <FormProvider>
+          <UserRoleProvider>
         <ModalProvider>
           <Routes>
             <Route path="login" element={<Login />} />
@@ -48,7 +50,7 @@ const App = () => {
               }
             />
             <Route
-              path="profile"
+              path="profile/:userId"
               element={
                 <ProtectedRoute>
                   <ProfilePage />
@@ -57,6 +59,7 @@ const App = () => {
             />
           </Routes>
         </ModalProvider>
+        </UserRoleProvider>
         </FormProvider>
       </AuthProvider>
     </>

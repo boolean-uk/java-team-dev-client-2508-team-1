@@ -6,3 +6,30 @@
     margin-bottom: 25px;
     border: 1px #e6ebf5 solid;
 }
+
+.cohort {
+  display: grid;
+  row-gap: 20px;
+}
+
+.cohort-teachers-container {
+  display: grid;
+  gap: 20px;
+}
+
+.teacher-details {
+  display: grid;
+  grid-template-columns: 56px 1fr 48px;
+  align-items: center;
+  column-gap: 20px;
+  padding: 15px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.border-top {
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
