@@ -57,6 +57,15 @@ function Students() {
         fetchCohortId();
     }, []);
 
+    function getInitials(student) {
+        const firstNameParts = student.firstName.trim().split(/\s+/); // split by any number of spaces
+        const lastNameInitial = student.lastName.trim().charAt(0);
+        
+        const firstNameInitials = firstNameParts.map(name => name.charAt(0));
+        
+        return (firstNameInitials.join('') + lastNameInitial).toUpperCase();
+    }
+
     if (!course) {
         return <div>
             <div className="">
@@ -131,7 +140,9 @@ function Students() {
           {students.map((student) => (
             <Student
               key={student.id}
-              name={student.firstName + " " + student.lastName}
+              initials={getInitials(student)}
+              firstName={student.firstName}
+              lastName={student.lastName}
             />
           ))}
         </section>

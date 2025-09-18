@@ -13,6 +13,8 @@ const Teachers = () => {
             try {
                 const data = await getMyCohortProfiles("teacher");
                 setTeachers(data);
+                console.log("DATA", data)
+                console.log(data[0].specialism);
             } catch (error) {
                 console.error('fetchTeachers() in cohort/teachers/index.js:', error);
             }
@@ -20,6 +22,15 @@ const Teachers = () => {
 
         fetchTeachers();
     }, []);
+
+    function getInitials(teacher) {
+        const firstNameParts = teacher.firstName.trim().split(/\s+/); // split by any number of spaces
+        const lastNameInitial = teacher.lastName.trim().charAt(0);
+        
+        const firstNameInitials = firstNameParts.map(name => name.charAt(0));
+        
+        return (firstNameInitials.join('') + lastNameInitial).toUpperCase();
+    }
 
     return (
         <Card>
@@ -29,8 +40,14 @@ const Teachers = () => {
                 </section>
                 
                 <section className="cohort-teachers-container border-top">
-                    {teachers.map((teacher) => (
-                        <Teacher key={teacher.id} name={teacher.firstName + " " + teacher.lastName} />
+                    {teachers.map((teacher, index) => (
+                        <Teacher 
+                            key={teacher.id} 
+                            initials={getInitials(teacher)}
+                            firstName={teacher.firstName}
+                            lastName={teacher.lastName}
+                            role={teacher.specialism}
+                        />
                     ))}
                 </section>
             </article>
