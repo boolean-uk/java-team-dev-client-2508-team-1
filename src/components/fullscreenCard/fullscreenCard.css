@@ -62,22 +62,6 @@
   font-size: 16px;
 }
 
-.save {
-  background-color: var(--color-blue);
-  color: white
-}
-
-.cancel {
-  background-color: var(--color-blue5);
-}
-
-.bottom-buttons {
-  display: flex;
-  justify-content: flex-end; 
-  gap: 10px; 
-  padding: 20px;
-}
-
 .photo-section {
   display: flex;
   flex-direction: column;
