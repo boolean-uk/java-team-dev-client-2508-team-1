@@ -89,7 +89,12 @@ async function getMyCohortProfiles(role) {
 async function post(endpoint, data, auth = true) {
   return await request('POST', endpoint, data, auth);
 }
-
+async function postTo(endpoint, data, auth = true) {
+  return await request('POST', endpoint, data, auth);
+}
+async function del(endpoint, data, auth = true) {
+  return await request('DELETE', endpoint, data, auth);
+}
 async function put(endpoint, data, auth = true) {
   return await request('PUT', endpoint, data, auth);
 }
@@ -130,6 +135,6 @@ async function request(method, endpoint, data, auth = true) {
 }
 
 
-export { login, getPosts, register, createProfile, get, getUserById, getComments, post, getMyCohortProfiles, patch, put };
+export { login, getPosts, register, createProfile, get, getUserById, getComments, post, getMyCohortProfiles, patch, put, del, postTo };
 
 
