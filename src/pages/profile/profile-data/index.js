@@ -1,9 +1,8 @@
 import './profile-data.css'
 
 const ProfileData = ({ user }) => {
-
-  const { email } = user;
-  const { name: roleName } = user.roles[0];
+  const {email} = user;
+  const roleName = user.profile.role.name;
   const { firstName, lastName, githubUrl, mobile, specialism, bio, photo } = user.profile;
 
   const getReadableRole = (role) => {
