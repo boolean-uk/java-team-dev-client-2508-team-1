@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import Card from "../../../components/card";
 import Student from "./student";
 import './students.css';
-import { getMyCohortProfiles, getUserById } from "../../../service/apiClient";
+import { get, getUserById } from "../../../service/apiClient";
 import jwtDecode from "jwt-decode";
 import SoftwareLogo from "../../../assets/icons/software-logo";
 import FrontEndLogo from "../../../assets/icons/frontEndLogo";
 import DataAnalyticsLogo from "../../../assets/icons/dataAnalyticsLogo";
 import '../../../components/profileCircle/style.css';
 import '../../../components/fullscreenCard/fullscreenCard.css';
+
 
 function Students() {
     const [students, setStudents] = useState([]);
@@ -19,45 +20,33 @@ function Students() {
 
 
     useEffect(() => {
-        async function fetchStudents() {
+        async function fetchData() {
             try {
-                const data = await getMyCohortProfiles("student");
-                setStudents(data);
+                const token = localStorage.getItem('token');
+                const { userId } = jwtDecode(token);
+                const user = await getUserById(userId);
+
+                setCohortId(user.cohort.id || "");
+
+                const data = await get(`cohorts/${user.cohort.id}`);
+                const students = data.data.cohort.profiles.filter((userid) => userid?.role?.name === "ROLE_STUDENT");
+                setStudents(students || []);
+
+                const courses = data.data.cohort.cohort_courses;
+                setCourses(courses || []);
+
+                setSelectedCourseIndex(0); // reset to first course when data changes
+
+
             } catch (error) {
                 console.error('fetchStudents() in cohort/students/index.js:', error);
             }
         }
-
-        async function fetchCourses() {
-            try {
-                const token = localStorage.getItem("token");
-                const { userId } = jwtDecode(token);
-
-                const data = await getUserById(userId);
-                setCourses(data.profile.cohort.cohort_courses);
-            } catch (error) {
-                console.error('fetchCourses() in cohort/students/index.js:', error);
-            }
-        }
-
-        async function fetchCohortId() {
-            try {
-                const token = localStorage.getItem("token");
-                const { userId } = jwtDecode(token);
-                const data = await getUserById(userId);
-
-                setCohortId(data.profile.cohort.id);
-            } catch (error) {
-                console.error('fetchCourse() in cohort/students/index.js:', error);
-            }
-        }
-
-        fetchStudents();
-        fetchCourses();
-        fetchCohortId();
+        fetchData();
     }, []);
 
     function getInitials(student) {
+        if (!student.firstName || !student.lastName) return "NA";
         const firstNameParts = student.firstName.trim().split(/\s+/); // split by any number of spaces
         const lastNameInitial = student.lastName.trim().charAt(0);
         
@@ -139,7 +128,7 @@ function Students() {
         <section className="cohort-students-container border-top">
           {students.map((student) => (
             <Student
-              key={student.id}
+              key={student.id || 0}
               initials={getInitials(student)}
               firstName={student.firstName}
               lastName={student.lastName}
