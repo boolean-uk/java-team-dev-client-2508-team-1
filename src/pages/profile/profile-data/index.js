@@ -1,7 +1,3 @@
-import { useEffect, useState } from 'react';
-import { getUserById } from '../../../service/apiClient';
-import useAuth from '../../../hooks/useAuth';
-import jwtDecode from 'jwt-decode';
 import './profile-data.css'
 
 const ProfileData = ({ user }) => {

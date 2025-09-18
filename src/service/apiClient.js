@@ -10,8 +10,6 @@ async function register(email, password) {
 }
 /* eslint-disable camelcase */
 
-
-
 async function createProfile(userId, 
   first_name, 
   last_name, 
@@ -54,11 +52,48 @@ async function getComments(postId) {
   return res.data.comments;
 }
 
-
 async function getUserById(id) {
   const res = await get(`users/${id}`);
   return res.data.user;
 }
+
+async function getMyCohortProfiles(role) {
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    console.error('No token found');
+  }
+
+  const { userId } = jwt_decode(token);
+  const user = await getUserById(userId);
+  const res = await get(`cohorts/${user.profile.cohort.id}`);
+
+  if (role === "teacher") { 
+    const teachers = res.data.cohort.profiles.filter((userid) => userid?.role?.name === "ROLE_TEACHER");
+    return teachers;
+  }
+  else if (role === "student") { 
+    const students = res.data.cohort.profiles.filter((userid) => userid?.role?.name === "ROLE_STUDENT");
+    return students;
+  }  
+}
+
+async function updateUserProfile(userId, formValues) {
+  const payload = {
+    photo: formValues.photo || "",
+    first_name: formValues.firstName || "",
+    last_name: formValues.lastName || "",
+    username: formValues.username || "",
+    github_username: formValues.githubUsername || "",
+    email: formValues.email || "",
+    mobile: formValues.mobile || "",
+    password: formValues.password || "",
+    bio: formValues.bio || ""
+  };
+
+  return await patch(`students/${userId}`, payload);
+}
+
 
 async function post(endpoint, data, auth = true) {
   return await request('POST', endpoint, data, auth);
@@ -67,6 +102,7 @@ async function post(endpoint, data, auth = true) {
 async function put(endpoint, data, auth = true) {
   return await request('PUT', endpoint, data, auth);
 }
+
 async function patch(endpoint, data, auth = true) {
   return await request('PATCH', endpoint, data, auth);
 }
@@ -105,6 +141,6 @@ async function request(method, endpoint, data, auth = true) {
 
 
 
-export { login, getPosts, register, createProfile, get, getUserById, getComments, post, patch, put };
+export { login, getPosts, register, createProfile, get, getUserById, getComments, post, patch, put, getMyCohortProfiles, updateUserProfile };
 
 
