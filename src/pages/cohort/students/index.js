@@ -7,6 +7,8 @@ import jwtDecode from "jwt-decode";
 import SoftwareLogo from "../../../assets/icons/software-logo";
 import FrontEndLogo from "../../../assets/icons/frontEndLogo";
 import DataAnalyticsLogo from "../../../assets/icons/dataAnalyticsLogo";
+import '../../../components/profileCircle/style.css';
+import '../../../components/fullscreenCard/fullscreenCard.css';
 
 function Students() {
     const [students, setStudents] = useState([]);
@@ -55,6 +57,16 @@ function Students() {
         fetchCohortId();
     }, []);
 
+    if (!course) {
+        return <div>
+            <div className="">
+                <h3>Loading...</h3>
+                <div className="loadingscreen-loader">
+                <span></span>
+                </div>
+            </div>
+        </div>
+    }
 
     // in cohort-course-date: getCohortsForStudent() or something, make it a dropdown to select which subject to render!!!! we do NOT want to scroll through lots of students to view the next subject's students
     return (
