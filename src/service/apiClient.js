@@ -1,7 +1,4 @@
 import { API_URL } from './constants';
-/* eslint-disable-next-line camelcase */
-import jwt_decode from 'jwt-decode';
-
 
 async function login(email, password) {
   return await post('login', { email, password }, false);
@@ -97,6 +94,7 @@ async function updateUserProfile(userId, formValues) {
   return await patch(`students/${userId}`, payload);
 }
 
+
 async function post(endpoint, data, auth = true) {
   return await request('POST', endpoint, data, auth);
 }
@@ -142,6 +140,7 @@ async function request(method, endpoint, data, auth = true) {
 }
 
 
-export { login, getPosts, register, createProfile, get, getUserById, getComments, post, getMyCohortProfiles, patch, put, updateUserProfile };
+
+export { login, getPosts, register, createProfile, get, getUserById, getComments, post, patch, put, getMyCohortProfiles, updateUserProfile };
 
 
