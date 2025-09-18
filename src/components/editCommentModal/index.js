@@ -15,6 +15,7 @@ const EditCommentModal = ({ postText, postId, name, commentId}) => {
   const [text, setText] = useState(postText || '');
   const initials = name?.match(/\b(\w)/g);
 
+  
   const onChange = (e) => {
     setText(e.target.value);
   };
