@@ -59,6 +59,7 @@ const UserIcon = ({ id, initials, firstname, lastname, role}) => {
                         lastname = {lastname} 
                         role = {role}   
                         />
+                        
             </Popup>
             </div> 
     )   

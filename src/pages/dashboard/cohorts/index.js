@@ -4,6 +4,7 @@ import { get } from "../../../service/apiClient"
 import SoftwareLogo from "../../../assets/icons/software-logo"
 import FrontEndLogo from "../../../assets/icons/frontEndLogo"
 import DataAnalyticsLogo from "../../../assets/icons/dataAnalyticsLogo"
+import './style.css';
 
 const Cohorts = () => {
     const [cohorts, setCohorts] = useState(null) 
@@ -13,6 +14,7 @@ const Cohorts = () => {
     async function fetchCohorts() {
         try {
         const response = await get("cohorts");
+        console.log(response)
         setCohorts(response.data.cohorts);
         } catch (error) {
         console.error("Error fetching cohorts:", error);
