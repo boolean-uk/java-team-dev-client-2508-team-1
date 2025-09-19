@@ -65,7 +65,6 @@ function Students() {
             </div>
         </div>
     }
-
     // in cohort-course-date: getCohortsForStudent() or something, make it a dropdown to select which subject to render!!!! we do NOT want to scroll through lots of students to view the next subject's students
     return (
     <Card>
@@ -122,8 +121,6 @@ function Students() {
             </div>
         </div>
         )}
-
-        
 
         <section className="cohort-students-container border-top">
           {students.map((student) => (

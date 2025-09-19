@@ -1,7 +1,6 @@
 import Popup from 'reactjs-popup';
 import './style.css';
 import SeeProfile from '../seeProfile';
-import Popup from 'reactjs-popup';
 const UserIcon = ({ id, initials, firstname, lastname, role}) => {
 
     const styleGuideColors = [
@@ -14,7 +13,6 @@ const UserIcon = ({ id, initials, firstname, lastname, role}) => {
     "#46A0FA", 
     "#666EDC"  
     ];
-
    
     const getColorFromInitials = (initials) => {
     let hash = 0;
@@ -26,11 +24,7 @@ const UserIcon = ({ id, initials, firstname, lastname, role}) => {
     return styleGuideColors[index];
     };
 
-        
-        
     const backgroundColor = getColorFromInitials(initials);
-
-
 
     return (
             <div className="user">

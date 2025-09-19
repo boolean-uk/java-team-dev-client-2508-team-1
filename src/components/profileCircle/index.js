@@ -50,4 +50,4 @@ const CascadingMenu = ({ id }) => {
   );
 };
 
-export default ProfileCircle;
+export {ProfileCircle, CascadingMenu};
