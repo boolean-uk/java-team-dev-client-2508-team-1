@@ -4,7 +4,7 @@ import { getUserById, updateUserProfile } from "../../service/apiClient";
 import useAuth from "../../hooks/useAuth";
 import jwtDecode from "jwt-decode";
 import TextInput from "../../components/form/textInput";
-import ProfileCircle from "../../components/profileCircle";
+import {ProfileCircle} from "../../components/profileCircle";
 import NumberInput from "../../components/form/numberInput";
 
 const EditPage = () => {
