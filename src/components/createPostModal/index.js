@@ -1,16 +1,17 @@
 import { useState } from 'react';
 import useModal from '../../hooks/useModal';
 import useAuth from '../../hooks/useAuth';
+import { usePosts } from '../../context/posts';
 import './style.css';
 import Button from '../button';
 import { post } from '../../service/apiClient';
 import jwtDecode from 'jwt-decode';
 
-
 const CreatePostModal = ({ authorName, onPostAdded }) => {
   // Use the useModal hook to get the closeModal function so we can close the modal on user interaction
   const { closeModal } = useModal();
   const { token } = useAuth();
+  const { addPost } = usePosts();
 
   const [message, setMessage] = useState(null);
   const [text, setText] = useState('');
@@ -19,6 +20,7 @@ const CreatePostModal = ({ authorName, onPostAdded }) => {
   const decodedToken = jwtDecode(token || localStorage.getItem('token')) || {};
   const fullName = `${decodedToken.firstName || decodedToken.first_name || 'Current'} ${decodedToken.lastName || decodedToken.last_name || 'User'}`;
   const initials = fullName?.match(/\b(\w)/g)?.join('') || 'NO';
+  
   const onChange = (e) => {
     setText(e.target.value);
   };
@@ -26,12 +28,10 @@ const CreatePostModal = ({ authorName, onPostAdded }) => {
   const onSubmit = async () => {
     if (!text.trim() || isSubmitting) return;
 
-    setIsSubmitting(false);
-    setMessage('Post created successfully!');
+    setIsSubmitting(true);
+    setMessage('Creating post...');
 
     try {
-
-
       const { userId } = decodedToken;
       
       if (!userId) {
@@ -66,15 +66,18 @@ const CreatePostModal = ({ authorName, onPostAdded }) => {
 
       // Clear the input and show success message
       setText('');
+      setMessage('Post created successfully!');
 
-      // Call the callback to update the parent component
+      // Add the post using context
+      addPost(newPost);
+
+      // Still call the callback if provided for backward compatibility
       if (onPostAdded) {
         onPostAdded(newPost);
       }
 
       // Close modal after short delay
       setTimeout(() => {
-        setMessage('Post is processing!');
         closeModal();
       }, 100);
 
