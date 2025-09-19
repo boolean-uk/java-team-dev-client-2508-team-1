@@ -1,0 +1,93 @@
+main {
+  padding: 30px;
+}
+
+aside {
+  padding: 30px 60px 30px 0;
+}
+
+.create-post-input {
+  display: grid;
+  grid-template-columns: 70px auto;
+}
+
+.create-post-input button {
+  color: var(--color-blue1);
+  font-size: 1rem !important;
+  padding-left: 15px !important;
+  text-align: left !important;
+  max-width: 100% !important;
+  background-color: var(--color-blue5);
+}
+
+
+
+.course-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+  font-size: 20px
+}
+
+.course-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Farger per kurs */
+.software-icon {
+  background: #28C846;
+}
+
+.front-icon {
+  background: #6E6EDC;
+}
+
+.data-icon {
+  background: #46A0FA;
+}
+
+.course-icon svg {
+  width: 30px;
+  height: 30px;
+}
+
+.cohort-name {
+  margin-left: 70px;
+  font-size: 16px;
+  color: #64648C;
+  margin-top: 4px;
+}
+
+.cohort-info {
+  margin-top: 10px;
+}
+
+.course-name {
+  font-size: 20px;
+  font-weight: bold
+}
+
+.student-button {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row; 
+  align-items: center;
+  justify-content: center;
+  width: 199px; 
+  height: 56px; 
+  padding: 14px 24px; 
+  gap: 8px; 
+  border-radius: 8px; 
+  background: #F0F5FA;
+  color: #64648C;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+
+}

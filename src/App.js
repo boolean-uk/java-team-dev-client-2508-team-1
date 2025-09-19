@@ -22,59 +22,64 @@ const App = () => {
       <AuthProvider>
         <FormProvider>
           <UserRoleProvider>
-            <PostsProvider>
-              <CommentsProvider>
-                <ModalProvider>
-                  <Routes>
-                    <Route path="login" element={<Login />} />
-                    <Route path="register" element={<Register />} />
-                    <Route path="loading" element={<Loading />} />
-                    <Route path="verification" element={<Verification />} />
-                    <Route
-                      index
-                      element={
-                        <ProtectedRoute>
-                          <Dashboard />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="welcome"
-                      element={
-                        <ProtectedRoute disabledNav={true}>
-                          <Welcome />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="cohorts"
-                      element={
-                        <ProtectedRoute>
-                          <Cohort />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="profile/:userId"
-                      element={
-                        <ProtectedRoute>
-                          <ProfilePage />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="profile/:userId/edit"
-                      element={
-                        <ProtectedRoute>
-                          <EditPage />
-                        </ProtectedRoute>
-                      }
-                    />
-                  </Routes>
-                </ModalProvider>
-              </CommentsProvider>
-            </PostsProvider>
-          </UserRoleProvider>
+
+        <ModalProvider>
+          <Routes>
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+            <Route path="loading" element={<Loading />} />
+            <Route path="verification" element={<Verification />} />
+            <Route
+              index
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="welcome"
+              element={
+                <ProtectedRoute disabledNav={true}>
+                  <Welcome />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="cohorts"
+              element={
+                <ProtectedRoute>
+                  <Cohort />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="profile"
+              element={
+              <ProtectedRoute>
+                <ProfilePage />
+              </ProtectedRoute>
+              }
+            />
+            <Route
+              path="profile/:id"
+              element={
+                <ProtectedRoute>
+                  <ProfilePage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="profile/:id/edit"
+              element={
+                <ProtectedRoute>
+                  <EditPage />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </ModalProvider>
+        </UserRoleProvider>
         </FormProvider>
       </AuthProvider>
     </>

@@ -1,0 +1,186 @@
+
+.cohort-card {
+  width: 88%;
+  height: 100%;
+  position: absolute;
+  top: 120px;
+  left: 175px;
+  background-color: #FFFFFF;
+  border: 1px solid #E6EBF5;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column; 
+
+  
+}
+
+.cohort-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  border-bottom: 1px solid var(--color-blue5);
+
+}
+
+.header-titles {
+  display: flex;
+  gap: 350px;
+}
+
+.header-titles h3 {
+  font-size: 32px;
+  color: #000046;
+
+}
+
+.search-bar {
+    margin-bottom: 10px;
+}
+
+
+.sections-wrapper {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 80px); /* justerer for header-høyden */
+  width: 100%;
+}
+
+.cohorts-section {
+  position: relative;
+  width: 500px;
+  padding: 24px;
+  border-right: 1px solid var(--color-blue5);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  height: 100%; /* viktig for at linjen skal dekke hele høyden */
+}
+
+.cohort-list {
+  overflow-y: auto;
+  height: 100%;
+  width: 106%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  scrollbar-width: thin;
+}
+
+
+
+.student-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 104%;
+  min-height: 300px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  
+}
+
+.students-section {
+  position: relative;
+  width: 100%;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.students {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+
+
+
+.selected-course {
+  flex: 1; /* tar opp all tilgjengelig plass til venstre */
+}
+
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* mellomrom mellom knapp og ikon */
+}
+
+
+.add-student-button button {
+  height: 56px;
+  width: 300px !important;
+  padding: 0 24px;
+  background-color: #F0F5FA;
+  border: none;
+  color: #64648C;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-sizing: border-box;
+}
+
+
+.edit-icon-course {
+  font-size: 24px;
+  color: #64648C;
+}
+
+
+.add-cohort {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px; /* gir luft mellom knapp og ikon */
+  
+
+}
+
+.add-cohort-button {
+  width: auto;
+  flex-grow: 2;
+}
+
+
+.add-cohort-button button{
+  width: 199px;
+  height: 56px;
+  padding: 14px 24px;
+  gap: 8px; /* hvis du har ikon og tekst inni */
+  border-radius: 8px;
+  background-color: #F0F5FA;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: #64648C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transform: rotate(0deg); /* angle: 0 deg */
+  position: relative; /* ikke absolute med top/left med mindre nødvendig */
+}
+
+
+.edit-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.divider {
+  border-bottom: 1px solid var(--color-blue5);
+  
+}
+

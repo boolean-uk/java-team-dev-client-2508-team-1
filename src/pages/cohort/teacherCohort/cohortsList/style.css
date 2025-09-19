@@ -1,0 +1,71 @@
+
+
+
+.course-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Farger per kurs */
+.software-icon {
+  background: #28C846;
+}
+
+.front-icon {
+  background: #6E6EDC;
+}
+
+.data-icon {
+  background: #46A0FA;
+}
+
+.course-icon svg {
+  width: 30px;
+  height: 30px;
+}
+
+.cohort-name-course {
+  font-size: 16px;
+  color: #64648C;
+  margin-top: 4px;
+  margin-right: 10px;
+}
+
+.cohort-info {
+  margin-top: 10px;
+}
+
+.course-name {
+  font-size: 20px;
+  font-weight: bold;
+  
+}
+
+
+.cohort-course-row {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+  width: 380px;
+  box-sizing: border-box;
+  gap: 12px;
+  margin-bottom: 8px;
+  font-size: 20px
+
+}
+
+.cohort-course-row:hover {
+  background-color: #f0f5fa; /* lys blågrå ved hover */
+}
+
+.cohort-course-row.selected {
+  background-color: #E6EBF5;
+
+}

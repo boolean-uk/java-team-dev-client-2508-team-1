@@ -1,0 +1,7 @@
+
+.menu-left {
+  position: absolute;
+  left: -100px; /* juster avstanden etter behov */
+  top: 0;
+  z-index: 1000;
+}

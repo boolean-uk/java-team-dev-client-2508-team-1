@@ -3,8 +3,8 @@ import './style.css';
 import { NavLink } from 'react-router-dom';
 import ProfileIcon from '../../assets/icons/profileIcon';
 
-const SeeProfile = ({initials, firstname, lastname, role, userId}) => {
-
+const SeeProfile = ({initials, firstname, lastname, role, id}) => {
+  
     return (
         <div className="user-panel">
           <Card>
@@ -22,7 +22,7 @@ const SeeProfile = ({initials, firstname, lastname, role, userId}) => {
             <section className="user-panel-options border-top">
               <ul>
                 <li>
-                  <NavLink to={`/profile/${userId}`}>
+                  <NavLink to={`/profile/${id}`}>
                     <ProfileIcon /> <p>Profile</p>
                   </NavLink>
                 </li>

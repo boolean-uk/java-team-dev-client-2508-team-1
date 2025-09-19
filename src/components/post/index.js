@@ -2,12 +2,17 @@ import { useEffect, useRef, useState } from 'react';
 import Card from '../card';
 import Comment from '../comment';
 import ProfileCircle from '../profileCircle';
+
 import CreateComment from '../createComment';
 import HeartIcon from '../../assets/icons/heartIcon';
 import HeartIconFilled from '../../assets/icons/heartIconFilled';
 import CommentBubbleIcon from '../../assets/icons/commentBubbleIcon';
 import './style.css';
 import { usePosts } from '../../context/posts';
+
+import { del, patch, postTo } from '../../service/apiClient';
+import useAuth from '../../hooks/useAuth';
+import jwtDecode from 'jwt-decode';
 import MenuPost from './dropdown';
 
 const Post = ({ post }) => {
