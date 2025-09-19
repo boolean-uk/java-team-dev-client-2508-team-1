@@ -29,7 +29,7 @@ function Students() {
                 setCohortId(user.cohort.id || "");
 
                 const data = await get(`cohorts/${user.cohort.id}`);
-                const students = data.data.cohort.profiles.filter((userid) => userid?.role?.name === "ROLE_STUDENT");
+                const students = data.data.cohort.profiles.filter((profileid) => profileid?.role?.name === "ROLE_STUDENT");
                 setStudents(students || []);
 
                 const courses = data.data.cohort.cohort_courses;
@@ -129,6 +129,7 @@ function Students() {
           {students.map((student) => (
             <Student
               key={student.id || 0}
+              id ={student.id}
               initials={getInitials(student)}
               firstName={student.firstName}
               lastName={student.lastName}

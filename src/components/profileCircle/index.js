@@ -10,12 +10,12 @@ import Menu from '../menu';
 import MenuItem from '../menu/menuItem';
 import './style.css';
 
-const ProfileCircle = ({ initials, menuVisible }) => {
+const ProfileCircle = ({ id, initials, menuVisible }) => {
   const [isMenuVisible, setIsMenuVisible] = useState(menuVisible || false);
 
   return (
     <div className="profile-circle" onClick={() => setIsMenuVisible(!isMenuVisible)}>
-      {isMenuVisible && <CascadingMenu />}
+      {isMenuVisible && <CascadingMenu id = {id} />}
 
       <div className="profile-icon">
         <p>{initials}</p>
@@ -24,10 +24,10 @@ const ProfileCircle = ({ initials, menuVisible }) => {
   );
 };
 
-const CascadingMenu = () => {
+const CascadingMenu = ({ id }) => {
   return (
     <Menu className="profile-circle-menu">
-      <MenuItem icon={<ProfileIcon />} text="Profile" />
+      <MenuItem icon={<ProfileIcon />} text="Profile" linkTo={`profile/${id}`} />
       <MenuItem icon={<AddIcon />} text="Add note" />
 
       <MenuItem icon={<CohortIcon />} text="Move to cohort">

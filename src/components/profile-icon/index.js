@@ -2,7 +2,7 @@ import './style.css';
 import SeeProfile from '../seeProfile';
 import Popup from 'reactjs-popup';
 
-const UserIcon = ({initials, firstname, lastname, role}) => {
+const UserIcon = ({ id, initials, firstname, lastname, role}) => {
 
     return (
             <div className="user">
@@ -20,6 +20,7 @@ const UserIcon = ({initials, firstname, lastname, role}) => {
                 closeOnDocumentClick
                 arrow={false}>
                 <SeeProfile 
+                        id = {id}
                         initials={initials} 
                         firstname = {firstname} 
                         lastname = {lastname} 
