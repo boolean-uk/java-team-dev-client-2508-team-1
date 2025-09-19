@@ -1,25 +1,41 @@
 import Card from "../../../components/card";
 import './style.css';
 import Teacher from "./teacher";
-import { getMyCohortProfiles } from "../../../service/apiClient";
+import { get, getUserById } from "../../../service/apiClient";
 import { useEffect, useState } from "react";
+import jwtDecode from "jwt-decode";
 
 const Teachers = () => {
 
     const [teachers, setTeachers] = useState([]);
 
     useEffect(() => {
-        async function fetchTeachers() {
+        async function fetchData() {
             try {
-                const data = await getMyCohortProfiles("teacher");
-                setTeachers(data);
+                const token = localStorage.getItem('token');
+                const { userId } = jwtDecode(token);
+                const user = await getUserById(userId);
+                const data = await get(`cohorts/${user.cohort.id}`);
+
+                const teachers = data.data.cohort.profiles.filter((userid) => userid?.role?.name === "ROLE_TEACHER");
+                setTeachers(teachers || []);
             } catch (error) {
                 console.error('fetchTeachers() in cohort/teachers/index.js:', error);
             }
         }
 
-        fetchTeachers();
+        fetchData();
     }, []);
+
+    function getInitials(teacher) {
+        if (!teacher.firstName || !teacher.lastName) return "NA";
+        const firstNameParts = teacher.firstName.trim().split(/\s+/); // split by any number of spaces
+        const lastNameInitial = teacher.lastName.trim().charAt(0);
+        
+        const firstNameInitials = firstNameParts.map(name => name.charAt(0));
+        
+        return (firstNameInitials.join('') + lastNameInitial).toUpperCase();
+    }
 
     return (
         <Card>
@@ -29,8 +45,14 @@ const Teachers = () => {
                 </section>
                 
                 <section className="cohort-teachers-container border-top">
-                    {teachers.map((teacher) => (
-                        <Teacher key={teacher.id} name={teacher.firstName + " " + teacher.lastName} />
+                    {teachers.map((teacher, index) => (
+                        <Teacher 
+                            key={teacher.id || 0} 
+                            initials={getInitials(teacher) || "NA"}
+                            firstName={teacher.firstName || "N/A"}
+                            lastName={teacher.lastName || "N/A"}
+                            role={teacher.specialism || "N/A"}
+                        />
                     ))}
                 </section>
             </article>
