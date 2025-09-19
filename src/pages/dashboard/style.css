@@ -91,3 +91,12 @@ aside {
   font-size: 16px;
 
 }
+
+.people {
+  font-size: 16px;
+  color: #64648C;
+  border-bottom: 1px solid var(--color-blue5);
+  padding: 10px 10px;
+  
+}
+

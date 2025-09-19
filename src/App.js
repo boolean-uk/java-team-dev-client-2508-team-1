@@ -15,6 +15,8 @@ import Cohort from './pages/cohort';
 import ProfilePage from './pages/profile';
 import { UserRoleProvider } from './context/userRole.';
 import EditPage from './pages/edit';
+import SearchPage from './pages/search';
+import { SearchResultsProvider } from './context/searchResults';
 
 const App = () => {
   return (
@@ -22,6 +24,7 @@ const App = () => {
       <AuthProvider>
         <FormProvider>
           <UserRoleProvider>
+           <SearchResultsProvider>
             <PostsProvider>
               <CommentsProvider>
                 <ModalProvider>
@@ -78,10 +81,19 @@ const App = () => {
                         </ProtectedRoute>
                       }
                     />
+                     <Route
+                      path="search/profiles"
+                      element={
+                        <ProtectedRoute>
+                          <SearchPage />
+                        </ProtectedRoute>
+                      }
+                    />
                   </Routes>
                 </ModalProvider>
               </CommentsProvider>
             </PostsProvider>
+           </SearchResultsProvider>
           </UserRoleProvider>
         </FormProvider>
       </AuthProvider>

@@ -24,7 +24,7 @@ const ProfileCircle = ({ id, initials, menuVisible }) => {
   );
 };
 
-const CascadingMenu = ({ id }) => {
+export const CascadingMenu = ({ id }) => {
 
   return (
     <Menu className="profile-circle-menu">
