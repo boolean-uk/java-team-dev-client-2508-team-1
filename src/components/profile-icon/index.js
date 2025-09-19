@@ -2,7 +2,6 @@
 import Popup from 'reactjs-popup';
 import './style.css';
 import SeeProfile from '../seeProfile';
-import Popup from 'reactjs-popup';
 const UserIcon = ({ id, initials, firstname, lastname, role}) => {
 
     const styleGuideColors = [
