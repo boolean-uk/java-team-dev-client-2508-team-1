@@ -14,7 +14,7 @@ const FullScreenCard = () => {
   const { userId } = jwtDecode(token);
   const navigate = useNavigate();
   const { id } = useParams();
-  const targetId = id || userId;
+  const targetId = id ?? userId;
 
   useEffect(() => {
     async function fetchUser() {
@@ -46,6 +46,7 @@ const FullScreenCard = () => {
   const firstname = user.profile.firstName;
   const lastname = user.profile.lastName;
   const name = firstname + " " + lastname;
+  
 
   return (
     <div className="fullscreen-card">
@@ -53,7 +54,8 @@ const FullScreenCard = () => {
         <div> 
           <p className="name-text">{name}</p> 
         </div> 
-        <button className="edit" onClick={goToEdit}>Edit Profile</button> </div>
+          <button className="edit" onClick={goToEdit}>Edit Profile</button> 
+        </div>
       <section className="post-interactions-container border-top"></section>
 
       <ProfileData user={user}/>
