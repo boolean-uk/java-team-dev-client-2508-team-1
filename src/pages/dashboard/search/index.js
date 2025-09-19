@@ -61,13 +61,17 @@ const Search = () => {
                 </form>
 
                 {isOpen && (
-                    <div className="search-results-popup" style={{
-                        position: "relative",
-                        top: "100%",
-                        left: 0,
-                        width: "100%",
-                        zIndex: 20
-                    }}>
+                    <div
+                        ref={popupRef} 
+                        className="search-results-popup"
+                        style={{
+                            position: "relative",
+                            top: "100%",
+                            left: 0,
+                            width: "100%",
+                            zIndex: 20
+                        }}
+                    >
                         <Card>
                             <p className="people">People</p>
                             {results?.length > 0 ? (
@@ -86,12 +90,17 @@ const Search = () => {
                             ) : (
                                 <p>Sorry, no results found</p>
                             )}
-                            <section>
-                                <button onClick={() => navigate("/search/profiles")}>All results</button>
-                            </section>
+
+                       
+                            {results?.length > 10 && (
+                                <section>
+                                    <button onClick={() => navigate("/search/profiles")}>All results</button>
+                                </section>
+                            )}
                         </Card>
                     </div>
                 )}
+
             </div>
         </Card>
     );
