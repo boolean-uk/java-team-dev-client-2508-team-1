@@ -1,0 +1,118 @@
+.edit-profile-form {
+  width: 120%;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  border: 1px solid #e6ebf5;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-profile-form h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.section h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: #444;
+}
+
+.row {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.section {
+  flex: 1;
+  min-width: 300px;
+}
+
+.half {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .half {
+    width: 48%;
+  }
+}
+
+.section > *:not(h3):not(.photo-placeholder):not(.char-count) {
+  margin-bottom: 1.5rem;
+}
+
+.photo-placeholder {
+  width: 80px;
+  height: 80px;
+  background-color: #ddd;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 0.6rem;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+  background-color: #fff;
+}
+
+.char-count {
+  text-align: right;
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: -1rem;
+  margin-bottom: 1.5rem;
+}
+
+.save-button {
+  align-self: flex-end;
+  background-color: #0077cc;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.save-button:hover {
+  background-color: #005fa3;
+}
+
+.bio-area {
+  background-color: #e6ebf5
+}
+
+.save {
+  background-color: var(--color-blue);
+  color: white
+}
+
+.cancel {
+  background-color: var(--color-blue5);
+}
+
+.bottom-buttons {
+  display: flex;
+  justify-content: flex-end; 
+  gap: 10px; 
+  padding: 20px;
+}

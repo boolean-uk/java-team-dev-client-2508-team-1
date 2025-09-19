@@ -1,11 +1,9 @@
-import SeeProfile from '../seeProfile';
-import './style.css';
+
 import Popup from 'reactjs-popup';
-
-
-const UserIcon = ({ initials, firstname, lastname, role }) => {
-
-
+import './style.css';
+import SeeProfile from '../seeProfile';
+import Popup from 'reactjs-popup';
+const UserIcon = ({ id, initials, firstname, lastname, role}) => {
 
     const styleGuideColors = [
     "#28C846", 
@@ -60,9 +58,9 @@ const UserIcon = ({ initials, firstname, lastname, role }) => {
                  
                 } position="left center"
                 closeOnDocumentClick
-                arrow={false}
-                >
+                arrow={false}>
                 <SeeProfile 
+                        id = {id}
                         initials={initials} 
                         firstname = {firstname} 
                         lastname = {lastname} 

@@ -6,11 +6,13 @@ import jwtDecode from 'jwt-decode';
 import { getUserById } from '../../service/apiClient';
 import ProfileCircle from '../profileCircle';
 import '../../pages/loading';
+import { useNavigate } from 'react-router-dom';
 
 const FullScreenCard = () => {
   const [user, setUser] = useState(null);
   const { token } = useAuth();
   const { userId } = jwtDecode(token);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchUser() {
@@ -24,7 +26,9 @@ const FullScreenCard = () => {
     fetchUser();
   }, [userId]);
 
-  console.log(user)
+  const goToEdit = () => {
+    navigate(`/profile/${userId}/edit`);
+  };
 
   if (!user || !user.profile) {
     return <div>
@@ -47,15 +51,10 @@ const FullScreenCard = () => {
         <div> 
           <p className="name-text">{name}</p> 
         </div> 
-        <button className="edit">Edit Profile</button> </div>
+        <button className="edit" onClick={goToEdit}>Edit Profile</button> </div>
       <section className="post-interactions-container border-top"></section>
 
       <ProfileData user={user}/>
-      <div className="bottom-buttons">
-        <button className="cancel">Cancel</button>
-        <br></br><br></br>
-        <button className="save">Save</button>
-      </div>
     </div>
   );
 };

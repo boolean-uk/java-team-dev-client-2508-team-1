@@ -14,6 +14,7 @@ import ProfilePage from './pages/profile';
 import { UserRoleProvider } from './context/userRole.';
 import ProfileData from './pages/profile/profile-data';
 import FullScreenCard from './components/fullscreenCard';
+import EditPage from './pages/edit';
 
 const App = () => {
   return (
@@ -56,6 +57,14 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <ProfilePage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="profile/:userId/edit"
+              element={
+                <ProtectedRoute>
+                  <EditPage />
                 </ProtectedRoute>
               }
             />
