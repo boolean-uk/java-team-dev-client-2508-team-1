@@ -7,6 +7,8 @@ import Loading from './pages/loading';
 import Verification from './pages/verification';
 import { AuthProvider, ProtectedRoute } from './context/auth';
 import { ModalProvider } from './context/modal';
+import { PostsProvider } from './context/posts';
+import { CommentsProvider } from './context/comments';
 import Welcome from './pages/welcome';
 import { FormProvider } from './context/form';
 import Cohort from './pages/cohort';
@@ -21,66 +23,78 @@ const App = () => {
     <>
       <AuthProvider>
         <FormProvider>
-        <UserRoleProvider>
-        <SearchResultsProvider>
-        <ModalProvider>
-          <Routes>
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
-            <Route path="loading" element={<Loading />} />
-            <Route path="verification" element={<Verification />} />
-            <Route
-              index
-              element={
-                <ProtectedRoute>
-                  <Dashboard />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="welcome"
-              element={
-                <ProtectedRoute disabledNav={true}>
-                  <Welcome />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="cohorts"
-              element={
-                <ProtectedRoute>
-                  <Cohort />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="profile/:userId"
-              element={
-                <ProtectedRoute>
-                  <ProfilePage />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="profile/:userId/edit"
-              element={
-                <ProtectedRoute>
-                  <EditPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="search/profiles"
-              element={
-                <ProtectedRoute>
-                  <SearchPage />
-                </ProtectedRoute>
-              }
-            />
-          </Routes>
-        </ModalProvider>
-        </SearchResultsProvider>
-        </UserRoleProvider>
+          <UserRoleProvider>
+           <SearchResultsProvider>
+            <PostsProvider>
+              <CommentsProvider>
+                <ModalProvider>
+                  <Routes>
+                    <Route path="login" element={<Login />} />
+                    <Route path="register" element={<Register />} />
+                    <Route path="loading" element={<Loading />} />
+                    <Route path="verification" element={<Verification />} />
+                    <Route
+                      index
+                      element={
+                        <ProtectedRoute>
+                          <Dashboard />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="welcome"
+                      element={
+                        <ProtectedRoute disabledNav={true}>
+                          <Welcome />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="cohorts"
+                      element={
+                        <ProtectedRoute>
+                          <Cohort />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="profile"
+                      element={
+                      <ProtectedRoute>
+                        <ProfilePage />
+                      </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="profile/:id"
+                      element={
+                        <ProtectedRoute>
+                          <ProfilePage />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="profile/:id/edit"
+                      element={
+                        <ProtectedRoute>
+                          <EditPage />
+                        </ProtectedRoute>
+                      }
+                    />
+                     <Route
+                      path="search/profiles"
+                      element={
+                        <ProtectedRoute>
+                          <SearchPage />
+                        </ProtectedRoute>
+                      }
+                    />
+                  </Routes>
+                </ModalProvider>
+              </CommentsProvider>
+            </PostsProvider>
+           </SearchResultsProvider>
+          </UserRoleProvider>
         </FormProvider>
       </AuthProvider>
     </>

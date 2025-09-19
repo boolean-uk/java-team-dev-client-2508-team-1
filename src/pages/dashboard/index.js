@@ -16,11 +16,25 @@ import Search from './search';
 const Dashboard = () => {
   const onPostAddedRef = useRef(null);
   const { token } = useAuth();
-  const decodedToken = jwtDecode(token || localStorage.getItem('token')) || {};
+  
+  // Safely decode token with fallback
+  let decodedToken = {};
+  try {
+    if (token || localStorage.getItem('token')) {
+      decodedToken = jwtDecode(token || localStorage.getItem('token')) || {};
+    }
+  } catch (error) {
+    console.error('Invalid token in Dashboard:', error);
+  }
+  
   const fullName = `${decodedToken.firstName || decodedToken.first_name || 'Current'} ${decodedToken.lastName || decodedToken.last_name || 'User'}`;
   const initials = fullName?.match(/\b(\w)/g)?.join('') || 'NO';
-  const  { userRole } = useUserRoleData();
-
+  const  { userRole, setUserRole } = useUserRoleData();
+  setUserRole(decodedToken.roleId)
+  
+  const onChange = (e) => {
+    setSearchVal(e.target.value);
+  };
 
 
   // Use the useModal hook to get the openModal and setModal functions

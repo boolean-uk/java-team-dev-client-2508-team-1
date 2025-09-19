@@ -1,20 +1,13 @@
 import { useState, useRef, useEffect } from 'react';
-import { CascadingMenuPost } from './menu';
-import { usePosts } from '../../../context/posts';
+import CascadingMenuCohort from './cascadingMenuCohort';
+import './style.css';
 
-const MenuPost = ({ menuVisible, postText, postId, name, onPostDeleted, commentText, commentId, post }) => {
+
+const EditIconCohortTeacher = ({ initials, menuVisible }) => {
   const [isMenuVisible, setIsMenuVisible] = useState(menuVisible || false);
   const menuRef = useRef(null);
-  const { deletePost } = usePosts();
 
-  const handlePostDeleted = async () => {
-    const success = await deletePost(postId);
-    if (success && onPostDeleted) {
-      onPostDeleted(postId);
-    }
-  };
-
-  // Close menu when clicking outside
+  // Lukk meny ved klikk utenfor
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -30,9 +23,7 @@ const MenuPost = ({ menuVisible, postText, postId, name, onPostDeleted, commentT
 
   return (
     <div ref={menuRef} className="edit-icon-wrapper">
-   <div className="icon-button" onClick={() => {
-    setIsMenuVisible(!isMenuVisible);
-   }}>
+   <div className="icon-button" onClick={() => setIsMenuVisible(!isMenuVisible)}>
      <span className="dots">
     <span className="dot">•</span>
     <span className="dot">•</span>
@@ -40,7 +31,7 @@ const MenuPost = ({ menuVisible, postText, postId, name, onPostDeleted, commentT
   </span>
   </div>
   <div className='menu-left'> 
-  {isMenuVisible && <CascadingMenuPost postText={postText} comment postId={postId} name={name} isMenuVisible={isMenuVisible} setIsMenuVisible={setIsMenuVisible} onPostDeleted={handlePostDeleted} />}
+  {isMenuVisible && <CascadingMenuCohort />}
   </div>
 </div>
 
@@ -48,4 +39,4 @@ const MenuPost = ({ menuVisible, postText, postId, name, onPostDeleted, commentT
   );
 };
 
-export default MenuPost;
+export default EditIconCohortTeacher;

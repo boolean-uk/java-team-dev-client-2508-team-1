@@ -1,42 +1,38 @@
-.user {
+.course {
     display: flex;
     align-items: center; 
     padding: 8px 12px;
     gap: 12px;
+    margin-bottom: -23px;
 }
 
-.user-info {
+.course-info {
   display: flex;
   flex-direction: column;
   flex: 1 1 auto; 
-  min-width: 0;   
-}
-
-.profile-circle{
-    min-width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  min-width: 0;     
 }
 
 
-.user-name {
+.course-title {
   margin: 0;
-  font-size: 20px;
   font-weight: 600;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color:#000046;
+  font-size: 20px;
+  color: #000046;
 
 } 
 
-.user-role {
-  font-size: 16px;  
-  color:#64648C
+.pop-up {
+    position: absolute;
+    top: 100%;    /* under .edit-icon */
+    right: 0;     /* høyrejustert med ikonet */
+    margin-top: 8px;
+    z-index: 100;
 }
+
 
 .edit-icon-wrapper {
   position: relative;
@@ -44,8 +40,8 @@
 }
 
 .icon-button {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   margin-top: 4px;
   margin-left: 4px;
   background-color: #F0F5FA;
@@ -67,11 +63,4 @@
 
 .dot {
   line-height: 1;
-}
-
-.menu-left {
-  position: absolute;
-  left: -500px; /* juster avstanden etter behov */
-  top: 0;
-  z-index: 1000;
 }

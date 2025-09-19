@@ -14,7 +14,6 @@ const UserIcon = ({ id, initials, firstname, lastname, role}) => {
     "#46A0FA", 
     "#666EDC"  
     ];
-
    
     const getColorFromInitials = (initials) => {
     let hash = 0;
@@ -26,11 +25,7 @@ const UserIcon = ({ id, initials, firstname, lastname, role}) => {
     return styleGuideColors[index];
     };
 
-        
-        
     const backgroundColor = getColorFromInitials(initials);
-
-
 
     return (
             <div className="user">
@@ -65,6 +60,7 @@ const UserIcon = ({ id, initials, firstname, lastname, role}) => {
                         lastname = {lastname} 
                         role = {role}   
                         />
+                        
             </Popup>
             </div> 
     )   

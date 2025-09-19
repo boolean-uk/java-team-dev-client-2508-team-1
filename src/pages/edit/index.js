@@ -6,11 +6,23 @@ import jwtDecode from "jwt-decode";
 import TextInput from "../../components/form/textInput";
 import ProfileCircle from "../../components/profileCircle";
 import NumberInput from "../../components/form/numberInput";
+import { validatePassword, validateEmail } from '../register'
+
 
 const EditPage = () => {
     const [formData, setFormData] = useState([]);
     const { token } = useAuth();
-    const { userId } = jwtDecode(token) 
+    
+    // Safely decode token with fallback
+    let userId;
+    try {
+        const decodedToken = jwtDecode(token || localStorage.getItem('token'));
+        userId = decodedToken?.userId;
+    } catch (error) {
+        console.error('Invalid token:', error);
+        userId = null;
+    }
+    
     const [formValues, setFormValues] = useState({
         photo: "",
         firstName: "",
@@ -22,6 +34,10 @@ const EditPage = () => {
         password: "",
         bio: "",
     });
+    const [showPasswordFields, setShowPasswordFields] = useState(false);
+    const [newPassword, setNewPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+
 
     useEffect(() => {
         async function fetchUser() {
@@ -74,40 +90,58 @@ const EditPage = () => {
           default:
             return role; 
         }
-      };
+    };
     
-      const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormValues((prev) => ({
-          ...prev,
-          [name]: value,
-        }));
-      };
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+      setFormValues((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    };
+
+    const togglePasswordFields = () => {
+      setShowPasswordFields((prev) => !prev);
+    };
 
     const handleSave = async (e) => {
-        e.preventDefault();
-        try {
-            await updateUserProfile(userId, formValues);
-            alert("Profile updated successfully!");
-        } 
-        catch (error) {
-            console.error("Failed to update profile:", error);
-            alert("Something went wrong while saving.");
+      e.preventDefault();
+    
+      if (!validateEmail(formValues.email)) {
+        return;
+      }
+
+      if (showPasswordFields) {
+        const isValidFormat = validatePassword(newPassword);
+        if (!isValidFormat) return; 
+    
+        if (newPassword !== confirmPassword) {
+          alert("The passwords do not match.");
+          return;
         }
-    }
-
-    console.log()
-
+      }
+    
+      const updatedValues = {
+        ...formValues,
+        password: showPasswordFields ? newPassword : "",
+      };
+    
+      try {
+        await updateUserProfile(userId, updatedValues);
+        alert("Profile is updated!");
+      } catch (error) {
+        console.error("Error by update:", error);
+        alert("Something went wrong by the update.");
+      }
+    };
+  
     return (
         <>
           <main>
             <h2>Profile</h2>
             <form className="edit-profile-form">
               <div className="top-bar">
-                <ProfileCircle initials={name.split(" ").map((n) => n[0]).join("").toUpperCase()} />
-                <div>
-                  <p className="name-text">{name}</p>
-                </div>
+                <ProfileCircle initials={name.split(" ").map((n) => n[0]).join("").toUpperCase()} /><p className="name-text">{name}</p>
               </div>
               <section className="post-interactions-container border-top"></section>
       
@@ -193,11 +227,26 @@ const EditPage = () => {
                     placeholder={'Enter mobile number'}
                     required
                     />
-                  <TextInput 
-                    name="password" 
-                    label="Password" 
-                    value="" onChange={handleChange} 
+                  {!showPasswordFields ? (
+                    <button type="button" className="change-password-button" onClick={togglePasswordFields}>
+                      Change password
+                    </button>
+                  ) : (
+                    <>
+                    <TextInput
+                      name="newPassword"
+                      label="New password"
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
                     />
+                    <TextInput
+                      name="confirmPassword"
+                      label="Confirm"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                    />
+                    </>
+                  )}
                 </section>
       
                 <section className="section half">
