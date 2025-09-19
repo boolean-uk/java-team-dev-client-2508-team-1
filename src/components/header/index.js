@@ -3,7 +3,7 @@ import useAuth from '../../hooks/useAuth';
 import './style.css';
 import Card from '../card';
 import ProfileIcon from '../../assets/icons/profileIcon';
-import CogIcon from '../../assets/icons/cogIcon';
+import CogIcon from '../../assets/icons/EditIcon';
 import LogoutIcon from '../../assets/icons/logoutIcon';
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
