@@ -55,7 +55,7 @@ const Cohort = () => {
                 }
                 
                 const user = await getUserById(userId);
-                const data = await get(`cohorts/${user.cohort.id}`);
+                const data = await get(`cohorts/${user.profile.cohort.id}`);
 
                 // set cohort
                 const cohort = data.data.cohort;
