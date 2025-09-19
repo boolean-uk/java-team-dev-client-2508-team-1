@@ -1,53 +1,47 @@
 import { useEffect, useRef, useState } from 'react';
-import useModal from '../../hooks/useModal';
 import Card from '../card';
 import Comment from '../comment';
-import EditPostModal from '../editPostModal';
-import {ProfileCircle} from '../profileCircle';
+import ProfileCircle from '../profileCircle';
+
 import CreateComment from '../createComment';
 import HeartIcon from '../../assets/icons/heartIcon';
 import HeartIconFilled from '../../assets/icons/heartIconFilled';
 import CommentBubbleIcon from '../../assets/icons/commentBubbleIcon';
 import './style.css';
+import { usePosts } from '../../context/posts';
+
 import { del, patch, postTo } from '../../service/apiClient';
 import useAuth from '../../hooks/useAuth';
 import jwtDecode from 'jwt-decode';
 import MenuPost from './dropdown';
 
-const Post = ({ post, user }) => {
-  const { openModal, setModal } = useModal();
+const Post = ({ post }) => {
+  const { getUserLikedPosts, toggleLike } = usePosts();
   const commentInputRef = useRef(null);
   const [localComments, setLocalComments] = useState((post.comments || []).reverse());
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(post.likesCount || post.likes || 0);
   const [isAnimating, setIsAnimating] = useState(false);
-  const { token } = useAuth();
-  const decodedToken = jwtDecode(token || localStorage.getItem('token')) || {};
 
   const authorName = post.user.profile
     ? `${post.user.profile.firstName || 'Unknown'} ${post.user.profile.lastName || 'User'}`
     : 'Unknown User';
   const userInitials = authorName.match(/\b(\w)/g);
 
-  const showModal = () => {
-    setModal('Edit post', <EditPostModal postText={post.content} postId={post.id} name={authorName} />);
-    openModal();
-  };
-
-
   const isLikedInitial = () => {
-    if (!user || !Array.isArray(user)) {
+    const likedPosts = getUserLikedPosts();
+    if (!Array.isArray(likedPosts)) {
       setIsLiked(false);
       return;
     }
     
-    const liked = user.some((likedPost) => likedPost.id === post.id);
+    const liked = likedPosts.some((likedPost) => likedPost.id === post.id);
     setIsLiked(liked);
   };
 
   useEffect(() => {
     isLikedInitial();
-  }, [user, post.id]); // Add dependencies to re-run when user data changes
+  }, [post.id]); // Remove user dependency since we get it from context
 
   const formatDate = (dateString) => {
     if (!dateString) return 'Unknown date';
@@ -87,6 +81,11 @@ const Post = ({ post, user }) => {
     setLocalComments(prevComments => [...prevComments, newComment]);
   };
 
+  const handleCommentDeleted = (deletedCommentId) => {
+    // Remove the deleted comment from the local state
+    setLocalComments(prevComments => prevComments.filter(comment => comment.id !== deletedCommentId));
+  };
+
   const handleLikeClick = async () => {
     // Trigger animation
     setIsAnimating(true);
@@ -105,34 +104,17 @@ const Post = ({ post, user }) => {
     }, 300);
 
     try {
-      await setBackendLikeState(!previousLikedState);
+      const success = await toggleLike(post.id, !previousLikedState);
+      if (!success) {
+        // Revert optimistic updates on error
+        setIsLiked(previousLikedState);
+        setLikeCount(previousLikeCount);
+      }
     } catch (error) {
       // Revert optimistic updates on error
       setIsLiked(previousLikedState);
       setLikeCount(previousLikeCount);
       console.error('Failed to update like state:', error);
-    }
-  };
-
-  const setBackendLikeState = async (currentlyLiked) => {
-    try {
-      let results = null;
-      
-      if (currentlyLiked) {
-        results = await postTo(`posts/${post.id}/like`);
-      } else {
-        results = await del(`posts/${post.id}/like`);
-      }
-      
-      // Update user's liked posts
-      const person = await patch(`users/${decodedToken.userId}/like`, {post_id: post.id});
-      
-      console.log('Like state update successful:', results);
-      console.log('User like list updated:', person.data.user.posts);
-      
-    } catch (error) {
-      console.error('Error updating like state:', error);
-      throw error; // Re-throw to allow error handling in handleLikeClick
     }
   };
 
@@ -150,7 +132,7 @@ const Post = ({ post, user }) => {
           </div>
           
           {/* <button className="post__menu" aria-label="Post options" onClick={showModal}> */}
-            <MenuPost postText={post.content} postId={post.id} name={authorName} />
+            <MenuPost postText={post.content} postId={post.id} name={authorName} post={post} />
             {/* <span>•••</span> */}
           {/* </button> */}
         </header>
@@ -197,6 +179,7 @@ const Post = ({ post, user }) => {
                 content={comment.body}
                 postId={post.id}
                 commentId={comment.id}
+                onCommentDeleted={handleCommentDeleted}
               />
             );
           })}

@@ -1,0 +1,39 @@
+/* Comment dropdown menu styles */
+.comment .edit-icon-wrapper {
+  position: relative;
+  margin-left: auto;
+}
+
+.comment .icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.comment .icon-button:hover {
+  background-color: var(--color-blue5);
+}
+
+.comment .dots {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.comment .dot {
+  width: 4px;
+  height: 4px;
+  background-color: var(--color-blue1);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.comment .menu-left {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 10;
+}

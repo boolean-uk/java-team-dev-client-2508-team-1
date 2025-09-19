@@ -7,6 +7,8 @@ import Loading from './pages/loading';
 import Verification from './pages/verification';
 import { AuthProvider, ProtectedRoute } from './context/auth';
 import { ModalProvider } from './context/modal';
+import { PostsProvider } from './context/posts';
+import { CommentsProvider } from './context/comments';
 import Welcome from './pages/welcome';
 import { FormProvider } from './context/form';
 import Cohort from './pages/cohort';
@@ -20,6 +22,7 @@ const App = () => {
       <AuthProvider>
         <FormProvider>
           <UserRoleProvider>
+
         <ModalProvider>
           <Routes>
             <Route path="login" element={<Login />} />

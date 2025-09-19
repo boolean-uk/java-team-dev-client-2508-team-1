@@ -1,18 +1,20 @@
 import { forwardRef, useState } from 'react';
 import useAuth from '../../hooks/useAuth';
-import { post } from '../../service/apiClient';
+import { useComments } from '../../context/comments';
 import jwtDecode from 'jwt-decode';
 import SendIcon from '../../assets/icons/sendIcon';
 import './style.css';
 
 const CreateComment = forwardRef(({ postId, onCommentAdded }, ref) => {
   const { token } = useAuth();
+  const { addComment } = useComments();
   const [message, setMessage] = useState(null);
   const [text, setText] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const decodedToken = jwtDecode(token || localStorage.getItem('token')) || {};
   const fullName = `${decodedToken.firstName || decodedToken.first_name || 'Current'} ${decodedToken.lastName || decodedToken.last_name || 'User'}`;
   const initials = fullName?.match(/\b(\w)/g)?.join('') || 'NO';
+  
   const onChange = (e) => {
     setText(e.target.value);
   };
@@ -23,7 +25,6 @@ const CreateComment = forwardRef(({ postId, onCommentAdded }, ref) => {
 
     setIsSubmitting(true);
     try {
-      const decodedToken = jwtDecode(token || localStorage.getItem('token')) || {};
       const { userId } = decodedToken;
       
       if (!userId) {
@@ -32,7 +33,7 @@ const CreateComment = forwardRef(({ postId, onCommentAdded }, ref) => {
         return;
       }
 
-      const response = await post(`posts/${String(postId)}/comments`, { body: text, userId });
+      const response = await addComment(postId, { body: text, userId });
       console.log('Comment created successfully:', response);
       
       // Store the comment text before clearing
@@ -43,7 +44,6 @@ const CreateComment = forwardRef(({ postId, onCommentAdded }, ref) => {
       setMessage('Comment posted successfully!');
       
       // Create a properly structured comment object for immediate display
-      // Try to get user info from token, fallback to defaults
       const firstName = decodedToken.firstName || decodedToken.first_name || 'Current';
       const lastName = decodedToken.lastName || decodedToken.last_name || 'User';
       
