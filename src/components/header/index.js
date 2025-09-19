@@ -7,10 +7,17 @@ import CogIcon from '../../assets/icons/cogIcon';
 import LogoutIcon from '../../assets/icons/logoutIcon';
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
+import jwtDecode from 'jwt-decode';
+
 
 const Header = () => {
   const { token, onLogout } = useAuth();
   const [isMenuVisible, setIsMenuVisible] = useState(false);
+  
+  const decodedToken = jwtDecode(token || localStorage.getItem('token')) || {};
+  const fullName = `${decodedToken.firstName || decodedToken.first_name || 'Current'} ${decodedToken.lastName || decodedToken.last_name || 'User'}`;
+  const initials = fullName?.match(/\b(\w)/g)?.join('') || 'NO';
+
 
   const onClickProfileIcon = () => {
     setIsMenuVisible(!isMenuVisible);
@@ -20,12 +27,20 @@ const Header = () => {
     return null;
   }
 
+  let userIdFromToken = null;
+  try {
+    const decoded = jwtDecode(token);
+    userIdFromToken = decoded.userId;
+  } catch (err) {
+    console.error("Error when decoding by header", err);
+  }
+
   return (
     <header className="app-header">
       <FullLogo textColour="white" />
 
       <div className="profile-icon" onClick={onClickProfileIcon}>
-        <p>AJ</p>
+        <p>{initials}</p>
       </div>
 
       {isMenuVisible && (
@@ -33,11 +48,11 @@ const Header = () => {
           <Card>
             <section className="post-details">
               <div className="profile-icon">
-                <p>AJ</p>
+                <p>{initials}</p>
               </div>
 
               <div className="post-user-name">
-                <p>Alex Jameson</p>
+                <p>{fullName}</p>
                 <small>Software Developer, Cohort 3</small>
               </div>
             </section>
@@ -45,7 +60,7 @@ const Header = () => {
             <section className="user-panel-options border-top">
               <ul>
                 <li>
-                  <NavLink to="/profile">
+                  <NavLink to={`/profile/${userIdFromToken}`} >
                     <ProfileIcon /> <p>Profile</p>
                   </NavLink>
                 </li>

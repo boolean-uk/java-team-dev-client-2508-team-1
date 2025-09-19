@@ -25,6 +25,7 @@ const ProfileCircle = ({ id, initials, menuVisible }) => {
 };
 
 const CascadingMenu = ({ id }) => {
+
   return (
     <Menu className="profile-circle-menu">
       <MenuItem icon={<ProfileIcon />} text="Profile" linkTo={`profile/${id}`} />

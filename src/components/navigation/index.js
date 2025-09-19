@@ -14,18 +14,25 @@ import NotesIconFilled from '../../assets/icons/notesIconFilled';
 import NotesIcon from '../../assets/icons/notesIcon';
 import LogsIconFilled from '../../assets/icons/logsIconFilled';
 import LogsIcon from '../../assets/icons/logsIcon';
+import jwtDecode from 'jwt-decode';
+import { useUserRoleData } from '../../context/userRole.';
 
 const Navigation = () => {
   const { token } = useAuth();
   const [active, setActive] = useState(1)
-  const [role, setRole] = useState("teacher") // midlertidig
+  const{userRole} = useUserRoleData()
   
   if (!token) {
-    setRole("student")  // midlertidig for å unngå kompileringsfeil
     return null;
   }
 
- 
+  let userIdFromToken = null;
+  try {
+    const decoded = jwtDecode(token);
+    userIdFromToken = decoded.userId;
+  } catch (err) {
+    console.error("Error when decoding by navigation", err);
+  }
 
   return (
     <nav>
@@ -39,12 +46,12 @@ const Navigation = () => {
         </NavLink>
         </li>
        <li>
-          <NavLink to="/profile"
+          <NavLink to={`/profile/${userIdFromToken}`}
            className={() => active === 2 ? "nav-item active" : "nav-item"}
             onClick={() => setActive(2)}>
               {active === 2 ? (<ProfileIconFilled/>) : (<ProfileIcon colour/>)}
                    <p>Profile</p>
-             </NavLink>
+          </NavLink>
         </li>
         <li>
           <NavLink to="/cohorts"
@@ -54,7 +61,7 @@ const Navigation = () => {
             <p>Cohort</p>
           </NavLink>
         </li>
-        <li className={role === "student" ? "no-line" : "border-line"}>
+        <li className={userRole === 2 ? "no-line" : "border-line"}>
           <NavLink to="/"
           className={() => active === 4 ? "nav-item active" : "nav-item"}
           onClick={() => setActive(4)}>
@@ -63,7 +70,7 @@ const Navigation = () => {
           </NavLink>
         </li>
 
-        {role === "teacher" ? (
+        {userRole === 1 ? (
           <>
           <li>
             <NavLink to="/"
