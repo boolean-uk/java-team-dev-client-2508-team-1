@@ -5,7 +5,7 @@ import ProfileData from '../../pages/profile/profile-data';
 import useAuth from '../../hooks/useAuth';
 import jwtDecode from 'jwt-decode';
 import { getUserById } from '../../service/apiClient';
-import {ProfileCircle} from '../profileCircle';
+import ProfileCircle from '../../components/profileCircle';
 import '../../pages/loading';
 
 const FullScreenCard = () => {
