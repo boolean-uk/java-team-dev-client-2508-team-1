@@ -12,8 +12,7 @@ import { FormProvider } from './context/form';
 import Cohort from './pages/cohort';
 import ProfilePage from './pages/profile';
 import { UserRoleProvider } from './context/userRole.';
-import ProfileData from './pages/profile/profile-data';
-import FullScreenCard from './components/fullscreenCard';
+import EditPage from './pages/edit';
 
 const App = () => {
   return (
@@ -52,10 +51,26 @@ const App = () => {
               }
             />
             <Route
-              path="profile/:userId"
+              path="profile"
+              element={
+              <ProtectedRoute>
+                <ProfilePage />
+              </ProtectedRoute>
+              }
+            />
+            <Route
+              path="profile/:id"
               element={
                 <ProtectedRoute>
                   <ProfilePage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="profile/:id/edit"
+              element={
+                <ProtectedRoute>
+                  <EditPage />
                 </ProtectedRoute>
               }
             />

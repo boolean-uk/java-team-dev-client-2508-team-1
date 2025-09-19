@@ -3,25 +3,23 @@
   row-gap: 20px;
 }
 
-.cohort-details {
+
+/* FOR THE COURSE AND DATE SECTON */
+.cohort-course-date-wrapper {
   display: grid;
-  grid-template-columns: 56px auto 48px;
+  grid-template-columns: 56px 1fr 144px;
+  align-items: center;
   column-gap: 20px;
+  padding: 15px;
+  background: #fff;
 }
 
 .cohort-course-date {
-  display: grid;
-  grid-template-columns: 56px 1fr;
-  grid-template-rows: auto auto;
-  gap: 0.5rem;
+  display: flex;
   align-items: center;
+  gap: 1rem;
 }
 
-.specialism-circle {
-  position: relative;
-  grid-column: 1 / span 2;
-  grid-row: 1 / span 2;
-}
 
 .cohort-title {
   grid-column: 2;
@@ -38,13 +36,7 @@
   grid-row: 2;
 }
 
-.student-name {
-  padding-top: 4px;
-}
-.cohort-dates small {
-  color: #64648c;
-}
-
+/* FOR THE EDIT ICON!! DONT KNOW WHY BUT WE NEED IT */
 .edit-icon {
   border-radius: 50%;
   width: 40px;
@@ -57,15 +49,16 @@
   font-size: 20px;
 }
 
+.edit-icon:hover {
+  background: #e1e8ef;
+  cursor: pointer;
+}
+
+/* FOR THE STUDENTS COLUMNS */
 .cohort-students-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
-}
-
-.cohort-course {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
 }
 
 .student-details {
@@ -80,7 +73,43 @@
 }
 
 .border-top {
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #e6ebf5;
     padding-top: 20px;
     padding-bottom: 10px;
+}
+
+/* FOR THE COURSE ICONS */
+.software-icon {
+  background: #28C846;
+}
+
+.front-icon {
+  background: #6E6EDC;
+}
+
+.data-icon {
+  background: #46A0FA;
+}
+
+.course-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* FOR THE COURSE NAV BUTTONS */
+.course-nav-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.course-nav-buttons button {
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.course-nav-buttons button:hover {
+  background-color: #e1e8ef;
 }

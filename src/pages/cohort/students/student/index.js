@@ -1,17 +1,18 @@
-import ProfileCircle from "../../../../components/profileCircle";
+import UserIcon from "../../../../components/profile-icon";
 
-const Student = ({ name }) => {
-    
+const Student = ({ id, initials, firstName, lastName, role }) => {
+  console.log("student", id)
     return (
-    <>
-    <div className="student-details">
-      <div>
-        {<ProfileCircle initials={name.split(" ").map((n)=>n[0]).join("").toUpperCase()}/>}
+      <>
+      <div className="user-icon">
+          <UserIcon 
+            id={id}
+            initials={initials}
+            firstname={firstName}
+            lastname={lastName}
+            role={role}
+          />
       </div>
-      <div>
-        <p>{name}</p>
-      </div>
-    </div>
     </>
   );
 };

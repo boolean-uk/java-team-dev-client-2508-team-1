@@ -1,85 +1,90 @@
-import { useEffect, useState } from "react";
 import Card from "../../../components/card";
 import Student from "./student";
 import './students.css';
-import { getMyCohortProfiles, getUserById } from "../../../service/apiClient";
-import { SoftwareIcon } from "../../../assets/icons/specialismIcon";
-import jwtDecode from "jwt-decode";
-
-function Students() {
-    const [students, setStudents] = useState([]);
-    const [course, setCourse] = useState("");
-    const [cohortId, setCohortId] = useState("");
-
-    useEffect(() => {
-        async function fetchStudents() {
-            try {
-                const data = await getMyCohortProfiles("student");
-                setStudents(data);
-            } catch (error) {
-                console.error('fetchStudents() in cohort/students/index.js:', error);
-            }
-        }
-
-        async function fetchCourse() {
-            try {
-                const token = localStorage.getItem("token");
-                const { userId } = jwtDecode(token);
-
-                const data = await getUserById(userId);
-                setCourse(data.profile.cohort.cohort_courses[0].name);
-            } catch (error) {
-                console.error('fetchCourse() in cohort/students/index.js:', error);
-            }
-        }
-
-        async function fetchCohortId() {
-            try {
-                const token = localStorage.getItem("token");
-                const { userId } = jwtDecode(token);
-                const data = await getUserById(userId);
-
-                setCohortId(data.profile.cohort.id);
-            } catch (error) {
-                console.error('fetchCourse() in cohort/students/index.js:', error);
-            }
-        }
-
-        fetchStudents();
-        fetchCourse();
-        fetchCohortId();
-    }, []);
+import SoftwareLogo from "../../../assets/icons/software-logo";
+import FrontEndLogo from "../../../assets/icons/frontEndLogo";
+import DataAnalyticsLogo from "../../../assets/icons/dataAnalyticsLogo";
+import '../../../components/profileCircle/style.css';
+import '../../../components/fullscreenCard/fullscreenCard.css';
+import { useState } from "react";
 
 
-    // in cohort-course-date: getCohortsForStudent() or something, make it a dropdown to select which subject to render!!!! we do NOT want to scroll through lots of students to view the next subject's students
+function Students({ students, getInitials, courses, cohort }) {
+
+    // to click through courses
+    const [selectedCourseIndex, setSelectedCourseIndex] = useState(0);
+    const course = courses[selectedCourseIndex];
+
     return (
-        <Card>
-            <article className="cohort">
-                <section>
-                        <h3>My cohort</h3>
-                </section>
+    <Card>
+      <article className="cohort">
+        <section>
+          <h3>My cohort</h3>
+        </section>
 
-                <div className="cohort-course-date border-top">
-                    <div className="specialism-sircle">
-                        {<SoftwareIcon />}
-                    </div>
-                    <div className="cohort-title">
-                        <p>{course}, Cohort {cohortId}</p>
-                    </div>
-                    <div className="cohort-dates">
-                        <small>January 2023 - June 2023</small>
-                    </div>
-                </div>
+        {course && (
+        <div className="cohort-course-date-wrapper border-top">
+            <div
+                className={`course-icon ${
+                course.name === "Software Development"
+                    ? "software-icon"
+                    : course.name === "Front-End Development"
+                    ? "front-icon"
+                    : course.name === "Data Analytics"
+                    ? "data-icon"
+                    : ""
+                }`}
+            >
+                {course.name === "Software Development" && <SoftwareLogo />}
+                {course.name === "Front-End Development" && <FrontEndLogo />}
+                {course.name === "Data Analytics" && <DataAnalyticsLogo />}
+            </div>
 
-                <section className="cohort-students-container border-top">
-                    {students.map((student) => (
-                        <Student key={student.id} name={student.firstName + " " + student.lastName} />
-                    ))}
-                </section>
-            </article>
-            
-        </Card>
-    )
+            <div className="cohort-title">
+                <p>{course.name}, Cohort {cohort.id}</p>
+            </div>
+
+            <div className="cohort-dates">
+                <small>{`${cohort.startDate} - ${cohort.endDate}`}</small>
+            </div>
+
+            <div className="course-nav-buttons">
+                <button
+                onClick={() =>
+                    setSelectedCourseIndex((prev) => Math.max(prev - 1, 0))
+                }
+                disabled={selectedCourseIndex === 0}
+                >
+                ◀
+                </button>
+                <button
+                onClick={() =>
+                    setSelectedCourseIndex((prev) =>
+                    Math.min(prev + 1, courses.length - 1)
+                    )
+                }
+                disabled={selectedCourseIndex === courses.length - 1}
+                >
+                ▶
+                </button>
+            </div>
+        </div>
+        )}
+
+        <section className="cohort-students-container border-top">
+          {students.map((student) => (
+            <Student
+              key={student.id || 0}
+              id ={student.id}
+              initials={getInitials(student)}
+              firstName={student.firstName}
+              lastName={student.lastName}
+            />
+          ))}
+        </section>
+      </article>
+    </Card>
+  );
 }
 
 export default Students;

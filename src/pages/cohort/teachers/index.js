@@ -1,25 +1,9 @@
 import Card from "../../../components/card";
 import './style.css';
 import Teacher from "./teacher";
-import { getMyCohortProfiles } from "../../../service/apiClient";
-import { useEffect, useState } from "react";
 
-const Teachers = () => {
 
-    const [teachers, setTeachers] = useState([]);
-
-    useEffect(() => {
-        async function fetchTeachers() {
-            try {
-                const data = await getMyCohortProfiles("teacher");
-                setTeachers(data);
-            } catch (error) {
-                console.error('fetchTeachers() in cohort/teachers/index.js:', error);
-            }
-        }
-
-        fetchTeachers();
-    }, []);
+const Teachers = ({ teachers, getInitials }) => {
 
     return (
         <Card>
@@ -29,8 +13,14 @@ const Teachers = () => {
                 </section>
                 
                 <section className="cohort-teachers-container border-top">
-                    {teachers.map((teacher) => (
-                        <Teacher key={teacher.id} name={teacher.firstName + " " + teacher.lastName} />
+                    {teachers.map((teacher, index) => (
+                        <Teacher 
+                            key={teacher.id || 0} 
+                            initials={getInitials(teacher) || "NA"}
+                            firstName={teacher.firstName || "N/A"}
+                            lastName={teacher.lastName || "N/A"}
+                            role={teacher.specialism || "N/A"}
+                        />
                     ))}
                 </section>
             </article>
