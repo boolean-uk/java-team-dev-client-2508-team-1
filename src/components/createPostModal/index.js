@@ -17,7 +17,16 @@ const CreatePostModal = ({ authorName, onPostAdded }) => {
   const [text, setText] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const decodedToken = jwtDecode(token || localStorage.getItem('token')) || {};
+  // Safely decode token with fallback
+  let decodedToken = {};
+  try {
+    if (token || localStorage.getItem('token')) {
+      decodedToken = jwtDecode(token || localStorage.getItem('token')) || {};
+    }
+  } catch (error) {
+    console.error('Invalid token in CreatePostModal:', error);
+  }
+  
   const fullName = `${decodedToken.firstName || decodedToken.first_name || 'Current'} ${decodedToken.lastName || decodedToken.last_name || 'User'}`;
   const initials = fullName?.match(/\b(\w)/g)?.join('') || 'NO';
   

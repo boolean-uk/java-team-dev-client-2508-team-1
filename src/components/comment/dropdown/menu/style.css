@@ -5,30 +5,28 @@
 }
 
 .comment .icon-button {
-  background: none;
+  width: 40px;
+  height: 40px;
+  margin-top: 4px;
+  margin-left: 4px;
+  background-color: #F0F5FA;
   border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  padding: 4px;
-  border-radius: 4px;
-  transition: background-color 0.2s ease;
-}
-
-.comment .icon-button:hover {
-  background-color: var(--color-blue5);
 }
 
 .comment .dots {
   display: flex;
-  align-items: center;
-  gap: 2px;
+  gap: 4px;
+  font-size: 18px;
+  color: #64648C;
 }
 
 .comment .dot {
-  width: 4px;
-  height: 4px;
-  background-color: var(--color-blue1);
-  border-radius: 50%;
-  display: inline-block;
+  line-height: 1;
 }
 
 .comment .menu-left {

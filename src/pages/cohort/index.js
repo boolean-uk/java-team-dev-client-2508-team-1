@@ -14,8 +14,16 @@ import { useEffect, useState } from "react";
 const Cohort = () => {
     const {userRole, setUserRole} = useUserRoleData()
     const { token } = useAuth();
-    const decodedToken = jwtDecode(token || localStorage.getItem('token')) || {};
-    setUserRole(decodedToken.roleId)
+    
+    // Safely decode token with fallback
+    let decodedToken = {};
+    try {
+        decodedToken = jwtDecode(token || localStorage.getItem('token')) || {};
+        setUserRole(decodedToken.roleId);
+    } catch (error) {
+        console.error('Invalid token in Cohort component:', error);
+    }
+    
     const [studentsLoading, setStudentsLoading] = useState(true);
     const [teachersLoading, setTeachersLoading] = useState(true);
 
@@ -32,7 +40,20 @@ const Cohort = () => {
         async function fetchData() {
             try {
                 const token = localStorage.getItem('token');
-                const { userId } = jwtDecode(token);
+                if (!token) {
+                    console.error('No token found');
+                    return;
+                }
+                
+                let userId;
+                try {
+                    const decodedToken = jwtDecode(token);
+                    userId = decodedToken.userId;
+                } catch (decodeError) {
+                    console.error('Invalid token:', decodeError);
+                    return;
+                }
+                
                 const user = await getUserById(userId);
                 const data = await get(`cohorts/${user.cohort.id}`);
 

@@ -11,7 +11,17 @@ import '../../pages/loading';
 const FullScreenCard = () => {
   const [user, setUser] = useState(null);
   const { token } = useAuth();
-  const { userId } = jwtDecode(token);
+  
+  // Safely decode token with fallback
+  let userId;
+  try {
+    const decodedToken = jwtDecode(token || localStorage.getItem('token'));
+    userId = decodedToken?.userId;
+  } catch (error) {
+    console.error('Invalid token:', error);
+    userId = null;
+  }
+  
   const navigate = useNavigate();
   const { id } = useParams();
   const targetId = id ?? userId;

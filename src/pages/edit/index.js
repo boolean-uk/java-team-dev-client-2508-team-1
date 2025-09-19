@@ -12,7 +12,17 @@ import { validatePassword, validateEmail } from '../register'
 const EditPage = () => {
     const [formData, setFormData] = useState([]);
     const { token } = useAuth();
-    const { userId } = jwtDecode(token) 
+    
+    // Safely decode token with fallback
+    let userId;
+    try {
+        const decodedToken = jwtDecode(token || localStorage.getItem('token'));
+        userId = decodedToken?.userId;
+    } catch (error) {
+        console.error('Invalid token:', error);
+        userId = null;
+    }
+    
     const [formValues, setFormValues] = useState({
         photo: "",
         firstName: "",

@@ -11,7 +11,15 @@ export const PostsProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const { token } = useAuth();
 
-  const decodedToken = jwtDecode(token || localStorage.getItem('token')) || {};
+  // Safely decode token with fallback
+  let decodedToken = {};
+  try {
+    if (token || localStorage.getItem('token')) {
+      decodedToken = jwtDecode(token || localStorage.getItem('token')) || {};
+    }
+  } catch (error) {
+    console.error('Invalid token in PostsProvider:', error);
+  }
 
   // Fetch posts and user data
   useEffect(() => {
