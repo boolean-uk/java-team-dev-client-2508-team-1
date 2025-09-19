@@ -12,16 +12,17 @@ import { FormProvider } from './context/form';
 import Cohort from './pages/cohort';
 import ProfilePage from './pages/profile';
 import { UserRoleProvider } from './context/userRole.';
-import ProfileData from './pages/profile/profile-data';
-import FullScreenCard from './components/fullscreenCard';
 import EditPage from './pages/edit';
+import SearchPage from './pages/search';
+import { SearchResultsProvider } from './context/searchResults';
 
 const App = () => {
   return (
     <>
       <AuthProvider>
         <FormProvider>
-          <UserRoleProvider>
+        <UserRoleProvider>
+        <SearchResultsProvider>
         <ModalProvider>
           <Routes>
             <Route path="login" element={<Login />} />
@@ -68,8 +69,17 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="search/profiles"
+              element={
+                <ProtectedRoute>
+                  <SearchPage />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </ModalProvider>
+        </SearchResultsProvider>
         </UserRoleProvider>
         </FormProvider>
       </AuthProvider>

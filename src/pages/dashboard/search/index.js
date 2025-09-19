@@ -5,10 +5,11 @@ import TextInput from "../../../components/form/textInput"
 import SearchIcon from "../../../assets/icons/searchIcon"
 import { get } from "../../../service/apiClient"
 import UserIcon from "../../../components/profile-icon"
+import { useSearchResults } from "../../../context/searchResults"
 
 const Search = () => {
     const [query, setQuery] = useState("");
-    const [results, setResults] = useState(null);
+    const {searchResults, setSearchResults} = useSearchResults();
     const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate();
     const popupRef = useRef();
@@ -19,7 +20,7 @@ const Search = () => {
         if (!query.trim())  return;
         try {
                 const response = await get(`search/profiles/${query}`);
-                setResults(response.data.profiles);
+                setSearchResults(response.data.profiles);
                 setIsOpen(true);
             } catch (error) {
                 console.error("Error fetching search results:", error);
@@ -47,7 +48,7 @@ const Search = () => {
 
       return (
         <Card>
-            <div style={{ position: "relative", width: "300px" }}> 
+            <div style={{ position: "relative", width: "100%" }}> 
                 <form onSubmit={handleSubmit}>
                     <TextInput
                         icon={<SearchIcon />}
@@ -74,11 +75,12 @@ const Search = () => {
                     >
                         <Card>
                             <p className="people">People</p>
-                            {results?.length > 0 ? (
+                            {searchResults?.length > 0 ? (
                                 <ul>
-                                    {results.slice(0, 10).map((student, index) => (
+                                    {searchResults.slice(0, 10).map((student, index) => (
                                         <li key={index} className="student-item">
                                             <UserIcon
+                                                userId={student.id}
                                                 initials={student.firstName.charAt(0) + student.lastName.charAt(0)}
                                                 firstname={student.firstName}
                                                 lastname={student.lastName}
@@ -92,7 +94,7 @@ const Search = () => {
                             )}
 
                        
-                            {results?.length > 10 && (
+                            {searchResults?.length > 10 && (
                                 <section>
                                     <button onClick={() => navigate("/search/profiles")}>All results</button>
                                 </section>
