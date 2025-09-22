@@ -81,7 +81,7 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
   if (clickable) {
     return (
       <li>
-        <button type="button" onClick={getClickHandler()}>
+        <button type="button" onClick={getClickHandler}>
           {icon}
           <p>{text}</p>
           {children && <ArrowRightIcon />}

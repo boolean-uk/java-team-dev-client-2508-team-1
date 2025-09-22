@@ -10,9 +10,6 @@ import CommentBubbleIcon from '../../assets/icons/commentBubbleIcon';
 import './style.css';
 import { usePosts } from '../../context/posts';
 
-import { del, patch, postTo } from '../../service/apiClient';
-import useAuth from '../../hooks/useAuth';
-import jwtDecode from 'jwt-decode';
 import MenuPost from './dropdown';
 
 const Post = ({ post }) => {

@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { CascadingMenuComment } from './menu';
+import { CascadingMenuComment } from './menu/index';
 import { useComments } from '../../../context/comments';
 
 const MenuComment = ({ menuVisible, commentText, postId, commentId, name, onCommentDeleted, onDeleteComment }) => {
