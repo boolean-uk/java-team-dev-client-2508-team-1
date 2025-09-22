@@ -1,5 +1,5 @@
 import { API_URL } from './constants';
-import jwt_decode from 'jwt-decode';
+import jwt_decode from 'jwt-decode'; 
 
 
 async function login(email, password) {
