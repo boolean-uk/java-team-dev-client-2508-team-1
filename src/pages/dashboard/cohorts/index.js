@@ -33,6 +33,7 @@ const Cohorts = () => {
         {cohorts.map((cohort, index) => {
           return (
             <li key={index} className="dashboard-cohort-item">
+              {cohort.course === null ? <></> : 
               <div className="cohort-header">
                
                   <div className={`course-icon ${
@@ -49,6 +50,7 @@ const Cohorts = () => {
                   <p className="dashboard-cohort-name">Cohort {cohort.id}</p>
                 </div>
                 </div>
+          }
             </li>
           );
         })}

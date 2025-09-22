@@ -10,6 +10,17 @@ async function register(email, password) {
   await post('signup', { email, password }, false);
   return await login(email, password);
 }
+
+// Refresh token to get updated user information
+async function refreshToken() {
+  try {
+    return await post('auth/refresh', {}, true); // Assuming there's a refresh endpoint
+  } catch (error) {
+    console.error('No refresh endpoint available or token refresh failed:', error);
+    throw error;
+  }
+}
+
 /* eslint-disable camelcase */
 
 async function createProfile(userId, 
@@ -149,6 +160,6 @@ async function request(method, endpoint, data, auth = true) {
 
 
 
-export { login, getPosts, register, createProfile, get, getUserById, getComments, post, patch, put, getMyCohortProfiles, updateUserProfile, postTo, del };
+export { login, getPosts, register, createProfile, get, getUserById, getComments, post, patch, put, getMyCohortProfiles, updateUserProfile, postTo, del, refreshToken };
 
 

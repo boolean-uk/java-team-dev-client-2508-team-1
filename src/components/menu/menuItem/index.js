@@ -6,8 +6,8 @@ import EditCommentModal from '../../editCommentModal';
 import { usePosts } from '../../../context/posts';
 import { useComments } from '../../../context/comments';
 
-const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText, postId, name, isMenuVisible, setIsMenuVisible, commentText, commentId, onCommentDeleted }) => {
-  const { openModal, setModal } = useModal();
+const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText, postId, name, isMenuVisible, setIsMenuVisible, commentText, commentId, onCommentDeleted, onPostDeleted }) => {
+  const { openModal, setModal, closeModal } = useModal();
   const { deletePost } = usePosts();
   const { deleteComment } = useComments();
   
@@ -26,11 +26,23 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
   const handleDeletePost = async () => {
     setIsMenuVisible(false);
     console.log('deletePost function called');
+      setModal(`The post is being deleted!`, 
+      <>
+        <p>The post is being deleted!</p>
+      </>
+    );
+    openModal();
+
+        setTimeout(() => {
+    closeModal();
+    }, 2500);
     try {
       const success = await deletePost(postId);
+
+    
       if (success) {
         console.log('Post deleted successfully');
-        // The context will handle removing the post from the state
+
       } else {
         console.error('Failed to delete post');
       }
@@ -42,21 +54,42 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
   const handleDeleteComment = async () => {
     setIsMenuVisible(false);
     console.log('deleteComment function called');
+    
+    // If there's a callback provided, use it instead of calling the API directly
+    if (onCommentDeleted) {
+      onCommentDeleted(commentId);
+      return;
+    }
+    
+    // Only call the API directly if no callback is provided
     try {
       const success = await deleteComment(postId, commentId);
       if (success) {
         console.log('Comment deleted successfully');
-        
-        // Call the callback to update UI dynamically if provided
-        if (onCommentDeleted) {
-          onCommentDeleted(commentId);
-        }
       } else {
         console.error('Failed to delete comment');
       }
     } catch (error) {
       console.error('Error deleting comment:', error);
     }
+  };
+
+  const handleReport = () => {
+    setIsMenuVisible(false);
+    console.log('reportComment function called, and reported');
+    setModal(`Reported`, 
+        <>
+      
+          <p>Thank you for reporting this. Our team will review it shortly.</p>
+    </>
+    );
+    setIsMenuVisible(false);
+    openModal();
+
+    setTimeout(() => {
+    closeModal();
+    }, 1500);
+
   };
 
   const getClickHandler = () => {
@@ -69,6 +102,10 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
         return handleDeletePost;
       case "DeleteComment":
         return handleDeleteComment;
+      case "Report":
+        return handleReport;
+      case "ReportComment":
+        return handleReport;
       default:
         return undefined;
     }
@@ -81,7 +118,7 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
   if (clickable) {
     return (
       <li>
-        <button type="button" onClick={getClickHandler}>
+        <button type="button" onClick={getClickHandler()}>
           {icon}
           <p>{text}</p>
           {children && <ArrowRightIcon />}
