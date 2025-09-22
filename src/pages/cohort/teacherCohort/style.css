@@ -76,8 +76,8 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
-  width: 104%;
-  min-height: 300px;
+  width: 101%;
+  min-height: auto;
   overflow-y: auto;
   scrollbar-width: thin;
   
@@ -184,3 +184,7 @@
   
 }
 
+.cohort-teacher-loading {
+  margin-top: 20px;
+  margin-left: 20px;
+}
