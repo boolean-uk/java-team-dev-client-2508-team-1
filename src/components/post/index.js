@@ -10,10 +10,9 @@ import CommentBubbleIcon from '../../assets/icons/commentBubbleIcon';
 import './style.css';
 import { usePosts } from '../../context/posts';
 
-import { del, patch, postTo } from '../../service/apiClient';
-import useAuth from '../../hooks/useAuth';
-import jwtDecode from 'jwt-decode';
 import MenuPost from './dropdown';
+import jwt_decode from 'jwt-decode';
+import useAuth from '../../hooks/useAuth';
 
 const Post = ({ post }) => {
   const { getUserLikedPosts, toggleLike } = usePosts();
@@ -22,6 +21,8 @@ const Post = ({ post }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(post.likesCount || post.likes || 0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const { token } = useAuth();
+  const { userId } = jwt_decode(token || localStorage.getItem('token')) || {};
 
   const authorName = post.user.profile
     ? `${post.user.profile.firstName || 'Unknown'} ${post.user.profile.lastName || 'User'}`
@@ -130,11 +131,15 @@ const Post = ({ post }) => {
           {(post.timeCreated === post.timeUpdated) ? null : (<p>Edited</p>)}
           
           </div>
-          
-          {/* <button className="post__menu" aria-label="Post options" onClick={showModal}> */}
-            <MenuPost postText={post.content} postId={post.id} name={authorName} post={post} />
-            {/* <span>•••</span> */}
-          {/* </button> */}
+          <MenuPost 
+            edit={post.user.id === userId} 
+            del={post.user.id === userId}
+            report={post.user.id !== userId}
+            postText={post.content} 
+            postId={post.id} 
+            name={authorName} 
+            post={post} 
+          />
         </header>
 
         <section className="post__content">
@@ -175,6 +180,8 @@ const Post = ({ post }) => {
             return (
               <Comment
                 key={comment.id || idx}
+                id={comment.user.id}
+                userId={userId}
                 name={commentAuthorName}
                 content={comment.body}
                 postId={post.id}

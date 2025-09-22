@@ -22,36 +22,34 @@ const CohortsList= ({ onSelect, setSelectedCohort , cohorts}) => {
 
  return (
     <ul>
-      {cohorts.map((cohort) =>
-        cohort.cohort_courses.map((course) => (
+      {cohorts.map((cohort) => (
           <li
-            key={`${cohort.id}-${course.id}`}
+            key={`${cohort.id}-${cohort.course.id}`}
             className={`cohort-course-row ${selectedCohortId === cohort.id ? 'selected' : ''}`}
             onClick={() => handleClick(cohort)}
           >
-
                 <div
                   className={`course-icon ${
-                    course.name === "Software Development"
+                    cohort.course.name === "Software Development"
                       ? "software-icon"
-                      : course.name === "Front-End Development"
+                      : cohort.course.name === "Front-End Development"
                       ? "front-icon"
-                      : course.name === "Data Analytics"
+                      : cohort.course.name === "Data Analytics"
                       ? "data-icon"
                       : ""
                   }`}
                 >
-                  {course.name === "Software Development" && <SoftwareLogo />}
-                  {course.name === "Front-End Development" && <FrontEndLogo />}
-                  {course.name === "Data Analytics" && <DataAnalyticsLogo />}
+                  {cohort.course.name === "Software Development" && <SoftwareLogo />}
+                  {cohort.course.name === "Front-End Development" && <FrontEndLogo />}
+                  {cohort.course.name === "Data Analytics" && <DataAnalyticsLogo />}
                 </div>
                 <div className="cohort-info">
-                  <div className="course-name">{course.name}</div>
+                  <div className="course-name">{cohort.course.name}</div>
                   <div className="cohort-name-course">Cohort {cohort.id}</div>
                 </div>
               </li>
             ))
-          )}
+          }
         </ul>
   );
 };

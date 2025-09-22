@@ -6,14 +6,10 @@ import FrontEndLogo from "../../../assets/icons/frontEndLogo";
 import DataAnalyticsLogo from "../../../assets/icons/dataAnalyticsLogo";
 import '../../../components/profileCircle/style.css';
 import '../../../components/fullscreenCard/fullscreenCard.css';
-import { useState } from "react";
+// import { useState } from "react";
 
 
-function Students({ students, getInitials, courses, cohort }) {
-
-    // to click through courses
-    const [selectedCourseIndex, setSelectedCourseIndex] = useState(0);
-    const course = courses[selectedCourseIndex];
+function Students({ students, getInitials, course, cohort }) {
 
     return (
     <Card>
@@ -46,27 +42,6 @@ function Students({ students, getInitials, courses, cohort }) {
 
             <div className="cohort-dates">
                 <small>{`${cohort.startDate} - ${cohort.endDate}`}</small>
-            </div>
-
-            <div className="course-nav-buttons">
-                <button
-                onClick={() =>
-                    setSelectedCourseIndex((prev) => Math.max(prev - 1, 0))
-                }
-                disabled={selectedCourseIndex === 0}
-                >
-                ◀
-                </button>
-                <button
-                onClick={() =>
-                    setSelectedCourseIndex((prev) =>
-                    Math.min(prev + 1, courses.length - 1)
-                    )
-                }
-                disabled={selectedCourseIndex === courses.length - 1}
-                >
-                ▶
-                </button>
             </div>
         </div>
         )}

@@ -14,7 +14,6 @@ const Cohorts = () => {
     async function fetchCohorts() {
         try {
         const response = await get("cohorts");
-        console.log(response)
         setCohorts(response.data.cohorts);
         } catch (error) {
         console.error("Error fetching cohorts:", error);
@@ -24,55 +23,52 @@ const Cohorts = () => {
     fetchCohorts(); 
     }, []);
 
-    
-
-
-    return (
-        <>
-        <Card>
-   <h3 className="border-line">Cohorts</h3>
-<section>
-  {cohorts !== null ? (
+        return (
+            <>
+            <Card>
+      <h3 className="border-line">Cohorts</h3>
+    <section>
+      {cohorts !== null ? (
     <ul>
-      {cohorts.map((cohort, index) => (
-        <li key={index} className="cohort-item">
-          <div className="cohort-header">
-            <div className="cohort-info">
-              <ul className="course-list">
-                {cohort.cohort_courses.map((course, j) => (
-                  <li key={j} className="course-row">
-                    <div className={`course-icon ${
-                        course.name === "Software Development" ? "software-icon" :
-                        course.name === "Front-End Development" ? "front-icon" :
-                        course.name === "Data Analytics" ? "data-icon" : ""
-                    }`}>
-                        {course.name === "Software Development" && <SoftwareLogo />}
-                        {course.name === "Front-End Development" && <FrontEndLogo />}
-                        {course.name === "Data Analytics" && <DataAnalyticsLogo />}
-                    </div>
-                    <span className="course-name">{course.name}</span>
-                    </li>
-                ))}
-              </ul>
-              <p className="cohort-name">Cohort {cohort.id}</p>
+        {cohorts.map((cohort, index) => {
+          return (
+            <li key={index} className="dashboard-cohort-item">
+              {cohort.course === null ? <></> : 
+              <div className="cohort-header">
+               
+                  <div className={`course-icon ${
+                    cohort.course.name === "Software Development" ? "software-icon" :
+                    cohort.course.name === "Front-End Development" ? "front-icon" :
+                    cohort.course.name === "Data Analytics" ? "data-icon" : ""
+                  }`}>
+                    {cohort.course.name === "Software Development" && <SoftwareLogo />}
+                    {cohort.course.name === "Front-End Development" && <FrontEndLogo />}
+                    {cohort.course.name === "Data Analytics" && <DataAnalyticsLogo />}
+                  </div>
+                  <div className="course-text">
+                  <span className="dashboard-course-name">{cohort.course.name}</span>
+                  <p className="dashboard-cohort-name">Cohort {cohort.id}</p>
+                </div>
+                </div>
+          }
+            </li>
+          );
+        })}
+      </ul>
+      ) : (
+       <div>
+        <div className="">
+            <h3 className="loading-cohorts">Loading...</h3>
+            <div className="loadingscreen-loader">
+            <span></span>
             </div>
-          </div>
-        </li>
-      ))}
-    </ul>
-  ) : (
-    <p>No cohorts found.</p>
-  )}
-</section>
-
-
-            
-            
-
-
-        </Card>
-        </>
-    )
-}
+        </div>
+        </div>
+      )}
+    </section>
+            </Card>
+            </>
+        )
+    }
 
 export default Cohorts

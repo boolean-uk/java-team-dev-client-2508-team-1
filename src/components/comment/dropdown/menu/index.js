@@ -4,6 +4,7 @@ import DeleteIcon from '../../../../assets/icons/deleteIcon';
 import Menu from '../../../menu';
 import MenuItem from '../../../menu/menuItem';
 import './style.css';
+import ReportIcon from '../../../../assets/icons/reporticon';
 
 const ProfileCircleComment = ({ initials, menuVisible, commentText, postId, commentId, name }) => {
   const [isMenuVisible, setIsMenuVisible] = useState(menuVisible || false);
@@ -28,10 +29,12 @@ const ProfileCircleComment = ({ initials, menuVisible, commentText, postId, comm
   );
 };
 
-export const CascadingMenuComment = ({ commentText, postId, commentId, name, isMenuVisible, setIsMenuVisible, onCommentDeleted }) => {
+export const CascadingMenuComment = ({edit, del, report, commentText, postId, commentId, name, isMenuVisible, setIsMenuVisible, onCommentDeleted }) => {
   return (
     <Menu className="profile-circle-menu">
+      {edit && 
       <MenuItem 
+        
         icon={<EditIcon />} 
         linkTo="" 
         text="Edit comment" 
@@ -43,6 +46,8 @@ export const CascadingMenuComment = ({ commentText, postId, commentId, name, isM
         isMenuVisible={isMenuVisible} 
         setIsMenuVisible={setIsMenuVisible}  
       />
+      }
+      {del &&
       <MenuItem 
         icon={<DeleteIcon />} 
         text="Delete comment" 
@@ -54,6 +59,21 @@ export const CascadingMenuComment = ({ commentText, postId, commentId, name, isM
         setIsMenuVisible={setIsMenuVisible}
         onCommentDeleted={onCommentDeleted}
       />
+} 
+      {report &&
+      <MenuItem 
+        icon={<ReportIcon />} 
+        text="Report comment" 
+        clickable={"ReportComment"} 
+        postId={postId} 
+        commentId={commentId} 
+        name={name} 
+        isMenuVisible={isMenuVisible} 
+        setIsMenuVisible={setIsMenuVisible}
+        onCommentDeleted={onCommentDeleted}
+      />
+} 
+
     </Menu>
   );
 };

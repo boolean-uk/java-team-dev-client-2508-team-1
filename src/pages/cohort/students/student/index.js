@@ -1,7 +1,6 @@
 import UserIcon from "../../../../components/profile-icon";
 
 const Student = ({ id, initials, firstName, lastName, role }) => {
-  console.log("student", id)
     return (
       <>
       <div className="user-icon">

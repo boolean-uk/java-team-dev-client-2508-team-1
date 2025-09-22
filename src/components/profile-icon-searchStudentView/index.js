@@ -2,7 +2,9 @@
 import Popup from 'reactjs-popup';
 import './style.css';
 import SeeProfile from '../seeProfile';
-const UserIcon = ({ id, initials, firstname, lastname, role}) => {
+import { useNavigate } from 'react-router-dom';
+const UserIconStudentView = ({ id, initials, firstname, lastname, role}) => {
+    const navigate = useNavigate();
 
     const styleGuideColors = [
     "#28C846", 
@@ -27,6 +29,10 @@ const UserIcon = ({ id, initials, firstname, lastname, role}) => {
 
     const backgroundColor = getColorFromInitials(initials);
 
+    const viewProfile = () => {
+        navigate(`/profile`); // Må legge til ID - senere
+    }
+
     return (
             <div className="user">
 
@@ -34,11 +40,15 @@ const UserIcon = ({ id, initials, firstname, lastname, role}) => {
                 <div className="profile-icon" style={{background: backgroundColor}}>
                     <p>{initials}</p>
                 </div>
-            </div>
-            <div className="user-info">
-                <p className = "user-name">{firstname} {lastname}</p> 
-                <p className = "user-role" >{role}</p>
-            </div>
+                </div>
+                <div className="user-info">
+                    <p className = "user-name">{firstname} {lastname}</p> 
+                    <p className = "user-role" >{role}</p>
+                </div>
+                <div className="buttons-container">
+                    <button className="buttons" onClick = {viewProfile}>Profile</button>
+                        
+                </div>
             <Popup trigger= { 
                 <div className="edit-icon-wrapper">
                 <div className="icon-button">
@@ -60,14 +70,13 @@ const UserIcon = ({ id, initials, firstname, lastname, role}) => {
                         lastname = {lastname} 
                         role = {role}   
                         />
-                        
             </Popup>
             </div> 
     )   
 }
 
 
-export default UserIcon;
+export default UserIconStudentView;
 
 
   
