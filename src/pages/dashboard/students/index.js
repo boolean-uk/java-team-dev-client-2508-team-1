@@ -4,6 +4,7 @@ import { get } from "../../../service/apiClient";
 import { useNavigate } from "react-router-dom";
 import Card from "../../../components/card"
 import UserIcon from "../../../components/profile-icon";
+import ProfileIconTeacher from "../../../components/profile-icon-teacherView";
 
 const Students = () => {
    const [students, setStudents] = useState(null) 
@@ -40,8 +41,8 @@ const Students = () => {
                         {students.slice(0,10).map((student, index) => (
                             <li key={index} className="student-item">
                                 <div>
-                                <UserIcon 
-                                   id = {student.id}
+                                <ProfileIconTeacher 
+                                   id={student.id}
                                    initials={`${student.firstName} ${student.lastName}`
                                        .trim()
                                        .split(/\s+/)
