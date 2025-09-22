@@ -187,13 +187,13 @@ const EditPage = () => {
                     name="specialism"
                     label="Specialism"
                     readOnly={true}
-                    value={formData?.cohort?.cohort_courses?.[0]?.name || ""}
+                    value={formData?.profile?.specialism || ""}
                   />
                   <TextInput 
                     name="cohort" 
                     label="Cohort" 
                     readOnly={true} 
-                    value={formData?.cohort?.id || ""} 
+                    value={"Cohort " + formData?.profile?.cohort?.course?.id || ""} 
                     />
                   <TextInput 
                     name="startDate" 
