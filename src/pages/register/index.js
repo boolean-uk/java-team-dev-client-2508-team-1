@@ -6,16 +6,7 @@ import './register.css';
 import ReactPasswordChecklist from 'react-password-checklist';
 import { useFormData } from '../../context/form';
 
-const Register = () => {
-  const { onRegister } = useAuth();
-  const {formData, setFormData} = useFormData()
-
-  const onChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const validateEmail = (email) => {
+export const validateEmail = (email) => {
   const mailFormat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     if (email.match(mailFormat)) {
       return true; 
@@ -24,10 +15,9 @@ const Register = () => {
       alert("You have entered an invalid email address");
       return false;
     }
-
   }  
 
-  const validatePassword = (password) => {
+  export const validatePassword = (password) => {
     const passwordFormat = /^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
     if (password.match(passwordFormat)) {
       return true; 
@@ -38,6 +28,14 @@ const Register = () => {
     }
   } 
 
+const Register = () => {
+  const { onRegister } = useAuth();
+  const {formData, setFormData} = useFormData()
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
   return (
     <div className="bg-blue register credentialpage">

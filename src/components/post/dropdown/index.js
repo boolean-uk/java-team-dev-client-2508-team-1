@@ -1,19 +1,20 @@
 import { useState, useRef, useEffect } from 'react';
-import { CascadingMenuPost, PostMenu } from './menu';
-import { CascadingMenu } from '../../profileCircle';
-import EditCommentModal from '../../editCommentModal';
-import useModal from '../../../hooks/useModal';
-import EditPostModal from '../../editPostModal';
+import { CascadingMenuPost } from './menu/index';
+import { usePosts } from '../../../context/posts';
 
-const MenuPost = ({ menuVisible, postText, postId, name }) => {
+const MenuPost = ({ menuVisible, postText, postId, name, onPostDeleted, commentText, commentId, post }) => {
   const [isMenuVisible, setIsMenuVisible] = useState(menuVisible || false);
   const menuRef = useRef(null);
+  const { deletePost } = usePosts();
 
+  const handlePostDeleted = async () => {
+    const success = await deletePost(postId);
+    if (success && onPostDeleted) {
+      onPostDeleted(postId);
+    }
+  };
 
-
-
-
-  // Lukk meny ved klikk utenfor
+  // Close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -39,7 +40,7 @@ const MenuPost = ({ menuVisible, postText, postId, name }) => {
   </span>
   </div>
   <div className='menu-left'> 
-  {isMenuVisible && <CascadingMenuPost postText={postText} postId={postId} name={name} isMenuVisible={isMenuVisible} setIsMenuVisible={setIsMenuVisible} />}
+  {isMenuVisible && <CascadingMenuPost postText={postText} comment postId={postId} name={name} isMenuVisible={isMenuVisible} setIsMenuVisible={setIsMenuVisible} onPostDeleted={handlePostDeleted} />}
   </div>
 </div>
 

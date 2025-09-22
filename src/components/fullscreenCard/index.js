@@ -5,16 +5,26 @@ import ProfileData from '../../pages/profile/profile-data';
 import useAuth from '../../hooks/useAuth';
 import jwtDecode from 'jwt-decode';
 import { getUserById } from '../../service/apiClient';
-import {ProfileCircle} from '../profileCircle';
+import ProfileCircle from '../../components/profileCircle';
 import '../../pages/loading';
 
 const FullScreenCard = () => {
   const [user, setUser] = useState(null);
   const { token } = useAuth();
-  const { userId } = jwtDecode(token);
+  
+  // Safely decode token with fallback
+  let userId;
+  try {
+    const decodedToken = jwtDecode(token || localStorage.getItem('token'));
+    userId = decodedToken?.userId;
+  } catch (error) {
+    console.error('Invalid token:', error);
+    userId = null;
+  }
+  
   const navigate = useNavigate();
   const { id } = useParams();
-  const targetId = id || userId;
+  const targetId = id ?? userId;
 
   useEffect(() => {
     async function fetchUser() {
@@ -46,6 +56,7 @@ const FullScreenCard = () => {
   const firstname = user.profile.firstName;
   const lastname = user.profile.lastName;
   const name = firstname + " " + lastname;
+  
 
   return (
     <div className="fullscreen-card">
@@ -53,7 +64,8 @@ const FullScreenCard = () => {
         <div> 
           <p className="name-text">{name}</p> 
         </div> 
-        <button className="edit" onClick={goToEdit}>Edit Profile</button> </div>
+          <button className="edit" onClick={goToEdit}>Edit Profile</button> 
+        </div>
       <section className="post-interactions-container border-top"></section>
 
       <ProfileData user={user}/>

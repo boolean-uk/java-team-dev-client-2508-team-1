@@ -1,20 +1,18 @@
-import useModal from '../../hooks/useModal';
-import EditCommentModal from '../editCommentModal';
-import MenuPost from '../post/dropdown';
+import MenuComment from './dropdown';
+import { useComments } from '../../context/comments';
 import './style.css';
 
-const Comment = ({ name, content, postId, commentId}) => {
-  
+const Comment = ({ name, content, postId, commentId, onCommentDeleted }) => {
+  const { deleteComment } = useComments();
 
   const initials = name?.match(/\b(\w)/g);
 
-  const { openModal, setModal } = useModal();
-  const showModal = () => {
-    setModal('Edit comment', 
-    <EditCommentModal postText={content} postId={postId} name={name} commentId={commentId} />);
-    openModal(); 
-  };  
-
+  const handleDeleteComment = async () => {
+    const success = await deleteComment(postId, commentId);
+    if (success && onCommentDeleted) {
+      onCommentDeleted(commentId);
+    }
+  };
 
   return (
     <div className="comment">
@@ -28,7 +26,14 @@ const Comment = ({ name, content, postId, commentId}) => {
         <p className="comment__content">{content}</p>
       </div>
 {/*       <button className="comment__menu" aria-label="Comment options" onClick={showModal} >•••</button>
- */}    <MenuPost />
+ */}    <MenuComment 
+         commentText={content} 
+         postId={postId} 
+         commentId={commentId} 
+         name={name} 
+         onCommentDeleted={onCommentDeleted}
+         onDeleteComment={handleDeleteComment}
+       />
  
  </div>
   );

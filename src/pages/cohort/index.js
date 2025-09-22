@@ -14,15 +14,23 @@ import { useEffect, useState } from "react";
 const Cohort = () => {
     const {userRole, setUserRole} = useUserRoleData()
     const { token } = useAuth();
-    const decodedToken = jwtDecode(token || localStorage.getItem('token')) || {};
-    setUserRole(decodedToken.roleId)
+    
+    // Safely decode token with fallback
+    let decodedToken = {};
+    try {
+        decodedToken = jwtDecode(token || localStorage.getItem('token')) || {};
+        setUserRole(decodedToken.roleId);
+    } catch (error) {
+        console.error('Invalid token in Cohort component:', error);
+    }
+    
     const [studentsLoading, setStudentsLoading] = useState(true);
     const [teachersLoading, setTeachersLoading] = useState(true);
 
     const [teachers, setTeachers] = useState([]);
 
     const [students, setStudents] = useState([]);
-    const [courses, setCourses] = useState([]);
+    const [course, setcourse] = useState([]);
     const [cohort, setCohort] = useState("");
     
 
@@ -32,9 +40,22 @@ const Cohort = () => {
         async function fetchData() {
             try {
                 const token = localStorage.getItem('token');
-                const { userId } = jwtDecode(token);
+                if (!token) {
+                    console.error('No token found');
+                    return;
+                }
+                
+                let userId;
+                try {
+                    const decodedToken = jwtDecode(token);
+                    userId = decodedToken.userId;
+                } catch (decodeError) {
+                    console.error('Invalid token:', decodeError);
+                    return;
+                }
+                
                 const user = await getUserById(userId);
-                const data = await get(`cohorts/${user.cohort.id}`);
+                const data = await get(`cohorts/${user.profile.cohort.id}`);
 
                 // set cohort
                 const cohort = data.data.cohort;
@@ -44,13 +65,13 @@ const Cohort = () => {
                 const teachers = data.data.cohort.profiles.filter((userid) => userid?.role?.name === "ROLE_TEACHER");
                 setTeachers(teachers || []);
 
-                // studnets
+                // students
                 const students = data.data.cohort.profiles.filter((profileid) => profileid?.role?.name === "ROLE_STUDENT");
                 setStudents(students || []);
 
-                // courses
-                const courses = data.data.cohort.cohort_courses;
-                setCourses(courses || []);
+                // course
+                const course = data.data.cohort.course;
+                setcourse(course || "");
 
             } catch (error) {
                 console.error('fetchData() in cohort/teachers/index.js:', error);
@@ -91,7 +112,7 @@ const Cohort = () => {
         {userRole === 2 ? ( 
             <>
             <main>
-                <Students students={students} getInitials={getInitials} courses={courses} cohort={cohort} />
+                <Students students={students} getInitials={getInitials} course={course} cohort={cohort} />
             </main>
 
             <aside>
