@@ -106,6 +106,8 @@ const Dashboard = () => {
   }, [token, setUserRole]);
 
 /*  TODO TRIED ADDING CORRECT INITALS TO PROFILE CIRCLE, DIDN'T WORK 
+ *
+ *  Jeg hyller dette forsoket :) -Richard 22.09.2025
 useEffect(() => {
     async function fetchUser() {
       try {

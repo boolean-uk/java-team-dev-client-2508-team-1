@@ -26,8 +26,17 @@ form label {
   left: 16px;
   padding-top: 15px;
 }
+.input-icon-right {
+  position: absolute;
+  right: 20px;
+  padding-top: 15px;
+}
 .input-has-icon {
   padding-left: 56px;
+  padding-right: 10px;
+}
+
+.input-has-icon-right {
   padding-right: 10px;
 }
 
