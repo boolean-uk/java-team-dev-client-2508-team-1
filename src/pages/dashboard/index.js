@@ -19,6 +19,7 @@ const Dashboard = () => {
   const onPostAddedRef = useRef(null);
   const { token } = useAuth();
   const [students, setStudents] = useState([]);
+  const [cohort, setCohort] = useState([]);
   const [course, setCourse] = useState([]);
   
   // Safely decode token with fallback
@@ -53,6 +54,7 @@ const Dashboard = () => {
         const user = await getUserById(userId);
         const data = await get(`cohorts/${user.profile.cohort.id}`);
 
+        setCohort(data.data.cohort)
         setCourse(data.data.cohort);
         setStudents(data.data.cohort.profiles)
 
@@ -108,22 +110,25 @@ const Dashboard = () => {
 
         { userRole === 2 ? (
            <Card>
-          <h4>My Cohort</h4>
-          <p>{course.name}</p>
-          {students.map((student) => (
-            <Student
-              key={student.id || 0}
-              id ={student.id}
-              initials={`${student.firstName} ${student.lastName}`
-                  .trim()
-                  .split(/\s+/)
-                  .map(word => word[0].toUpperCase())
-                  .join('')}
-              firstName={student.firstName}
-              lastName={student.lastName}
-            />
-          ))}
-        </Card>
+            <h3>My Cohort</h3>
+            <p className='padding-top'>{course.name}, Cohort {cohort.id}</p>
+            <section className='cohort-teachers-container border-top'>
+              
+              {students.map((student) => (
+                <Student
+                  key={student.id || 0}
+                  id ={student.id}
+                  initials={`${student.firstName} ${student.lastName}`
+                      .trim()
+                      .split(/\s+/)
+                      .map(word => word[0].toUpperCase())
+                      .join('')}
+                  firstName={student.firstName}
+                  lastName={student.lastName}
+                />
+              ))}
+            </section>
+          </Card>
         ) : (
           <>
           <Cohorts/>
