@@ -23,8 +23,8 @@ const StepThree = ({ data, setData }) => {
                 />
                 <TextInput 
                     name="specialism" 
-                    label={'dat'} 
-                    value={'test'}
+                    label={'Specialism'} 
+                    value={'Software Engineering'}
                     readOnly={true}
                     icon={<LockIcon/>}
                     iconRight={true}
