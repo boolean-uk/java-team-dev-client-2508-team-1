@@ -11,11 +11,6 @@ import '../../../components/fullscreenCard/fullscreenCard.css';
 
 function Students({ students, getInitials, course, cohort }) {
 
-    // to click through courses
-    // const [selectedCourseIndex, setSelectedCourseIndex] = useState(0);
-    // const course = courses[selectedCourseIndex];
-    // console.log('COURSE:', course);
-
     return (
     <Card>
       <article className="cohort">

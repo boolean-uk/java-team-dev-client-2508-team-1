@@ -65,7 +65,7 @@ const Cohort = () => {
                 const teachers = data.data.cohort.profiles.filter((userid) => userid?.role?.name === "ROLE_TEACHER");
                 setTeachers(teachers || []);
 
-                // studnets
+                // students
                 const students = data.data.cohort.profiles.filter((profileid) => profileid?.role?.name === "ROLE_STUDENT");
                 setStudents(students || []);
 
