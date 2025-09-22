@@ -1,19 +1,20 @@
-// import { useEffect, useState } from "react";
-// import { get } from "../../../service/apiClient";
+import { useEffect, useState } from "react";
+import { get } from "../../../service/apiClient";
 
 import { useNavigate } from "react-router-dom";
 import Card from "../../../components/card"
-import ProfileIconTeacher from "../../../components/profile-icon-teacherView";
+import Student from "../../cohort/students/student";
+import ProfileCircle from "../../../components/profileCircle";
 
 const Students = () => {
-   /* const [students, setStudents] = useState(null) 
+   const [students, setStudents] = useState(null) 
     
     
     useEffect(() => {
     async function fetchStudents() {
         try {
         const response = await get("students");
-        setStudents(response.data.students);
+        setStudents(response.data.profiles);
         } catch (error) {
         console.error("Error fetching students:", error);
         }
@@ -22,26 +23,12 @@ const Students = () => {
     fetchStudents(); 
     }, []);
 
-*/
     const navigate = useNavigate()
     
     const handleClick = () => {
         navigate("/")
         // navigate("/students")
         }
-    
-   const students = [
-        { first_name: "Ola", last_name: "Nordmann", specialism: "Software Development" },
-        { first_name: "Kari", last_name: "Nordmann", specialism: "Data Analytics" },
-        { first_name: "Per", last_name: "Hansen", specialism: "Software Development" },
-        { first_name: "Anne", last_name: "Larsen", specialism: "Data Analyticsr" },
-        { first_name: "Jonas", last_name: "Berg", specialism: "Software Development" },
-        { first_name: "Maria", last_name: "Solberg", specialism: "Software Development" },
-        { first_name: "Erik", last_name: "Johansen", specialism: "Front-End Development" },
-        { first_name: "Nora", last_name: "Lie", specialism: "Front-End Development" },
-        { first_name: "Henrik", last_name: "Strøm", specialism: "Front-End Development" },
-        { first_name: "Silje", last_name: "Moe", specialism: "Data Analytics" }
-    ];
 
     return(
         <>
@@ -54,7 +41,17 @@ const Students = () => {
                         {students.slice(0,10).map((student, index) => (
                             <li key={index} className="student-item">
                                 <div>
-                                <ProfileIconTeacher initials={student.first_name.charAt(0) + student.last_name.charAt(0)} firstname={student.first_name} lastname={student.last_name} role={student.specialism}/>
+                                <Student
+                                key={student.id || 0}
+                                id ={student.id}
+                                initials={`${student.firstName} ${student.lastName}`
+                                    .trim()
+                                    .split(/\s+/)
+                                    .map(word => word[0].toUpperCase())
+                                    .join('')}
+                                firstName={student.firstName}
+                                lastName={student.lastName}
+                                />
                                 </div>
                             </li>
                         ))}
