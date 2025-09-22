@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { CascadingMenuComment } from './menu/index';
 import { useComments } from '../../../context/comments';
 
-const MenuComment = ({ menuVisible, commentText, postId, commentId, name, onCommentDeleted, onDeleteComment }) => {
+const MenuComment = ({ edit=false, del=false, report=false, menuVisible, commentText, postId, commentId, name, onCommentDeleted, onDeleteComment }) => {
   const [isMenuVisible, setIsMenuVisible] = useState(menuVisible || false);
   const menuRef = useRef(null);
   const { deleteComment } = useComments();
@@ -46,6 +46,9 @@ const MenuComment = ({ menuVisible, commentText, postId, commentId, name, onComm
       <div className='menu-left'> 
         {isMenuVisible && (
           <CascadingMenuComment 
+            edit={edit}
+            del={del}
+            report={report}
             commentText={commentText} 
             postId={postId} 
             commentId={commentId} 

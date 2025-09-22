@@ -71,9 +71,28 @@
   line-height: 1;
 }
 
-.menu-left {
-  position: absolute;
-  left: -500px; /* juster avstanden etter behov */
-  top: 0;
-  z-index: 1000;
+/* Reset and override all menu positioning */
+.edit-icon-wrapper .menu-left {
+  position: absolute !important;
+  left: auto !important;
+  right: 100% !important;  /* Position to the left of trigger */
+  top: 0 !important;       /* Align with trigger top */
+  transform: translateX(-10px) !important; /* Add small gap */
+  z-index: 1000 !important;
+}
+
+/* Complete override of menu positioning with maximum specificity */
+.edit-icon-wrapper .menu-left .menu {
+  position: relative !important;
+  left: 0 !important;
+  top: 0 !important;
+  right: auto !important;
+}
+
+.edit-icon-wrapper .menu-left .menu ul {
+  position: relative !important;
+  left: 0 !important;
+  top: 0 !important;
+  right: auto !important;
+  transform: none !important;
 }

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import SearchIcon from '../../assets/icons/searchIcon';
 
 import Button from '../../components/button';
@@ -16,7 +16,6 @@ import jwtDecode from 'jwt-decode';
 import Search from './search';
 
 const Dashboard = () => {
-  const onPostAddedRef = useRef(null);
   const { token } = useAuth();
   
   // Safely decode token with fallback
@@ -33,29 +32,16 @@ const Dashboard = () => {
   const initials = fullName?.match(/\b(\w)/g)?.join('') || 'NO';
   const  { userRole, setUserRole } = useUserRoleData();
 
-  
-  const onChange = (e) => {
-    setSearchVal(e.target.value);
-  };
-
-
   // Use the useModal hook to get the openModal and setModal functions
   const { openModal, setModal } = useModal();
 
   // Create a function to run on user interaction
   const showModal = () => {
     // Use setModal to set the header of the modal and the component the modal should render
-    setModal('Create a post', <CreatePostModal onPostAdded={handlePostAdded} />); // CreatePostModal is just a standard React component, nothing special
+    setModal('Create a post', <CreatePostModal />); // CreatePostModal is just a standard React component, nothing special
 
     // Open the modal!
     openModal();
-  };
-
-  const handlePostAdded = (newPost) => {
-    // Call the Posts component's add function
-    if (onPostAddedRef.current) {
-      onPostAddedRef.current(newPost);
-    }
   };
 
   useEffect(() => {
@@ -98,7 +84,7 @@ useEffect(() => {
           </div>
         </Card>
 
-        <Posts onPostAdded={onPostAddedRef} />
+        <Posts />
       </main>
 
       <aside>

@@ -2,7 +2,7 @@ import MenuComment from './dropdown';
 import { useComments } from '../../context/comments';
 import './style.css';
 
-const Comment = ({ name, content, postId, commentId, onCommentDeleted }) => {
+const Comment = ({ id,userId, name, content, postId, commentId, onCommentDeleted }) => {
   const { deleteComment } = useComments();
 
   const initials = name?.match(/\b(\w)/g);
@@ -25,8 +25,10 @@ const Comment = ({ name, content, postId, commentId, onCommentDeleted }) => {
         <h6 className="comment__author">{name}</h6>
         <p className="comment__content">{content}</p>
       </div>
-{/*       <button className="comment__menu" aria-label="Comment options" onClick={showModal} >•••</button>
- */}    <MenuComment 
+     <MenuComment 
+        report={id !== userId}
+        del={id === userId}
+        edit={id === userId}
          commentText={content} 
          postId={postId} 
          commentId={commentId} 
