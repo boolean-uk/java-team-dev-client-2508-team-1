@@ -1,5 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
-import SearchIcon from '../../assets/icons/searchIcon';
+import {  useRef, useEffect, useState } from 'react';
 
 import Button from '../../components/button';
 import Card from '../../components/card';
@@ -14,10 +13,13 @@ import TeachersDashboard from './teachers';
 import useAuth from '../../hooks/useAuth';
 import jwtDecode from 'jwt-decode';
 import Search from './search';
+import { get } from '../../service/apiClient';
 
 const Dashboard = () => {
   const onPostAddedRef = useRef(null);
   const { token } = useAuth();
+  
+   const [cohorts, setCohorts] = useState(null) 
   
   // Safely decode token with fallback
   let decodedToken = {};
@@ -34,9 +36,9 @@ const Dashboard = () => {
   const  { userRole, setUserRole } = useUserRoleData();
 
   
-  const onChange = (e) => {
-    setSearchVal(e.target.value);
-  };
+  // const onChange = (e) => {
+  //   setSearchVal(e.target.value);
+  // };
 
 
   // Use the useModal hook to get the openModal and setModal functions
@@ -61,6 +63,19 @@ const Dashboard = () => {
   useEffect(() => {
       setUserRole(decodedToken.roleId)
   })
+
+    useEffect(() => {
+    async function fetchCohorts() {
+        try {
+        const response = await get("cohorts");
+        setCohorts(response.data.cohorts);
+        } catch (error) {
+        console.error("Error fetching cohorts:", error);
+        }
+    }
+
+    fetchCohorts(); 
+    }, []);
 
 /*  TODO TRIED ADDING CORRECT INITALS TO PROFILE CIRCLE, DIDN'T WORK 
 useEffect(() => {
@@ -110,7 +125,7 @@ useEffect(() => {
         </Card>
         ) : (
           <>
-          <Cohorts/>
+          <Cohorts cohorts={cohorts}/>
           <Students/>
           <TeachersDashboard/>
           </>

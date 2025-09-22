@@ -1,0 +1,190 @@
+.add-student-card {
+  width: 700px !important;
+  height: 1108px !important;
+  background-color: #FFFFFF;
+  border: 1px solid #E6EBF5; 
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25); 
+  padding: 24px; 
+  box-sizing: border-box;
+  margin-left: 50px; 
+  margin-top: 50px; 
+}
+
+.add-cohort-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-title {
+  font-size: 40px;
+  color: #000046;
+  margin: 0;
+}
+
+.add-under-title {
+  font-size: 18px;
+  color: #64648C;
+  margin-top: 8px;
+}
+
+.exit-button {
+  width: 48px;
+  height: 48px;
+  background-color: #F0F5FA;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #64648C;
+  
+}
+
+.exit-button svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+.line {
+    border-bottom: 1px solid var(--color-blue5);
+    margin-top: 10px
+
+}
+
+.add-search {
+    margin-top: 25px;
+}
+
+.dropdown-section {
+  width: 100%;
+}
+
+.inputwrapper {
+  position: relative;
+  width: 100%;
+  margin-top: 16px;
+  font-family: inherit;
+}
+
+.dropbtn {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #000046;
+  background-color: #F0F5FA;
+  border: 1px solid #E6EBF5;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.2s ease;
+}
+
+.dropbtn:hover {
+  background-color: #e0e6f0;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #FFFFFF;
+  border: 1px solid #E6EBF5;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 10;
+  margin-top: -54px;
+  font-family: inherit;
+}
+
+.dropdown-menu li {
+  padding: 12px 16px;
+  font-size: 16px;
+  color: #64648C;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-menu li:hover {
+  background-color: #F0F5FA;
+}
+
+.dropdown-menu li.selected {
+  background-color: #E6EBF5;
+  font-weight: bold;
+}
+
+.add-student-loading {
+    font-size: 20px;
+}
+
+
+.add-student-students-button button,
+.select-course-button button,
+.select-cohort-button button {
+  width: 100%;
+  margin: 0;
+  height: 56px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  opacity: 1;
+  background-color: #E6EBF5;
+  border: 1px solid #E6EBF5;
+  font-size: 16px;
+  color: #000046;
+  flex: 1;
+  box-sizing: border-box;
+}
+
+
+.add-student-button-title,
+.select-course-title,
+.select-cohort-title {
+    font-size: 18px;
+    color: #64648C;
+}
+
+.dropdown-section {
+margin-top: 70px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px; /* gir jevn avstand mellom alle barn */
+}
+
+.the-label {
+    color: #64648C;
+    font-size: 16px;
+    margin-left: 15px;
+}
+
+.paragraph {
+    color: #64648C;
+    font-size: 16px;
+}   
+
+.required-label {
+    color: #96A0BE;
+    font-size: 16px;
+
+}
+
+.buttons-at-bottom{
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.bottom{
+    grid-template-columns: auto;
+    gap:20px;
+}

@@ -10,7 +10,7 @@ const CascadingMenuCourse = () => {
     return (
         <>
         <Menu className="course-menu">
-            <MenuItem icon={<AddCohortIcon />} text="Add student to cohort" />
+            <MenuItem icon={<AddCohortIcon />} text="Add student to cohort" linkTo="/cohorts/add" />
             <MenuItem icon={<AddStudentIcon />} text = "Add new student"/>
             <MenuItem icon={<EditCohortIcon/>} text="Edit cohort"/>
             <MenuItem icon={<DeleteIcon/>} text="Delete cohort"/>

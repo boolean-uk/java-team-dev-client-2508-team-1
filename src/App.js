@@ -17,6 +17,7 @@ import { UserRoleProvider } from './context/userRole.';
 import EditPage from './pages/edit';
 import SearchPage from './pages/search';
 import { SearchResultsProvider } from './context/searchResults';
+import AddStudent from './pages/addStudent';
 
 const App = () => {
   return (
@@ -57,6 +58,13 @@ const App = () => {
                         </ProtectedRoute>
                       }
                     />
+                    <Route 
+                    path="cohorts/add"
+                    element={
+                      <ProtectedRoute>
+                        <AddStudent />
+                      </ProtectedRoute>
+                    }/>
                     <Route
                       path="profile"
                       element={
@@ -89,6 +97,7 @@ const App = () => {
                         </ProtectedRoute>
                       }
                     />
+                  
                   </Routes>
                 </ModalProvider>
               </CommentsProvider>

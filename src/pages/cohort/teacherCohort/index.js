@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import {  useState } from "react"
 import SearchIcon from "../../../assets/icons/searchIcon"
 import EditIconCohortTeacher from "../../../components/editIconCohortTeacher"
 import TextInput from "../../../components/form/textInput"
@@ -7,30 +7,18 @@ import './style.css';
 import StudentList from "./studentList"
 import EditIconCouse from "../../../components/editIconCourse"
 import CourseIcon from "../../../components/courseIcon"
-import { get } from "../../../service/apiClient"
+import { useNavigate } from "react-router-dom"
 
 
-const TeacherCohort = () => {
+const TeacherCohort = ({cohorts}) => {
     const [searchVal, setSearchVal] = useState('');
     const [selectedProfiles, setSelectedProfiles] = useState([]);
     const[selectedCohort, setSelectedCohort] = useState(null);
-    const [cohorts, setCohorts] = useState([]);
+    const navigate = useNavigate()
 
 
 
 
-    useEffect(() => {
-    async function fetchCohorts() {
-      try {
-        const response = await get("cohorts");
-        setCohorts(response.data.cohorts);
-      } catch (error) {
-        console.error("Error fetching cohorts:", error);
-      }
-    }
-
-    fetchCohorts();
-  }, []);
 
 
     const onChange = (e) => {
@@ -85,7 +73,7 @@ const TeacherCohort = () => {
 
                     <div className="actions">
                     <div className="add-student-button">
-                        <button>Add student</button>
+                        <button onClick={() => navigate("/cohorts/add")}>Add student</button>
                     </div>
                     <div className="edit-icon-course">
                         <EditIconCouse/>
