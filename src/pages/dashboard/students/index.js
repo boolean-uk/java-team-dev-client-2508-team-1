@@ -4,7 +4,6 @@ import { get } from "../../../service/apiClient";
 import { useNavigate } from "react-router-dom";
 import Card from "../../../components/card"
 import Student from "../../cohort/students/student";
-import ProfileCircle from "../../../components/profileCircle";
 
 const Students = () => {
    const [students, setStudents] = useState(null) 
@@ -62,7 +61,12 @@ const Students = () => {
                     onClick={handleClick}>All students</button>
                     </div>
                 ):(
-                    <p>No students found.</p>
+                    <div className="">
+                    <h3 className="loading-cohorts">Loading...</h3>
+                    <div className="loadingscreen-loader">
+                    <span></span>
+                    </div>
+                    </div>
                 )}
             </section>
         </Card>

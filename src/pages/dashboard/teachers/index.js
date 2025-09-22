@@ -42,8 +42,11 @@ const TeachersDashboard = () => {
                     ))}
                 </ul>
                 ) : (
-                <div>
-                    <p>No teachers found.</p>
+                <div className="">
+                <h3 className="loading-cohorts">Loading...</h3>
+                <div className="loadingscreen-loader">
+                <span></span>
+                </div>
                 </div>
             )}
             </section>
