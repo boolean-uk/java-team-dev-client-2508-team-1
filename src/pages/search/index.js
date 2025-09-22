@@ -87,7 +87,6 @@ const SearchPage = () => {
                     <ul>
                     {searchResults.slice(0, 10).map((student, index) => (
                         <li key={index} className="student-item">
-                        {console.log("User: " + userRole)}
                         {userRole === 1 ? (
                             <UserIconTeacherView
                             userId={student.id}

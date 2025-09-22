@@ -68,22 +68,22 @@ const UserIconTeacherView = ({ id, initials, firstname, lastname, role, menuVisi
                 </div>
 
                 <div ref = {menuRef} className="edit-icon-wrapper">
-                <div className="icon-button" onClick={() => setIsMenuVisible(!isMenuVisible)}>
-                    <span className="dots">
-                    <span className="dot">•</span>
-                    <span className="dot">•</span>
-                    <span className="dot">•</span>
-                </span>
-                </div>
-                </div>
+                    <div className="icon-button" onClick={() => setIsMenuVisible(!isMenuVisible)}>
+                        <span className="dots">
+                        <span className="dot">•</span>
+                        <span className="dot">•</span>
+                        <span className="dot">•</span>
+                    </span>
+                    </div>
+               
                  
-                <div className='menu-left'> 
-                    {isMenuVisible && <CascadingMenuSearch />}
+                    <div className='cascading-menu-container'> 
+                        {isMenuVisible && <CascadingMenuSearch />}
+                    </div>
                 </div>
                         
             </div> 
     )   
 }
-
 
 export default UserIconTeacherView;

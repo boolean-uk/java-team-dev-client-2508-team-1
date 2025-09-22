@@ -1,4 +1,6 @@
 import { API_URL } from './constants';
+import jwt_decode from 'jwt-decode'; 
+
 
 async function login(email, password) {
   return await post('login', { email, password }, false);

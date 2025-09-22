@@ -1,10 +1,28 @@
+import { useEffect, useState } from "react"
 import Card from "../../../components/card"
+import { get } from "../../../service/apiClient"
 import SoftwareLogo from "../../../assets/icons/software-logo"
 import FrontEndLogo from "../../../assets/icons/frontEndLogo"
 import DataAnalyticsLogo from "../../../assets/icons/dataAnalyticsLogo"
 import './style.css';
 
-const Cohorts = ({cohorts}) => {
+const Cohorts = () => {
+    const [cohorts, setCohorts] = useState(null) 
+
+    
+    useEffect(() => {
+    async function fetchCohorts() {
+        try {
+        const response = await get("cohorts");
+        setCohorts(response.data.cohorts);
+        } catch (error) {
+        console.error("Error fetching cohorts:", error);
+        }
+    }
+
+    fetchCohorts(); 
+    }, []);
+
         return (
             <>
             <Card>
@@ -16,7 +34,7 @@ const Cohorts = ({cohorts}) => {
           return (
             <li key={index} className="dashboard-cohort-item">
               <div className="cohort-header">
-
+               
                   <div className={`course-icon ${
                     cohort.course.name === "Software Development" ? "software-icon" :
                     cohort.course.name === "Front-End Development" ? "front-icon" :
