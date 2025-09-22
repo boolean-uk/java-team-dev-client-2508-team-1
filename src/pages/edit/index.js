@@ -184,7 +184,7 @@ const EditPage = () => {
                     label="Role"
                     readOnly={true}
                     value={formData.profile.role.name ? getReadableRole(formData.profile.role.name) : ""}
-                  />
+                  /> 
                   <TextInput
                     name="specialism"
                     label="Specialism"
