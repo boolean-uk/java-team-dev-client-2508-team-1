@@ -32,11 +32,6 @@ const Dashboard = () => {
   const  { userRole, setUserRole } = useUserRoleData();
   setUserRole(decodedToken.roleId)
   
-  const onChange = (e) => {
-    setSearchVal(e.target.value);
-  };
-
-
   // Use the useModal hook to get the openModal and setModal functions
   const { openModal, setModal } = useModal();
 

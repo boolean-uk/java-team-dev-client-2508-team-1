@@ -1,0 +1,84 @@
+.user {
+    display: flex;
+    align-items: center; 
+    padding: 8px 12px;
+    gap: 12px;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto; 
+  min-width: 0;     
+}
+
+.user-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* navnet til venstre, knappene til høyre */
+}
+
+.user-name {
+  margin: 0;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pop-up {
+    position: absolute;
+    top: 100%;    /* under .edit-icon */
+    right: 0;     /* høyrejustert med ikonet */
+    margin-top: 8px;
+    z-index: 100;
+}
+
+.profile-circle{
+    min-width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.edit-icon-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.icon-button {
+  width: 40px;
+  height: 40px;
+  margin-top: 4px;
+  margin-left: 4px;
+  background-color: #F0F5FA;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.dots {
+  display: flex;
+  gap: 4px;
+  font-size: 18px;
+  color:#64648C;
+
+}
+
+.dot {
+  line-height: 1;
+}
+
+.buttons {
+  width: 120px !important;       
+  text-align: center !important; 
+  padding: 2px 0 !important;     
+  font-size: 16px !important;    
+  color: #64648C ;     
+}

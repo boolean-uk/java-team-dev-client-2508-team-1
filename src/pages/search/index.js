@@ -3,25 +3,41 @@ import { get } from "../../service/apiClient";
 import Card from "../../components/card";
 import TextInput from "../../components/form/textInput";
 import SearchIcon from "../../assets/icons/searchIcon";
-import UserIcon from "../../components/profile-icon";
 import './style.css';
 import ArrowBack from "../../assets/icons/arrowBack";
 import { useNavigate } from "react-router-dom";
 import { useSearchResults } from "../../context/searchResults";
+import UserIconTeacherView from "../../components/profile-icon-searchTeacherView";
+import UserIconStudentView from "../../components/profile-icon-searchStudentView";
+import { useUserRoleData } from "../../context/userRole.";
+import useAuth from "../../hooks/useAuth";
+import jwtDecode from "jwt-decode";
 
 const SearchPage = () => {
     const [query, setQuery] = useState("");
     const [newresults, setNewResults] = useState(null);
     const {searchResults} = useSearchResults();
     const navigate = useNavigate();
+    const { token } = useAuth();
+    
+
+    // Safely decode token with fallback
+    let decodedToken = {};
+    try {
+        if (token || localStorage.getItem('token')) {
+        decodedToken = jwtDecode(token || localStorage.getItem('token')) || {};
+        }
+    } catch (error) {
+        console.error('Invalid token in Dashboard:', error);
+    }
+
+    const  { userRole, setUserRole } = useUserRoleData();
+      setUserRole(decodedToken.roleId)
 
     const handleGoBack = () => {
-        if (window.history.length > 1) {
-            navigate(-1); 
-        } else {
-            navigate("/");
-        }
+        navigate("/");
     };
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!query.trim()) return;
@@ -63,43 +79,66 @@ const SearchPage = () => {
             </Card>
 
             {searchResults && (
-                <div className ="results-section">
+            <div className="results-section">
                 <Card style={{ width: "500px", margin: "20px auto 0 auto" }}>
-                    <p className="people">People</p>
-                    {searchResults.length > 0 && newresults === null ? (
-                        <ul>
-                            {searchResults.slice(0, 10).map((student, index) => (
-                                <li key={index} className="student-item">
-                                    <UserIcon
-                                        userId={student.id}
-                                        initials={student.firstName.charAt(0) + student.lastName.charAt(0)}
-                                        firstname={student.firstName}
-                                        lastname={student.lastName}
-                                        role={student.specialism}
-                                    />
-                                </li>
-                            ))}
-                        </ul>
-                    ) : newresults !== null ? (
-                            <ul>
-                                {newresults.slice(0, 10).map((student, index) => (
-                                    <li key={index} className="student-item">
-                                        <UserIcon
-                                            userId={student.id}
-                                            initials={student.firstName.charAt(0) + student.lastName.charAt(0)}
-                                            firstname={student.firstName}
-                                            lastname={student.lastName}
-                                            role={student.specialism}
-                                        />
-                                    </li>
-                                ))}
-                            </ul>
-                    ) : (
-                        <p>Sorry, no results found</p>
-                    )}
+                <p className="people">People</p>
+
+                {searchResults.length > 0 && newresults === null ? (
+                    <ul>
+                    {searchResults.slice(0, 10).map((student, index) => (
+                        <li key={index} className="student-item">
+                        {console.log("User: " + userRole)}
+                        {userRole === 1 ? (
+                            <UserIconTeacherView
+                            userId={student.id}
+                            initials={student.firstName.charAt(0) + student.lastName.charAt(0)}
+                            firstname={student.firstName}
+                            lastname={student.lastName}
+                            role={student.specialism}
+                            />
+                        ) : userRole === 2 ? (
+                            <UserIconStudentView
+                            userId={student.id}
+                            initials={student.firstName.charAt(0) + student.lastName.charAt(0)}
+                            firstname={student.firstName}
+                            lastname={student.lastName}
+                            role={student.specialism}
+                            />
+                        ) : null}   
+                        </li>
+                    ))}
+                    </ul>
+                ) : newresults !== null ? (
+                    <ul>
+                    {newresults.slice(0, 10).map((student, index) => (
+                        <li key={index} className="student-item">
+                        {userRole === 1 ? (
+                            <UserIconTeacherView
+                            userId={student.id}
+                            initials={student.firstName.charAt(0) + student.lastName.charAt(0)}
+                            firstname={student.firstName}
+                            lastname={student.lastName}
+                            role={student.specialism}
+                            />
+                        ) : userRole === 2 ? (
+                            <UserIconStudentView
+                            userId={student.id}
+                            initials={student.firstName.charAt(0) + student.lastName.charAt(0)}
+                            firstname={student.firstName}
+                            lastname={student.lastName}
+                            role={student.specialism}
+                            />
+                        ) : null} 
+                        </li>
+                    ))}
+                    </ul>
+                ) : (
+                    <p>Sorry, no results found</p>
+                )}
                 </Card>
-                </div>
+            </div>
             )}
+
             </div>
         </main>
     );
