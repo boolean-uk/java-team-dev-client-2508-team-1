@@ -37,12 +37,9 @@ const Header = () => {
   }
 
   let userIdFromToken = null;
-  try {
-    const decoded = jwtDecode(token);
-    userIdFromToken = decoded.userId;
-  } catch (err) {
-    console.error("Error when decoding by header", err);
-  }
+
+  const decoded = jwtDecode(token || localStorage.getItem('token'));
+  userIdFromToken = decoded.userId;
 
   return (
     <header className="app-header">
@@ -62,7 +59,7 @@ const Header = () => {
 
               <div className="post-user-name">
                 <p>{fullName}</p>
-                <small>Software Developer, Cohort 3</small>
+                <small>{decoded.specialism}, Cohort {decoded.cohortId || "3"}</small>
               </div>
             </section>
 

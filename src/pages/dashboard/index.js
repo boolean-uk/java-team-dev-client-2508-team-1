@@ -1,5 +1,7 @@
 
+
 import { useState, useRef, useEffect } from 'react';
+
 import SearchIcon from '../../assets/icons/searchIcon';
 
 import Button from '../../components/button';
@@ -19,7 +21,6 @@ import Student from '../cohort/students/student';
 import { getUserById, get } from '../../service/apiClient';
 
 const Dashboard = () => {
-  const onPostAddedRef = useRef(null);
   const { token } = useAuth();
   const [students, setStudents] = useState([]);
   const [cohort, setCohort] = useState([]);
@@ -73,31 +74,17 @@ const Dashboard = () => {
   const  { userRole, setUserRole } = useUserRoleData();
 
 
-  
-  const onChange = (e) => {
-    setSearchVal(e.target.value);
-  };
-
-
   // Use the useModal hook to get the openModal and setModal functions
   const { openModal, setModal } = useModal();
 
   // Create a function to run on user interaction
   const showModal = () => {
     // Use setModal to set the header of the modal and the component the modal should render
-    setModal('Create a post', <CreatePostModal onPostAdded={handlePostAdded} />); // CreatePostModal is just a standard React component, nothing special
+    setModal('Create a post', <CreatePostModal />); // CreatePostModal is just a standard React component, nothing special
 
     // Open the modal!
     openModal();
   };
-
-  const handlePostAdded = (newPost) => {
-    // Call the Posts component's add function
-    if (onPostAddedRef.current) {
-      onPostAddedRef.current(newPost);
-    }
-  };
-
 
   useEffect(() => {
       setUserRole(decodedToken.roleId)
@@ -139,7 +126,7 @@ useEffect(() => {
           </div>
         </Card>
 
-        <Posts onPostAdded={onPostAddedRef} />
+        <Posts />
       </main>
 
       <aside>
