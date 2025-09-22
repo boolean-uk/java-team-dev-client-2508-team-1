@@ -1,4 +1,6 @@
-import { useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import SearchIcon from '../../assets/icons/searchIcon';
+
 import Button from '../../components/button';
 import Card from '../../components/card';
 import CreatePostModal from '../../components/createPostModal';
@@ -30,7 +32,7 @@ const Dashboard = () => {
   const fullName = `${decodedToken.firstName || decodedToken.first_name || 'Current'} ${decodedToken.lastName || decodedToken.last_name || 'User'}`;
   const initials = fullName?.match(/\b(\w)/g)?.join('') || 'NO';
   const  { userRole, setUserRole } = useUserRoleData();
-  setUserRole(decodedToken.roleId)
+
   
   const onChange = (e) => {
     setSearchVal(e.target.value);
@@ -55,6 +57,10 @@ const Dashboard = () => {
       onPostAddedRef.current(newPost);
     }
   };
+
+  useEffect(() => {
+      setUserRole(decodedToken.roleId)
+  })
 
 /*  TODO TRIED ADDING CORRECT INITALS TO PROFILE CIRCLE, DIDN'T WORK 
 useEffect(() => {
