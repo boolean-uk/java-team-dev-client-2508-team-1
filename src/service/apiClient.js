@@ -35,11 +35,11 @@ async function createProfile(userId,
   cohort, 
   start_date, 
   end_date, 
-  photo) {
+  photo
+) {
 
   cohort = parseInt(cohort)
-  photo = JSON.stringify(photo)
-
+  
   return await post(`profiles`, { userId, 
     first_name, 
     last_name, 

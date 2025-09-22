@@ -20,11 +20,11 @@ const ProfileData = ({ user }) => {
 
   return (
     <main className="profile-container">
-      <div className="photo-section">
+      <div className="photo-section-edit">
         <img
           src={photo || "https://placeholderimage.org/api/image/150x150?text=User"}
           alt=""
-          className="profile-photo"
+          className="profile-photo-edit"
         />
         {(firstName || lastName) && (
           <p className="name-text">{firstName} {lastName}</p>
