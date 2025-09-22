@@ -1,18 +1,8 @@
-import { useEffect } from 'react';
 import Post from '../post';
 import { usePosts } from '../../context/posts';
 
-const Posts = ({ onPostAdded }) => {
-  const { posts, loading, addPost } = usePosts();
-
-  // Expose the function to add a new post
-  useEffect(() => {
-    if (onPostAdded) {
-      onPostAdded.current = (newPost) => {
-        addPost(newPost);
-      };
-    }
-  }, [onPostAdded, addPost]);
+const Posts = () => {
+  const { posts, loading } = usePosts();
 
   if (loading) {
     return <div>Loading posts...</div>;
