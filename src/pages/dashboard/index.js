@@ -14,6 +14,7 @@ import jwtDecode from 'jwt-decode';
 import Search from './search';
 import Student from '../cohort/students/student';
 import { getUserById, get } from '../../service/apiClient';
+import UserIcon from '../../components/profile-icon';
 
 const Dashboard = () => {
   const onPostAddedRef = useRef(null);
@@ -159,16 +160,16 @@ useEffect(() => {
               <section className='cohort-teachers-container border-top'>
                 
                 {students.map((student) => (
-                  <Student
-                    key={student.id || 0}
-                    id ={student.id}
+                  <UserIcon
+                    key={student.id}
+                    id={student.id}
                     initials={`${student.firstName} ${student.lastName}`
                         .trim()
                         .split(/\s+/)
                         .map(word => word[0].toUpperCase())
                         .join('')}
-                    firstName={student.firstName}
-                    lastName={student.lastName}
+                    firstname={student.firstName}
+                    lastname={student.lastName}
                   />
                 ))}
               </section>

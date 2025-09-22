@@ -3,7 +3,7 @@ import { get } from "../../../service/apiClient";
 
 import { useNavigate } from "react-router-dom";
 import Card from "../../../components/card"
-import Student from "../../cohort/students/student";
+import UserIcon from "../../../components/profile-icon";
 
 const Students = () => {
    const [students, setStudents] = useState(null) 
@@ -40,17 +40,16 @@ const Students = () => {
                         {students.slice(0,10).map((student, index) => (
                             <li key={index} className="student-item">
                                 <div>
-                                <Student
-                                key={student.id || 0}
-                                id ={student.id}
-                                initials={`${student.firstName} ${student.lastName}`
-                                    .trim()
-                                    .split(/\s+/)
-                                    .map(word => word[0].toUpperCase())
-                                    .join('')}
-                                firstName={student.firstName}
-                                lastName={student.lastName}
-                                />
+                                <UserIcon 
+                                   id = {student.id}
+                                   initials={`${student.firstName} ${student.lastName}`
+                                       .trim()
+                                       .split(/\s+/)
+                                       .map(word => word[0].toUpperCase())
+                                       .join('')}
+                                   firstname={student.firstName}
+                                   lastname={student.lastName}
+                               />
                                 </div>
                             </li>
                         ))}

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { get } from "../../../service/apiClient"
 import Card from "../../../components/card"
-import Teacher from "../../cohort/teachers/teacher"
+import UserIcon from "../../../components/profile-icon"
 
 const TeachersDashboard = () => {
     const [teachers, setTeachers] = useState(null)
@@ -28,15 +28,16 @@ const TeachersDashboard = () => {
                     {teachers?.slice(0,10).map((teacher, index) => (
                         <li key={index}>
                             <div>
-                               <Teacher
-                                initials={`${teacher.firstName} ${teacher.lastName}`
-                                    .trim()
-                                    .split(/\s+/)
-                                    .map(word => word[0].toUpperCase())
-                                    .join('')}
-                                firstName={teacher.firstName}
-                                lastName={teacher.lastName}
-                                />
+                               <UserIcon 
+                                   id = {teacher.id}
+                                   initials={`${teacher.firstName} ${teacher.lastName}`
+                                       .trim()
+                                       .split(/\s+/)
+                                       .map(word => word[0].toUpperCase())
+                                       .join('')}
+                                   firstname={teacher.firstName}
+                                   lastname={teacher.lastName}
+                               />
                             </div>
                         </li>
                     ))}
