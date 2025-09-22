@@ -30,7 +30,7 @@ const Cohort = () => {
     const [teachers, setTeachers] = useState([]);
 
     const [students, setStudents] = useState([]);
-    const [courses, setCourses] = useState([]);
+    const [course, setcourse] = useState([]);
     const [cohort, setCohort] = useState("");
     
 
@@ -69,9 +69,9 @@ const Cohort = () => {
                 const students = data.data.cohort.profiles.filter((profileid) => profileid?.role?.name === "ROLE_STUDENT");
                 setStudents(students || []);
 
-                // courses
-                const courses = data.data.cohort.cohort_courses;
-                setCourses(courses || []);
+                // course
+                const course = data.data.cohort.course;
+                setcourse(course || "");
 
             } catch (error) {
                 console.error('fetchData() in cohort/teachers/index.js:', error);
@@ -112,7 +112,7 @@ const Cohort = () => {
         {userRole === 2 ? ( 
             <>
             <main>
-                <Students students={students} getInitials={getInitials} courses={courses} cohort={cohort} />
+                <Students students={students} getInitials={getInitials} course={course} cohort={cohort} />
             </main>
 
             <aside>
