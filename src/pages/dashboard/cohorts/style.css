@@ -22,13 +22,21 @@ aside {
 
 
 
-.course-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 8px;
-  font-size: 20px
+.dashboard-cohort-item {
+  margin-top: 10px;
+     
 }
+
+.dashboard-cohort-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;   
+}
+
+.course-text {
+  margin-left: -35px
+}
+
 
 .course-icon {
   width: 56px;
@@ -38,7 +46,6 @@ aside {
   align-items: center;
   justify-content: center;
 }
-
 /* Farger per kurs */
 .software-icon {
   background: #28C846;
@@ -55,22 +62,23 @@ aside {
 .course-icon svg {
   width: 30px;
   height: 30px;
+  
 }
 
-.cohort-name {
-  margin-left: 70px;
+.dashboard-cohort-name {
+  margin-left: 50px;
   font-size: 16px;
   color: #64648C;
   margin-top: 4px;
+  
 }
 
-.cohort-info {
-  margin-top: 10px;
-}
 
-.course-name {
+.dashboard-course-name {
   font-size: 20px;
-  font-weight: bold
+  font-weight: bold;
+  margin-left: 50px;
+  
 }
 
 .student-button {
@@ -90,4 +98,8 @@ aside {
   cursor: pointer;
   font-size: 16px;
 
+}
+
+.loading-cohorts {
+  font-size: 20px;
 }

@@ -24,7 +24,6 @@ const TeacherCohort = () => {
       try {
         const response = await get("cohorts");
         setCohorts(response.data.cohorts);
-        console.log(response)
       } catch (error) {
         console.error("Error fetching cohorts:", error);
       }
@@ -78,7 +77,7 @@ const TeacherCohort = () => {
                     <div className="selected-course">
                         {selectedCohort !== null ? (
                             <>
-                            <CourseIcon courseName={selectedCohort.cohort_courses[0].name} cohort={selectedCohort.id} startDate={selectedCohort.startDate} endDate={selectedCohort.endDate}/>
+                            <CourseIcon courseName={selectedCohort.course.name} cohort={selectedCohort.id} startDate={selectedCohort.startDate} endDate={selectedCohort.endDate}/>
                             </>
                         ): (<><p>Select a course</p></>)}
                         

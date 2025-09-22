@@ -21,13 +21,13 @@ aside {
 }
 
 
+.dashboard-cohort-item {
+  margin-bottom: 20px;
+}
 
-.course-row {
+.cohort-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 8px;
-  font-size: 20px
 }
 
 .course-icon {
@@ -57,20 +57,23 @@ aside {
   height: 30px;
 }
 
+
 .cohort-name {
-  margin-left: 70px;
   font-size: 16px;
   color: #64648C;
   margin-top: 4px;
 }
 
-.cohort-info {
-  margin-top: 10px;
+.course-text {
+  display: flex;
+  flex-direction: column;
 }
 
-.course-name {
+
+.dashboard-course-name {
   font-size: 20px;
-  font-weight: bold
+  font-weight: bold;
+  margin: 0;
 }
 
 .student-button {
