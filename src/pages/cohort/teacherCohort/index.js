@@ -102,7 +102,7 @@ const TeacherCohort = () => {
         </div>):(
             <div>
         <div className="">
-            <h3>Loading...</h3>
+            <h3 className="cohort-teacher-loading">Loading...</h3>
             <div className="loadingscreen-loader">
             <span></span>
             </div>
