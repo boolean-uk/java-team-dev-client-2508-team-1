@@ -118,3 +118,10 @@ aside {
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
+.cohort-name-student {
+  margin-left: 50px;
+  font-size: 16px;
+  color: #64648C;
+  margin-top: 4px;
+}

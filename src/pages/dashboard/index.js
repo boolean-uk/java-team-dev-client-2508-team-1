@@ -19,6 +19,7 @@ import jwtDecode from 'jwt-decode';
 import Search from './search';
 import Student from '../cohort/students/student';
 import { getUserById, get } from '../../service/apiClient';
+import UserIcon from '../../components/profile-icon';
 
 const Dashboard = () => {
   const { token } = useAuth();
@@ -87,8 +88,23 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-      setUserRole(decodedToken.roleId)
-  })
+    async function fetchAndSetUserRole() {
+      const storedToken = token || localStorage.getItem('token');
+      if (!storedToken) return;
+      try {
+        const decoded = jwtDecode(storedToken);
+        const user = await getUserById(decoded.userId);
+        // Sjekk rollen fra backend
+        const roleName = user.profile.role.name;
+        if (roleName === 'ROLE_TEACHER') setUserRole(1);
+        else if (roleName === 'ROLE_STUDENT') setUserRole(2);
+        else setUserRole(null);
+      } catch (error) {
+        console.error('Error fetching user role from backend:', error);
+      }
+    }
+    fetchAndSetUserRole();
+  }, [token, setUserRole]);
 
 /*  TODO TRIED ADDING CORRECT INITALS TO PROFILE CIRCLE, DIDN'T WORK 
 useEffect(() => {
@@ -131,36 +147,39 @@ useEffect(() => {
 
       <aside>
         <Search />
-
-        { userRole === 2 ? (
-           <Card>
-            <h3>My Cohort</h3>
-            <p className='padding-top'>{course.name}, Cohort {cohort.id}</p>
-            <section className='cohort-teachers-container border-top'>
-              
-              {students.map((student) => (
-                <Student
-                  key={student.id || 0}
-                  id ={student.id}
-                  initials={`${student.firstName} ${student.lastName}`
-                      .trim()
-                      .split(/\s+/)
-                      .map(word => word[0].toUpperCase())
-                      .join('')}
-                  firstName={student.firstName}
-                  lastName={student.lastName}
-                />
-              ))}
-            </section>
-          </Card>
+        { userRole === null || userRole === undefined ? (
+          <div>Loading...</div>
         ) : (
-          <>
-          <Cohorts/>
-          <Students/>
-          <TeachersDashboard/>
-          </>
+          userRole === 2 ? (
+            <Card>
+              <h3>My Cohort</h3>
+              <p className='padding-top'>{course.name}, Cohort {cohort.id}</p>
+              <section className='cohort-teachers-container border-top'>
+                
+                {students.map((student) => (
+                  <UserIcon
+                    key={student.id}
+                    id={student.id}
+                    initials={`${student.firstName} ${student.lastName}`
+                        .trim()
+                        .split(/\s+/)
+                        .map(word => word[0].toUpperCase())
+                        .join('')}
+                    firstname={student.firstName}
+                    lastname={student.lastName}
+                  />
+                ))}
+              </section>
+            </Card>
+          ) : (
+            <>
+              <Cohorts/>
+              <Students/>
+              <TeachersDashboard/>
+            </>
+          )
         )}
-       
+         
       </aside>
     </>
   );
