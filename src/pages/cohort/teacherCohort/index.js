@@ -65,7 +65,7 @@ const TeacherCohort = ({cohorts}) => {
                     <div className="selected-course">
                         {selectedCohort !== null ? (
                             <>
-                            <CourseIcon courseName={selectedCohort.course.name} cohort={selectedCohort.id} startDate={selectedCohort.startDate} endDate={selectedCohort.endDate}/>
+                            <CourseIcon courseName={selectedCohort.course.name} cohort={selectedCohort.id} startDate={selectedCohort.course.startDate} endDate={selectedCohort.course.endDate}/>
                             </>
                         ): (<><p>Select a course</p></>)}
                         

@@ -27,14 +27,7 @@ const CohortsMenu = ({cohorts, onSelect}) => {
 
           </ul>
         ) : (
-        <div>
-        <div className="">
-            <h3 className="add-student-loading">Loading...</h3>
-            <div className="loadingscreen-loader">
-            <span></span>
-            </div>
-        </div>
-        </div>
+            <p className="no-course">Please pick a course</p>
         )}
         </div>
         </>

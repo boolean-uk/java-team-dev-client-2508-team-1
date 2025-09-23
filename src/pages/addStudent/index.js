@@ -2,7 +2,7 @@ import ExitIcon from "../../assets/icons/exitIcon";
 import "./style.css";
 import SearchBar from "./searchBar";
 import { useEffect, useState } from "react";
-import { get } from "../../service/apiClient";
+import { get, patch } from "../../service/apiClient";
 import ArrowDownIcon from "../../assets/icons/arrowDownIcon";
 import StudentsMenu from "./studentsMenu";
 import CoursesMenu from "./coursesMenu";
@@ -14,9 +14,11 @@ const AddStudent = () => {
     const [students, setStudents] = useState([])
     const [courses, setCourses] = useState([])
     const [cohorts, setCohorts] = useState([])
+
     const [isOpenCourses, setIsOpenCourses] = useState(false);
     const [isOpenStudents, setIsOpenStudents] = useState(false);
     const [isOpenCohorts, setIsOpenCohorts] = useState(false)
+
     const [selectedStudent, setSelectedStudent] = useState(null)
     const [selectedCourse, setSelectedCourse] = useState(null)
     const [selectedCohort, setSelectedCohort] = useState(null)
@@ -36,41 +38,31 @@ const AddStudent = () => {
     async function fetchCourses() {
         try {
             const response = await get("courses");
+            console.log(response)
             setCourses(response.data.courses);
-        } catch (error) {
-            console.error("Error fetching courses:", error);
-        }
-    }
-
-    async function fetchCohorts() {
-         try {
-            const response = await get("cohorts");
-            setCohorts(response.data.cohorts);
-            console.log("cohorts: " + response)
         } catch (error) {
             console.error("Error fetching courses:", error);
         }
     }
     fetchStudents(); 
     fetchCourses()
-    fetchCohorts()
     }, []);
+
+
+    
 
     const handleSelectStudent = (student) => {
         console.log("Selected student:", student);
         setIsOpenStudents(false); 
         setSelectedStudent(student)
-        addStudentToCohort(selectedStudent,selectedCourse)
   };
 
-  const addStudentToCohort = () => {
-
-  }
 
   const handleSelectCourse = (course) => {
     console.log("selected course" + course)
     setIsOpenCourses(false)
     setSelectedCourse(course)
+    setCohorts(course.cohorts)
   }
 
    const handleSelectCohort = (cohort) => {
@@ -78,13 +70,28 @@ const AddStudent = () => {
     setIsOpenCohorts(false)
     setSelectedCohort(cohort)
   }
+
+    const handleAdd = () => {
+      async function addStudentToCohort() {
+        try {
+            console.log(selectedCohort.id)
+            const response = await patch(`cohorts/teacher/${selectedCohort.id}`, {profileId: parseInt(selectedStudent.id)});
+            console.log(response)
+        } catch (error) {
+            console.error("Error adding student to cohort:", error);
+        }
+    } addStudentToCohort()
+    navigate(-1)
+      
+
+  }
   return (
     <>
       <div className="add-student-card">
         <div className="add-cohort-header">
           <h2 className="add-title">Add student to cohort</h2>
           <div className="exit-icon-wrapper">
-            <button className="exit-button" onClick={() => navigate("/cohorts")} >
+            <button className="exit-button" onClick={() => navigate(-1)} >
               <ExitIcon />
             </button>
           </div>
@@ -117,7 +124,7 @@ const AddStudent = () => {
             <label className="the-label">Course*</label>
                 <button  onClick={() => setIsOpenCourses(true)}>
                     {selectedCourse !== null ? (<span className="select-course-title-selected">{selectedCourse.name}</span>
-                    ):( <span className="select-course-title">Software Development</span>)}
+                    ):( <span className="select-course-title">Select a course</span>)}
                     
                     <ArrowDownIcon/>
                 </button> 
@@ -129,7 +136,7 @@ const AddStudent = () => {
             <label className="the-label">Cohort*</label>
              <button  onClick={() => setIsOpenCohorts(true)}>
                     {selectedCohort !== null ? (<span className="select-cohort-title-selected">Cohort {selectedCohort.id}</span>
-                    ):( <span className="select-cohort-title">Cohort 1</span>)}
+                    ):( <span className="select-cohort-title">Select a cohort</span>)}
     
                     <ArrowDownIcon/>
                 </button> 
@@ -143,14 +150,14 @@ const AddStudent = () => {
         </div>
 
         <div className="buttons-at-bottom"> 
-            <button className="offwhite"> Cancel </button>
-            <button className="blue">Add to cohort</button>
+            <button className="offwhite" onClick={() => navigate(-1)}> Cancel </button>
+            <button className="blue" onClick={handleAdd}>Add to cohort</button>
         </div>
         
         <hr className="line"></hr>
         <div className="bottom">
-        <p className="last-line">Or</p>
-        <button className="offwhite">Add new student</button>
+        <p className="paragraph">Or</p>
+        <button className="offwhite-button">Add new student</button>
         </div>
 
       </div>

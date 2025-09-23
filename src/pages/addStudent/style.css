@@ -108,7 +108,7 @@
   font-size: 16px;
   color: #64648C;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;;
 }
 
 .dropdown-menu li:hover {
@@ -153,7 +153,7 @@
 }
 
 .dropdown-section {
-margin-top: 70px;
+  margin-top: 70px;
   display: flex;
   flex-direction: column;
   gap: 60px; /* gir jevn avstand mellom alle barn */
@@ -185,6 +185,28 @@ margin-top: 70px;
 }
 
 .bottom{
+    display: grid;
     grid-template-columns: auto;
-    gap:20px;
+    
+}
+
+
+button.offwhite-button,
+.button.offwhite-button {
+  background-color: var(--color-offwhite);
+  color: var(--color-blue1);
+  width: 35% !important;
+  margin-left:60px;
+}
+button.offwhite-button:hover,
+.button.offwhite-button:hover,
+button.offwhite-button:focus,
+.button.offwhite-button:focus {
+  background-color: var(--color-blue);
+  color: white;
+}
+
+
+.no-course {
+    margin-bottom: 100px;
 }
