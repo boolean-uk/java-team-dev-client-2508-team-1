@@ -1,6 +1,6 @@
 
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 
 
@@ -18,7 +18,6 @@ import useAuth from '../../hooks/useAuth';
 import jwtDecode from 'jwt-decode';
 import Search from './search';
 
-import Student from '../cohort/students/student';
 import { getUserById, get } from '../../service/apiClient';
 import UserIcon from '../../components/profile-icon';
 
@@ -100,7 +99,7 @@ const Dashboard = () => {
       try {
         const decoded = jwtDecode(storedToken);
         const user = await getUserById(decoded.userId);
-        // Sjekk rollen fra backend
+        // check the role from backend
         const roleName = user.profile.role.name;
         if (roleName === 'ROLE_TEACHER') setUserRole(1);
         else if (roleName === 'ROLE_STUDENT') setUserRole(2);
@@ -124,31 +123,6 @@ const Dashboard = () => {
 
     fetchCohorts(); 
     }, []);
-
-/*  TODO TRIED ADDING CORRECT INITALS TO PROFILE CIRCLE, DIDN'T WORK 
- *
- *  Jeg hyller dette forsoket :) -Richard 22.09.2025
-useEffect(() => {
-    async function fetchUser() {
-      try {
-        const { userId } = jwt_decode(token || localStorage.getItem('token')) || {};
-        if (!userId) {
-          console.log('Could not determine user. Please log in again.');
-          return;
-        }
-      const fetchedUser = await get(`users/${userId}`);
-      setUser(fetchedUser);
-    } catch (error) {
-      console.error('Error fetching user:', error);
-      setUser([]);
-    }
-    const authorName = post.user.profile
-    ? `${post.user.profile.firstName || 'Unknown'} ${post.user.profile.lastName || 'User'}`
-    : 'Unknown User';
-    setUserInitials(authorName.match(/\b(\w)/g));
-  }
-      fetchUser();
-    }, []); */
 
   return (
     <>
