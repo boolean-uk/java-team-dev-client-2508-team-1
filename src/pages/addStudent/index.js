@@ -8,6 +8,9 @@ import StudentsMenu from "./studentsMenu";
 import CoursesMenu from "./coursesMenu";
 import { useNavigate } from "react-router-dom";
 import CohortsMenu from "./cohortsMenu";
+import { Snackbar, SnackbarContent } from '@mui/material';
+import CheckCircleIcon from "./checkCircleIcon";
+
     
 
 const AddStudent = () => {
@@ -18,6 +21,7 @@ const AddStudent = () => {
     const [isOpenCourses, setIsOpenCourses] = useState(false);
     const [isOpenStudents, setIsOpenStudents] = useState(false);
     const [isOpenCohorts, setIsOpenCohorts] = useState(false)
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
 
     const [selectedStudent, setSelectedStudent] = useState(null)
     const [selectedCourse, setSelectedCourse] = useState(null)
@@ -81,9 +85,11 @@ const AddStudent = () => {
             console.error("Error adding student to cohort:", error);
         }
     } addStudentToCohort()
-    navigate(-1)
-      
+    setSnackbarOpen(true);
 
+    setTimeout(()=> {
+        navigate(-1)
+    }, 3010)
   }
   return (
     <>
@@ -152,6 +158,32 @@ const AddStudent = () => {
         <div className="buttons-at-bottom"> 
             <button className="offwhite" onClick={() => navigate(-1)}> Cancel </button>
             <button className="blue" onClick={handleAdd}>Add to cohort</button>
+                                
+            <Snackbar open={snackbarOpen} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+            <SnackbarContent
+                sx={{
+                backgroundColor: '#000046',
+                color: '#fff',
+                width: '310px',
+                height: '70px',
+                padding: '4px 16px',
+                borderRadius: '8px',
+                boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '20px',
+                }}
+                message={
+                <span style={{ color: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <CheckCircleIcon style={{ marginRight: '8px', color: '#FFFFFF' }} />
+                    Student added to cohort
+                </span>
+                }
+            />
+            </Snackbar>
+
+
         </div>
         
         <hr className="line"></hr>
