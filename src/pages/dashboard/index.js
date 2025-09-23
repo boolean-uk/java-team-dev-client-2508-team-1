@@ -156,11 +156,7 @@ const Dashboard = () => {
                   <UserIcon
                     key={student.id}
                     id={student.id}
-                    initials={`${student.firstName} ${student.lastName}`
-                        .trim()
-                        .split(/\s+/)
-                        .map(word => word[0].toUpperCase())
-                        .join('')}
+                    initials={initials}
                     firstname={student.firstName}
                     lastname={student.lastName}
                   />
