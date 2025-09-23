@@ -11,12 +11,6 @@ import { del, get } from '../../../service/apiClient';
 const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText, postId, name, isMenuVisible, setIsMenuVisible, commentText, commentId, onCommentDeleted, onPostDeleted, profileId, clicked, setClicked, setRefresh, setSnackBarMessage}) => {
   const { openModal, setModal, closeModal } = useModal();
 
-import { Snackbar, SnackbarContent } from '@mui/material';
-import Portal from '@mui/material/Portal';
-import { useState } from 'react';
-import CheckCircleIcon from '../../../assets/icons/checkCircleIcon';
-
-
   const { deletePost } = usePosts();
   const { deleteComment } = useComments();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
