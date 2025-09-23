@@ -12,7 +12,6 @@ const CohortsList= ({ onSelect, setSelectedCohort , cohorts}) => {
 
     const handleClick = (cohort) => {
         setSelectedCohortId(cohort.id);
-        console.log(cohort)
         setSelectedCohort(cohort)
         if (onSelect) {
           onSelect(cohort.profiles); 
