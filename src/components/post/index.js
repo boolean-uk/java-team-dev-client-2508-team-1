@@ -12,7 +12,7 @@ import './style.css';
 import { usePosts } from '../../context/posts';
 
 import MenuPost from './dropdown';
-import jwt_decode from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 import useAuth from '../../hooks/useAuth';
 
 const Post = ({ post }) => {
@@ -24,7 +24,7 @@ const Post = ({ post }) => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [isCommentHovered, setIsCommentHovered] = useState(false);
   const { token } = useAuth();
-  const { userId } = jwt_decode(token || localStorage.getItem('token')) || {};
+  const { userId } = jwtDecode(token || localStorage.getItem('token')) || {};
 
   const authorName = post.user.profile
     ? `${post.user.profile.firstName || 'Unknown'} ${post.user.profile.lastName || 'User'}`
@@ -72,7 +72,6 @@ const Post = ({ post }) => {
   };
 
   const comments = Array.isArray(localComments) ? localComments : [];
-  console.log('Comments:', comments);
   const handleCommentClick = () => {
     if (commentInputRef.current) {
       commentInputRef.current.focus();
@@ -125,7 +124,7 @@ const Post = ({ post }) => {
     <Card>
       <article className="post">
         <header className="post__header">
-          <ProfileCircle initials={userInitials} />
+          <ProfileCircle id = {post.user.id} initials={userInitials} />
 
           <div className="post__meta">
             <p className="post__author">{authorName}</p>
