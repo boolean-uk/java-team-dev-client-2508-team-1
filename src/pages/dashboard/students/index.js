@@ -3,7 +3,7 @@ import { get } from "../../../service/apiClient";
 
 import { useNavigate } from "react-router-dom";
 import Card from "../../../components/card"
-import UserIcon from "../../../components/profile-icon";
+// import UserIcon from "../../../components/profile-icon";
 import ProfileIconTeacher from "../../../components/profile-icon-teacherView";
 
 const Students = () => {

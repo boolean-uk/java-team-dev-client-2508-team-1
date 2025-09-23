@@ -1,26 +1,27 @@
 import {  useState } from "react"
-import SearchIcon from "../../../assets/icons/searchIcon"
+// import SearchIcon from "../../../assets/icons/searchIcon"
 import EditIconCohortTeacher from "../../../components/editIconCohortTeacher"
-import TextInput from "../../../components/form/textInput"
+// import TextInput from "../../../components/form/textInput"
 import CohortsList from "./cohortsList"
 import './style.css';
 import StudentList from "./studentList"
 import EditIconCouse from "../../../components/editIconCourse"
 import CourseIcon from "../../../components/courseIcon"
 import { useNavigate } from "react-router-dom"
+import SearchTeacher from "./searchTeacher";
 
 
 const TeacherCohort = ({cohorts}) => {
-    const [searchVal, setSearchVal] = useState('');
+    // const [searchVal, setSearchVal] = useState('');
     const [selectedProfiles, setSelectedProfiles] = useState([]);
     const[selectedCohort, setSelectedCohort] = useState(null);
     const navigate = useNavigate()
 
 
 
-    const onChange = (e) => {
-        setSearchVal(e.target.value);
-    };
+    // const onChange = (e) => {
+    //     setSearchVal(e.target.value);
+    // };
         
 
     return (
@@ -31,10 +32,13 @@ const TeacherCohort = ({cohorts}) => {
                     <h3>Cohorts</h3>
                     <h3>Students</h3>
                 </div>
-            
-                <form className="search-bar"  onSubmit={(e) => e.preventDefault()}>
+
+                <div className="search-bar-in-cohorts">
+                <SearchTeacher />
+                {/* <form className="search-bar"  onSubmit={(e) => e.preventDefault()}>
                     <TextInput  placeholder="  Search for people" icon={<SearchIcon />} value={searchVal} name="Search" onChange={onChange} />
-                </form>
+                </form> */}
+                </div>
             </div>
 
 

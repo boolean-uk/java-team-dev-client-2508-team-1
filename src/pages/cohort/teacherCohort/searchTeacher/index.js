@@ -1,13 +1,13 @@
-import { useNavigate } from "react-router-dom"
-import { useState, useRef, useEffect } from "react"
-import Card from "../../../components/card"
-import TextInput from "../../../components/form/textInput"
-import SearchIcon from "../../../assets/icons/searchIcon"
-import { get } from "../../../service/apiClient"
-import UserIcon from "../../../components/profile-icon"
-import { useSearchResults } from "../../../context/searchResults"
+import { useEffect, useRef, useState } from "react";
+import { useSearchResults } from "../../../../context/searchResults";
+import { useNavigate } from "react-router-dom";
+import { get } from "../../../../service/apiClient";
+import TextInput from "../../../../components/form/textInput";
+import SearchIcon from "../../../../assets/icons/searchIcon";
+import { Card } from "@mui/material";
+import ProfileIconTeacher from "../../../../components/profile-icon-teacherView";
 
-const Search = () => {
+const SearchTeacher = () => {
     const [query, setQuery] = useState("");
     const {searchResults, setSearchResults} = useSearchResults();
     const [isOpen, setIsOpen] = useState(false);
@@ -72,13 +72,23 @@ const Search = () => {
                             zIndex: 20
                         }}
                     >
-                        <Card>
+                        <Card 
+                           style={{
+                            position: "absolute",
+                            top: "150%",
+                            right: 5,
+                            width: "150%",
+                            zIndex: 20,
+                            overflow:"visible",
+                        }}>
                             <p className="people">People</p>
                             {searchResults?.length > 0 ? (
                                 <ul>
                                     {searchResults.slice(0, 10).map((student, index) => (
-                                        <li key={index} className="student-item">
-                                            <UserIcon
+                                        <li key={index} className="student-item"
+                                        >
+                                            <ProfileIconTeacher
+                                                className="profile-icon-cohorts"
                                                 userId={student.id}
                                                 initials={student.firstName.charAt(0) + student.lastName.charAt(0)}
                                                 firstname={student.firstName}
@@ -106,4 +116,4 @@ const Search = () => {
 
 }
 
-export default Search;
+export default SearchTeacher;

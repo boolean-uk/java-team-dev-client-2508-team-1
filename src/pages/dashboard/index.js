@@ -141,7 +141,9 @@ const Dashboard = () => {
       </main>
 
       <aside>
+        <Card>
         <Search />
+        </Card>
         { userRole === null || userRole === undefined ? (
           <div>Loading...</div>
         ) : (
