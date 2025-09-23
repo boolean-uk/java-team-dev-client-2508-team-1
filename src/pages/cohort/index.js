@@ -26,13 +26,31 @@ const Cohort = () => {
     
     const [studentsLoading, setStudentsLoading] = useState(true);
     const [teachersLoading, setTeachersLoading] = useState(true);
+    const [cohortsLoading, setCohortsLoading] = useState(true);
 
     const [teachers, setTeachers] = useState([]);
 
     const [students, setStudents] = useState([]);
     const [course, setcourse] = useState([]);
     const [cohort, setCohort] = useState("");
+    const [cohorts, setCohorts] = useState([])
     
+        useEffect(() => {
+            setCohortsLoading(true)
+    async function fetchCohorts() {
+      try {
+        const response = await get("cohorts");
+        setCohorts(response.data.cohorts);
+      } catch (error) {
+        console.error("Error fetching cohorts:", error);
+       } finally {
+            setCohortsLoading(false)
+            }
+    }
+
+    fetchCohorts();
+  }, []);
+
 
     useEffect(() => {
         setTeachersLoading(true);
@@ -94,11 +112,11 @@ const Cohort = () => {
         return (firstNameInitials.join('') + lastNameInitial).toUpperCase();
     }
 
-    if (studentsLoading || teachersLoading) {
+    if (studentsLoading || teachersLoading || cohortsLoading) {
         return (
         <div>
             <div className="">
-                <h3>Loading...</h3>
+                <h3 className="cohort-teacher-loading">Loading...</h3>
                 <div className="loadingscreen-loader">
                 <span></span>
                 </div>
@@ -120,7 +138,7 @@ const Cohort = () => {
                 <Exercises />
             </aside>
             </>):(
-                <TeacherCohort/>
+                <TeacherCohort cohorts={cohorts}/>
                 )
             }
            

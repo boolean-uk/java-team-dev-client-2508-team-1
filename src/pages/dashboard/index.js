@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 
 
+
 import Button from '../../components/button';
 import Card from '../../components/card';
 import CreatePostModal from '../../components/createPostModal';
@@ -16,15 +17,19 @@ import TeachersDashboard from './teachers';
 import useAuth from '../../hooks/useAuth';
 import jwtDecode from 'jwt-decode';
 import Search from './search';
+
 import Student from '../cohort/students/student';
 import { getUserById, get } from '../../service/apiClient';
 import UserIcon from '../../components/profile-icon';
+
 
 const Dashboard = () => {
   const { token } = useAuth();
   const [students, setStudents] = useState([]);
   const [cohort, setCohort] = useState([]);
   const [course, setCourse] = useState([]);
+  
+   const [cohorts, setCohorts] = useState(null) 
   
   // Safely decode token with fallback
   let decodedToken = {};
@@ -74,6 +79,8 @@ const Dashboard = () => {
   const  { userRole, setUserRole } = useUserRoleData();
 
 
+
+
   // Use the useModal hook to get the openModal and setModal functions
   const { openModal, setModal } = useModal();
 
@@ -104,6 +111,19 @@ const Dashboard = () => {
     }
     fetchAndSetUserRole();
   }, [token, setUserRole]);
+
+    useEffect(() => {
+    async function fetchCohorts() {
+        try {
+        const response = await get("cohorts");
+        setCohorts(response.data.cohorts);
+        } catch (error) {
+        console.error("Error fetching cohorts:", error);
+        }
+    }
+
+    fetchCohorts(); 
+    }, []);
 
 /*  TODO TRIED ADDING CORRECT INITALS TO PROFILE CIRCLE, DIDN'T WORK 
  *
@@ -151,6 +171,7 @@ useEffect(() => {
         { userRole === null || userRole === undefined ? (
           <div>Loading...</div>
         ) : (
+
           userRole === 2 ? (
             <Card>
               <h3>My Cohort</h3>
@@ -174,10 +195,10 @@ useEffect(() => {
             </Card>
           ) : (
             <>
-              <Cohorts/>
-              <Students/>
-              <TeachersDashboard/>
-            </>
+          <Cohorts cohorts={cohorts}/>
+          <Students/>
+          <TeachersDashboard/>
+          </>
           )
         )}
          

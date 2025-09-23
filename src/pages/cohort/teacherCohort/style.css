@@ -116,7 +116,7 @@
 
 .add-student-button button {
   height: 56px;
-  width: 300px !important;
+  width: 166px;
   padding: 0 24px;
   background-color: #F0F5FA;
   border: none;
@@ -127,6 +127,7 @@
   justify-content: center;
   gap: 8px;
   box-sizing: border-box;
+  margin-right: 40px;
 }
 
 
