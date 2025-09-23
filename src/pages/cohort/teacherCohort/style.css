@@ -189,3 +189,15 @@
   margin-top: 20px;
   margin-left: 20px;
 }
+
+.search-bar-in-cohorts {
+  margin-bottom:10px;
+  overflow: visible;
+}
+
+.profile-icon-cohorts {
+  position: absolute !important;
+  top: 100%;
+  left: 0;
+  width: "100%";
+}
