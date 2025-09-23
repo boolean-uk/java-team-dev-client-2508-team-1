@@ -1,6 +1,6 @@
 
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 
 import Button from '../../components/button';
@@ -16,7 +16,6 @@ import TeachersDashboard from './teachers';
 import useAuth from '../../hooks/useAuth';
 import jwtDecode from 'jwt-decode';
 import Search from './search';
-import Student from '../cohort/students/student';
 import { getUserById, get } from '../../service/apiClient';
 import UserIcon from '../../components/profile-icon';
 
@@ -25,6 +24,7 @@ const Dashboard = () => {
   const [students, setStudents] = useState([]);
   const [cohort, setCohort] = useState([]);
   const [course, setCourse] = useState([]);
+  const [snackBarMessage, setSnackBarMessage] = useState('');
   
   // Safely decode token with fallback
   let decodedToken = {};
@@ -86,6 +86,8 @@ const Dashboard = () => {
     openModal();
   };
 
+  const [refresh, setRefresh] = useState(false);
+
   useEffect(() => {
     async function fetchAndSetUserRole() {
       const storedToken = token || localStorage.getItem('token');
@@ -130,8 +132,22 @@ useEffect(() => {
       fetchUser();
     }, []); */
 
+  useEffect(() => {
+  if (snackBarMessage) {
+    const timer = setTimeout(() => {
+      setSnackBarMessage('');
+    }, 3000); // 3 sekunder
+    return () => clearTimeout(timer);
+  }
+  }, [snackBarMessage]);
+
   return (
     <>
+    {snackBarMessage && (
+      <div className="snackbar">
+        {snackBarMessage}
+      </div>
+    )}
       <main>
         <Card>
           <div className="create-post-input">
@@ -168,6 +184,7 @@ useEffect(() => {
                         .join('')}
                     firstname={student.firstName}
                     lastname={student.lastName}
+                    role={"Student"}
                   />
                 ))}
               </section>
@@ -175,7 +192,7 @@ useEffect(() => {
           ) : (
             <>
               <Cohorts/>
-              <Students/>
+              <Students refresh={refresh} setRefresh={setRefresh} setSnackBarMessage={setSnackBarMessage}/>
               <TeachersDashboard/>
             </>
           )

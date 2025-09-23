@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
 import { CascadingMenu } from '../../profileCircle';
 
-const EditIconTeacher = ({ id, initials, menuVisible }) => {
+const EditIconTeacher = ({ id, initials, menuVisible, setRefresh, setSnackBarMessage}) => {
   const [isMenuVisible, setIsMenuVisible] = useState(menuVisible || false);
   const menuRef = useRef(null);
-
+  console.log("edit Icon", setSnackBarMessage);
   // Lukk meny ved klikk utenfor
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -29,7 +29,7 @@ const EditIconTeacher = ({ id, initials, menuVisible }) => {
   </span>
   </div>
   <div className='menu-left'> 
-  {isMenuVisible && <CascadingMenu id={id} />}
+  {isMenuVisible && <CascadingMenu id={id} setRefresh={setRefresh} setIsMenuVisible={setIsMenuVisible} setSnackBarMessage={setSnackBarMessage}/>}
   </div>
 </div>
 

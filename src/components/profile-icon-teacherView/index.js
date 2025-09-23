@@ -2,7 +2,8 @@ import EditIconTeacher from './editIconTeacher';
 import './style.css';
 
 
-const ProfileIconTeacher = ({id, initials, firstname, lastname, role}) => {
+const ProfileIconTeacher = ({id, initials, firstname, lastname, role, setRefresh, setSnackBarMessage}) => {
+    console.log("profileIcon", setSnackBarMessage)
 
     const styleGuideColors = [
     "#28C846", 
@@ -44,7 +45,7 @@ const ProfileIconTeacher = ({id, initials, firstname, lastname, role}) => {
                 <p className = "user-name">{firstname} {lastname}</p> 
                 <p className = "user-role" >{role}</p>
             </div>
-            <EditIconTeacher id={id}/>
+            <EditIconTeacher id={id} setRefresh={setRefresh} setSnackBarMessage={setSnackBarMessage}/>
            </div>
     )   
 }

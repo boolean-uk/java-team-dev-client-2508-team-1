@@ -5,11 +5,13 @@ import EditPostModal from '../../editPostModal';
 import EditCommentModal from '../../editCommentModal';
 import { usePosts } from '../../../context/posts';
 import { useComments } from '../../../context/comments';
+import { del, get } from '../../../service/apiClient';
 
-const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText, postId, name, isMenuVisible, setIsMenuVisible, commentText, commentId, onCommentDeleted, onPostDeleted }) => {
+const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText, postId, name, isMenuVisible, setIsMenuVisible, commentText, commentId, onCommentDeleted, onPostDeleted, profileId, clicked, setClicked, setRefresh, setSnackBarMessage}) => {
   const { openModal, setModal, closeModal } = useModal();
   const { deletePost } = usePosts();
   const { deleteComment } = useComments();
+  console.log('menuItem', setSnackBarMessage);
   
   const showModal = () => {
       setModal('Edit post', <EditPostModal postText={postText} postId={postId} name={name} />);
@@ -50,6 +52,23 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
       console.error('Error deleting post:', error);
     }
   };
+
+  const handleClick = () => {
+    setClicked(!clicked);
+  }
+
+  const handleDeleteUser = async () => {
+    setIsMenuVisible(false);
+    console.log('deleteUser function called');
+    try {
+      const profile = await get('profiles/' + profileId);
+      await del('users/' + profile.data.profile.user.id);
+      setSnackBarMessage('User deleted successfully');
+    } catch(error) {
+      console.log("couldnt delete user", error)
+    }
+    setRefresh(prev => !prev);
+  }
 
   const handleDeleteComment = async () => {
     setIsMenuVisible(false);
@@ -106,13 +125,14 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
         return handleReport;
       case "ReportComment":
         return handleReport;
+      case "DeleteUser":
+        return handleDeleteUser;
+      case "Clicked":
+        return handleClick;
       default:
         return undefined;
     }
   };
-
-
-
 
 
   if (clickable) {
