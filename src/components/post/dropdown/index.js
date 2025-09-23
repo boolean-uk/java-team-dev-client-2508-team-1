@@ -1,18 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
 import { CascadingMenuPost } from './menu/index';
-import { usePosts } from '../../../context/posts';
 
-const MenuPost = ({ menuVisible, postText, postId, name, onPostDeleted, commentText, commentId, post }) => {
+const MenuPost = ({ edit=false, report=false, del=false, menuVisible, postText, postId, name, onPostDeleted, commentText, commentId, post }) => {
   const [isMenuVisible, setIsMenuVisible] = useState(menuVisible || false);
   const menuRef = useRef(null);
-  const { deletePost } = usePosts();
-
-  const handlePostDeleted = async () => {
-    const success = await deletePost(postId);
-    if (success && onPostDeleted) {
-      onPostDeleted(postId);
-    }
-  };
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -40,7 +31,7 @@ const MenuPost = ({ menuVisible, postText, postId, name, onPostDeleted, commentT
   </span>
   </div>
   <div className='menu-left'> 
-  {isMenuVisible && <CascadingMenuPost postText={postText} comment postId={postId} name={name} isMenuVisible={isMenuVisible} setIsMenuVisible={setIsMenuVisible} onPostDeleted={handlePostDeleted} />}
+  {isMenuVisible && <CascadingMenuPost editPost={edit} deletePost={del} reportPost={report}  postText={postText} comment postId={postId} name={name} isMenuVisible={isMenuVisible} setIsMenuVisible={setIsMenuVisible} />}
   </div>
 </div>
 
@@ -48,4 +39,4 @@ const MenuPost = ({ menuVisible, postText, postId, name, onPostDeleted, commentT
   );
 };
 
-export default MenuPost;
+export default MenuPost; 

@@ -11,21 +11,18 @@ export const PostsProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const { token } = useAuth();
 
-  // Safely decode token with fallback
-  let decodedToken = {};
-  try {
-    if (token || localStorage.getItem('token')) {
-      decodedToken = jwtDecode(token || localStorage.getItem('token')) || {};
-    }
-  } catch (error) {
-    console.error('Invalid token in PostsProvider:', error);
-  }
-
-  // Fetch posts and user data
+  // Fetch posts and user data when token changes
   useEffect(() => {
-    fetchPosts();
-    fetchUser();
-  }, []);
+    if (token) {
+      fetchPosts();
+      fetchUser();
+    } else {
+      // Clear data when no token (user logged out)
+      setPosts([]);
+      setUser(null);
+      setLoading(false);
+    }
+  }, [token]); // Re-run when token changes
 
   const fetchPosts = async () => {
     try {
@@ -41,7 +38,19 @@ export const PostsProvider = ({ children }) => {
   };
 
   const fetchUser = async () => {
-    const userId = decodedToken.userId;
+    // Re-decode token to get current user info
+    let currentDecodedToken = {};
+    try {
+      if (token || localStorage.getItem('token')) {
+        currentDecodedToken = jwtDecode(token || localStorage.getItem('token')) || {};
+      }
+    } catch (error) {
+      console.error('Invalid token in fetchUser:', error);
+      setUser(null);
+      return;
+    }
+
+    const userId = currentDecodedToken.userId;
     if (userId) {
       try {
         const userData = await get(`users/${userId}`);
@@ -50,6 +59,8 @@ export const PostsProvider = ({ children }) => {
         console.error('Error fetching user:', error);
         setUser(null);
       }
+    } else {
+      setUser(null);
     }
   };
 
@@ -82,6 +93,17 @@ export const PostsProvider = ({ children }) => {
   // Like/unlike a post
   const toggleLike = async (postId, currentlyLiked) => {
     try {
+      // Re-decode token to get current user info
+      let currentDecodedToken = {};
+      try {
+        if (token || localStorage.getItem('token')) {
+          currentDecodedToken = jwtDecode(token || localStorage.getItem('token')) || {};
+        }
+      } catch (error) {
+        console.error('Invalid token in toggleLike:', error);
+        return false;
+      }
+
       if (currentlyLiked) {
         await postTo(`posts/${postId}/like`);
       } else {
@@ -89,7 +111,7 @@ export const PostsProvider = ({ children }) => {
       }
       
       // Update user's liked posts
-      await patch(`users/${decodedToken.userId}/like`, { post_id: postId });
+      await patch(`users/${currentDecodedToken.userId}/like`, { post_id: postId });
       
       // Refresh user data to get updated liked posts
       await fetchUser();
@@ -106,6 +128,18 @@ export const PostsProvider = ({ children }) => {
     return user?.data?.user?.likedPosts || [];
   };
 
+  // Reset all data (useful for logout)
+  const resetData = () => {
+    setPosts([]);
+    setUser(null);
+    setLoading(false);
+  };
+
+  // Force refresh user data (useful after profile updates)
+  const refreshUserData = async () => {
+    await fetchUser();
+  };
+
   const value = {
     posts,
     user,
@@ -116,7 +150,9 @@ export const PostsProvider = ({ children }) => {
     toggleLike,
     getUserLikedPosts,
     fetchPosts,
-    fetchUser
+    fetchUser,
+    resetData,
+    refreshUserData
   };
 
   return (

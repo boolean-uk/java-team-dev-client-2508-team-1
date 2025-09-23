@@ -6,6 +6,7 @@ import DataAnalyticsLogo from "../../../assets/icons/dataAnalyticsLogo"
 import './style.css';
 
 const Cohorts = ({cohorts}) => {
+
         return (
             <>
             <Card>
@@ -16,6 +17,7 @@ const Cohorts = ({cohorts}) => {
         {cohorts.map((cohort, index) => {
           return (
             <li key={index} className="dashboard-cohort-item">
+              {cohort.course === null ? <></> : 
               <div className="cohort-header">
                
                   <div className={`course-icon ${
@@ -32,6 +34,7 @@ const Cohorts = ({cohorts}) => {
                   <p className="dashboard-cohort-name">Cohort {cohort.id}</p>
                 </div>
                 </div>
+          }
             </li>
           );
         })}

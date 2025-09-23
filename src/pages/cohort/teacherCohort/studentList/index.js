@@ -10,7 +10,7 @@ const StudentList = ({ profiles }) => {
       {profiles.map((student) => (
         <li key={student.id}>
            <div>
-            <ProfileIconTeacher initials={student.firstName.charAt(0) + student.lastName.charAt(0)} firstname={student.firstName} lastname={student.lastName} role={student.specialism}/>
+            <ProfileIconTeacher id={student.user.id} initials={student.firstName.charAt(0) + student.lastName.charAt(0)} firstname={student.firstName} lastname={student.lastName} role={student.specialism}/>
             </div>
         </li>
       ))}

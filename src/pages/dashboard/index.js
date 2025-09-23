@@ -1,4 +1,8 @@
-import {  useRef, useEffect, useState } from 'react';
+
+
+import { useState, useRef, useEffect } from 'react';
+
+
 
 import Button from '../../components/button';
 import Card from '../../components/card';
@@ -13,11 +17,17 @@ import TeachersDashboard from './teachers';
 import useAuth from '../../hooks/useAuth';
 import jwtDecode from 'jwt-decode';
 import Search from './search';
-import { get } from '../../service/apiClient';
+
+import Student from '../cohort/students/student';
+import { getUserById, get } from '../../service/apiClient';
+import UserIcon from '../../components/profile-icon';
+
 
 const Dashboard = () => {
-  const onPostAddedRef = useRef(null);
   const { token } = useAuth();
+  const [students, setStudents] = useState([]);
+  const [cohort, setCohort] = useState([]);
+  const [course, setCourse] = useState([]);
   
    const [cohorts, setCohorts] = useState(null) 
   
@@ -30,15 +40,45 @@ const Dashboard = () => {
   } catch (error) {
     console.error('Invalid token in Dashboard:', error);
   }
+
+  // to view people My Cohort
+  useEffect(() => {
+    async function fetchCohortData() {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          console.error('No token found.');
+          return;
+        }
+                        
+        let userId;
+        try {
+            const decodedToken = jwtDecode(token);
+            userId = decodedToken.userId;
+        } catch (decodeError) {
+            console.error('Invalid token:', decodeError);
+            return;
+        }
+        
+        const user = await getUserById(userId);
+        const data = await get(`cohorts/${user.profile.cohort.id}`);
+
+        setCohort(data.data.cohort)
+        setCourse(data.data.cohort);
+        setStudents(data.data.cohort.profiles)
+
+      } catch (error) {
+        console.error('fetchCohortData() in dashboard/index.js:', error);
+      }
+    }
+    fetchCohortData();
+  }, []);
   
   const fullName = `${decodedToken.firstName || decodedToken.first_name || 'Current'} ${decodedToken.lastName || decodedToken.last_name || 'User'}`;
   const initials = fullName?.match(/\b(\w)/g)?.join('') || 'NO';
   const  { userRole, setUserRole } = useUserRoleData();
 
-  
-  // const onChange = (e) => {
-  //   setSearchVal(e.target.value);
-  // };
+
 
 
   // Use the useModal hook to get the openModal and setModal functions
@@ -47,22 +87,30 @@ const Dashboard = () => {
   // Create a function to run on user interaction
   const showModal = () => {
     // Use setModal to set the header of the modal and the component the modal should render
-    setModal('Create a post', <CreatePostModal onPostAdded={handlePostAdded} />); // CreatePostModal is just a standard React component, nothing special
+    setModal('Create a post', <CreatePostModal />); // CreatePostModal is just a standard React component, nothing special
 
     // Open the modal!
     openModal();
   };
 
-  const handlePostAdded = (newPost) => {
-    // Call the Posts component's add function
-    if (onPostAddedRef.current) {
-      onPostAddedRef.current(newPost);
-    }
-  };
-
   useEffect(() => {
-      setUserRole(decodedToken.roleId)
-  })
+    async function fetchAndSetUserRole() {
+      const storedToken = token || localStorage.getItem('token');
+      if (!storedToken) return;
+      try {
+        const decoded = jwtDecode(storedToken);
+        const user = await getUserById(decoded.userId);
+        // Sjekk rollen fra backend
+        const roleName = user.profile.role.name;
+        if (roleName === 'ROLE_TEACHER') setUserRole(1);
+        else if (roleName === 'ROLE_STUDENT') setUserRole(2);
+        else setUserRole(null);
+      } catch (error) {
+        console.error('Error fetching user role from backend:', error);
+      }
+    }
+    fetchAndSetUserRole();
+  }, [token, setUserRole]);
 
     useEffect(() => {
     async function fetchCohorts() {
@@ -78,6 +126,8 @@ const Dashboard = () => {
     }, []);
 
 /*  TODO TRIED ADDING CORRECT INITALS TO PROFILE CIRCLE, DIDN'T WORK 
+ *
+ *  Jeg hyller dette forsoket :) -Richard 22.09.2025
 useEffect(() => {
     async function fetchUser() {
       try {
@@ -113,24 +163,45 @@ useEffect(() => {
           </div>
         </Card>
 
-        <Posts onPostAdded={onPostAddedRef} />
+        <Posts />
       </main>
 
       <aside>
         <Search />
-
-        { userRole === 2 ? (
-           <Card>
-          <h4>My Cohort</h4>
-        </Card>
+        { userRole === null || userRole === undefined ? (
+          <div>Loading...</div>
         ) : (
-          <>
+
+          userRole === 2 ? (
+            <Card>
+              <h3>My Cohort</h3>
+              <p className='padding-top'>{course.name}, Cohort {cohort.id}</p>
+              <section className='cohort-teachers-container border-top'>
+                
+                {students.map((student) => (
+                  <UserIcon
+                    key={student.id}
+                    id={student.id}
+                    initials={`${student.firstName} ${student.lastName}`
+                        .trim()
+                        .split(/\s+/)
+                        .map(word => word[0].toUpperCase())
+                        .join('')}
+                    firstname={student.firstName}
+                    lastname={student.lastName}
+                  />
+                ))}
+              </section>
+            </Card>
+          ) : (
+            <>
           <Cohorts cohorts={cohorts}/>
           <Students/>
           <TeachersDashboard/>
           </>
+          )
         )}
-       
+         
       </aside>
     </>
   );

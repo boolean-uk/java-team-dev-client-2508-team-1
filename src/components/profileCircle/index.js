@@ -28,7 +28,7 @@ export const CascadingMenu = ({ id }) => {
 
   return (
     <Menu className="profile-circle-menu">
-      <MenuItem icon={<ProfileIcon />} text="Profile" linkTo={`profile/${id}`} />
+      <MenuItem icon={<ProfileIcon />} text="Profile" linkTo={`/profile/${id}`} />
       <MenuItem icon={<AddIcon />} text="Add note" />
 
       <MenuItem icon={<CohortIcon />} text="Move to cohort">
@@ -51,4 +51,3 @@ export const CascadingMenu = ({ id }) => {
 };
 
 export default ProfileCircle;
-
