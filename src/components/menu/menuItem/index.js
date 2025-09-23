@@ -5,6 +5,10 @@ import EditPostModal from '../../editPostModal';
 import EditCommentModal from '../../editCommentModal';
 import { usePosts } from '../../../context/posts';
 import { useComments } from '../../../context/comments';
+import { Snackbar, SnackbarContent } from '@mui/material';
+import Portal from '@mui/material/Portal';
+import { useState } from 'react';
+import CheckCircleIcon from '../../../assets/icons/checkCircleIcon';
 
 import { del, get } from '../../../service/apiClient';
 
