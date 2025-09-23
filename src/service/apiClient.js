@@ -1,4 +1,5 @@
 import { API_URL } from './constants';
+// eslint-disable-next-line camelcase
 import jwt_decode from 'jwt-decode'; 
 
 
@@ -36,6 +37,44 @@ async function createProfile(userId,
     github_username, 
     mobile, 
     bio, 
+    role, 
+    specialism, 
+    cohort, 
+    start_date, 
+    end_date, 
+    photo }
+  );
+}
+
+
+async function createNewStudent(
+  first_name, 
+  last_name, 
+  username, 
+  github_username, 
+  email,
+  mobile, 
+  password,
+  bio,  
+  role, 
+  specialism, 
+  cohort, 
+  start_date, 
+  end_date, 
+  photo) {
+
+  cohort = parseInt(cohort)
+  photo = JSON.stringify(photo)
+
+  return await post(`students/create`, {
+    first_name, 
+    last_name, 
+    username, 
+    github_username, 
+    email,
+    mobile, 
+    password,
+    bio,  
     role, 
     specialism, 
     cohort, 
@@ -147,8 +186,6 @@ async function request(method, endpoint, data, auth = true) {
 }
 
 
-
-
-export { login, getPosts, register, createProfile, get, getUserById, getComments, post, patch, put, getMyCohortProfiles, updateUserProfile, postTo, del };
+export { login, getPosts, register, createProfile, get, getUserById, getComments, post, patch, put, getMyCohortProfiles, updateUserProfile, postTo, del, createNewStudent };
 
 

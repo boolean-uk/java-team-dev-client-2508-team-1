@@ -4,7 +4,7 @@ import Header from '../components/header';
 import Modal from '../components/modal';
 import Navigation from '../components/navigation';
 import useAuth from '../hooks/useAuth';
-import { createProfile, login, register } from '../service/apiClient';
+import { createNewStudent, createProfile, login, register } from '../service/apiClient';
 
 // eslint-disable-next-line camelcase
 import jwt_decode from 'jwt-decode';
@@ -62,12 +62,21 @@ const AuthProvider = ({ children }) => {
     navigate('/');
   };
 
+  const handleCreateNewStudent = async (first_name, last_name, username, github_username, email, mobile, password, bio, role, specialism, cohort, start_date, end_date, photo) => {
+
+    await createNewStudent(first_name, last_name, username, github_username, email, mobile, password, bio, role, specialism, cohort, start_date, end_date, photo);
+
+    localStorage.setItem('token', token);
+    navigate('/');
+  };
+
   const value = {
     token,
     onLogin: handleLogin,
     onLogout: handleLogout,
     onRegister: handleRegister,
-    onCreateProfile: handleCreateProfile
+    onCreateProfile: handleCreateProfile,
+    onCreateNewStudent: handleCreateNewStudent
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
