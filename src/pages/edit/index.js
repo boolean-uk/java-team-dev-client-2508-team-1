@@ -9,6 +9,7 @@ import TextInput from "../../components/form/textInput";
 import ProfileCircle from "../../components/profileCircle";
 import Card from "../../components/card";
 import { validatePassword, validateEmail } from '../register';
+import LockIcon from '../../assets/icons/lockIcon';
 
 const EditPage = () => {
   const [formData, setFormData] = useState(null);
@@ -34,6 +35,7 @@ const EditPage = () => {
     password: "",
     bio: "",
   });
+
   const [showPasswordFields, setShowPasswordFields] = useState(false);
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -227,19 +229,82 @@ const EditPage = () => {
             </div>
             <br></br>
 
-              <TextInput name="firstName" label="First Name" value={formValues.firstName || ""} onChange={handleChange} />
-              <TextInput name="lastName" label="Last Name" value={formValues.lastName || ""} onChange={handleChange} />
-              <TextInput name="username" label="Username" value={formValues.username || ""} onChange={handleChange} />
-              <TextInput name="githubUsername" label="Github Username" value={formValues.githubUsername || ""} onChange={handleChange} />
+              <TextInput 
+                name="firstName" 
+                label="First Name" 
+                value={formValues.firstName || ""} 
+                onChange={handleChange} 
+              />
+              <TextInput 
+                name="lastName" 
+                label="Last Name" 
+                value={formValues.lastName || ""} 
+                onChange={handleChange} 
+              />
+              <TextInput 
+                name="username" 
+                label="Username" 
+                value={formValues.username || ""} 
+                onChange={handleChange} 
+              />
+              <TextInput 
+                name="githubUsername" 
+                label="Github Username" 
+                value={formValues.githubUsername || ""} 
+                onChange={handleChange} 
+              />
             </section>
 
             <section className="section half">
               <h2>Training Info</h2>
-              <TextInput name="role" label="Role" readOnly value={formData.profile.role.name ? getReadableRole(formData.profile.role.name) : ""} />
-              <TextInput name="specialism" label="Specialism" readOnly value={formData?.profile?.cohort?.course?.name || ""} />
-              <TextInput name="cohort" label="Cohort" readOnly value={"Cohort " + formData?.profile?.cohort?.id || ""} />
-              <TextInput name="startDate" label="Start Date" readOnly value={formData?.profile?.cohort?.course?.startDate || ""} />
-              <TextInput name="endDate" label="End Date" readOnly value={formData?.profile?.cohort?.course?.endDate || ""} />
+              <TextInput 
+                name="role" 
+                label="Role" 
+                readOnly value={formData?.profile?.role?.name ? getReadableRole(formData.profile.role.name) : ""}
+                icon={<LockIcon />}
+                iconRight={true} 
+              />
+              <TextInput 
+                name="specialism" 
+                label="Specialism" 
+                readOnly value={formData?.profile?.cohort?.course?.name || ""} 
+                icon={<LockIcon />}
+                iconRight={true}
+              />
+              {formData?.profile?.role?.name !== 'ROLE_TEACHER' && (
+                <>
+                <TextInput 
+                  name="cohort" 
+                  label="Cohort" 
+                  readOnly value={"Cohort " + formData?.profile?.cohort?.id || ""} 
+                  icon={<LockIcon />}
+                  iconRight={true}
+                />
+                <TextInput 
+                  name="startDate" 
+                  label="Start Date" 
+                  readOnly value={formData?.profile?.cohort?.course?.startDate || ""} 
+                  icon={<LockIcon />}
+                  iconRight={true}
+                />
+                <TextInput 
+                  name="endDate" 
+                  label="End Date" 
+                  readOnly value={formData?.profile?.cohort?.course?.endDate || ""}
+                  icon={<LockIcon />}
+                  iconRight={true}
+                />
+                </>
+              )}
+              {formData?.profile?.role?.name === 'ROLE_TEACHER' && (
+                <TextInput 
+                  name="specialism" 
+                  label="Specialism" 
+                  readOnly value={formData?.profile?.cohort?.course?.name + " Instructor" || ""} 
+                  icon={<LockIcon />}
+                  iconRight={true}
+                />
+              )}
             </section>
           </div>
 
