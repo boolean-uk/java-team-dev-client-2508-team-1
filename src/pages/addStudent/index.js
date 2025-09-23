@@ -9,7 +9,7 @@ import CoursesMenu from "./coursesMenu";
 import { useNavigate } from "react-router-dom";
 import CohortsMenu from "./cohortsMenu";
 import { Snackbar, SnackbarContent } from '@mui/material';
-import CheckCircleIcon from "./checkCircleIcon";
+import CheckCircleIcon from "../../assets/icons/checkCircleIcon";
 
     
 
