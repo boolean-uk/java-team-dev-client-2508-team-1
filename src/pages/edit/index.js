@@ -237,10 +237,10 @@ const EditPage = () => {
             <section className="section half">
               <h2>Training Info</h2>
               <TextInput name="role" label="Role" readOnly value={formData.profile.role.name ? getReadableRole(formData.profile.role.name) : ""} icon={<LockIcon/>} iconRight={true}/>
-              <TextInput name="specialism" label="Specialism" readOnly value={formData?.cohort?.cohort_courses?.[0]?.name || ""}  icon={<LockIcon/>} iconRight={true}/>
-              <TextInput name="cohort" label="Cohort" readOnly value={formData?.cohort?.id || ""}  icon={<LockIcon/>} iconRight={true}/>
-              <TextInput name="startDate" label="Start Date" readOnly value={formData?.profile?.startDate || ""}  icon={<LockIcon/>} iconRight={true}/>
-              <TextInput name="endDate" label="End Date" readOnly value={formData?.profile?.endDate || ""}  icon={<LockIcon/>} iconRight={true}/>
+              <TextInput name="specialism" label="Specialism" readOnly value={formData?.profile?.cohort?.course?.name || ""}  icon={<LockIcon/>} iconRight={true}/>
+              <TextInput name="cohort" label="Cohort" readOnly value={"Cohort " +formData?.profile?.cohort?.id || ""}  icon={<LockIcon/>} iconRight={true}/>
+              <TextInput name="startDate" label="Start Date" readOnly value={formData?.profile?.cohort?.course?.startDate || ""}  icon={<LockIcon/>} iconRight={true}/>
+              <TextInput name="endDate" label="End Date" readOnly value={formData?.profile?.cohort?.course?.endDate || ""}  icon={<LockIcon/>} iconRight={true}/>
             </section>
           </div>
 
