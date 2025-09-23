@@ -1,9 +1,12 @@
 import { createContext, useContext, useState } from "react";
 
-const UserRoleContext = createContext()
+const UserRoleContext = createContext({
+    userRole: null,
+    setUserRole: () => {},
+})
 
 export const UserRoleProvider = ({ children }) => {
-    const [userRole, setUserRole] = useState(2)
+    const [userRole, setUserRole] = useState(null)
 
     return (
         <UserRoleContext.Provider value = {{ userRole, setUserRole }}>

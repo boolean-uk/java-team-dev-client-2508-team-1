@@ -84,6 +84,44 @@
   animation: heartBounce 0.4s ease-out;
 }
 
+/* New action button styles to match the photo design */
+.action-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  background: transparent;
+  color: #65676B;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.action-button:hover {
+  background: #f2f3f5;
+}
+
+.action-button svg {
+  width: 48px;
+  height: 48px;
+  transition: all 0.2s ease;
+}
+
+.action-button--animating svg {
+  animation: heartBounce 0.4s ease-out;
+}
+
+.action-button--liked {
+  color: #c00000;
+}
+
+.action-button--liked svg {
+  fill: #c00000;
+}
+
 @keyframes heartBounce {
   0% {
     transform: translateY(0) scale(1);

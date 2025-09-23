@@ -1,10 +1,8 @@
 import Popup from 'reactjs-popup';
 import ProfileIcon from '../../../assets/icons/profileIcon';
-
 import Form from '../../../components/form';
 import TextInput from '../../../components/form/textInput';
 import Card from '../../../components/card';
-
 
 const StepOne = ({ data, setData, handleFileChange }) => {
   return (
@@ -19,10 +17,12 @@ const StepOne = ({ data, setData, handleFileChange }) => {
           <div className="welcome-form-profileimg-input">
             {data.photo ? (
               <img
-                src={data.photo}
-                alt="profile photo"
-                className="welcome-form-profileimg-input"
-                style={{ width: '80px', marginTop: '10px'}}/>
+              src={data.photo}
+              alt="profile photo"
+              className="welcome-form-profileimg-input"
+              style={{ width: '80px', marginTop: '10px'}}
+            />
+            
             ) : ( <ProfileIcon colour="#28C846" background="#64DC78" />)}
             <Popup trigger={
                 <button className="addHeadshot">

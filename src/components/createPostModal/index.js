@@ -55,10 +55,10 @@ const CreatePostModal = ({ authorName, onPostAdded }) => {
       // Get user info from token for immediate display
       const firstName = decodedToken.firstName || decodedToken.first_name || 'Current';
       const lastName = decodedToken.lastName || decodedToken.last_name || 'User';
-
+      console.log("response", response)
       // Create a properly structured post object for immediate display
       const newPost = {
-        id: response.data?.id || Date.now(),
+        id: response.data?.post?.id || response.id || `temp-${Date.now()}-${Math.random()}`,
         content: text,
         user: {
           id: userId,
@@ -79,11 +79,6 @@ const CreatePostModal = ({ authorName, onPostAdded }) => {
 
       // Add the post using context
       addPost(newPost);
-
-      // Still call the callback if provided for backward compatibility
-      if (onPostAdded) {
-        onPostAdded(newPost);
-      }
 
       // Close modal after short delay
       setTimeout(() => {

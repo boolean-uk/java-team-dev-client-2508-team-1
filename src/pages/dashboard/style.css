@@ -103,3 +103,25 @@ aside {
   
 }
 
+.cohort-teachers-container {
+  display: grid;
+  gap: 20px;
+}
+
+.border-top {
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+.padding-top {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.cohort-name-student {
+  margin-left: 50px;
+  font-size: 16px;
+  color: #64648C;
+  margin-top: 4px;
+}

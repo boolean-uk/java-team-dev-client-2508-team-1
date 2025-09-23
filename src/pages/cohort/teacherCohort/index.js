@@ -18,9 +18,6 @@ const TeacherCohort = ({cohorts}) => {
 
 
 
-
-
-
     const onChange = (e) => {
         setSearchVal(e.target.value);
     };
