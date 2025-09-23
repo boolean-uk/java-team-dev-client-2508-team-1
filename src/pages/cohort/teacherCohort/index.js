@@ -20,17 +20,17 @@ const TeacherCohort = () => {
 
 
     useEffect(() => {
-    async function fetchCohorts() {
-      try {
-        const response = await get("cohorts");
-        setCohorts(response.data.cohorts);
-      } catch (error) {
-        console.error("Error fetching cohorts:", error);
-      }
-    }
+        async function fetchCohorts() {
+        try {
+            const response = await get("cohorts");
+            setCohorts(response.data.cohorts);
+        } catch (error) {
+            console.error("Error fetching cohorts:", error);
+        }
+        }
 
-    fetchCohorts();
-  }, []);
+        fetchCohorts();
+    }, []);
 
 
     const onChange = (e) => {
@@ -77,7 +77,7 @@ const TeacherCohort = () => {
                     <div className="selected-course">
                         {selectedCohort !== null ? (
                             <>
-                            <CourseIcon courseName={selectedCohort.course.name} cohort={selectedCohort.id} startDate={selectedCohort.startDate} endDate={selectedCohort.endDate}/>
+                            <CourseIcon courseName={selectedCohort.course.name} cohort={selectedCohort.id} startDate={selectedCohort.course.startDate} endDate={selectedCohort.course.endDate}/>
                             </>
                         ): (<><p>Select a course</p></>)}
                         
