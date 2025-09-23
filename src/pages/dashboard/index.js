@@ -27,6 +27,7 @@ const Dashboard = () => {
   const [students, setStudents] = useState([]);
   const [cohort, setCohort] = useState([]);
   const [course, setCourse] = useState([]);
+  const [snackBarMessage, setSnackBarMessage] = useState('');
   
    const [cohorts, setCohorts] = useState(null) 
   
@@ -92,6 +93,8 @@ const Dashboard = () => {
     openModal();
   };
 
+  const [refresh, setRefresh] = useState(false);
+
   useEffect(() => {
     async function fetchAndSetUserRole() {
       const storedToken = token || localStorage.getItem('token');
@@ -134,8 +137,22 @@ const Dashboard = () => {
         return (firstNameInitials.join('') + lastNameInitial).toUpperCase();
     }
 
+  useEffect(() => {
+  if (snackBarMessage) {
+    const timer = setTimeout(() => {
+      setSnackBarMessage('');
+    }, 3000); // 3 sekunder
+    return () => clearTimeout(timer);
+  }
+  }, [snackBarMessage]);
+
   return (
     <>
+    {snackBarMessage && (
+      <div className="snackbar">
+        {snackBarMessage}
+      </div>
+    )}
       <main>
         <Card>
           <div className="create-post-input">
@@ -171,16 +188,18 @@ const Dashboard = () => {
                     initials={getInitials(student)}
                     firstname={student.firstName}
                     lastname={student.lastName}
+                    role={"Student"}
                   />
                 ))}
               </section>
             </Card>
           ) : (
             <>
-          <Cohorts cohorts={cohorts}/>
-          <Students/>
-          <TeachersDashboard/>
-          </>
+              <Cohorts cohorts={cohorts}/>
+              <Students refresh={refresh} setRefresh={setRefresh} setSnackBarMessage={setSnackBarMessage}/>
+              <TeachersDashboard/>
+            </>
+
           )
         )}
          

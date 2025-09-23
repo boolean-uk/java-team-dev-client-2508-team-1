@@ -20,10 +20,12 @@ const ProfileCircle = ({ id, initials, menuVisible, clickable }) => {
   const [isMenuVisible, setIsMenuVisible] = useState(menuVisible || false);
 
   return (
+
     <>
     {clickable ? (
       <div className="profile-circle" onClick={() => setIsMenuVisible(!isMenuVisible)}>
       {isMenuVisible && <CascadingMenu id = {id} />}
+
 
       <div className="profile-icon">
         <p>{initials}</p>
@@ -41,7 +43,10 @@ const ProfileCircle = ({ id, initials, menuVisible, clickable }) => {
   );
 };
 
-export const CascadingMenu = ({ id }) => {
+
+export const CascadingMenu = ({ id, setIsMenuVisible, setRefresh, setSnackBarMessage}) => {
+
+  const [clicked, setClicked] = useState(false);
 
   return (
     <Menu className="profile-circle-menu">
@@ -61,8 +66,11 @@ export const CascadingMenu = ({ id }) => {
           <MenuItem icon={<CohortIconFill />} text="Cohort 3" />
         </MenuItem>
       </MenuItem>
-
-      <MenuItem icon={<DeleteIcon />} text="Delete student" />
+      {clicked ? 
+      <MenuItem icon={<DeleteIcon />} text="Confirm deletion" profileId = {id} clickable="DeleteUser" style={{color: 'red'}} setIsMenuVisible={setIsMenuVisible} setRefresh={setRefresh} setSnackBarMessage={setSnackBarMessage}/>
+      :
+      <MenuItem icon={<DeleteIcon />} text="Delete student" clickable="Clicked" clicked={clicked} setClicked={setClicked} setIsMenuVisible={setIsMenuVisible} setRefresh={setRefresh} setSnackBarMessage={setSnackBarMessage}/>
+      }
     </Menu>
   );
 };
