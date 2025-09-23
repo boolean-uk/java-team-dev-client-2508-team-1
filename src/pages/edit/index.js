@@ -134,6 +134,8 @@ const EditPage = () => {
         alert("Something went wrong by the update.");
       }
     };
+
+    console.log(formData)
   
     return (
         <>
@@ -199,13 +201,13 @@ const EditPage = () => {
                     name="startDate" 
                     label="Start Date" 
                     readOnly={true} 
-                    value={formData?.profile?.startDate || ""} 
+                    value={formData?.profile?.cohort?.course?.startDate || ""} 
                     />
                   <TextInput 
                     name="endDate" 
                     label="End Date" 
                     readOnly={true} 
-                    value={formData?.profile?.endDate || ""} 
+                    value={formData?.profile?.cohort?.course?.endDate || ""} 
                     />
                 </section>
               </div>
@@ -219,7 +221,7 @@ const EditPage = () => {
                     value={formValues.email || ""} 
                     onChange={handleChange} 
                     />
-                  <NumberInput
+                  <TextInput
                     onChange={handleChange}
                     value={formValues.mobile}
                     name="mobile"
@@ -234,7 +236,7 @@ const EditPage = () => {
                   ) : (
                     <>
                     <TextInput
-                      name="newPassword"
+                      name="newPassword" 
                       label="New password"
                       value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
@@ -251,6 +253,7 @@ const EditPage = () => {
       
                 <section className="section half">
                   <h2>Bio</h2>
+                  <br></br>
                   <textarea
                     className="bio-area"
                     name="bio"
