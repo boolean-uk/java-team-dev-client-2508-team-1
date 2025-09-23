@@ -27,7 +27,6 @@ const ProfileCircle = ({ id, initials, menuVisible }) => {
 
 export const CascadingMenu = ({ id, setIsMenuVisible, setRefresh, setSnackBarMessage}) => {
 
-  console.log("casc menu", setSnackBarMessage)
   const [clicked, setClicked] = useState(false);
 
   return (

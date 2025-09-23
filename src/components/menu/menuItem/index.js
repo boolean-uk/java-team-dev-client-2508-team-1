@@ -11,7 +11,6 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
   const { openModal, setModal, closeModal } = useModal();
   const { deletePost } = usePosts();
   const { deleteComment } = useComments();
-  console.log('menuItem', setSnackBarMessage);
   
   const showModal = () => {
       setModal('Edit post', <EditPostModal postText={postText} postId={postId} name={name} />);

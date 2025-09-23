@@ -4,7 +4,6 @@ import { CascadingMenu } from '../../profileCircle';
 const EditIconTeacher = ({ id, initials, menuVisible, setRefresh, setSnackBarMessage}) => {
   const [isMenuVisible, setIsMenuVisible] = useState(menuVisible || false);
   const menuRef = useRef(null);
-  console.log("edit Icon", setSnackBarMessage);
   // Lukk meny ved klikk utenfor
   useEffect(() => {
     const handleClickOutside = (event) => {

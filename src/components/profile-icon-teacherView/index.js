@@ -3,7 +3,6 @@ import './style.css';
 
 
 const ProfileIconTeacher = ({id, initials, firstname, lastname, role, setRefresh, setSnackBarMessage}) => {
-    console.log("profileIcon", setSnackBarMessage)
 
     const styleGuideColors = [
     "#28C846", 

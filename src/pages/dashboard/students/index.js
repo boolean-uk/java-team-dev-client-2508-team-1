@@ -7,7 +7,6 @@ import ProfileIconTeacher from "../../../components/profile-icon-teacherView";
 
 const Students = ({refresh, setRefresh, setSnackBarMessage}) => {
    const [students, setStudents] = useState(null) 
-   console.log("students", setSnackBarMessage);
     
     
     useEffect(() => {
