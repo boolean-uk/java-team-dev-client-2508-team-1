@@ -236,10 +236,10 @@ const EditPage = () => {
             <section className="section half">
               <h2>Training Info</h2>
               <TextInput name="role" label="Role" readOnly value={formData.profile.role.name ? getReadableRole(formData.profile.role.name) : ""} />
-              <TextInput name="specialism" label="Specialism" readOnly value={formData?.cohort?.cohort_courses?.[0]?.name || ""} />
-              <TextInput name="cohort" label="Cohort" readOnly value={formData?.cohort?.id || ""} />
-              <TextInput name="startDate" label="Start Date" readOnly value={formData?.profile?.startDate || ""} />
-              <TextInput name="endDate" label="End Date" readOnly value={formData?.profile?.endDate || ""} />
+              <TextInput name="specialism" label="Specialism" readOnly value={formData?.profile?.cohort?.course?.name || ""} />
+              <TextInput name="cohort" label="Cohort" readOnly value={"Cohort " + formData?.profile?.cohort?.id || ""} />
+              <TextInput name="startDate" label="Start Date" readOnly value={formData?.profile?.cohort?.course?.startDate || ""} />
+              <TextInput name="endDate" label="End Date" readOnly value={formData?.profile?.cohort?.course?.endDate || ""} />
             </section>
           </div>
 
