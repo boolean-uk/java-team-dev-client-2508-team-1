@@ -149,7 +149,7 @@ const EditPage = () => {
         alert("The passwords do not match.");
         return;
       }
-    }
+    };
 
     const updatedValues = { ...formValues, password: showPasswordFields ? newPassword : "" };
 
