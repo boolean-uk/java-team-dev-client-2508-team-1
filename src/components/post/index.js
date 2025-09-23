@@ -124,7 +124,7 @@ const Post = ({ post }) => {
     <Card>
       <article className="post">
         <header className="post__header">
-          <ProfileCircle id = {post.user.id} initials={userInitials} />
+          <ProfileCircle id = {post.user.id} initials={userInitials} clickable={false} />
 
           <div className="post__meta">
             <p className="post__author">{authorName}</p>
