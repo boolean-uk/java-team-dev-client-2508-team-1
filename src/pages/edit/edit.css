@@ -67,7 +67,7 @@ input,
 select,
 textarea {
   width: 100%;
-  padding: 0.6rem;
+  padding: 01.6rem;
   font-size: 1rem;
   font-family: 'Inter', sans-serif;
   background-color: #fff;
@@ -128,4 +128,37 @@ textarea {
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.2s ease;
+}
+
+.photo-row {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 20px !important;
+  flex-wrap: nowrap !important;
+}
+
+.photo-wrapper .profile-photo {
+  width: 60px !important;
+  height: 60px !important;
+  object-fit: cover !important;
+  display: block !important;
+}
+
+.profile-photo {
+  width: 100px;
+  height: 100px;
+}
+
+.profile-container .info-section .info-row .label {
+  color: #333333;               
+}
+
+.profile-container .info-section .info-row .value {
+  color: #111111;               
+}
+
+.profile-container .info-section .info-row .value a {
+  color: #0077cc;
+  text-decoration: underline;
 }

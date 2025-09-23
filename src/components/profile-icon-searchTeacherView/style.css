@@ -12,6 +12,27 @@
   min-width: 0;     
 }
 
+.user-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* navnet til venstre, knappene til høyre */
+}
+
+.user-name {
+  margin: 0;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pop-up {
+    position: absolute;
+    top: 100%;    /* under .edit-icon */
+    right: 0;     /* høyrejustert med ikonet */
+    margin-top: 8px;
+    z-index: 100;
+}
 
 .profile-circle{
     min-width: 56px;
@@ -20,23 +41,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-
-.user-name {
-  margin: 0;
-  font-weight: 600;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-} 
-
-.pop-up {
-    position: absolute;
-    top: 100%;    /* under .edit-icon */
-    right: 0;     /* høyrejustert med ikonet */
-    margin-top: 8px;
-    z-index: 100;
 }
 
 
@@ -70,3 +74,16 @@
 .dot {
   line-height: 1;
 }
+
+.buttons {
+  width: 120px !important;       
+  text-align: center !important; 
+  padding: 2px 0 !important;     
+  font-size: 16px !important;    
+  color: #64648C ;     
+}
+
+.cascading-menu-container {
+  position: absolute;
+  z-index: 1000;
+} 

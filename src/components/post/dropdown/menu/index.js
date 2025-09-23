@@ -4,6 +4,7 @@ import DeleteIcon from '../../../../assets/icons/deleteIcon';
 import Menu from '../../../menu';
 import MenuItem from '../../../menu/menuItem';
 import './style.css';
+import ReportIcon from '../../../../assets/icons/reporticon';
 
 const ProfileCirclePost = ({ initials, menuVisible, postText, postId, name }) => {
   const [isMenuVisible, setIsMenuVisible] = useState(menuVisible || false);
@@ -21,7 +22,7 @@ const ProfileCirclePost = ({ initials, menuVisible, postText, postId, name }) =>
   );
 };
 
-export const CascadingMenuPost = ({ postText, postId, name, isMenuVisible, setIsMenuVisible }) => {
+export const CascadingMenuPost = ({ editPost, deletePost, reportPost, postText, postId, name, isMenuVisible, setIsMenuVisible }) => {
   return (
     <Menu className="profile-circle-menu">
 {/*           <li onClick={showModal}>
@@ -29,8 +30,9 @@ export const CascadingMenuPost = ({ postText, postId, name, isMenuVisible, setIs
         <EditIcon/>
         <p>Edit post</p>
     </li> */}
-       <MenuItem icon={<EditIcon />} linkTo="" text="Edit post" clickable={"Modal"} postText={postText} postId={postId} name={name} isMenuVisible={isMenuVisible} setIsMenuVisible={setIsMenuVisible}  />
-      <MenuItem icon={<DeleteIcon />} text="Delete post" clickable={"Delete"} postId={postId} name={name} isMenuVisible={isMenuVisible} setIsMenuVisible={setIsMenuVisible}/>
+       {editPost ? <MenuItem icon={<EditIcon />}  linkTo="" text="Edit post" clickable={"Modal"} postText={postText} postId={postId} name={name} isMenuVisible={isMenuVisible} setIsMenuVisible={setIsMenuVisible}  />  : null}
+       {deletePost ? <MenuItem icon={<DeleteIcon />}  text="Delete post" clickable={"Delete"} postId={postId} name={name} isMenuVisible={isMenuVisible} setIsMenuVisible={setIsMenuVisible}/> : null}
+        {reportPost ? <MenuItem icon={<ReportIcon />}  text="Report post" clickable={"Report"} postId={postId} name={name} isMenuVisible={isMenuVisible} setIsMenuVisible={setIsMenuVisible}/> : null}
     </Menu>
   );
 };
