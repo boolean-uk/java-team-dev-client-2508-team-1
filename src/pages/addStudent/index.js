@@ -89,7 +89,7 @@ const AddStudent = () => {
 
     setTimeout(()=> {
         navigate(-1)
-    }, 3010)
+    }, 3000)
   }
   return (
     <>
@@ -159,7 +159,9 @@ const AddStudent = () => {
             <button className="offwhite" onClick={() => navigate(-1)}> Cancel </button>
             <button className="blue" onClick={handleAdd}>Add to cohort</button>
                                 
-            <Snackbar open={snackbarOpen} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+            <Snackbar open={snackbarOpen} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} 
+  autoHideDuration={2000}
+>
             <SnackbarContent
                 sx={{
                 backgroundColor: '#000046',
