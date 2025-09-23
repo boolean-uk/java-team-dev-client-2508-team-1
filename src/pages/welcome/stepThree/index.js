@@ -4,7 +4,6 @@ import TextInput from '../../../components/form/textInput';
 
 const StepThree = ({ data, setData }) => {
 
-
     return (
         <>
         <div className='welcome-formheader'>

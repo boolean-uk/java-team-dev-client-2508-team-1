@@ -7,11 +7,12 @@ import CreateComment from '../createComment';
 import HeartIcon from '../../assets/icons/heartIcon';
 import HeartIconFilled from '../../assets/icons/heartIconFilled';
 import CommentBubbleIcon from '../../assets/icons/commentBubbleIcon';
+import CommentBubbleIconFilled from '../../assets/icons/commentBubbleIconFilled';
 import './style.css';
 import { usePosts } from '../../context/posts';
 
 import MenuPost from './dropdown';
-import jwt_decode from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 import useAuth from '../../hooks/useAuth';
 
 const Post = ({ post }) => {
@@ -21,8 +22,9 @@ const Post = ({ post }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(post.likesCount || post.likes || 0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isCommentHovered, setIsCommentHovered] = useState(false);
   const { token } = useAuth();
-  const { userId } = jwt_decode(token || localStorage.getItem('token')) || {};
+  const { userId } = jwtDecode(token || localStorage.getItem('token')) || {};
 
   const authorName = post.user.profile
     ? `${post.user.profile.firstName || 'Unknown'} ${post.user.profile.lastName || 'User'}`
@@ -70,7 +72,6 @@ const Post = ({ post }) => {
   };
 
   const comments = Array.isArray(localComments) ? localComments : [];
-
   const handleCommentClick = () => {
     if (commentInputRef.current) {
       commentInputRef.current.focus();
@@ -123,7 +124,7 @@ const Post = ({ post }) => {
     <Card>
       <article className="post">
         <header className="post__header">
-          <ProfileCircle initials={userInitials} />
+          <ProfileCircle id = {post.user.id} initials={userInitials} clickable={false} />
 
           <div className="post__meta">
             <p className="post__author">{authorName}</p>
@@ -149,15 +150,21 @@ const Post = ({ post }) => {
         <section className={`post__actions border-top ${comments.length ? 'border-bottom' : ''}`}>
           <div className="post__actions-left">
             <button 
-              className={`pill ${isLiked ? 'pill--liked' : ''} ${isAnimating ? 'pill--animating' : ''}`} 
+              className={`action-button ${isLiked ? 'action-button--liked' : ''} ${isAnimating ? 'action-button--animating' : ''}`} 
               type="button"
               onClick={handleLikeClick}
             >
               {isLiked ? <HeartIconFilled /> : <HeartIcon />}
               <span>Like</span>
             </button>
-            <button className="pill" type="button" onClick={handleCommentClick}>
-              <CommentBubbleIcon />
+            <button 
+              className="action-button" 
+              type="button" 
+              onClick={handleCommentClick}
+              onMouseEnter={() => setIsCommentHovered(true)}
+              onMouseLeave={() => setIsCommentHovered(false)}
+            >
+              {(comments.some(comment => comment.user.id === userId) || isCommentHovered) ? <CommentBubbleIconFilled /> : <CommentBubbleIcon />}
               <span>Comment</span>
             </button>
           </div>

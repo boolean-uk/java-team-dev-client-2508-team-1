@@ -1,41 +1,27 @@
-import { useEffect, useState } from "react"
-import SearchIcon from "../../../assets/icons/searchIcon"
+import {  useState } from "react"
+// import SearchIcon from "../../../assets/icons/searchIcon"
 import EditIconCohortTeacher from "../../../components/editIconCohortTeacher"
-import TextInput from "../../../components/form/textInput"
+// import TextInput from "../../../components/form/textInput"
 import CohortsList from "./cohortsList"
 import './style.css';
 import StudentList from "./studentList"
 import EditIconCouse from "../../../components/editIconCourse"
 import CourseIcon from "../../../components/courseIcon"
-import { get } from "../../../service/apiClient"
+import { useNavigate } from "react-router-dom"
+import SearchTeacher from "./searchTeacher";
 
 
-const TeacherCohort = () => {
-    const [searchVal, setSearchVal] = useState('');
+const TeacherCohort = ({cohorts}) => {
+    // const [searchVal, setSearchVal] = useState('');
     const [selectedProfiles, setSelectedProfiles] = useState([]);
     const[selectedCohort, setSelectedCohort] = useState(null);
-    const [cohorts, setCohorts] = useState([]);
+    const navigate = useNavigate()
 
 
 
-
-    useEffect(() => {
-    async function fetchCohorts() {
-      try {
-        const response = await get("cohorts");
-        setCohorts(response.data.cohorts);
-      } catch (error) {
-        console.error("Error fetching cohorts:", error);
-      }
-    }
-
-    fetchCohorts();
-  }, []);
-
-
-    const onChange = (e) => {
-        setSearchVal(e.target.value);
-    };
+    // const onChange = (e) => {
+    //     setSearchVal(e.target.value);
+    // };
         
 
     return (
@@ -46,10 +32,13 @@ const TeacherCohort = () => {
                     <h3>Cohorts</h3>
                     <h3>Students</h3>
                 </div>
-            
-                <form className="search-bar"  onSubmit={(e) => e.preventDefault()}>
+
+                <div className="search-bar-in-cohorts">
+                <SearchTeacher />
+                {/* <form className="search-bar"  onSubmit={(e) => e.preventDefault()}>
                     <TextInput  placeholder="  Search for people" icon={<SearchIcon />} value={searchVal} name="Search" onChange={onChange} />
-                </form>
+                </form> */}
+                </div>
             </div>
 
 
@@ -77,7 +66,7 @@ const TeacherCohort = () => {
                     <div className="selected-course">
                         {selectedCohort !== null ? (
                             <>
-                            <CourseIcon courseName={selectedCohort.course.name} cohort={selectedCohort.id} startDate={selectedCohort.startDate} endDate={selectedCohort.endDate}/>
+                            <CourseIcon courseName={selectedCohort.course.name} cohort={selectedCohort.id} startDate={selectedCohort.course.startDate} endDate={selectedCohort.course.endDate}/>
                             </>
                         ): (<><p>Select a course</p></>)}
                         
@@ -85,7 +74,7 @@ const TeacherCohort = () => {
 
                     <div className="actions">
                     <div className="add-student-button">
-                        <button>Add student</button>
+                        <button onClick={() => navigate("/cohorts/add")}>Add student</button>
                     </div>
                     <div className="edit-icon-course">
                         <EditIconCouse/>

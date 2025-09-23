@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 
 
+
 import Button from '../../components/button';
 import Card from '../../components/card';
 import CreatePostModal from '../../components/createPostModal';
@@ -16,8 +17,10 @@ import TeachersDashboard from './teachers';
 import useAuth from '../../hooks/useAuth';
 import jwtDecode from 'jwt-decode';
 import Search from './search';
+
 import { getUserById, get } from '../../service/apiClient';
 import UserIcon from '../../components/profile-icon';
+
 
 const Dashboard = () => {
   const { token } = useAuth();
@@ -25,6 +28,8 @@ const Dashboard = () => {
   const [cohort, setCohort] = useState([]);
   const [course, setCourse] = useState([]);
   const [snackBarMessage, setSnackBarMessage] = useState('');
+  
+   const [cohorts, setCohorts] = useState(null) 
   
   // Safely decode token with fallback
   let decodedToken = {};
@@ -74,6 +79,8 @@ const Dashboard = () => {
   const  { userRole, setUserRole } = useUserRoleData();
 
 
+
+
   // Use the useModal hook to get the openModal and setModal functions
   const { openModal, setModal } = useModal();
 
@@ -95,7 +102,7 @@ const Dashboard = () => {
       try {
         const decoded = jwtDecode(storedToken);
         const user = await getUserById(decoded.userId);
-        // Sjekk rollen fra backend
+        // check the role from backend
         const roleName = user.profile.role.name;
         if (roleName === 'ROLE_TEACHER') setUserRole(1);
         else if (roleName === 'ROLE_STUDENT') setUserRole(2);
@@ -107,30 +114,28 @@ const Dashboard = () => {
     fetchAndSetUserRole();
   }, [token, setUserRole]);
 
-/*  TODO TRIED ADDING CORRECT INITALS TO PROFILE CIRCLE, DIDN'T WORK 
- *
- *  Jeg hyller dette forsoket :) -Richard 22.09.2025
-useEffect(() => {
-    async function fetchUser() {
-      try {
-        const { userId } = jwt_decode(token || localStorage.getItem('token')) || {};
-        if (!userId) {
-          console.log('Could not determine user. Please log in again.');
-          return;
+    useEffect(() => {
+    async function fetchCohorts() {
+        try {
+        const response = await get("cohorts");
+        setCohorts(response.data.cohorts);
+        } catch (error) {
+        console.error("Error fetching cohorts:", error);
         }
-      const fetchedUser = await get(`users/${userId}`);
-      setUser(fetchedUser);
-    } catch (error) {
-      console.error('Error fetching user:', error);
-      setUser([]);
     }
-    const authorName = post.user.profile
-    ? `${post.user.profile.firstName || 'Unknown'} ${post.user.profile.lastName || 'User'}`
-    : 'Unknown User';
-    setUserInitials(authorName.match(/\b(\w)/g));
-  }
-      fetchUser();
-    }, []); */
+
+    fetchCohorts(); 
+    }, []);
+
+  function getInitials(profile) {
+        if (!profile.firstName || !profile.lastName) return "NA";
+        const firstNameParts = profile.firstName.trim().split(/\s+/) || ''; // split by any number of spaces
+        const lastNameInitial = profile.lastName.trim().charAt(0);
+        
+        const firstNameInitials = firstNameParts.map(name => name.charAt(0));
+        
+        return (firstNameInitials.join('') + lastNameInitial).toUpperCase();
+    }
 
   useEffect(() => {
   if (snackBarMessage) {
@@ -163,10 +168,13 @@ useEffect(() => {
       </main>
 
       <aside>
+        <Card>
         <Search />
+        </Card>
         { userRole === null || userRole === undefined ? (
           <div>Loading...</div>
         ) : (
+
           userRole === 2 ? (
             <Card>
               <h3>My Cohort</h3>
@@ -177,11 +185,7 @@ useEffect(() => {
                   <UserIcon
                     key={student.id}
                     id={student.id}
-                    initials={`${student.firstName} ${student.lastName}`
-                        .trim()
-                        .split(/\s+/)
-                        .map(word => word[0].toUpperCase())
-                        .join('')}
+                    initials={getInitials(student)}
                     firstname={student.firstName}
                     lastname={student.lastName}
                     role={"Student"}
@@ -191,10 +195,11 @@ useEffect(() => {
             </Card>
           ) : (
             <>
-              <Cohorts/>
+              <Cohorts cohorts={cohorts}/>
               <Students refresh={refresh} setRefresh={setRefresh} setSnackBarMessage={setSnackBarMessage}/>
               <TeachersDashboard/>
             </>
+
           )
         )}
          

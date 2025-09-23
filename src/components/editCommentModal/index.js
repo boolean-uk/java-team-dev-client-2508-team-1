@@ -2,6 +2,7 @@ import { useState } from 'react';
 import useModal from '../../hooks/useModal';
 import './style.css';
 import Button from '../button';
+// eslint-disable-next-line camelcase
 import jwt_decode from 'jwt-decode';
 import useAuth from '../../hooks/useAuth';
 import { put } from '../../service/apiClient';

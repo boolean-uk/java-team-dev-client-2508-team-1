@@ -9,6 +9,7 @@ import TextInput from "../../components/form/textInput";
 import ProfileCircle from "../../components/profileCircle";
 import Card from "../../components/card";
 import { validatePassword, validateEmail } from '../register';
+import LockIcon from '../../assets/icons/lockIcon'
 
 const EditPage = () => {
   const [formData, setFormData] = useState(null);
@@ -53,7 +54,7 @@ const EditPage = () => {
           githubUsername: profile.githubUrl || "",
           email: data.email || "",
           mobile: profile.mobile || "",
-          password: "",
+          password: data.password || "",
           bio: profile.bio || "",
         });
       } catch (error) {
@@ -158,7 +159,17 @@ const EditPage = () => {
       alert("Profile is updated!");
       const refreshed = await getUserById(userId);
       setFormData(refreshed);
-      setFormValues(prev => ({ ...prev, photo: refreshed.profile.photo || prev.photo }));
+      const refreshedProfile = refreshed.profile || {};
+      setFormValues({
+        photo: refreshedProfile.photo || "", 
+        firstName: refreshedProfile.firstName || "",
+        lastName: refreshedProfile.lastName || "",
+        username: refreshedProfile.username || "",
+        githubUsername: refreshedProfile.githubUrl || "",
+        email: refreshed.email || "",
+        mobile: refreshedProfile.mobile || "",
+        bio: refreshedProfile.bio || "",
+      });
     } catch (error) {
       console.error("Error by update:", error);
       alert("Something went wrong by the update.");
@@ -225,35 +236,121 @@ const EditPage = () => {
                 </Popup>
               </div>
             </div>
-            <br></br>
-
-              <TextInput name="firstName" label="First Name" value={formValues.firstName || ""} onChange={handleChange} />
-              <TextInput name="lastName" label="Last Name" value={formValues.lastName || ""} onChange={handleChange} />
-              <TextInput name="username" label="Username" value={formValues.username || ""} onChange={handleChange} />
-              <TextInput name="githubUsername" label="Github Username" value={formValues.githubUsername || ""} onChange={handleChange} />
+                  <br></br><br></br>
+              <TextInput 
+                name="firstName" 
+                label="First Name" 
+                value={formValues.firstName || ""} 
+                onChange={handleChange} 
+              />
+              <TextInput 
+                name="lastName"
+                label="Last Name" 
+                value={formValues.lastName || ""} 
+                onChange={handleChange}   
+              />
+              <TextInput 
+                name="username" 
+                label="Username" 
+                value={formValues.username || ""} 
+                onChange={handleChange} 
+              />
+              <TextInput 
+                name="githubUsername" 
+                label="Github Username" 
+                value={formValues.githubUsername || ""} 
+                onChange={handleChange} 
+              />
             </section>
 
             <section className="section half">
               <h2>Training Info</h2>
-              <TextInput name="role" label="Role" readOnly value={formData.profile.role.name ? getReadableRole(formData.profile.role.name) : ""} />
-              <TextInput name="specialism" label="Specialism" readOnly value={formData?.profile?.cohort?.course?.name || ""} />
-              <TextInput name="cohort" label="Cohort" readOnly value={"Cohort " + formData?.profile?.cohort?.id || ""} />
-              <TextInput name="startDate" label="Start Date" readOnly value={formData?.profile?.cohort?.course?.startDate || ""} />
-              <TextInput name="endDate" label="End Date" readOnly value={formData?.profile?.cohort?.course?.endDate || ""} />
+              <br></br>
+              <TextInput 
+                name="role" 
+                label="Role" 
+                readOnly value={formData.profile.role.name ? getReadableRole(formData.profile.role.name) : ""} 
+                icon={<LockIcon />}
+                iconRight={true}
+              />
+              <TextInput 
+                name="specialism" 
+                label="Specialism" 
+                readOnly value={formData?.profile?.cohort?.course?.name || ""} 
+                icon={<LockIcon />}
+                iconRight={true}
+              />
+              {formData?.profile?.role?.name !== "ROLE_TEACHER" && (
+                <>
+                <TextInput 
+                  name="cohort" 
+                  label="Cohort" 
+                  readOnly value={"Cohort " + formData?.profile?.cohort?.id || ""} 
+                  icon={<LockIcon />}
+                  iconRight={true}
+                />
+                <TextInput 
+                  name="startDate" 
+                  label="Start Date" 
+                  readOnly value={formData?.profile?.cohort?.course?.startDate || ""} 
+                  icon={<LockIcon />}
+                  iconRight={true}
+                />
+                <TextInput 
+                  name="endDate" 
+                  label="End Date" 
+                  readOnly value={formData?.profile?.cohort?.course?.endDate || ""} 
+                  icon={<LockIcon />}
+                  iconRight={true}
+                />
+                </>
+              )}
+              {formData?.profile?.role?.name === "ROLE_TEACHER" && (
+                <TextInput 
+                  name="jobTitle"
+                  label="Job title" 
+                  readOnly value={formData?.profile?.cohort?.course?.name + " Instructor" || ""} 
+                />
+              )}
             </section>
           </div>
 
           <div className="row">
             <section className="section half">
               <h2>Contact Info</h2>
-              <TextInput name="email" label="Email" value={formValues.email || ""} onChange={handleChange} />
-              <TextInput name="mobile" label="Mobile" value={formValues.mobile || ""} onChange={handleChange} />
+              <TextInput 
+                name="email" 
+                label="Email" 
+                value={formValues.email || ""} 
+                onChange={handleChange} 
+              />
+              <TextInput 
+                name="mobile" 
+                label="Mobile" 
+                value={formValues.mobile || ""} 
+                onChange={handleChange} 
+              />
               {!showPasswordFields ? (
-                <button type="button" className="change-password-button" onClick={togglePasswordFields}>Change password</button>
+                <button 
+                  type="button" 
+                  className="change-password-button" 
+                  onClick={togglePasswordFields}>
+                    Change password
+                </button>
               ) : (
                 <>
-                  <TextInput name="newPassword" label="New password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
-                  <TextInput name="confirmPassword" label="Confirm password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                  <TextInput 
+                    name="newPassword" 
+                    label="New password" 
+                    value={newPassword} 
+                    onChange={(e) => setNewPassword(e.target.value)} 
+                  />
+                  <TextInput 
+                    name="confirmPassword" 
+                    label="Confirm password" 
+                    value={confirmPassword} 
+                    onChange={(e) => setConfirmPassword(e.target.value)} 
+                  />
                 </>
               )}
             </section>
@@ -274,13 +371,8 @@ const EditPage = () => {
           </div>
 
           <div className="bottom-buttons">
-            <button type="button" className="cancel" onClick={resetFormToSaved}>
-              Cancel
-            </button>
-
-            <button type="submit" className="save">
-              Save
-            </button>
+            <button type="button" className="cancel" onClick={resetFormToSaved}>Cancel</button>
+            <button type="submit" className="save">Save</button>
           </div>
         </form>
       </main>

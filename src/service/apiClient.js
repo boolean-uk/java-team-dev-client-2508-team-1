@@ -1,4 +1,5 @@
 import { API_URL } from './constants';
+// eslint-disable-next-line camelcase
 import jwt_decode from 'jwt-decode'; 
 
 
@@ -102,11 +103,21 @@ async function updateUserProfile(userId, formValues) {
     mobile: formValues.mobile || "",
     password: formValues.password || "",
     bio: formValues.bio || ""
-  };
+  };  
 
-  return await patch(`students/${userId}`, payload);
+  const token = localStorage.getItem('token');
+  const decoded = jwt_decode(token);
+  const role = decoded?.roleId; // eller hent fra formData.profile.role.name hvis du har det
+  console.log(role)
+  let endpoint = '';
+  if (role === 2) {
+    endpoint = `students/${userId}`;
+  } else {
+    endpoint = `teachers/${userId}`; // for ROLE_TEACHER og andre
+  }
+
+  return await patch(endpoint, payload);
 }
-
 
 async function post(endpoint, data, auth = true) {
   return await request('POST', endpoint, data, auth);

@@ -25,6 +25,7 @@ const FullScreenCard = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const targetId = id ?? userId;
+  const isOwnProfile = String(targetId) === String(userId);
 
   useEffect(() => {
     async function fetchUser() {
@@ -64,7 +65,9 @@ const FullScreenCard = () => {
         <div> 
           <p className="name-text">{name}</p> 
         </div> 
-          <button className="edit" onClick={goToEdit}>Edit Profile</button> 
+        {isOwnProfile && (
+          <button className="edit" onClick={goToEdit}>Edit Profile</button>
+        )} 
         </div>
       <section className="post-interactions-container border-top"></section>
 

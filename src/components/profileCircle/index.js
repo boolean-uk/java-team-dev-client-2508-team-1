@@ -10,17 +10,36 @@ import Menu from '../menu';
 import MenuItem from '../menu/menuItem';
 import './style.css';
 
-const ProfileCircle = ({ id, initials, menuVisible }) => {
+/*
+ADDED A PROP CLICKABLE
+use the className='profile-circle-noclick' if you need the ProfileCircle but
+do not need the menu options (this is used in the posts in dashboard for both 
+teachers and students)
+*/
+const ProfileCircle = ({ id, initials, menuVisible, clickable }) => {
   const [isMenuVisible, setIsMenuVisible] = useState(menuVisible || false);
 
   return (
-    <div className="profile-circle" onClick={() => setIsMenuVisible(!isMenuVisible)}>
-      {isMenuVisible && <CascadingMenu id={id} setIsMenuVisible={setIsMenuVisible}/>}
+
+    <>
+    {clickable ? (
+      <div className="profile-circle" onClick={() => setIsMenuVisible(!isMenuVisible)}>
+      {isMenuVisible && <CascadingMenu id = {id} />}
+
 
       <div className="profile-icon">
         <p>{initials}</p>
       </div>
     </div>
+    ) : (
+      <div className="profile-circle-noclick">
+        <div className="profile-icon">
+          <p>{initials}</p>
+        </div>
+      </div>
+    )}
+    </>
+    
   );
 };
 
@@ -31,7 +50,7 @@ export const CascadingMenu = ({ id, setIsMenuVisible, setRefresh, setSnackBarMes
 
   return (
     <Menu className="profile-circle-menu">
-      <MenuItem icon={<ProfileIcon />} text="Profile" linkTo={`profile/${id}`} />
+      <MenuItem icon={<ProfileIcon />} text="Profile" linkTo={`/profile/${id}`} />
       <MenuItem icon={<AddIcon />} text="Add note" />
 
       <MenuItem icon={<CohortIcon />} text="Move to cohort">

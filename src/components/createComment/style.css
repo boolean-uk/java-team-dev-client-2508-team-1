@@ -1,9 +1,9 @@
 .create-comment {
     display: grid;
     grid-template-columns: 40px 1fr;
-    gap: 12px;
+    gap: 8px;
     align-items: center;
-    padding: 12px 0
+    padding: 8px 0;
 }
 
 .profile-icon--sm {
@@ -26,63 +26,77 @@
 .create-comment__input-wrapper {
     position: relative;
     display: flex;
-    align-items: center
+    align-items: center;
+    width: 100%;
 }
 
 .create-comment__input {
     width: 100%;
-    padding: 12px 50px 12px 16px;
-    border: none;
-    border-radius: 24px;
+    padding: 12px 60px 12px 16px; /* space for the send button */
+    border: 1px solid transparent;
+    border-radius: 16px; /* match comment bubble radius */
     background-color: var(--color-blue5);
     font-size: 14px;
     outline: none;
-    transition: background-color 0.2s ease
+    transition: background-color 0.2s ease;
+    color: var(--color-blue);
+    cursor: text;
 }
 
 .create-comment__input:focus {
-    background-color: var(--color-blue4)
+    background-color: var(--color-blue5);
+    border-color: var(--color-blue2);
 }
 
 .create-comment__input::placeholder {
-    color: var(--color-blue2)
+    color: var(--color-blue1);
 }
 
 .create-comment__submit {
-    position: absolute;
-    right: 6px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 36px;
+    /* position via flex instead of absolute to avoid overlay issues */
+    width: 36px !important; /* override global button width */
     height: 36px;
+    min-width: 36px;
     border: none;
-    border-radius: 50%;
-    background-color: transparent;
-    color: var(--color-blue2);
+    border-radius: 50% !important;
+    background-color: var(--color-blue5);
+    color: var(--color-blue);
     cursor: pointer;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s ease
+    transition: all 0.2s ease;
+    padding: 0 !important; /* neutralize global button padding */
+    opacity: 0.8;
+    /* Visually sit over the right edge of the input without absolute */
+    margin-left: -44px; /* pull button into input area */
+    margin-right: 8px; /* keep a small right gap */
 }
 
 .create-comment__submit:enabled {
     background-color: var(--color-blue5);
-    color: white
+    color: var(--color-blue);
+    opacity: 1;
 }
 
 .create-comment__submit:enabled:hover {
-    background-color: var(--color-blue5)
+    background-color: var(--color-blue5);
+}
+
+.create-comment__submit:disabled {
+    background-color: #e4e6ea;
+    color: var(--color-blue1);
+    cursor: not-allowed;
 }
 
 .create-comment__submit svg {
     width: 18px;
-    height: 18px
+    height: 18px;
 }
 
 .create-comment__message {
     grid-column: 1 / -1;
     margin-top: 8px;
     font-size: 12px;
-    color: var(--color-blue2)
+    color: var(--color-blue1);
 }
