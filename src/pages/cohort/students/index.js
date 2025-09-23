@@ -41,7 +41,7 @@ function Students({ students, getInitials, course, cohort }) {
             </div>
 
             <div className="cohort-dates">
-                <small>{`${cohort.startDate} - ${cohort.endDate}`}</small>
+                <p>{`${cohort.course.startDate} - ${cohort.course.endDate}`}</p>
             </div>
         </div>
         )}
