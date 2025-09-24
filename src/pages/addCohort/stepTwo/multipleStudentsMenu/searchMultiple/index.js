@@ -1,4 +1,4 @@
-import CheckIcon from "../../../checkIcon";
+import CheckIcon from "../../../../../assets/icons/checkIcon";
 import "./style.css"
 
 const MultipleStudentsSearch = ({ students, handleSelectStudent , selectedStudents }) => {
