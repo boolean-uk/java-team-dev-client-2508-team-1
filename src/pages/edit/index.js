@@ -310,6 +310,7 @@ const EditPage = () => {
                   name="jobTitle"
                   label="Job title" 
                   readOnly value={formData?.profile?.cohort?.course?.name + " Instructor" || ""} 
+                  icon={<LockIcon />}
                 />
               )}
             </section>
