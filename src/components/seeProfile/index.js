@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import ProfileIcon from '../../assets/icons/profileIcon';
 
 
-const SeeProfile = ({initials, firstname, lastname, role, id}) => {
+const SeeProfile = ({ id, initials, firstname, lastname, role }) => {
     return (
         <div className="user-panel">
           <Card>
