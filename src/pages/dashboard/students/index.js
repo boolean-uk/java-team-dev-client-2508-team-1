@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { get } from "../../../service/apiClient";
 
-import { useNavigate } from "react-router-dom";
 import Card from "../../../components/card"
 
 // import UserIcon from "../../../components/profile-icon";
@@ -21,17 +20,9 @@ const Students = ({refresh, setRefresh, setSnackBarMessage}) => {
         console.error("Error fetching students:", error);
         }
     }
-
     fetchStudents(); 
     }, [refresh]);
-
-    const navigate = useNavigate()
     
-    const handleClick = () => {
-        navigate("/")
-        // navigate("/students")
-        }
-
     return(
         <>
         <Card>
@@ -39,8 +30,8 @@ const Students = ({refresh, setRefresh, setSnackBarMessage}) => {
             <section>
                 {students !== null ? (
                     <div>
-                    <ul>
-                        {students.slice(0,10).map((student, index) => (
+                    <ul className="students-list-teacher-view">
+                        {students.map((student, index) => (
                             <li key={index} className="student-item">
                                 <div>
                                 <ProfileIconTeacher 
@@ -62,8 +53,6 @@ const Students = ({refresh, setRefresh, setSnackBarMessage}) => {
                     </ul>
                     
                     <div className="border-line"></div>
-                    <button className="student-button"
-                    onClick={handleClick}>All students</button>
                     </div>
                 ):(
                     <div className="">

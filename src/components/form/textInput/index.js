@@ -9,6 +9,8 @@ const TextInput = ({
   placeholder,
   readOnly = false,
   icon,
+  onBlur,
+
   iconRight = true
 }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -28,6 +30,7 @@ const TextInput = ({
           placeholder={placeholder}
           onChange={onChange}
           readOnly={readOnly}
+          onBlur={onBlur}
         />
 
         {icon && (

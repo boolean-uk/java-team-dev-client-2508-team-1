@@ -28,6 +28,7 @@
   gap: 5px;
   margin-bottom: 48px;
 }
+
 .welcome-form-popup-wrapper {
   width: 470px;
   max-width: 100%;
@@ -64,7 +65,6 @@
 }
 
 
-
 .upload-label {
   background-color: var(--color-blue);
   color: white;
@@ -90,7 +90,6 @@
   position: relative;
   width: 100%;
   margin-top: 16px;
-  font-family: inherit;
 }
 
 .dropbtn {
@@ -124,7 +123,6 @@
   overflow-y: auto;
   z-index: 10;
   margin-top: -54px;
-  font-family: inherit;
 }
 
 .dropdown-menu li {
@@ -139,16 +137,20 @@
   background-color: #F0F5FA;
 }
 
+
 .dropdown-menu li.selected {
   background-color: #E6EBF5;
   font-weight: bold;
 }
 
-
+.password-wrapper {
+  font-family:
+    'Lexend' !important;
+}
 
 .select-course-button button,
 .select-cohort-button button {
-  width: 100%;
+  width: 100% !important;
   margin: 0;
   height: 56px;
   display: flex;
@@ -167,15 +169,27 @@
 
 .select-course-title,
 .select-cohort-title {
-    font-size: 18px;
+    font-size: 16px;
     color: #64648C;
+    font-family:
+    'Lexend';
+
+}
+
+.select-course-title-selected-selected,
+.select-cohort-title-selected-selected {
+    font-size: 16px;
+    color: #000046;
+    font-family:
+    'Lexend';
+
 }
 
 .dropdown-section {
   margin-top: 70px;
   display: flex;
   flex-direction: column;
-  gap: 60px; /* gir jevn avstand mellom alle barn */
+  gap: 60px;
 }
 
 .the-label {
@@ -214,8 +228,7 @@ button.offwhite-button,
 .button.offwhite-button {
   background-color: var(--color-offwhite);
   color: var(--color-blue1);
-  width: 35% !important;
-  margin-left:60px;
+  width: 35% ;
 }
 button.offwhite-button:hover,
 .button.offwhite-button:hover,

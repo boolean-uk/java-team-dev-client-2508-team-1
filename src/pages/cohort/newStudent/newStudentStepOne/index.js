@@ -7,6 +7,8 @@ import Card from '../../../../components/card';
 
 
 const StepOne = ({ data, setData, handleFileChange }) => {
+
+
   return (
     <>
       <div className="welcome-formheader">
