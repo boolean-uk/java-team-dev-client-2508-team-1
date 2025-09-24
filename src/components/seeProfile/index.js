@@ -15,7 +15,7 @@ const SeeProfile = ({initials, firstname, lastname, role, id}) => {
 
               <div className="post-user-name">
                 <p>{firstname} {lastname}</p>
-                <small>{role}, Cohort 3</small>
+                <small>{role}</small>
               </div>
             </section>
 

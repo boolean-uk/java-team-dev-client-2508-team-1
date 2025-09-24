@@ -84,12 +84,12 @@ const SearchTeacher = () => {
                             <p className="people">People</p>
                             {searchResults?.length > 0 ? (
                                 <ul>
-                                    {searchResults.slice(0, 10).map((student, index) => (
-                                        <li key={index} className="student-item"
+                                    {searchResults.slice(0, 10).map((student) => (
+                                        <li key={student.id} className="student-item"
                                         >
                                             <ProfileIconTeacher
                                                 className="profile-icon-cohorts"
-                                                userId={student.id}
+                                                id={student.user.id}
                                                 initials={student.firstName.charAt(0) + student.lastName.charAt(0)}
                                                 firstname={student.firstName}
                                                 lastname={student.lastName}
