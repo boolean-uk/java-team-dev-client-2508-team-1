@@ -1,4 +1,4 @@
-import {  useState } from "react"
+import {  useEffect, useState } from "react"
 // import SearchIcon from "../../../assets/icons/searchIcon"
 import EditIconCohortTeacher from "../../../components/editIconCohortTeacher"
 // import TextInput from "../../../components/form/textInput"
@@ -15,8 +15,18 @@ const TeacherCohort = ({cohorts}) => {
     // const [searchVal, setSearchVal] = useState('');
     const [selectedProfiles, setSelectedProfiles] = useState([]);
     const[selectedCohort, setSelectedCohort] = useState(null);
+    const[refresh, setRefresh] = useState(false);
+    const[snackBarMessage, setSnackBarMessage] = useState('');
     const navigate = useNavigate()
 
+    useEffect(() => {
+      if (snackBarMessage) {
+        const timer = setTimeout(() => {
+          setSnackBarMessage('');
+        }, 3000);
+        return () => clearTimeout(timer);
+      }
+      }, [snackBarMessage]);
 
 
     // const onChange = (e) => {
@@ -26,6 +36,11 @@ const TeacherCohort = ({cohorts}) => {
 
     return (
         <>
+        {snackBarMessage && (
+        <div className="snackbar">
+            {snackBarMessage}
+        </div>
+        )}
         {cohorts.length > 0 ? ( <div className="cohort-card">
             <div className="cohort-card-header">
                 <div className="header-titles">
@@ -82,9 +97,7 @@ const TeacherCohort = ({cohorts}) => {
                     </div>
                 </div>
                 <hr className="divider"/>
-
-                
-                    <StudentList profiles={selectedProfiles} />
+                    <StudentList profiles={selectedProfiles} refresh={refresh} setRefresh={setRefresh} setSnackBarMessage={setSnackBarMessage} />
 
             </section>
         </div>
