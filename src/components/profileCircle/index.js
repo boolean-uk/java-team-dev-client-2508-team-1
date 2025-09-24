@@ -67,10 +67,6 @@ export const CascadingMenu = ({ id, setIsMenuVisible, setRefresh}) => {
         </MenuItem>
       </MenuItem>
       {clicked ? 
-<<<<<<< HEAD
-=======
-
->>>>>>> 2e43ff43f4dbe7978a05508ee905c49748e24aa6
       <MenuItem 
         icon={<DeleteIcon />} 
         text="Confirm deletion" 
