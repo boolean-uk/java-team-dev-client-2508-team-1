@@ -68,12 +68,11 @@ const UserIcon = ({ id, initials, firstname, lastname, role, menu=true, photo=nu
                         role = {role}   
                         />
             </div>              
-    )   }
+    )   } </>}
     </div>
     )
 
 }
-
 
 export default UserIcon;
 
