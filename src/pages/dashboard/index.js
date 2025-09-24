@@ -22,13 +22,11 @@ import { getUserById, get } from '../../service/apiClient';
 import UserIcon from '../../components/profile-icon';
 import SimpleProfileCircle from '../../components/simpleProfileCircle';
 
-
 const Dashboard = () => {
   const { token } = useAuth();
   const [students, setStudents] = useState([]);
   const [cohort, setCohort] = useState([]);
   const [course, setCourse] = useState([]);
-  const [snackBarMessage, setSnackBarMessage] = useState('');
   const [cohorts, setCohorts] = useState(null) 
   
   // Safely decode token with fallback
@@ -122,7 +120,6 @@ const Dashboard = () => {
         console.error("Error fetching cohorts:", error);
         }
     }
-
     fetchCohorts(); 
     }, []);
 
@@ -136,22 +133,8 @@ const Dashboard = () => {
         return (firstNameInitials.join('') + lastNameInitial).toUpperCase();
     }
 
-  useEffect(() => {
-  if (snackBarMessage) {
-    const timer = setTimeout(() => {
-      setSnackBarMessage('');
-    }, 3000); // 3 sekunder
-    return () => clearTimeout(timer);
-  }
-  }, [snackBarMessage]);
-
   return (
     <>
-    {snackBarMessage && (
-      <div className="snackbar">
-        {snackBarMessage}
-      </div>
-    )}
       <main>
         <Card>
           <div className="create-post-input">
@@ -214,7 +197,7 @@ const Dashboard = () => {
           ) : (
             <>
               <Cohorts cohorts={cohorts}/>
-              <Students refresh={refresh} setRefresh={setRefresh} setSnackBarMessage={setSnackBarMessage}/>
+              <Students refresh={refresh} setRefresh={setRefresh}/>
               <TeachersDashboard/>
             </>
 

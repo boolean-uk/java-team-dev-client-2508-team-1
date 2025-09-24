@@ -47,7 +47,7 @@ const ProfileCircle = ({ id, initials, menuVisible, clickable, photo=null }) => 
 };
 
 
-export const CascadingMenu = ({ id, setIsMenuVisible, setRefresh, setSnackBarMessage}) => {
+export const CascadingMenu = ({ id, setIsMenuVisible, setRefresh}) => {
 
   const [clicked, setClicked] = useState(false);
 
@@ -78,7 +78,6 @@ export const CascadingMenu = ({ id, setIsMenuVisible, setRefresh, setSnackBarMes
         style={{color: 'red'}} 
         setIsMenuVisible={setIsMenuVisible} 
         setRefresh={setRefresh} 
-        setSnackBarMessage={setSnackBarMessage}
       />
       :
       <MenuItem icon={<DeleteIcon />} 
@@ -88,7 +87,6 @@ export const CascadingMenu = ({ id, setIsMenuVisible, setRefresh, setSnackBarMes
         setClicked={setClicked} 
         setIsMenuVisible={setIsMenuVisible} 
         setRefresh={setRefresh} 
-        setSnackBarMessage={setSnackBarMessage}
       />
       }
     </Menu>
