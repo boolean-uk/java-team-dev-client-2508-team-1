@@ -6,6 +6,8 @@ import SearchBarMultiple from "./SearchBarMultiple";
 const StepTwoCohort = ({students, selectedStudents, setSelectedStudents}) => {
 
 const [isOpenStudents, setIsOpenStudents] = useState(false);
+const [isOpenSearchBar, setIsOpenSearchBar] = useState(false);
+
 
 
 const handleSelectStudent = (student) => {
@@ -22,6 +24,10 @@ const handleSelectStudent = (student) => {
       return [...prevSelected, student];
     }
   })
+
+  setTimeout(()=> {
+        setIsOpenSearchBar(false)
+    }, 500)
   
   console.log(selectedStudents);
 };
@@ -32,16 +38,16 @@ const handleSelectStudent = (student) => {
             <SearchBarMultiple
             students={students}
             handleSelectStudent={handleSelectStudent} 
-            selectedStudents={selectedStudents}/>
+            selectedStudents={selectedStudents}
+            isOpenSearchBar={isOpenSearchBar}
+            setIsOpenSearchBar={setIsOpenSearchBar}/>
 
         <div className="dropdown-section">
         <p className="paragraph"> Or select students: </p>
 
         <div className="add-student-students-button">
-            <button  onClick={() => setIsOpenStudents(true)}>
-                {selectedStudents !== null ? (<span className="add-student-button-title-selected">{selectedStudents.firstName}  {selectedStudents.lastName}</span>) : ( 
-                <span className="add-student-button-title">Student*</span>
-)}
+        <button onClick={() => setIsOpenStudents(prev => !prev)}>                
+            <span className="select-course-title">Students</span>            
                 <ArrowDownIcon/>
             </button> 
         </div>

@@ -6,6 +6,7 @@ import StepOneCohort from "./stepOne"
 import { useEffect, useState } from "react"
 import { get } from "../../service/apiClient"
 import StepTwoCohort from "./stepTwo"
+import StepThreeCohort from "./stepThree"
 
 
 const AddCohort = () =>{
@@ -63,7 +64,7 @@ const AddCohort = () =>{
                 setSelectedStudents={setSelectedStudents}
                 />
 
-                <StepOneCohort/>
+                <StepThreeCohort/>
             </StepperCohort>
         </>
     )

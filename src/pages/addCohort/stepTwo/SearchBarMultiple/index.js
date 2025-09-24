@@ -3,14 +3,14 @@ import TextInput from "../../../../components/form/textInput";
 import SearchIcon from "../../../../assets/icons/searchIcon";
 import { get } from "../../../../service/apiClient";
 import '../../style.css';
-import SearchResultsStudents from "../../../addStudent/searchResults";
+
+import MultipleStudentsSearch from "../multipleStudentsMenu/searchMultiple";
 
 
 
-const SearchBarMultiple = ({handleSelectStudent}) => {
+const SearchBarMultiple = ({handleSelectStudent, isOpenSearchBar, setIsOpenSearchBar, selectedStudents}) => {
     const [query, setQuery] = useState("");
     const [searchResults, setSearchResults] = useState([]);
-    const [isOpen, setIsOpen] = useState(false);
     const popupRef = useRef();
 
     const handleSubmit = async (e) => {
@@ -20,7 +20,7 @@ const SearchBarMultiple = ({handleSelectStudent}) => {
         const response = await get(`search/profiles/${query}`);
         console.log(response);
         setSearchResults(response.data.profiles);
-        setIsOpen(true);
+        setIsOpenSearchBar(true);
         } catch (error) {
         console.error("Error fetching search results:", error);
         }
@@ -42,7 +42,7 @@ const SearchBarMultiple = ({handleSelectStudent}) => {
         />
         </form>
 
-          {isOpen && (
+          {isOpenSearchBar && (
             <div
               ref={popupRef}
               className="search-results-popup"
@@ -55,10 +55,11 @@ const SearchBarMultiple = ({handleSelectStudent}) => {
               }}
             >
               {searchResults.length > 0 ? (
-                 <SearchResultsStudents
-                  students={searchResults}
-                  onSelect={handleSelectStudent}
-                />
+                <MultipleStudentsSearch
+                   students={searchResults}
+                    handleSelectStudent ={handleSelectStudent }
+                    selectedStudents={selectedStudents}
+                    />
               ) : (
                 <p>No students with this name found</p>
               )}

@@ -9,11 +9,11 @@ const MultipleStudentsMenu = ({ students, handleSelectStudent, selectedStudents 
       {students.length > 0 ? (
           <section>
          <div className="s">
-        <MultipleStudentsSearch
-          students={students}
-          handleSelectStudent ={handleSelectStudent }
-          selectedStudents={selectedStudents}
-        />
+            <MultipleStudentsSearch
+            students={students}
+            handleSelectStudent ={handleSelectStudent }
+            selectedStudents={selectedStudents}
+            />
         </div>
         </section>
       ) : (

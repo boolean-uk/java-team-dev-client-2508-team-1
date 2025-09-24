@@ -1,6 +1,6 @@
 .add-cohort-card {
   width: 700px !important;
-  height: 950px !important;
+  height: auto;
   background-color: #FFFFFF;
   border: 1px solid #E6EBF5; 
   border-radius: 8px;
@@ -42,3 +42,12 @@ width: 100%;
   gap: 8px;
   padding: 8px 0;
 }
+
+.three-buttons {
+margin-top: 50px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  justify-content: space-between;   
+}
+

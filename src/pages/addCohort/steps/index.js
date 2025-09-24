@@ -15,7 +15,14 @@ const StepperCohort = ({ header, children, onComplete, data }) => {
       onComplete();
       return;
     }
+    setCurrentStep(currentStep + 1);
+  };
 
+  const onSkipClick  = () => {
+    if (currentStep === children.length - 1) {
+      onComplete();
+      return;
+    }
     setCurrentStep(currentStep + 1);
   };
 
@@ -25,9 +32,28 @@ const StepperCohort = ({ header, children, onComplete, data }) => {
       {header}
 
       {children[currentStep]}
-        <div className="buttons-at-bottom">
-            <button className="offwhite" onClick={onBackClick}>Cancel</button>
-            <button className="blue"  onClick={onNextClick}>Next</button>
+        <div>
+        {currentStep === 0 ? 
+        (<div className="buttons-at-bottom">
+        <button className="offwhite" onClick={onBackClick}>Cancel</button>
+        <button className="blue" onClick={onNextClick}>Next</button>
+          </div>
+        ) : 
+        currentStep === 1 ? (
+        <div className="three-buttons">
+                <button className="offwhite" onClick={onBackClick}>Back</button>
+                <button className="offwhite" onClick={onSkipClick}>Skip</button>
+            <div>
+                <button className="blue" onClick={onNextClick}>Add students</button>
+            </div>
+          </div>
+        ) : (
+           <div className="buttons-at-bottom">
+        <button className="offwhite" onClick={onBackClick}>Back</button>
+        <button className="blue" onClick={onNextClick}>Add cohort</button>
+          </div>
+        )
+         }
         </div>
     </div>
   );
