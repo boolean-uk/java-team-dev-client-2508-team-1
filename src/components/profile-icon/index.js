@@ -1,9 +1,11 @@
 
-import Popup from 'reactjs-popup';
 import './style.css';
 import SeeProfile from '../seeProfile';
+import { useState } from 'react';
+
 import SimpleProfileCircle from '../simpleProfileCircle';
 const UserIcon = ({ id, initials, firstname, lastname, role, menu=true, photo=null }) => {
+ const [isOpen, setIsOpen] = useState(false);
 
     const styleGuideColors = [
     "#28C846", 
@@ -28,6 +30,8 @@ const UserIcon = ({ id, initials, firstname, lastname, role, menu=true, photo=nu
 
     const backgroundColor = getColorFromInitials(initials);
 
+    
+
     return (
             <div className="user">
 
@@ -41,8 +45,9 @@ const UserIcon = ({ id, initials, firstname, lastname, role, menu=true, photo=nu
                 <p className = "user-name">{firstname} {lastname}</p> 
                 <p className = "user-role" >{role}</p>
             </div>
-              <Popup trigger= { 
-                <div className="edit-icon-wrapper">
+            
+                <div className="edit-icon-wrapper" onClick={() => setIsOpen(true)}>
+
                 <div className="icon-button">
                     <span className="dots">
                     <span className="dot">•</span>
@@ -52,9 +57,8 @@ const UserIcon = ({ id, initials, firstname, lastname, role, menu=true, photo=nu
                 </div>
                 </div>
                  
-                } position="left center"
-                closeOnDocumentClick
-                arrow={false}> 
+                {isOpen && (
+                    <div>
 
                 <SeeProfile 
                         id = {id}
@@ -63,10 +67,11 @@ const UserIcon = ({ id, initials, firstname, lastname, role, menu=true, photo=nu
                         lastname = {lastname} 
                         role = {role}   
                         />
-                        
-            </Popup> </>}
-            </div> 
-    )   
+            </div>              
+    )   }
+    </div>
+    )
+
 }
 
 
