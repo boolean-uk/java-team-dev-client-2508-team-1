@@ -9,7 +9,7 @@ const TextInput = ({
   placeholder,
   readOnly = false,
   icon,
-  iconRight = false
+  iconRight = true
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const isPasswordField = type === 'password';
