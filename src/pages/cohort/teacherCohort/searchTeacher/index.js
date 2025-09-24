@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { get } from "../../../../service/apiClient";
 import TextInput from "../../../../components/form/textInput";
 import SearchIcon from "../../../../assets/icons/searchIcon";
-import { Card } from "@mui/material";
 import ProfileIconTeacher from "../../../../components/profile-icon-teacherView";
+import Card from "../../../../components/card";
 
 const SearchTeacher = () => {
     const [query, setQuery] = useState("");

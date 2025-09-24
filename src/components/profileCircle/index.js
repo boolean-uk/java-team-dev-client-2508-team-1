@@ -10,21 +10,43 @@ import Menu from '../menu';
 import MenuItem from '../menu/menuItem';
 import './style.css';
 
-const ProfileCircle = ({ id, initials, menuVisible }) => {
+/*
+ADDED A PROP CLICKABLE
+use the className='profile-circle-noclick' if you need the ProfileCircle but
+do not need the menu options (this is used in the posts in dashboard for both 
+teachers and students)
+*/
+const ProfileCircle = ({ id, initials, menuVisible, clickable }) => {
   const [isMenuVisible, setIsMenuVisible] = useState(menuVisible || false);
 
   return (
-    <div className="profile-circle" onClick={() => setIsMenuVisible(!isMenuVisible)}>
+
+    <>
+    {clickable ? (
+      <div className="profile-circle" onClick={() => setIsMenuVisible(!isMenuVisible)}>
       {isMenuVisible && <CascadingMenu id = {id} />}
+
 
       <div className="profile-icon">
         <p>{initials}</p>
       </div>
     </div>
+    ) : (
+      <div className="profile-circle-noclick">
+        <div className="profile-icon">
+          <p>{initials}</p>
+        </div>
+      </div>
+    )}
+    </>
+    
   );
 };
 
-export const CascadingMenu = ({ id }) => {
+
+export const CascadingMenu = ({ id, setIsMenuVisible, setRefresh, setSnackBarMessage}) => {
+
+  const [clicked, setClicked] = useState(false);
 
   return (
     <Menu className="profile-circle-menu">
@@ -44,8 +66,11 @@ export const CascadingMenu = ({ id }) => {
           <MenuItem icon={<CohortIconFill />} text="Cohort 3" />
         </MenuItem>
       </MenuItem>
-
-      <MenuItem icon={<DeleteIcon />} text="Delete student" />
+      {clicked ? 
+      <MenuItem icon={<DeleteIcon />} text="Confirm deletion" profileId = {id} clickable="DeleteUser" style={{color: 'red'}} setIsMenuVisible={setIsMenuVisible} setRefresh={setRefresh} setSnackBarMessage={setSnackBarMessage}/>
+      :
+      <MenuItem icon={<DeleteIcon />} text="Delete student" clickable="Clicked" clicked={clicked} setClicked={setClicked} setIsMenuVisible={setIsMenuVisible} setRefresh={setRefresh} setSnackBarMessage={setSnackBarMessage}/>
+      }
     </Menu>
   );
 };
