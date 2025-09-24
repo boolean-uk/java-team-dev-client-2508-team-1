@@ -50,7 +50,13 @@ const AddCohort = () =>{
 
     return (
         <>
-            <StepperCohort header={<CohortHeader/>}>
+            <StepperCohort 
+            header={<CohortHeader/>}  
+            cohortName={cohortName}
+            startDate={startDate}
+            endDate={endDate}
+            selectedCourse={selectedCourse}
+            selectedStudents={selectedStudents}>
                 <StepOneCohort 
                     cohortName={cohortName}
                     setCohortName={setCohortName}
