@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { get } from "../../../service/apiClient";
 
-import { useNavigate } from "react-router-dom";
 import Card from "../../../components/card"
 
 // import UserIcon from "../../../components/profile-icon";
