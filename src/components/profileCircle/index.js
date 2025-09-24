@@ -9,6 +9,7 @@ import SquareBracketsIcon from '../../assets/icons/squareBracketsIcon';
 import Menu from '../menu';
 import MenuItem from '../menu/menuItem';
 import './style.css';
+import SimpleProfileCircle from '../simpleProfileCircle';
 
 /*
 ADDED A PROP CLICKABLE
@@ -16,7 +17,7 @@ use the className='profile-circle-noclick' if you need the ProfileCircle but
 do not need the menu options (this is used in the posts in dashboard for both 
 teachers and students)
 */
-const ProfileCircle = ({ id, initials, menuVisible, clickable }) => {
+const ProfileCircle = ({ id, initials, menuVisible, clickable, photo=null }) => {
   const [isMenuVisible, setIsMenuVisible] = useState(menuVisible || false);
 
   return (
@@ -28,13 +29,15 @@ const ProfileCircle = ({ id, initials, menuVisible, clickable }) => {
 
 
       <div className="profile-icon">
-        <p>{initials}</p>
+        <SimpleProfileCircle photo={photo} initials={initials} />
+
       </div>
     </div>
     ) : (
       <div className="profile-circle-noclick">
         <div className="profile-icon">
-          <p>{initials}</p>
+          <SimpleProfileCircle photo={photo} initials={initials} />
+          
         </div>
       </div>
     )}
