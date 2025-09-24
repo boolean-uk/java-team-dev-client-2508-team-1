@@ -42,11 +42,12 @@ const SearchBar = ({setSelectedStudent, selectedStudent}) => {
     <div className="add-search">
         <form onSubmit={handleSubmit}>
         <TextInput
-            placeholder="Search for people"
-            icon={<SearchIcon />}
+          placeholder="Search for people"
             value={query}
             name="Search"
             onChange={(e) => setQuery(e.target.value)}
+            icon={<SearchIcon />}
+            iconRight={true}
             onKeyDown={(e) => {
             if (e.key === "Enter") handleSubmit(e);
             }}
@@ -81,3 +82,15 @@ const SearchBar = ({setSelectedStudent, selectedStudent}) => {
 }
 
 export default SearchBar
+
+/**
+ *  placeholder="Search for people"
+            value={query}
+            name="Search"
+            onChange={(e) => setQuery(e.target.value)}
+            icon={<SearchIcon />}
+            iconRight={true}
+            onKeyDown={(e) => {
+            if (e.key === "Enter") handleSubmit(e);
+            }}
+ */
