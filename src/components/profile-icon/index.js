@@ -1,46 +1,64 @@
-
-import Popup from 'reactjs-popup';
 import './style.css';
 import SeeProfile from '../seeProfile';
-const UserIcon = ({ id, initials, firstname, lastname, role}) => {
+import { useState } from 'react';
+import SimpleProfileCircle from '../simpleProfileCircle';
 
-    const styleGuideColors = [
-    "#28C846", 
-    "#A0E6AA", 
-    "#46DCD2", 
-    "#82E6E6", 
-    "#5ABEDC", 
-    "#46C8FA", 
-    "#46A0FA", 
-    "#666EDC"  
-    ];
-   
-    const getColorFromInitials = (initials) => {
+const UserIcon = ({ id, initials = '', firstname = '', lastname = '', role = '', menu = true, photo = null }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const styleGuideColors = [
+    "#28C846",
+    "#A0E6AA",
+    "#46DCD2",
+    "#82E6E6",
+    "#5ABEDC",
+    "#46C8FA",
+    "#46A0FA",
+    "#666EDC"
+  ];
+
+  const getColorFromInitials = (init) => {
+    const text = init || '';
     let hash = 0;
-    for (let i = 0; i < initials.length; i++) {
-        hash = initials.charCodeAt(i) + ((hash << 5) - hash);
+    for (let i = 0; i < text.length; i++) {
+      hash = text.charCodeAt(i) + ((hash << 5) - hash);
     }
-
     const index = Math.abs(hash) % styleGuideColors.length;
     return styleGuideColors[index];
-    };
+  };
 
-    const backgroundColor = getColorFromInitials(initials);
+  const backgroundColor = getColorFromInitials(initials);
 
-    return (
-            <div className="user">
+  return (
+    <div className="user">
+      <div className="profile-circle">
+        <div className="profile-icon" style={{ background: backgroundColor }}>
+          <SimpleProfileCircle photo={photo} initials={initials} />
+        </div>
+      </div>
 
-                <div className="profile-circle">
-                <div className="profile-icon" style={{background: backgroundColor}}>
-                    <p>{initials}</p>
-                </div>
+      {menu && (
+        <>
+          <div className="user-info">
+            <p className="user-name">{firstname} {lastname}</p>
+            <p className="user-role">{role}</p>
+          </div>
+
+          <div className="edit-icon-wrapper" onClick={() => setIsOpen(true)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && setIsOpen(true)}>
+            <div className="icon-button" aria-label="Open profile">
+              <span className="dots">
+                <span className="dot">•</span>
+                <span className="dot">•</span>
+                <span className="dot">•</span>
+              </span>
             </div>
-            <div className="user-info">
+            {menu &&  <><div className="user-info">
                 <p className = "user-name">{firstname} {lastname}</p> 
                 <p className = "user-role" >{role}</p>
             </div>
-            <Popup trigger= { 
-                <div className="edit-icon-wrapper">
+            
+                <div className="edit-icon-wrapper" onClick={() => setIsOpen(true)}>
+
                 <div className="icon-button">
                     <span className="dots">
                     <span className="dot">•</span>
@@ -50,9 +68,9 @@ const UserIcon = ({ id, initials, firstname, lastname, role}) => {
                 </div>
                 </div>
                  
-                } position="left center"
-                closeOnDocumentClick
-                arrow={false}>
+                {isOpen && (
+                    <div>
+
                 <SeeProfile 
                         id = {id}
                         initials={initials} 
@@ -60,14 +78,11 @@ const UserIcon = ({ id, initials, firstname, lastname, role}) => {
                         lastname = {lastname} 
                         role = {role}   
                         />
-                        
-            </Popup>
-            </div> 
-    )   
+            </div>              
+    )   } </>}
+    </div>
+    )
+
 }
 
-
 export default UserIcon;
-
-
-  

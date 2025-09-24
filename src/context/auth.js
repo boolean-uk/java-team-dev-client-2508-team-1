@@ -4,7 +4,7 @@ import Header from '../components/header';
 import Modal from '../components/modal';
 import Navigation from '../components/navigation';
 import useAuth from '../hooks/useAuth';
-import { createNewStudent, createProfile, login, refreshToken, register } from '../service/apiClient';
+import { createNewStudent, createProfile, login, refreshToken, register, getUserById } from '../service/apiClient';
 
 // eslint-disable-next-line camelcase
 import jwt_decode from 'jwt-decode';
@@ -15,6 +15,8 @@ const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [token, setToken] = useState(null);
+  const [user, setUser] = useState(null);
+  const [userPhoto, setUserPhoto] = useState(localStorage.getItem('userPhoto'));
 
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
@@ -35,12 +37,30 @@ const AuthProvider = ({ children }) => {
     localStorage.setItem('token', res.data.token);
 
     setToken(res.data.token);
-    navigate('/');  
+
+    navigate(location.state?.from?.pathname || '/');  
+
+    // After successful login, fetch and store user data
+    try {
+      const { userId } = jwt_decode(res.data.token);
+      const userData = await getUserById(userId);
+      const photo = userData.profile?.photo;
+      
+      if (photo) {
+        localStorage.setItem('userPhoto', photo);
+        setUserPhoto(photo);
+      }
+    } catch (error) {
+      console.error('Error fetching user photo:', error);
+    }
+
   };
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('userPhoto');
     setToken(null);
+    setUserPhoto(null);
   };
 
   // Force a token refresh by setting the token again to trigger useEffect in other contexts
@@ -114,6 +134,9 @@ const AuthProvider = ({ children }) => {
 
   const value = {
     token,
+    user,
+    userPhoto,
+    setUserPhoto,
     onLogin: handleLogin,
     onLogout: handleLogout,
     onRegister: handleRegister,
