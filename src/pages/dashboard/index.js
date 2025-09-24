@@ -164,7 +164,7 @@ const Dashboard = () => {
           </div>
         </Card>
 
-        <Posts />
+        <Posts refresh={refresh}/>
       </main>
 
       <aside>
