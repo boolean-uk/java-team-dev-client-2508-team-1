@@ -21,10 +21,10 @@ const Welcome = () => {
     mobile: '',
     bio: '',
     role: 'ROLE_STUDENT',
-    specialism: 'Software Development',
-    cohort: 1,
-    start_date: '2025-09-14',
-    end_date: '2025-10-15',
+    specialism: '',
+    cohort: '',
+    start_date: '',
+    end_date: '',
     photo: ''
   });
 
@@ -101,7 +101,7 @@ const Welcome = () => {
       <Stepper data={profile} header={<WelcomeHeader />} onComplete={onComplete}>
         <StepOne data={profile} setData={onChange} handleFileChange={handleFileChange}/>
         <StepTwo data={profile} setData={onChange} formData={formData}/>
-        <StepThree data={profile} setData={onChange} />
+        <StepThree data={profile} setData={onChange} setProfile={setProfile}/>
         <StepFour data={profile} setData={onChange} />
       </Stepper>
     </main>
