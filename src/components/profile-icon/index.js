@@ -52,24 +52,37 @@ const UserIcon = ({ id, initials = '', firstname = '', lastname = '', role = '',
                 <span className="dot">•</span>
               </span>
             </div>
-          </div>
-        </>
-      )}
+            {menu &&  <><div className="user-info">
+                <p className = "user-name">{firstname} {lastname}</p> 
+                <p className = "user-role" >{role}</p>
+            </div>
+            
+                <div className="edit-icon-wrapper" onClick={() => setIsOpen(true)}>
 
-      {isOpen && (
-        <div>
-          <SeeProfile
-            id={id}
-            initials={initials}
-            firstname={firstname}
-            lastname={lastname}
-            role={role}
-            onClose={() => setIsOpen(false)}
-          />
-        </div>
-      )}
+                <div className="icon-button">
+                    <span className="dots">
+                    <span className="dot">•</span>
+                    <span className="dot">•</span>
+                    <span className="dot">•</span>
+                </span>
+                </div>
+                </div>
+                 
+                {isOpen && (
+                    <div>
+
+                <SeeProfile 
+                        id = {id}
+                        initials={initials} 
+                        firstname = {firstname} 
+                        lastname = {lastname} 
+                        role = {role}   
+                        />
+            </div>              
+    )   } </>}
     </div>
-  );
-};
+    )
+
+}
 
 export default UserIcon;
