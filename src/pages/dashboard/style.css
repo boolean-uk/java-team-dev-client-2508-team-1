@@ -141,3 +141,11 @@ aside {
   opacity: 1;
   transition: opacity 0.3s;
 }
+
+.students-list-teacher-view {
+  max-height: 300px; 
+  overflow-y: auto;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
