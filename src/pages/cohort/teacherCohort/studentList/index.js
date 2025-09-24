@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import ProfileIconTeacher from "../../../../components/profile-icon-teacherView";
 import { get } from "../../../../service/apiClient";
 
-const StudentList = ({ profiles, refresh, setRefresh, setSnackBarMessage }) => {
+const StudentList = ({ profiles, refresh, setRefresh }) => {
   if (!profiles || profiles.length === 0) {
     return <p></p>;
   }
@@ -24,7 +24,7 @@ const StudentList = ({ profiles, refresh, setRefresh, setSnackBarMessage }) => {
       {profiles.map((student) => (
         <li key={student.id}>
            <div>
-            <ProfileIconTeacher id={student.user.id} initials={student.firstName.charAt(0) + student.lastName.charAt(0)} firstname={student.firstName} lastname={student.lastName} role={student.specialism} setRefresh={setRefresh} setSnackBarMessage={setSnackBarMessage}/>
+            <ProfileIconTeacher id={student.user.id} initials={student.firstName.charAt(0) + student.lastName.charAt(0)} firstname={student.firstName} lastname={student.lastName} role={student.specialism} setRefresh={setRefresh}/>
             </div>
         </li>
       ))}
