@@ -57,6 +57,44 @@ async function createProfile(userId,
   );
 }
 
+
+async function createNewStudent(
+  first_name, 
+  last_name, 
+  username, 
+  github_username, 
+  email,
+  mobile, 
+  password,
+  bio,  
+  role, 
+  specialism, 
+  cohort, 
+  start_date, 
+  end_date, 
+  photo) {
+
+  cohort = parseInt(cohort)
+  photo = JSON.stringify(photo)
+
+  return await post(`students/create`, {
+    first_name, 
+    last_name, 
+    username, 
+    github_username, 
+    email,
+    mobile, 
+    password,
+    bio,  
+    role, 
+    specialism, 
+    cohort, 
+    start_date, 
+    end_date, 
+    photo }
+  );
+}
+
 async function getPosts() {
   const res = await get('posts');
   return res.data.posts;
@@ -103,11 +141,21 @@ async function updateUserProfile(userId, formValues) {
     mobile: formValues.mobile || "",
     password: formValues.password || "",
     bio: formValues.bio || ""
-  };
+  };  
 
-  return await patch(`students/${userId}`, payload);
+  const token = localStorage.getItem('token');
+  const decoded = jwt_decode(token);
+  const role = decoded?.roleId; // eller hent fra formData.profile.role.name hvis du har det
+  console.log(role)
+  let endpoint = '';
+  if (role === 2) {
+    endpoint = `students/${userId}`;
+  } else {
+    endpoint = `teachers/${userId}`; // for ROLE_TEACHER og andre
+  }
+
+  return await patch(endpoint, payload);
 }
-
 
 async function post(endpoint, data, auth = true) {
   return await request('POST', endpoint, data, auth);
@@ -159,8 +207,6 @@ async function request(method, endpoint, data, auth = true) {
 }
 
 
-
-
-export { login, getPosts, register, createProfile, get, getUserById, getComments, post, patch, put, getMyCohortProfiles, updateUserProfile, postTo, del, refreshToken };
+export { login, getPosts, register, createProfile, get, getUserById, getComments, post, patch, put, getMyCohortProfiles, updateUserProfile, postTo, del, refreshToken,createNewStudent };
 
 

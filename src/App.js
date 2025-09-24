@@ -20,6 +20,9 @@ import { SearchResultsProvider } from './context/searchResults';
 import AddStudent from './pages/addStudent';
 import AddCohort from './pages/addCohort';
 
+import NewStudent from './pages/cohort/newStudent';
+
+
 const App = () => {
   return (
     <>
@@ -59,6 +62,7 @@ const App = () => {
                         </ProtectedRoute>
                       }
                     />
+
                     <Route 
                     path="cohorts/add"
                     element={
@@ -73,6 +77,16 @@ const App = () => {
                         <AddCohort/>
                       </ProtectedRoute>
                     }/>
+
+                    <Route
+                      path="cohorts/newStudent"
+                      element={
+                        <ProtectedRoute>
+                          <NewStudent />
+                        </ProtectedRoute>
+                      }
+                    />
+
                     <Route
                       path="profile"
                       element={
