@@ -1,8 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ProfileIconTeacher from "../../../../components/profile-icon-teacherView";
 import { get } from "../../../../service/apiClient";
 
-const StudentList = ({ profiles, refresh, setRefresh }) => {
+const StudentList = ({ profiles, setSelectedProfiles }) => {
+  const [refresh, setRefresh] = useState(false);
+
   if (!profiles || profiles.length === 0) {
     return <p></p>;
   }
@@ -13,6 +15,7 @@ const StudentList = ({ profiles, refresh, setRefresh }) => {
         const response = await get("profiles");
         const studs = response.data.profiles;
         profiles = studs.filter(stud => profiles.some(p => p.id === stud.id));
+        setSelectedProfiles(profiles);
         } catch (error) {
         console.error("Error fetching students:", error);
         }

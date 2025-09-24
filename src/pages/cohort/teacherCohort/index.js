@@ -1,4 +1,4 @@
-import {  useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 // import SearchIcon from "../../../assets/icons/searchIcon"
 import EditIconCohortTeacher from "../../../components/editIconCohortTeacher"
 // import TextInput from "../../../components/form/textInput"
@@ -15,12 +15,13 @@ const TeacherCohort = ({cohorts}) => {
     // const [searchVal, setSearchVal] = useState('');
     const [selectedProfiles, setSelectedProfiles] = useState([]);
     const[selectedCohort, setSelectedCohort] = useState(null);
-    const[refresh, setRefresh] = useState(false);
     const navigate = useNavigate()
 
     // const onChange = (e) => {
     //     setSearchVal(e.target.value);
     // };
+
+    useEffect(() => {}, [selectedProfiles]);
         
     return (
         <>
@@ -80,7 +81,7 @@ const TeacherCohort = ({cohorts}) => {
                     </div>
                 </div>
                 <hr className="divider"/>
-                    <StudentList profiles={selectedProfiles} refresh={refresh} setRefresh={setRefresh} />
+                    <StudentList profiles={selectedProfiles} setSelectedProfiles={setSelectedProfiles}/>
 
             </section>
         </div>
