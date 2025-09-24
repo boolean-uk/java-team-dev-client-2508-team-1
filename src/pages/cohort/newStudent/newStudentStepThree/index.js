@@ -5,6 +5,7 @@ import { get } from '../../../../service/apiClient';
 import ArrowDownIcon from '../../../../assets/icons/arrowDownIcon';
 import CoursesMenu from '../../../addStudent/coursesMenu';
 import CohortsMenu from '../../../addStudent/cohortsMenu';
+import LockIcon from '../../../../assets/icons/lockIcon';
 
 const NewStudentStepThree = ({ data, setData, setProfile }) => {
 
@@ -47,7 +48,6 @@ const NewStudentStepThree = ({ data, setData, setProfile }) => {
   }
 
    const handleSelectCohort = (cohort) => {
-    console.log("selected course" + cohort)
     setIsOpenCohorts(false)
     setSelectedCohort(cohort)
 
@@ -64,11 +64,14 @@ const NewStudentStepThree = ({ data, setData, setProfile }) => {
         </div>
         <Form className="welcome-form">
             <div className='welcome-form-inputs'>
+                
                <TextInput
                     name="role"
                     label={'Role'}
                     value={'Student'}
                     readOnly={true}
+                    icon={<LockIcon />}
+                    iconRight={true}
                 />
                 <div className="select-course-button">
                     <label className="the-label">Specialism*</label>
@@ -101,8 +104,6 @@ const NewStudentStepThree = ({ data, setData, setProfile }) => {
                     readOnly
                     required
                 />
-                {console.log("Start date:", selectedCourse?.startDate)}
-
                 <TextInput
                     onChange={setData}
                     name="end_date"
@@ -112,7 +113,6 @@ const NewStudentStepThree = ({ data, setData, setProfile }) => {
                     readOnly
                     required
                 />
-                 {console.log("End date:", selectedCourse?.endDate)}
             </div>
         </Form>
         </>
