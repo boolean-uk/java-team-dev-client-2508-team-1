@@ -14,8 +14,8 @@ const StudentList = ({ profiles, setSelectedProfiles }) => {
         try {
         const response = await get("profiles");
         const studs = response.data.profiles;
-        profiles = studs.filter(stud => profiles.some(p => p.id === stud.id));
-        setSelectedProfiles(profiles);
+        const filteredStuds = studs.filter(stud => profiles.some(p => p.id === stud.id));
+        setSelectedProfiles(filteredStuds);
         } catch (error) {
         console.error("Error fetching students:", error);
         }
