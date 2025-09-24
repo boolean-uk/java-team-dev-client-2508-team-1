@@ -9,9 +9,9 @@ import { Snackbar, SnackbarContent } from '@mui/material';
 import Portal from '@mui/material/Portal';
 import { useState } from 'react';
 import CheckCircleIcon from '../../../assets/icons/checkCircleIcon';
-import { del, get } from '../../../service/apiClient';
+import { del, get, updateStudentCohort } from '../../../service/apiClient';
 
-const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText, postId, name, isMenuVisible, setIsMenuVisible, commentText, commentId, onCommentDeleted, onPostDeleted, profileId, clicked, setClicked, setRefresh, setSnackBarMessage}) => {
+const MenuItem = ({ cohortId, icon, text, children, linkTo = '#nogo', clickable, postText, postId, name, isMenuVisible, setIsMenuVisible, commentText, commentId, onCommentDeleted, onPostDeleted, profileId, clicked, setClicked, setRefresh, setSnackBarMessage}) => {
   const { openModal, setModal } = useModal();
 
   const { deletePost } = usePosts();
@@ -115,6 +115,22 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
     }, 2100); // slightly longer than autoHideDuration
   };
 
+  const moveStudent = async () => {
+    console.log("COHORT ID FROM PROP", cohortId)
+    try {
+      const profile = await get('profiles/' + profileId);
+      console.log("PROFILE",profile)
+      const userId = profile.data.profile.user.id;
+      const newCohortId = profile.data.profile.cohort.id
+      console.log("NEW COHORT ID", newCohortId)
+      console.log("USER ID",userId)
+      await updateStudentCohort(userId, { cohort: newCohortId })
+    } catch (error) {
+      console.error("Error moving student to cohort:", error);
+      setSnackBarMessage?.("Failed to move student.");
+    }
+  }
+
   const getClickHandler = () => {
     switch (clickable) {
       case "Modal":
@@ -133,6 +149,8 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
         return handleDeleteUser;
       case "Clicked":
         return handleClick;
+      case "MoveStudent":
+        return moveStudent;
       default:
         return undefined;
     }

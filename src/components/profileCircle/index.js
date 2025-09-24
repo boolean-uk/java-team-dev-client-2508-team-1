@@ -48,13 +48,15 @@ const ProfileCircle = ({ id, initials, menuVisible, clickable }) => {
 export const CascadingMenu = ({ id, setIsMenuVisible, setRefresh, setSnackBarMessage, cohorts }) => {
 
   const [clicked, setClicked] = useState(false);
-  
+  console.log("CASCADING ID", id)
+  console.log("CASCADING cohort", cohorts)
+
   return (
     <Menu className="profile-circle-menu">
       <MenuItem icon={<ProfileIcon />} text="Profile" linkTo={`/profile/${id}`} />
       <MenuItem icon={<AddIcon />} text="Add note" />
 
-      <MenuItem icon={<CohortIcon />} text="Move to cohort">
+      <MenuItem icon={<CohortIcon />} text="Move to cohort" userId = {id}>
         {Array.from(new Map(
           cohorts.map(cohort => [cohort.course.name, cohort.course])).values())
             .map((course, index) => (
@@ -74,6 +76,12 @@ export const CascadingMenu = ({ id, setIsMenuVisible, setRefresh, setSnackBarMes
               key={cohort.id}
               icon={<CohortIconFill />}
               text={cohort.name}
+              clickable="MoveStudent"
+              profileId={id}
+              cohortId={cohort.id}
+              setIsMenuVisible={setIsMenuVisible}
+              setSnackBarMessage={setSnackBarMessage}
+              setRefresh={setRefresh}
             />
           ))}
           </MenuItem>

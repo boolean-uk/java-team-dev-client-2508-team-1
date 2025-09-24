@@ -157,6 +157,32 @@ async function updateUserProfile(userId, formValues) {
   return await patch(endpoint, payload);
 }
 
+async function updateStudentCohort(userId, formValues) {
+  const payload = {
+    photo: formValues.photo || "",
+    first_name: formValues.firstName || "",
+    last_name: formValues.lastName || "",
+    username: formValues.username || "",
+    github_username: formValues.githubUsername || "",
+    email: formValues.email || "",
+    mobile: formValues.mobile || "",
+    password: formValues.password || "",
+    bio: formValues.bio || "",
+    cohort: formValues.cohortId || ""
+  };  
+
+  const token = localStorage.getItem('token');
+  const decoded = jwt_decode(token);
+  const role = decoded?.roleId; // eller hent fra formData.profile.role.name hvis du har det
+  console.log(role)
+  let endpoint = '';
+  if (role === 1) {
+    endpoint = `students/${userId}`;
+  }
+
+  return await patch(endpoint, payload);
+}
+
 async function post(endpoint, data, auth = true) {
   return await request('POST', endpoint, data, auth);
 }
@@ -207,6 +233,6 @@ async function request(method, endpoint, data, auth = true) {
 }
 
 
-export { login, getPosts, register, createProfile, get, getUserById, getComments, post, patch, put, getMyCohortProfiles, updateUserProfile, postTo, del, refreshToken, createNewStudent };
+export { login, getPosts, register, createProfile, get, getUserById, getComments, post, patch, put, getMyCohortProfiles, updateUserProfile, updateStudentCohort, postTo, del, refreshToken, createNewStudent };
 
 
