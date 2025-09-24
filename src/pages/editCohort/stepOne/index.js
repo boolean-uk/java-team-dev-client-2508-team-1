@@ -5,9 +5,9 @@ import { useState } from "react"
 
 
 
-const StepOneEditCohort = ( {setCohortName, setStartDate, setEndDate, cohortName, startDate, endDate, courses}) => {
+
+const StepOneCohort = ( {setCohortName, setStartDate, setEndDate, cohortName, startDate, endDate, courses, setSelectedCourse, selectedCourse}) => {
     const [courseIsOpen, setCourseIsOpen] = useState(false)
-    const [selectedCourse, setSelectedCourse] = useState(null)
 
 
 
@@ -83,4 +83,4 @@ const StepOneEditCohort = ( {setCohortName, setStartDate, setEndDate, cohortName
     )
 }
 
-export default StepOneEditCohort
+export default StepOneCohort

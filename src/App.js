@@ -76,7 +76,7 @@ const App = () => {
                       </ProtectedRoute>
                     }/>
                       <Route 
-                        path="cohorts/edit"
+                        path="cohorts/:id/edit"
                         element={
                           <ProtectedRoute>
                             <EditCohort/>

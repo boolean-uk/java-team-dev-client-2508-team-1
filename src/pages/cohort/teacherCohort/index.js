@@ -49,7 +49,7 @@ const TeacherCohort = ({cohorts}) => {
                         <button>Edit cohort</button>
                     </div>
                 <div className="edit-icon">
-                    <EditIconCohortTeacher />
+                    <EditIconCohortTeacher/>
                 </div>
                 </div>                    
             
@@ -77,7 +77,7 @@ const TeacherCohort = ({cohorts}) => {
                         <button onClick={() => navigate("/cohorts/add")}>Add student</button>
                     </div>
                     <div className="edit-icon-course">
-                        <EditIconCouse/>
+                        <EditIconCouse cohort={selectedCohort ? selectedCohort.id : 1}/>
                     </div>
                     </div>
                 </div>

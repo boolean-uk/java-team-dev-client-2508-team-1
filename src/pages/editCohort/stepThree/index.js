@@ -1,11 +1,11 @@
 import { useState } from "react";
 import ArrowDownIcon from "../../../assets/icons/arrowDownIcon";
-import MultipleStudentsMenu from "./multipleStudentsMenu";
-import SearchBarMultiple from "./SearchBarMultiple";
+import MultipleStudentsMenu from "../stepTwo/multipleStudentsMenu";
+import SearchBarMultiple from "../stepTwo/SearchBarMultiple";
+import CourseIcon from "../../../components/courseIcon";
 
-const StepTwoCohort = ({students, selectedStudents, setSelectedStudents}) => {
-
-const [isOpenStudents, setIsOpenStudents] = useState(false);
+const StepThreeCohort = ({cohortName, selectedCourse, students, selectedStudents, setSelectedStudents, endDate, startDate}) => {
+ const [isOpenStudents, setIsOpenStudents] = useState(false);
 const [isOpenSearchBar, setIsOpenSearchBar] = useState(false);
 
 
@@ -42,7 +42,6 @@ const handleSelectStudent = (student) => {
             isOpenSearchBar={isOpenSearchBar}
             setIsOpenSearchBar={setIsOpenSearchBar}/>
 
-      
         <p className="paragraph"> Or select students: </p>
 
         <div className="add-student-students-button">
@@ -55,10 +54,26 @@ const handleSelectStudent = (student) => {
         {isOpenStudents && (<MultipleStudentsMenu selectedStudents={selectedStudents} students={students} handleSelectStudent={handleSelectStudent} />)}
         </div>
 
+        
+        <div className="cohort-details-group">
+            <hr className="line"></hr>
+                <h2>Cohort details</h2>
+                    <hr className="line"></hr>
+                    {console.log(selectedCourse)}
+                    {console.log(cohortName)}
+                    {console.log(startDate)}
+                    {console.log(endDate)}
+                    
+                    <CourseIcon courseName={selectedCourse.name} cohort={cohortName} startDate={startDate} endDate={endDate}/>
+                                <hr className="line"></hr>
 
+           <div className="selected-students-view">
+                <MultipleStudentsMenu selectedStudents={selectedStudents} students={selectedStudents} handleSelectStudent={handleSelectStudent} />
+            </div>
+        </div>
 
         </>
     )
 }
 
-export default StepTwoCohort
+export default StepThreeCohort
