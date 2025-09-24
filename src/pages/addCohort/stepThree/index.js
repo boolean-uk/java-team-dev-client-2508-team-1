@@ -65,6 +65,8 @@ const handleSelectStudent = (student) => {
                     {console.log(endDate)}
                     
                     <CourseIcon courseName={selectedCourse.name} cohort={cohortName} startDate={startDate} endDate={endDate}/>
+                                <hr className="line"></hr>
+
            <div className="selected-students-view">
                 <MultipleStudentsMenu selectedStudents={selectedStudents} students={selectedStudents} handleSelectStudent={handleSelectStudent} />
             </div>

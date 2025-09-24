@@ -5,7 +5,7 @@ import { patch, post } from "../../../service/apiClient";
 import { useNavigate } from "react-router-dom";
 
 
-const StepperCohort = ({ header, children, cohortName, startDate, endDate, selectedCourse, selectedStudents }) => {
+const StepperCohort = ({ header, children, cohortName, startDate, endDate, selectedCourse, selectedStudents, setSelectedCourse,setEndDate,setStartDate,setCohortName }) => {
     const [currentStep, setCurrentStep] = useState(0);
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const navigate = useNavigate()
@@ -25,6 +25,16 @@ const StepperCohort = ({ header, children, cohortName, startDate, endDate, selec
   const onSkipClick  = () => {
     setCurrentStep(currentStep + 1);
   };
+
+  const onCancel = () => {
+    setSelectedCourse("")
+    setEndDate("")
+    setStartDate("")
+    setCohortName("")
+    navigate(-1)
+
+
+  }
 
   const onComplete = () =>{
     async function addNewCohort() {
@@ -61,7 +71,7 @@ const StepperCohort = ({ header, children, cohortName, startDate, endDate, selec
         <div>
         {currentStep === 0 ? 
         (<div className="buttons-at-bottom">
-        <button className="offwhite" onClick={onBackClick}>Cancel</button>
+        <button className="offwhite" onClick={onCancel}>Cancel</button>
         <button className="blue" onClick={onNextClick}>Next</button>
           </div>
         ) : 
