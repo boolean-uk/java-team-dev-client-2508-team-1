@@ -1,0 +1,14 @@
+.simple-profile-circle {
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.simple-profile-circle p {
+    margin: 0;
+    line-height: 1;
+}

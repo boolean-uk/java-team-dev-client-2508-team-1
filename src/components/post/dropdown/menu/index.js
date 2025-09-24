@@ -5,6 +5,7 @@ import Menu from '../../../menu';
 import MenuItem from '../../../menu/menuItem';
 import './style.css';
 import ReportIcon from '../../../../assets/icons/reporticon';
+import SimpleProfileCircle from '../../../simpleProfileCircle';
 
 const ProfileCirclePost = ({ initials, menuVisible, postText, postId, name }) => {
   const [isMenuVisible, setIsMenuVisible] = useState(menuVisible || false);
@@ -16,7 +17,9 @@ const ProfileCirclePost = ({ initials, menuVisible, postText, postId, name }) =>
       {isMenuVisible && <CascadingMenuPost  postText={postText} postId={postId} name={name} isMenuVisible={isMenuVisible} setIsMenuVisible={setIsMenuVisible} />}
 
       <div className="profile-icon">
-        <p>{initials}</p>
+        <SimpleProfileCircle
+          initials={initials} />
+        
       </div>
     </div>
   );

@@ -2,7 +2,7 @@
 import Popup from 'reactjs-popup';
 import './style.css';
 import SeeProfile from '../seeProfile';
-const UserIcon = ({ id, initials, firstname, lastname, role}) => {
+const UserIcon = ({ id, initials, firstname, lastname, role, menu=true}) => {
 
     const styleGuideColors = [
     "#28C846", 
@@ -35,11 +35,11 @@ const UserIcon = ({ id, initials, firstname, lastname, role}) => {
                     <p>{initials}</p>
                 </div>
             </div>
-            <div className="user-info">
+            {menu &&  <><div className="user-info">
                 <p className = "user-name">{firstname} {lastname}</p> 
                 <p className = "user-role" >{role}</p>
             </div>
-            <Popup trigger= { 
+              <Popup trigger= { 
                 <div className="edit-icon-wrapper">
                 <div className="icon-button">
                     <span className="dots">
@@ -52,7 +52,8 @@ const UserIcon = ({ id, initials, firstname, lastname, role}) => {
                  
                 } position="left center"
                 closeOnDocumentClick
-                arrow={false}>
+                arrow={false}> 
+
                 <SeeProfile 
                         id = {id}
                         initials={initials} 
@@ -61,7 +62,7 @@ const UserIcon = ({ id, initials, firstname, lastname, role}) => {
                         role = {role}   
                         />
                         
-            </Popup>
+            </Popup> </>}
             </div> 
     )   
 }

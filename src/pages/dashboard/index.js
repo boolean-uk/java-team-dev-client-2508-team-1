@@ -156,9 +156,17 @@ const Dashboard = () => {
       <main>
         <Card>
           <div className="create-post-input">
-            <div className="profile-icon">
-              <p>{initials}</p>
-            </div>
+            {/* <div className="profile-icon"> */}
+                <UserIcon
+                    menu={false}
+                    id={decodedToken.userId}
+                    initials={initials}
+                    firstname={decodedToken.firstName}
+                    lastname={decodedToken.lastName}
+                    role={decodedToken.role || 'User'}
+                  />
+              {/* <p>{initials}</p> */}
+            {/* </div> */}
 
             <Button text="What's on your mind?" onClick={showModal} />
           </div>

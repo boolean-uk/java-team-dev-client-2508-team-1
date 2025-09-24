@@ -8,6 +8,7 @@ import LogoutIcon from '../../assets/icons/logoutIcon';
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import jwtDecode from 'jwt-decode';
+import SimpleProfileCircle from '../simpleProfileCircle';
 
 
 const Header = () => {
@@ -46,7 +47,9 @@ const Header = () => {
       <FullLogo textColour="white" />
 
       <div className="profile-icon" onClick={onClickProfileIcon}>
-        <p>{initials}</p>
+        <SimpleProfileCircle
+                  initials={initials} />
+        
       </div>
 
       {isMenuVisible && (
@@ -54,7 +57,10 @@ const Header = () => {
           <Card>
             <section className="post-details">
               <div className="profile-icon">
-                <p>{initials}</p>
+                <SimpleProfileCircle
+                          initials={initials} />
+
+                
               </div>
 
               <div className="post-user-name">

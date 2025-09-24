@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import Card from '../card';
 import Comment from '../comment';
-import ProfileCircle from '../profileCircle';
 
 import CreateComment from '../createComment';
 import HeartIcon from '../../assets/icons/heartIcon';
@@ -14,6 +13,7 @@ import { usePosts } from '../../context/posts';
 import MenuPost from './dropdown';
 import jwtDecode from 'jwt-decode';
 import useAuth from '../../hooks/useAuth';
+import UserIcon from '../profile-icon';
 
 const Post = ({ post }) => {
   const { getUserLikedPosts, toggleLike } = usePosts();
@@ -29,7 +29,7 @@ const Post = ({ post }) => {
   const authorName = post.user.profile
     ? `${post.user.profile.firstName || 'Unknown'} ${post.user.profile.lastName || 'User'}`
     : 'Unknown User';
-  const userInitials = authorName.match(/\b(\w)/g);
+  const userInitials = authorName.match(/\b(\w)/g)?.join('') || 'NA';
 
   const isLikedInitial = () => {
     const likedPosts = getUserLikedPosts();
@@ -124,8 +124,16 @@ const Post = ({ post }) => {
     <Card>
       <article className="post">
         <header className="post__header">
-          <ProfileCircle id = {post.user.id} initials={userInitials} clickable={false} />
-
+            <UserIcon
+                    menu={false}
+                    id={post.user.id}
+                    initials={userInitials}
+                    firstname={post.user.profile.firstName}
+                    lastname={post.user.profile.lastName}
+                    role={post.user.profile.role || 'User'}
+                  />
+{/*           <ProfileCircle id = {post.user.id} initials={userInitials} clickable={false} />
+ */}          
           <div className="post__meta">
             <p className="post__author">{authorName}</p>
             <small className="post__date">{formatDate(post.timeCreated)}</small>

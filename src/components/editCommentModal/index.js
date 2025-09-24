@@ -6,6 +6,7 @@ import Button from '../button';
 import jwt_decode from 'jwt-decode';
 import useAuth from '../../hooks/useAuth';
 import { put } from '../../service/apiClient';
+import SimpleProfileCircle from '../simpleProfileCircle';
 
 
 
@@ -51,7 +52,9 @@ const EditCommentModal = ({ postText, postId, name, commentId}) => {
     <>
       <section className="create-post-user-details">
         <div className="profile-icon">
-          <p>{initials}</p>
+          <SimpleProfileCircle
+          initials={initials} />
+          {/* <p>{initials}</p> */}
         </div>
         <div className="post-user-name">
           <p>{name}</p>

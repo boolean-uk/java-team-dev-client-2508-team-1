@@ -6,6 +6,7 @@ import './style.css';
 import Button from '../button';
 import { post } from '../../service/apiClient';
 import jwtDecode from 'jwt-decode';
+import SimpleProfileCircle from '../simpleProfileCircle';
 
 const CreatePostModal = ({ authorName, onPostAdded }) => {
   // Use the useModal hook to get the closeModal function so we can close the modal on user interaction
@@ -101,8 +102,10 @@ const CreatePostModal = ({ authorName, onPostAdded }) => {
       <section className="create-post-user-details">
         <div className="profile-icon">
 
-          {/* TODO: TO THIS SO THAT IT WORKS WIHT CORRECT NAMES */}
-          <p>{initials}</p>
+         
+            <SimpleProfileCircle
+          initials={initials} />
+          {/* <p>{initials}</p> */}
         </div>
         <div className="post-user-name">
           <p>{fullName}</p>
