@@ -3,6 +3,10 @@
   cursor: pointer;
 }
 
+.profile-circle-noclick {
+  position: relative;
+}
+
 .profile-circle-menu {
   margin-left: 65px;
 }

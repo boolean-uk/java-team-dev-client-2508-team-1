@@ -29,7 +29,7 @@ const TeachersDashboard = () => {
                         <li key={index}>
                             <div>
                                <UserIcon 
-                                   id = {teacher.id}
+                                   id={teacher.id}
                                    initials={`${teacher.firstName} ${teacher.lastName}`
                                        .trim()
                                        .split(/\s+/)
@@ -37,6 +37,7 @@ const TeachersDashboard = () => {
                                        .join('')}
                                    firstname={teacher.firstName}
                                    lastname={teacher.lastName}
+                                   role = {"Teacher"}
                                />
                             </div>
                         </li>

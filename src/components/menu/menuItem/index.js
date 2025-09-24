@@ -5,11 +5,21 @@ import EditPostModal from '../../editPostModal';
 import EditCommentModal from '../../editCommentModal';
 import { usePosts } from '../../../context/posts';
 import { useComments } from '../../../context/comments';
+import { Snackbar, SnackbarContent } from '@mui/material';
+import Portal from '@mui/material/Portal';
+import { useState } from 'react';
+import CheckCircleIcon from '../../../assets/icons/checkCircleIcon';
 
-const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText, postId, name, isMenuVisible, setIsMenuVisible, commentText, commentId, onCommentDeleted, onPostDeleted }) => {
+import { del, get } from '../../../service/apiClient';
+
+const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText, postId, name, isMenuVisible, setIsMenuVisible, commentText, commentId, onCommentDeleted, onPostDeleted, profileId, clicked, setClicked, setRefresh, setSnackBarMessage}) => {
   const { openModal, setModal, closeModal } = useModal();
+
   const { deletePost } = usePosts();
   const { deleteComment } = useComments();
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  
   
   const showModal = () => {
       setModal('Edit post', <EditPostModal postText={postText} postId={postId} name={name} />);
@@ -24,72 +34,86 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
   };
 
   const handleDeletePost = async () => {
-    setIsMenuVisible(false);
     console.log('deletePost function called');
-      setModal(`The post is being deleted!`, 
-      <>
-        <p>The post is being deleted!</p>
-      </>
-    );
-    openModal();
-
-        setTimeout(() => {
-    closeModal();
-    }, 2500);
-    try {
-      const success = await deletePost(postId);
-
-    
-      if (success) {
-        console.log('Post deleted successfully');
-
-      } else {
-        console.error('Failed to delete post');
+    // Show feedback first so the component stays mounted for the Snackbar
+    setSnackbarMessage('Post deleted, wait two seconds');
+    setSnackbarOpen(true);
+    // Perform the destructive action after the Snackbar displays
+    setTimeout(async () => {
+      try {
+        const success = await deletePost(postId);
+        if (success) {
+          console.log('Post deleted successfully');
+          if (onPostDeleted) onPostDeleted(postId);
+        } else {
+          console.error('Failed to delete post');
+        }
+      } catch (error) {
+        console.error('Error deleting post:', error);
+      } finally {
+        setIsMenuVisible(false);
       }
-    } catch (error) {
-      console.error('Error deleting post:', error);
-    }
+    }, 100);
   };
 
-  const handleDeleteComment = async () => {
+  const handleClick = () => {
+    setClicked(!clicked);
+  }
+
+  const handleDeleteUser = async () => {
     setIsMenuVisible(false);
+    console.log('deleteUser function called');
+    try {
+      const profile = await get('profiles/' + profileId);
+      await del('users/' + profile.data.profile.user.id);
+      setSnackBarMessage('User deleted successfully');
+    } catch(error) {
+      console.log("couldnt delete user", error)
+    }
+    setRefresh(prev => !prev);
+  }
+
+  const handleDeleteComment = async () => {
     console.log('deleteComment function called');
     
     // If there's a callback provided, use it instead of calling the API directly
     if (onCommentDeleted) {
-      onCommentDeleted(commentId);
+      // Show feedback first, then call the callback after delay
+      setSnackbarMessage('Comment deleted, wait two seconds');
+      setSnackbarOpen(true);
+      setTimeout(() => {
+        onCommentDeleted(commentId);
+        setIsMenuVisible(false);
+      }, 2100);
       return;
     }
     
     // Only call the API directly if no callback is provided
-    try {
-      const success = await deleteComment(postId, commentId);
-      if (success) {
-        console.log('Comment deleted successfully');
-      } else {
-        console.error('Failed to delete comment');
+    setSnackbarMessage('Comment deleted');
+    setSnackbarOpen(true);
+    setTimeout(async () => {
+      try {
+        const success = await deleteComment(postId, commentId);
+        if (success) {
+          console.log('Comment deleted successfully');
+        } else {
+          console.error('Failed to delete comment');
+        }
+      } catch (error) {
+        console.error('Error deleting comment:', error);
+      } finally {
+        setIsMenuVisible(false);
       }
-    } catch (error) {
-      console.error('Error deleting comment:', error);
-    }
+    }, 2100);
   };
 
   const handleReport = () => {
-    setIsMenuVisible(false);
-    console.log('reportComment function called, and reported');
-    setModal(`Reported`, 
-        <>
-      
-          <p>Thank you for reporting this. Our team will review it shortly.</p>
-    </>
-    );
-    setIsMenuVisible(false);
-    openModal();
-
+    // Show the snackbar first; delay hiding the menu so the component doesn't unmount before Snackbar renders
+  setSnackbarMessage('Reported');
+  setSnackbarOpen(true);
     setTimeout(() => {
-    closeModal();
-    }, 1500);
-
+      setIsMenuVisible(false);
+    }, 2100); // slightly longer than autoHideDuration
   };
 
   const getClickHandler = () => {
@@ -106,6 +130,10 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
         return handleReport;
       case "ReportComment":
         return handleReport;
+      case "DeleteUser":
+        return handleDeleteUser;
+      case "Clicked":
+        return handleClick;
       default:
         return undefined;
     }
@@ -120,6 +148,34 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
           {children && <ArrowRightIcon />}
         </button>
         {children && <ul>{children}</ul>}
+    <Portal container={typeof window !== 'undefined' ? document.body : undefined}>
+      <Snackbar open={snackbarOpen} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} 
+    autoHideDuration={2000}
+    onClose={() => setSnackbarOpen(false)}
+    >
+        <SnackbarContent
+          sx={{
+          backgroundColor: '#000046',
+          color: '#fff',
+          width: '310px',
+          height: '70px',
+          padding: '4px 16px',
+          borderRadius: '8px',
+          boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '20px',
+          }}
+          message={
+          <span style={{ color: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <CheckCircleIcon style={{ marginRight: '8px', color: '#FFFFFF' }} />
+            {snackbarMessage || 'Action completed'}
+          </span>
+          }
+        />
+        </Snackbar>
+    </Portal>
       </li>
     );
   }
@@ -132,7 +188,36 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
         {children && <ArrowRightIcon />}
       </NavLink>
       {children && <ul>{children}</ul>}
+      <Portal container={typeof window !== 'undefined' ? document.body : undefined}>
+      <Snackbar open={snackbarOpen} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} 
+    autoHideDuration={2000}
+    onClose={() => setSnackbarOpen(false)}
+    >
+        <SnackbarContent
+          sx={{
+          backgroundColor: '#000046',
+          color: '#fff',
+          width: '310px',
+          height: '70px',
+          padding: '4px 16px',
+          borderRadius: '8px',
+          boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '20px',
+          }}
+          message={
+          <span style={{ color: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <CheckCircleIcon style={{ marginRight: '8px', color: '#FFFFFF' }} />
+            {snackbarMessage || 'Action completed'}
+          </span>
+          }
+        />
+        </Snackbar>
+      </Portal>
     </li>
+
   );
 };
 

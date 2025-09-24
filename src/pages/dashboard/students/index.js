@@ -3,10 +3,12 @@ import { get } from "../../../service/apiClient";
 
 import { useNavigate } from "react-router-dom";
 import Card from "../../../components/card"
+
 // import UserIcon from "../../../components/profile-icon";
+
 import ProfileIconTeacher from "../../../components/profile-icon-teacherView";
 
-const Students = () => {
+const Students = ({refresh, setRefresh, setSnackBarMessage}) => {
    const [students, setStudents] = useState(null) 
     
     
@@ -21,7 +23,7 @@ const Students = () => {
     }
 
     fetchStudents(); 
-    }, []);
+    }, [refresh]);
 
     const navigate = useNavigate()
     
@@ -50,6 +52,9 @@ const Students = () => {
                                        .join('')}
                                    firstname={student.firstName}
                                    lastname={student.lastName}
+                                   role={"Student"}
+                                   setRefresh={setRefresh}
+                                   setSnackBarMessage={setSnackBarMessage}
                                />
                                 </div>
                             </li>
