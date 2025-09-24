@@ -44,7 +44,13 @@ const UserIcon = ({ id, initials = '', firstname = '', lastname = '', role = '',
             <p className="user-role">{role}</p>
           </div>
 
-          <div className="edit-icon-wrapper" onClick={() => setIsOpen(true)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && setIsOpen(true)}>
+          <div
+            className="edit-icon-wrapper"
+            onClick={() => setIsOpen(true)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => (e.key === 'Enter' ? setIsOpen(true) : null)}
+          >
             <div className="icon-button" aria-label="Open profile">
               <span className="dots">
                 <span className="dot">•</span>
@@ -52,37 +58,24 @@ const UserIcon = ({ id, initials = '', firstname = '', lastname = '', role = '',
                 <span className="dot">•</span>
               </span>
             </div>
-            {menu &&  <><div className="user-info">
-                <p className = "user-name">{firstname} {lastname}</p> 
-                <p className = "user-role" >{role}</p>
-            </div>
-            
-                <div className="edit-icon-wrapper" onClick={() => setIsOpen(true)}>
+          </div>
+        </>
+      )}
 
-                <div className="icon-button">
-                    <span className="dots">
-                    <span className="dot">•</span>
-                    <span className="dot">•</span>
-                    <span className="dot">•</span>
-                </span>
-                </div>
-                </div>
-                 
-                {isOpen && (
-                    <div>
-
-                <SeeProfile 
-                        id = {id}
-                        initials={initials} 
-                        firstname = {firstname} 
-                        lastname = {lastname} 
-                        role = {role}   
-                        />
-            </div>              
-    )   } </>}
+      {isOpen && (
+        <div>
+          <SeeProfile
+            id={id}
+            initials={initials}
+            firstname={firstname}
+            lastname={lastname}
+            role={role}
+            onClose={() => setIsOpen(false)}
+          />
+        </div>
+      )}
     </div>
-    )
-
-}
+  );
+};
 
 export default UserIcon;
