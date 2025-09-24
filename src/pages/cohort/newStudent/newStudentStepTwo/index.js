@@ -1,9 +1,9 @@
-
 import Form from '../../../../components/form';
 import NumberInput from '../../../../components/form/numberInput';
 import TextInput from '../../../../components/form/textInput';
 
-const NewStudentStepTwo = ({ data, setData }) => {
+const NewStudentStepTwo = ({ data, setData, validateEmail, validatePassword }) => {
+
   return (
     <>
       <div className="welcome-formheader">
@@ -17,6 +17,7 @@ const NewStudentStepTwo = ({ data, setData }) => {
             name="email"
             label={'Email*'}
             placeholder={'Enter email'}
+            onBlur={() => validateEmail(data.email)}
             required
             
           />
@@ -34,6 +35,7 @@ const NewStudentStepTwo = ({ data, setData }) => {
               name="password"
               label={'Password*'}
               placeholder={'Enter password'}
+              onBlur={() => validatePassword(data.password)}
               type={'password'}
             />
           <p className="text-blue1">*Required</p>

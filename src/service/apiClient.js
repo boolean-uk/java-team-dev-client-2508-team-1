@@ -207,6 +207,6 @@ async function request(method, endpoint, data, auth = true) {
 }
 
 
-export { login, getPosts, register, createProfile, get, getUserById, getComments, post, patch, put, getMyCohortProfiles, updateUserProfile, postTo, del, refreshToken,createNewStudent };
+export { login, getPosts, register, createProfile, get, getUserById, getComments, post, patch, put, getMyCohortProfiles, updateUserProfile, postTo, del, refreshToken, createNewStudent };
 
 
