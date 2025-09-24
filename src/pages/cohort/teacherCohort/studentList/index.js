@@ -29,7 +29,7 @@ const StudentList = ({ profiles, setSelectedProfiles }) => {
            <div>
             <ProfileIconTeacher
             photo={student.photo}
-            id={student.user.id} initials={student.firstName.charAt(0) + student.lastName.charAt(0)} firstname={student.firstName} lastname={student.lastName} role={student.specialism}/>
+            id={student.user.id} initials={student.firstName.charAt(0) + student.lastName.charAt(0)} firstname={student.firstName} lastname={student.lastName} role={student.specialism} setRefresh={setRefresh}/>
             </div>
         </li>
       ))}
