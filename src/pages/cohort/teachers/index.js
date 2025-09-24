@@ -13,10 +13,11 @@ const Teachers = ({ teachers, getInitials }) => {
                 </section>
                 
                 <section className="cohort-teachers-container border-top">
-                    {teachers.map((teacher, index) => (
-                        <Teacher
+                    {teachers.map((teacher) => (
+                        <Teacher 
                             photo={teacher.photo}
-                            key={teacher.id || 0}
+                            key={teacher.id || 0} 
+                            id = {teacher.user.id}
                             initials={getInitials(teacher) || "NA"}
                             firstName={teacher.firstName || "N/A"}
                             lastName={teacher.lastName || "N/A"}

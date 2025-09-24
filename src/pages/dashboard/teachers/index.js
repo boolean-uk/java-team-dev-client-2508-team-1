@@ -24,8 +24,8 @@ const TeachersDashboard = () => {
             <h3 className="border-line">Teachers</h3>
             <section>
                 {teachers !== null ? (
-                <ul>
-                    {teachers?.slice(0,10).map((teacher, index) => (
+                <ul className="students-list-teacher-view">
+                    {teachers?.map((teacher, index) => (
                         <li key={index}>
                             <div>
                                <UserIcon 

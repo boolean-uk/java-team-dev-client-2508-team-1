@@ -124,7 +124,6 @@
     font-size: 20px;
 }
 
-
 .add-student-students-button button,
 .select-course-button button,
 .select-cohort-button button {
@@ -205,7 +204,6 @@ button.offwhite-button:focus,
   background-color: var(--color-blue);
   color: white;
 }
-
 
 .no-course {
     margin-bottom: 100px;

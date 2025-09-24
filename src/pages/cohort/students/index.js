@@ -51,7 +51,7 @@ function Students({ students, getInitials, course, cohort }) {
             <Student
               photo={student.photo}
               key={student.id || 0}
-              id ={student.id}
+              id ={student.user.id}
               initials={getInitials(student)}
               firstName={student.firstName}
               lastName={student.lastName}
