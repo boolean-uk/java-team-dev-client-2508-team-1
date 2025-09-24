@@ -24,7 +24,7 @@ const Stepper = ({ header, children, onComplete, data }) => {
 
   const validateName = (data) => {
     if(!data) {
-      alert("OBSS!!! Please write first_name and last_name")
+      alert("OBSS!!! Please write first name and last name")
       return false
     } else {
       return true
