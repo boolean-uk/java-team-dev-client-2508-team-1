@@ -47,7 +47,7 @@ const SearchTeacher = () => {
 
 
       return (
-            <div style={{ position: "relative", width: "100%" }}> 
+            <div style={{ position: "relative", width: "450px" }}> 
                 <form onSubmit={handleSubmit}>
                     <TextInput
                         icon={<SearchIcon />}
@@ -65,7 +65,7 @@ const SearchTeacher = () => {
                         ref={popupRef} 
                         className="search-results-popup"
                         style={{
-                            position: "relative",
+                            position: "absolute",
                             top: "100%",
                             left: 0,
                             width: "100%",
