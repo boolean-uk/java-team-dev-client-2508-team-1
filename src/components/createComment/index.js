@@ -4,6 +4,7 @@ import { useComments } from '../../context/comments';
 import jwtDecode from 'jwt-decode';
 import SendIcon from '../../assets/icons/sendIcon';
 import './style.css';
+import SimpleProfileCircle from '../simpleProfileCircle';
 
 const CreateComment = forwardRef(({ postId, onCommentAdded }, ref) => {
   const { token } = useAuth();
@@ -58,13 +59,14 @@ const CreateComment = forwardRef(({ postId, onCommentAdded }, ref) => {
       const lastName = decodedToken.lastName || decodedToken.last_name || 'User';
       
       const newComment = {
-        id: response.data?.id || Date.now(),
+        id: response.data?.comment?.id,
         body: commentText,
         user: {
           id: userId,
           profile: {
             firstName,
-            lastName
+            lastName,
+            photo: localStorage.getItem("userPhoto") || null
           }
         },
         timeCreated: new Date().toISOString()
@@ -94,7 +96,11 @@ const CreateComment = forwardRef(({ postId, onCommentAdded }, ref) => {
   return (
     <form className="create-comment" onSubmit={onSubmit}>
       <div className="profile-icon profile-icon--sm">
-        <p>{initials}</p>
+        <SimpleProfileCircle
+        photo={localStorage.getItem("userPhoto")}
+        
+          initials={initials} size={40} />
+        {/* <p>{initials}</p> */}
       </div>
 
       <div className="create-comment__input-wrapper">

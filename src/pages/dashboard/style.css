@@ -8,7 +8,14 @@ aside {
 
 .create-post-input {
   display: grid;
-  grid-template-columns: 70px auto;
+  grid-template-columns: 48px auto;
+  gap: 8px;
+}
+
+/* Override UserIcon padding in create post area */
+.create-post-input .user {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
 
 .create-post-input button {

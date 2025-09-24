@@ -29,6 +29,7 @@ const TeachersDashboard = () => {
                         <li key={index}>
                             <div>
                                <UserIcon 
+                                   photo={teacher.photo}
                                    id={teacher.id}
                                    initials={`${teacher.firstName} ${teacher.lastName}`
                                        .trim()

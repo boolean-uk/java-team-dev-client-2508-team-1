@@ -79,6 +79,8 @@ const Search = () => {
                                     {searchResults.slice(0, 10).map((student) => (
                                         <li key={student.user.id} className="student-item">
                                             <UserIcon
+                                                photo={student.photo}
+  
                                                 id={student.user.id}
                                                 initials={student.firstName.charAt(0) + student.lastName.charAt(0)}
                                                 firstname={student.firstName}
