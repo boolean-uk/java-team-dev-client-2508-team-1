@@ -67,9 +67,24 @@ export const CascadingMenu = ({ id, setIsMenuVisible, setRefresh}) => {
         </MenuItem>
       </MenuItem>
       {clicked ? 
-      <MenuItem icon={<DeleteIcon />} text="Confirm deletion" profileId = {id} clickable="DeleteUser" style={{color: 'red'}} setIsMenuVisible={setIsMenuVisible} setRefresh={setRefresh}/>
+      <MenuItem 
+        icon={<DeleteIcon />} 
+        text="Confirm deletion" 
+        profileId = {id} 
+        clickable="DeleteUser" 
+        style={{color: 'red'}} 
+        setIsMenuVisible={setIsMenuVisible} 
+        setRefresh={setRefresh} 
+      />
       :
-      <MenuItem icon={<DeleteIcon />} text="Delete student" clickable="Clicked" clicked={clicked} setClicked={setClicked} setIsMenuVisible={setIsMenuVisible} setRefresh={setRefresh}/>
+      <MenuItem icon={<DeleteIcon />} 
+        text="Delete student" 
+        clickable="Clicked" 
+        clicked={clicked} 
+        setClicked={setClicked} 
+        setIsMenuVisible={setIsMenuVisible} 
+        setRefresh={setRefresh} 
+      />
       }
     </Menu>
   );

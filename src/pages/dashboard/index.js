@@ -61,7 +61,7 @@ const Dashboard = () => {
         const data = await get(`cohorts/${user.profile.cohort.id}`);
 
         setCohort(data.data.cohort)
-        setCourse(data.data.cohort);
+        setCourse(data.data.cohort.course);
         setStudents(data.data.cohort.profiles)
 
       } catch (error) {
@@ -162,17 +162,22 @@ const Dashboard = () => {
               <h3>My Cohort</h3>
               <p className='padding-top'>{course.name}, Cohort {cohort.id}</p>
               <section className='cohort-teachers-container border-top'>
-                
-                {students.map((student) => (
-                  <UserIcon
-                    key={student.id}
-                    id={student.id}
-                    initials={getInitials(student)}
-                    firstname={student.firstName}
-                    lastname={student.lastName}
-                    role={"Student"}
-                  />
-                ))}
+                <ul className="students-list-teacher-view">
+                  {students.map((student, index) => (
+                    <li key={index} className="student-item">
+                      <div>
+                        <UserIcon
+                          key={student.id}
+                          id={student.id}
+                          initials={getInitials(student)}
+                          firstname={student.firstName}
+                          lastname={student.lastName}
+                          role={"Student"}
+                        />
+                      </div>
+                    </li>
+                  ))}
+                </ul>
               </section>
             </Card>
           ) : (

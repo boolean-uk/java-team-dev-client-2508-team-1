@@ -35,7 +35,7 @@ const SearchPage = () => {
       setUserRole(decodedToken.roleId)
 
     const handleGoBack = () => {
-        navigate("/");
+        navigate(-1);
     };
     
     const handleSubmit = async (e) => {
