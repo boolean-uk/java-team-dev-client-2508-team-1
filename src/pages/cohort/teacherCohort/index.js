@@ -46,7 +46,7 @@ const TeacherCohort = ({cohorts}) => {
             <section className="cohorts-section">
                 <div className="add-cohort">
                     <div className="add-cohort-button">
-                        <button>Add cohort</button>
+                        <button>Edit cohort</button>
                     </div>
                 <div className="edit-icon">
                     <EditIconCohortTeacher />
