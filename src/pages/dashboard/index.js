@@ -26,6 +26,7 @@ const Dashboard = () => {
   const [students, setStudents] = useState([]);
   const [cohort, setCohort] = useState([]);
   const [course, setCourse] = useState([]);
+
   const [cohorts, setCohorts] = useState(null) 
   
   // Safely decode token with fallback
