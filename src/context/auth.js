@@ -109,7 +109,7 @@ const AuthProvider = ({ children }) => {
     await createNewStudent(first_name, last_name, username, github_username, email, mobile, password, bio, role, specialism, cohort, start_date, end_date, photo);
 
     localStorage.setItem('token', token);
-    navigate('/');
+    navigate('/cohorts');
   };
 
   const value = {

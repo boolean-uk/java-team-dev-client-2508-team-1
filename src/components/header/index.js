@@ -6,13 +6,14 @@ import ProfileIcon from '../../assets/icons/profileIcon';
 import CogIcon from '../../assets/icons/EditIcon';
 import LogoutIcon from '../../assets/icons/logoutIcon';
 import { NavLink } from 'react-router-dom';
-import { useState } from 'react';
 import jwtDecode from 'jwt-decode';
+import { useEffect, useRef, useState } from 'react';
 
 
 const Header = () => {
   const { token, onLogout } = useAuth();
   const [isMenuVisible, setIsMenuVisible] = useState(false);
+  const popupRef = useRef();
   
   // Safely decode token with fallback
   let decodedToken = {};
@@ -41,6 +42,24 @@ const Header = () => {
   const decoded = jwtDecode(token || localStorage.getItem('token'));
   userIdFromToken = decoded.userId;
 
+  useEffect(() => {
+          function handleClickOutside(e) {
+          if (popupRef.current && !popupRef.current.contains(e.target)) {
+              setIsMenuVisible(false);
+              }
+          }
+  
+          if (isMenuVisible) {
+              document.addEventListener("mousedown", handleClickOutside);
+              document.addEventListener("touchstart", handleClickOutside);
+          }
+  
+          return () => {
+              document.removeEventListener("mousedown", handleClickOutside);
+              document.removeEventListener("touchstart", handleClickOutside);
+          };
+      }, [isMenuVisible]);
+
   return (
     <header className="app-header">
       <FullLogo textColour="white" />
@@ -50,7 +69,7 @@ const Header = () => {
       </div>
 
       {isMenuVisible && (
-        <div className="user-panel">
+        <div ref = {popupRef} className="user-panel">
           <Card>
             <section className="post-details">
               <div className="profile-icon">
