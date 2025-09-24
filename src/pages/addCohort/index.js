@@ -13,9 +13,11 @@ const AddCohort = () =>{
     const [students, setStudents] = useState([])
     const [courses, setCourses] = useState([])
 
-    const [cohortName, setCohortName] = useState(null)
-    const[startDate, setStartDate] = useState(null)
-    const[endDate, setEndDate] = useState(null)
+    const [cohortName, setCohortName] = useState("")
+    const[startDate, setStartDate] = useState("")
+    const[endDate, setEndDate] = useState("")
+    const [selectedCourse, setSelectedCourse] = useState("")
+
 
     const [selectedStudents, setSelectedStudents] = useState([]);
 
@@ -50,21 +52,29 @@ const AddCohort = () =>{
         <>
             <StepperCohort header={<CohortHeader/>}>
                 <StepOneCohort 
-                cohortName={cohortName}
-                setCohortName={setCohortName}
-                startDate={startDate}
-                setStartDate={setStartDate}
-                endDate={endDate}
-                setEndDate={setEndDate}
-                courses={courses}
+                    cohortName={cohortName}
+                    setCohortName={setCohortName}
+                    startDate={startDate}
+                    setStartDate={setStartDate}
+                    endDate={endDate}
+                    setEndDate={setEndDate}
+                    courses={courses}
+                    selectedCourse={selectedCourse}
+                    setSelectedCourse={setSelectedCourse}
                  />
                 <StepTwoCohort
-                students={students}
-                selectedStudents={selectedStudents}
-                setSelectedStudents={setSelectedStudents}
+                    students={students}
+                    selectedStudents={selectedStudents}
+                    setSelectedStudents={setSelectedStudents}
                 />
-
-                <StepThreeCohort/>
+                <StepThreeCohort
+                    students={students}
+                    selectedStudents={selectedStudents}
+                    setSelectedStudents={setSelectedStudents}
+                    selectedCourse={selectedCourse}
+                    cohortName={cohortName}
+                    startDate={startDate}
+                    endDate={endDate}/>
             </StepperCohort>
         </>
     )

@@ -31,7 +31,8 @@ width: 100%;
   font-weight: 400;
 }
 
-.s {
+.s,
+.selected-students-view {
   overflow-y: auto;
   height: auto;
   height: 350px;
@@ -44,10 +45,22 @@ width: 100%;
 }
 
 .three-buttons {
-margin-top: 50px;
+  margin-top: 50px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 20px;
   justify-content: space-between;   
 }
 
+.cohort-details-group{
+  margin-top:20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cohort-details-title {
+    font-size:32px;
+    margin-left:10px;
+}

@@ -42,7 +42,7 @@ const handleSelectStudent = (student) => {
             isOpenSearchBar={isOpenSearchBar}
             setIsOpenSearchBar={setIsOpenSearchBar}/>
 
-        <div className="dropdown-section">
+      
         <p className="paragraph"> Or select students: </p>
 
         <div className="add-student-students-button">
@@ -55,7 +55,7 @@ const handleSelectStudent = (student) => {
         {isOpenStudents && (<MultipleStudentsMenu selectedStudents={selectedStudents} students={students} handleSelectStudent={handleSelectStudent} />)}
         </div>
 
-        </div>
+
 
         </>
     )
