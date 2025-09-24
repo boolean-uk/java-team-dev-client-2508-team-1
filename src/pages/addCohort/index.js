@@ -17,8 +17,6 @@ const AddCohort = () =>{
     const[startDate, setStartDate] = useState("")
     const[endDate, setEndDate] = useState("")
     const [selectedCourse, setSelectedCourse] = useState("")
-
-
     const [selectedStudents, setSelectedStudents] = useState([]);
 
 
@@ -29,7 +27,6 @@ const AddCohort = () =>{
             try {
                 const response = await get("students");
                 setStudents(response.data.profiles);
-                console.log("Studenter: " + response)
             } catch (error) {
                 console.error("Error fetching students:", error);
             }
@@ -38,7 +35,6 @@ const AddCohort = () =>{
         async function fetchCourses() {
             try {
                 const response = await get("courses");
-                console.log(response)
                 setCourses(response.data.courses);
             } catch (error) {
                 console.error("Error fetching courses:", error);
@@ -51,16 +47,18 @@ const AddCohort = () =>{
     return (
         <>
             <StepperCohort 
-            header={<CohortHeader/>}  
-            cohortName={cohortName}
-            setCohortName={setCohortName}
-            startDate={startDate}
-            setStartDate={setStartDate}
-            endDate={endDate}
-            setEndDate={setEndDate}
-            courses={courses}
-            selectedCourse={selectedCourse}
-            setSelectedCourse={setSelectedCourse}>
+                header={<CohortHeader/>}  
+                cohortName={cohortName}
+                setCohortName={setCohortName}
+                startDa={startDate}
+                setStartDate={setStartDate}
+                endDa={endDate}
+                setEndDate={setEndDate}
+                courses={courses}
+                selectedCourse={selectedCourse}
+                setSelectedCourse={setSelectedCourse}
+                selectedStudents={selectedStudents}>
+    
                 <StepOneCohort 
                     cohortName={cohortName}
                     setCohortName={setCohortName}

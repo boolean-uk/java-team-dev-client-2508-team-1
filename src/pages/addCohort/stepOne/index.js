@@ -64,7 +64,6 @@ const StepOneCohort = ( {setCohortName, setStartDate, setEndDate, cohortName, st
                     value={startDate}>
                 </input>
             </div>
-
             <div>
                 <label className="the-label">End Date*</label>
                 <input

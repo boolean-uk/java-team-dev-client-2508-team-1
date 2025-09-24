@@ -1,11 +1,11 @@
-import { Snackbar, SnackbarContent } from "@mui/material";
+import {  Snackbar, SnackbarContent } from "@mui/material";
 import { useState } from "react";
 import CheckCircleIcon from "../../../assets/icons/checkCircleIcon";
 import { patch, post } from "../../../service/apiClient";
 import { useNavigate } from "react-router-dom";
 
 
-const StepperCohort = ({ header, children, cohortName, startDate, endDate, selectedCourse, selectedStudents, setSelectedCourse,setEndDate,setStartDate,setCohortName }) => {
+const StepperCohort = ({ header, children, cohortName, startDa, endDa, selectedCourse, selectedStudents, setSelectedCourse,setEndDate,setStartDate,setCohortName }) => {
     const [currentStep, setCurrentStep] = useState(0);
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const navigate = useNavigate()
@@ -20,6 +20,7 @@ const StepperCohort = ({ header, children, cohortName, startDate, endDate, selec
 
   const onNextClick = () => {
     setCurrentStep(currentStep + 1);
+   
   };
 
   const onSkipClick  = () => {
@@ -42,13 +43,19 @@ const StepperCohort = ({ header, children, cohortName, startDate, endDate, selec
             const response = await post("cohorts", 
                 {
                     name: cohortName,
-                    courseId: selectedCourse.id
+                    courseId: selectedCourse.id,
+                    startDate: startDa,
+                    endDate: endDa
                  });
+            console.log(response)
+
             const studentIds = selectedStudents.map(student => student.id);
             const response2 = await patch(`cohorts/${response.id}`, 
                 {
                     name: cohortName,
                     courseId: selectedCourse.id,
+                    startDate: startDa,
+                    endDate: endDa,
                     profileIds: studentIds
                  });
             console.log(response2)

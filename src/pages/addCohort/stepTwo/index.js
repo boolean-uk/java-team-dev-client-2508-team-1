@@ -29,7 +29,6 @@ const handleSelectStudent = (student) => {
         setIsOpenSearchBar(false)
     }, 500)
   
-  console.log(selectedStudents);
 };
     
     return (

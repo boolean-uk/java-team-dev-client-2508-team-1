@@ -18,7 +18,6 @@ const SearchBarMultiple = ({handleSelectStudent, isOpenSearchBar, setIsOpenSearc
         if (!query.trim()) return;
         try {
         const response = await get(`search/profiles/${query}`);
-        console.log(response);
         setSearchResults(response.data.profiles);
         setIsOpenSearchBar(true);
         } catch (error) {

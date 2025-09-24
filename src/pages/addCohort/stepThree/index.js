@@ -12,7 +12,6 @@ const [isOpenSearchBar, setIsOpenSearchBar] = useState(false);
 
 const handleSelectStudent = (student) => {
     
-  console.log("Klikket på student:", student);
 
   setSelectedStudents((prevSelected) => {
     const alreadySelected = prevSelected.find((s) => s.id === student.id);
@@ -59,11 +58,6 @@ const handleSelectStudent = (student) => {
             <hr className="line"></hr>
                 <h2>Cohort details</h2>
                     <hr className="line"></hr>
-                    {console.log(selectedCourse)}
-                    {console.log(cohortName)}
-                    {console.log(startDate)}
-                    {console.log(endDate)}
-                    
                     <CourseIcon courseName={selectedCourse.name} cohort={cohortName} startDate={startDate} endDate={endDate}/>
                                 <hr className="line"></hr>
 
