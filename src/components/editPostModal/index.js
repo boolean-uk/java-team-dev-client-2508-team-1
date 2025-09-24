@@ -6,6 +6,7 @@ import Button from '../button';
 import jwt_decode from 'jwt-decode';
 import useAuth from '../../hooks/useAuth';
 import { put } from '../../service/apiClient';
+import SimpleProfileCircle from '../simpleProfileCircle';
 
 
 
@@ -14,7 +15,7 @@ const EditPostModal = ({ postText, postId, name }) => {
   const { token } = useAuth();
   const [message, setMessage] = useState(null);
   const [text, setText] = useState(postText || '');
-  const initials = name?.match(/\b(\w)/g);
+  const initials = name?.match(/\b(\w)/g)?.join('') || 'NA';
 
   const onChange = (e) => {
     setText(e.target.value);
@@ -50,7 +51,10 @@ const EditPostModal = ({ postText, postId, name }) => {
     <>
       <section className="create-post-user-details">
         <div className="profile-icon">
-          <p>{initials}</p>
+          <SimpleProfileCircle
+          photo={localStorage.getItem("userPhoto")}
+          initials={initials} />
+          {/* <p>{initials}</p> */}
         </div>
         <div className="post-user-name">
           <p>{name}</p>

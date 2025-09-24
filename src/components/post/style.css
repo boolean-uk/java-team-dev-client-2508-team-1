@@ -11,6 +11,12 @@
   align-items: center
 }
 
+/* Override UserIcon padding in post header */
+.post__header .user {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
 .post__meta {
   display: grid;
   row-gap: 2px;
