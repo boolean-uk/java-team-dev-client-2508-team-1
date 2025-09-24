@@ -5,23 +5,23 @@ import { get } from "../../../../service/apiClient";
 const StudentList = ({ profiles, setSelectedProfiles }) => {
   const [refresh, setRefresh] = useState(false);
 
-  if (!profiles || profiles.length === 0) {
-    return <p></p>;
-  }
-
+  
   useEffect(() => {
     async function fetchStudents() {
-        try {
+      try {
         const response = await get("profiles");
         const studs = response.data.profiles;
         const filteredStuds = studs.filter(stud => profiles.some(p => p.id === stud.id));
         setSelectedProfiles(filteredStuds);
-        } catch (error) {
+      } catch (error) {
         console.error("Error fetching students:", error);
-        }
+      }
     } fetchStudents();
   }, [refresh]);
 
+  if (!profiles || profiles.length === 0) {
+    return <p></p>;
+  }
   return (
     <ul className="student-list">
       {profiles.map((student) => (
