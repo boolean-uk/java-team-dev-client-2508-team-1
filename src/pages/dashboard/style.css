@@ -109,7 +109,7 @@ aside {
 }
 
 .border-top {
-  border-top: 1px solid #ccc;
+  border-top: 1px solid var(--color-blue5);
   padding-top: 20px;
   padding-bottom: 10px;
 }
