@@ -7,19 +7,19 @@ const TextInput = ({
   label,
   type = 'text',
   placeholder,
-  readOnly = false
+  readOnly = false,
+  icon,
+  iconRight = false
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const isPasswordField = type === 'password';
-  const inputType = isPasswordField
-    ? (showPassword ? 'text' : 'password')
-    : type;
+  const inputType = isPasswordField ? (showPassword ? 'text' : 'password') : type;
 
   return (
     <div className="inputwrapper">
       {label && <label htmlFor={name}>{label}</label>}
 
-      <div className="password-wrapper">
+      <div className={`password-wrapper ${icon ? (iconRight ? 'with-icon-right' : 'with-icon') : ''}`}>
         <input
           id={name}
           name={name}
@@ -30,13 +30,21 @@ const TextInput = ({
           readOnly={readOnly}
         />
 
+        {icon && (
+          <span className={`${iconRight ? 'input-icon-right' : 'input-icon'}`}>
+            {icon}
+          </span>
+        )}
+
         {isPasswordField && (
           <button
+            type="button"
             className="showpasswordbutton formbutton"
             onClick={e => {
               e.preventDefault();
               setShowPassword(v => !v);
             }}
+            aria-label={showPassword ? 'Hide password' : 'Show password'}
           >
             <EyeLogo />
           </button>
