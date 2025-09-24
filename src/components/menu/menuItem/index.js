@@ -139,7 +139,6 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
     }
   };
 
-
   if (clickable) {
     return (
       <li>

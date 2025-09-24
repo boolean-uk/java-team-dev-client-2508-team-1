@@ -57,6 +57,44 @@ async function createProfile(userId,
   );
 }
 
+
+async function createNewStudent(
+  first_name, 
+  last_name, 
+  username, 
+  github_username, 
+  email,
+  mobile, 
+  password,
+  bio,  
+  role, 
+  specialism, 
+  cohort, 
+  start_date, 
+  end_date, 
+  photo) {
+
+  cohort = parseInt(cohort)
+  photo = JSON.stringify(photo)
+
+  return await post(`students/create`, {
+    first_name, 
+    last_name, 
+    username, 
+    github_username, 
+    email,
+    mobile, 
+    password,
+    bio,  
+    role, 
+    specialism, 
+    cohort, 
+    start_date, 
+    end_date, 
+    photo }
+  );
+}
+
 async function getPosts() {
   const res = await get('posts');
   return res.data.posts;
@@ -169,8 +207,6 @@ async function request(method, endpoint, data, auth = true) {
 }
 
 
-
-
-export { login, getPosts, register, createProfile, get, getUserById, getComments, post, patch, put, getMyCohortProfiles, updateUserProfile, postTo, del, refreshToken };
+export { login, getPosts, register, createProfile, get, getUserById, getComments, post, patch, put, getMyCohortProfiles, updateUserProfile, postTo, del, refreshToken,createNewStudent };
 
 

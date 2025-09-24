@@ -3,6 +3,7 @@ import Card from '../card';
 import Button from '../button';
 import './style.css';
 import { useState } from 'react';
+import { validateEmail, validatePassword } from '../../pages/register';
 
 const Stepper = ({ header, children, onComplete, data }) => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -75,7 +76,7 @@ const Stepper = ({ header, children, onComplete, data }) => {
           text={currentStep === children.length - 1 ? 'Submit' : 'Next'}
           classes="blue"
           onClick={() => {
-              if (validateMobile(data.mobile)) {
+              if (validateMobile(data.mobile) && validateEmail(data.email) && validatePassword(data.password)) {
                 onNextClick();
               }
             }}
