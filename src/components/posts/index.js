@@ -1,7 +1,7 @@
 import Post from '../post';
 import { usePosts } from '../../context/posts';
 
-const Posts = () => {
+const Posts = ({ refresh }) => {
   const { posts, loading } = usePosts();
 
   if (loading) {
@@ -11,7 +11,7 @@ const Posts = () => {
   return (
     <>
       {posts.map((post) => (
-        <Post key={post.id} post={post} />
+        <Post key={post.id} post={post} refresh={refresh}/>
       ))}
     </>
   );

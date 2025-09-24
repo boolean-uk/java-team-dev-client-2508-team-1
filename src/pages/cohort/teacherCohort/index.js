@@ -35,9 +35,6 @@ const TeacherCohort = ({cohorts}) => {
 
                 <div className="search-bar-in-cohorts">
                 <SearchTeacher />
-                {/* <form className="search-bar"  onSubmit={(e) => e.preventDefault()}>
-                    <TextInput  placeholder="  Search for people" icon={<SearchIcon />} value={searchVal} name="Search" onChange={onChange} />
-                </form> */}
                 </div>
             </div>
 

@@ -4,7 +4,7 @@ import Teacher from "./teacher";
 
 
 const Teachers = ({ teachers, getInitials }) => {
-
+    console.log(teachers, "teachers in teachers component");
     return (
         <Card>
             <article className="cohort">
@@ -13,9 +13,11 @@ const Teachers = ({ teachers, getInitials }) => {
                 </section>
                 
                 <section className="cohort-teachers-container border-top">
-                    {teachers.map((teacher, index) => (
+                    {teachers.map((teacher) => (
                         <Teacher 
+                            photo={teacher.photo}
                             key={teacher.id || 0} 
+                            id = {teacher.user.id}
                             initials={getInitials(teacher) || "NA"}
                             firstName={teacher.firstName || "N/A"}
                             lastName={teacher.lastName || "N/A"}

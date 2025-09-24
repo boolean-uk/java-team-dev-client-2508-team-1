@@ -9,7 +9,8 @@ const TextInput = ({
   placeholder,
   readOnly = false,
   icon,
-  iconRight = false
+  onBlur,
+  iconRight = true
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const isPasswordField = type === 'password';
@@ -29,6 +30,9 @@ const TextInput = ({
           onChange={onChange}
           readOnly={readOnly}
           className = {(icon && ! iconRight ) ? "input-has-icon" : "input-has-icon-right"}
+
+          onBlur={onBlur}
+
         />
         {icon && <span className={`${iconRight ? 'input-icon-right' : 'input-icon'}`}>{icon}</span>}
 
