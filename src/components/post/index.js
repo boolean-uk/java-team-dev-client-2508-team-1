@@ -14,8 +14,9 @@ import { usePosts } from '../../context/posts';
 import MenuPost from './dropdown';
 import jwtDecode from 'jwt-decode';
 import useAuth from '../../hooks/useAuth';
+import { get } from '../../service/apiClient';
 
-const Post = ({ post }) => {
+const Post = ({ post, refresh }) => {
   const { getUserLikedPosts, toggleLike } = usePosts();
   const commentInputRef = useRef(null);
   const [localComments, setLocalComments] = useState((post.comments || []).reverse());
@@ -25,6 +26,21 @@ const Post = ({ post }) => {
   const [isCommentHovered, setIsCommentHovered] = useState(false);
   const { token } = useAuth();
   const { userId } = jwtDecode(token || localStorage.getItem('token')) || {};
+  const [exists, setExists] = useState(true);
+
+  useEffect(() => {
+    async function fetchPost() {
+        try {
+        const response = await get("posts/" + post.id);
+        if(response.data.message === "Post not found") {
+          setExists(false);
+        }
+        } catch (error) {
+          setExists(false);
+        }
+    }
+    fetchPost(); 
+    }, [refresh]);
 
   const authorName = post.user.profile
     ? `${post.user.profile.firstName || 'Unknown'} ${post.user.profile.lastName || 'User'}`
@@ -121,6 +137,7 @@ const Post = ({ post }) => {
   };
 
   return (
+    !exists ? null :
     <Card>
       <article className="post">
         <header className="post__header">
