@@ -25,6 +25,7 @@ const ProfileCircleComment = ({ initials, menuVisible, commentText, postId, comm
 
       <div className="profile-icon">
           <SimpleProfileCircle
+          photo={localStorage.getItem("userPhoto")}
           initials={initials} />
         {/* <p>{initials}</p> */}
       </div>

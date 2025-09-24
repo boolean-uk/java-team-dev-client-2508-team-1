@@ -4,7 +4,7 @@ import './style.css';
 import UserIcon from '../profile-icon';
 import SimpleProfileCircle from '../simpleProfileCircle';
 
-const Comment = ({ id,userId, name, content, postId, commentId, onCommentDeleted }) => {
+const Comment = ({ id,userId, name, content, postId, commentId, photo, onCommentDeleted }) => {
   const { deleteComment } = useComments();
 
   const initials = name.match(/\b(\w)/g)?.join('') || 'NA';
@@ -22,6 +22,7 @@ const Comment = ({ id,userId, name, content, postId, commentId, onCommentDeleted
         {/* <div className="profile-icon"> */}
 
           <SimpleProfileCircle
+          photo={photo}
         /* menu={false}
         id={userId} */
         initials={initials}

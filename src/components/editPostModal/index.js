@@ -52,6 +52,7 @@ const EditPostModal = ({ postText, postId, name }) => {
       <section className="create-post-user-details">
         <div className="profile-icon">
           <SimpleProfileCircle
+          photo={localStorage.getItem("userPhoto")}
           initials={initials} />
           {/* <p>{initials}</p> */}
         </div>

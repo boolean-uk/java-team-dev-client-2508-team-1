@@ -20,6 +20,7 @@ import Search from './search';
 
 import { getUserById, get } from '../../service/apiClient';
 import UserIcon from '../../components/profile-icon';
+import SimpleProfileCircle from '../../components/simpleProfileCircle';
 
 
 const Dashboard = () => {
@@ -28,7 +29,6 @@ const Dashboard = () => {
   const [cohort, setCohort] = useState([]);
   const [course, setCourse] = useState([]);
   const [snackBarMessage, setSnackBarMessage] = useState('');
-  
    const [cohorts, setCohorts] = useState(null) 
   
   // Safely decode token with fallback
@@ -62,7 +62,6 @@ const Dashboard = () => {
         
         const user = await getUserById(userId);
         const data = await get(`cohorts/${user.profile.cohort.id}`);
-
         setCohort(data.data.cohort)
         setCourse(data.data.cohort);
         setStudents(data.data.cohort.profiles)
@@ -157,14 +156,18 @@ const Dashboard = () => {
         <Card>
           <div className="create-post-input">
             {/* <div className="profile-icon"> */}
-                <UserIcon
+            <SimpleProfileCircle
+            photo={localStorage.getItem("userPhoto")}
+            initials={initials} />
+
+{/*                 <UserIcon
                     menu={false}
                     id={decodedToken.userId}
                     initials={initials}
                     firstname={decodedToken.firstName}
                     lastname={decodedToken.lastName}
                     role={decodedToken.role || 'User'}
-                  />
+                  /> */}
               {/* <p>{initials}</p> */}
             {/* </div> */}
 
@@ -191,6 +194,7 @@ const Dashboard = () => {
                 
                 {students.map((student) => (
                   <UserIcon
+                    photo={student.photo}
                     key={student.id}
                     id={student.id}
                     initials={getInitials(student)}

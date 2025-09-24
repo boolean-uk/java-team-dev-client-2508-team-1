@@ -18,7 +18,11 @@ const ProfileCirclePost = ({ initials, menuVisible, postText, postId, name }) =>
 
       <div className="profile-icon">
         <SimpleProfileCircle
-          initials={initials} />
+          initials={initials}
+          
+          photo={localStorage.getItem("userPhoto")}
+
+          />
         
       </div>
     </div>

@@ -13,7 +13,7 @@ import { usePosts } from '../../context/posts';
 import MenuPost from './dropdown';
 import jwtDecode from 'jwt-decode';
 import useAuth from '../../hooks/useAuth';
-import UserIcon from '../profile-icon';
+import SimpleProfileCircle from '../simpleProfileCircle';
 
 const Post = ({ post }) => {
   const { getUserLikedPosts, toggleLike } = usePosts();
@@ -124,14 +124,18 @@ const Post = ({ post }) => {
     <Card>
       <article className="post">
         <header className="post__header">
-            <UserIcon
+          <SimpleProfileCircle
+              photo={post.user.profile.photo}
+              initials={userInitials}
+            />
+{/*             <UserIcon
                     menu={false}
                     id={post.user.id}
                     initials={userInitials}
                     firstname={post.user.profile.firstName}
                     lastname={post.user.profile.lastName}
                     role={post.user.profile.role || 'User'}
-                  />
+                  /> */}
 {/*           <ProfileCircle id = {post.user.id} initials={userInitials} clickable={false} />
  */}          
           <div className="post__meta">
@@ -201,6 +205,7 @@ const Post = ({ post }) => {
                 content={comment.body}
                 postId={post.id}
                 commentId={comment.id}
+                photo={comment.user.profile.photo}
                 onCommentDeleted={handleCommentDeleted}
               />
             );

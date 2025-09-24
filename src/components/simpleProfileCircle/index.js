@@ -1,6 +1,6 @@
 import './style.css';
 
-const SimpleProfileCircle = ({ initials, size = 56 }) => {
+const SimpleProfileCircle = ({ initials, size = 56, photo }) => {
     const styleGuideColors = [
         "#28C846", 
         "#A0E6AA", 
@@ -26,6 +26,27 @@ const SimpleProfileCircle = ({ initials, size = 56 }) => {
 
     const backgroundColor = getColorFromInitials(initials);
 
+    // If photo is provided, show image instead of initials
+    
+    if (photo) {
+        return (
+            <div 
+                className="simple-profile-circle simple-profile-circle--image" 
+                style={{
+                    width: size,
+                    height: size,
+                }}
+            >
+                <img 
+                    src={photo} 
+                    alt="Profile" 
+                    className="simple-profile-circle__image"
+                />
+            </div>
+        );
+    }
+
+    // Default behavior - show initials with colored background
     return (
         <div 
             className="simple-profile-circle" 

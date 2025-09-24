@@ -89,6 +89,7 @@ const SearchTeacher = () => {
                                         >
                                             <ProfileIconTeacher
                                                 className="profile-icon-cohorts"
+                                                photo={student.photo}
                                                 userId={student.id}
                                                 initials={student.firstName.charAt(0) + student.lastName.charAt(0)}
                                                 firstname={student.firstName}

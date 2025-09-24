@@ -48,8 +48,9 @@ const Header = () => {
 
       <div className="profile-icon" onClick={onClickProfileIcon}>
         <SimpleProfileCircle
-                  initials={initials} />
-        
+        photo={localStorage.getItem("userPhoto")}
+        initials={initials} />
+      
       </div>
 
       {isMenuVisible && (
@@ -58,7 +59,8 @@ const Header = () => {
             <section className="post-details">
               <div className="profile-icon">
                 <SimpleProfileCircle
-                          initials={initials} />
+                          initials={initials}
+                          photo={localStorage.getItem("userPhoto")} />
 
                 
               </div>

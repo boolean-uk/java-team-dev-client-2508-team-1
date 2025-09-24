@@ -2,7 +2,8 @@
 import Popup from 'reactjs-popup';
 import './style.css';
 import SeeProfile from '../seeProfile';
-const UserIcon = ({ id, initials, firstname, lastname, role, menu=true}) => {
+import SimpleProfileCircle from '../simpleProfileCircle';
+const UserIcon = ({ id, initials, firstname, lastname, role, menu=true, photo=null }) => {
 
     const styleGuideColors = [
     "#28C846", 
@@ -32,7 +33,8 @@ const UserIcon = ({ id, initials, firstname, lastname, role, menu=true}) => {
 
                 <div className="profile-circle">
                 <div className="profile-icon" style={{background: backgroundColor}}>
-                    <p>{initials}</p>
+                    <SimpleProfileCircle photo={photo} initials={initials} />
+
                 </div>
             </div>
             {menu &&  <><div className="user-info">

@@ -44,6 +44,7 @@ const Students = ({refresh, setRefresh, setSnackBarMessage}) => {
                             <li key={index} className="student-item">
                                 <div>
                                 <ProfileIconTeacher 
+                                photo={student.photo}
                                    id={student.id}
                                    initials={`${student.firstName} ${student.lastName}`
                                        .trim()

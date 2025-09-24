@@ -65,7 +65,9 @@ const CreatePostModal = ({ authorName, onPostAdded }) => {
           id: userId,
           profile: {
             firstName,
-            lastName
+            lastName,
+            photo: localStorage.getItem("userPhoto") || null
+
           }
         },
         timeCreated: new Date().toISOString(),
@@ -104,6 +106,7 @@ const CreatePostModal = ({ authorName, onPostAdded }) => {
 
          
             <SimpleProfileCircle
+            photo={localStorage.getItem("userPhoto")}
           initials={initials} />
           {/* <p>{initials}</p> */}
         </div>

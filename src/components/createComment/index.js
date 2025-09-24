@@ -59,13 +59,14 @@ const CreateComment = forwardRef(({ postId, onCommentAdded }, ref) => {
       const lastName = decodedToken.lastName || decodedToken.last_name || 'User';
       
       const newComment = {
-        id: response.data?.id || Date.now(),
+        id: response.data?.comment?.id,
         body: commentText,
         user: {
           id: userId,
           profile: {
             firstName,
-            lastName
+            lastName,
+            photo: localStorage.getItem("userPhoto") || null
           }
         },
         timeCreated: new Date().toISOString()
@@ -96,6 +97,8 @@ const CreateComment = forwardRef(({ postId, onCommentAdded }, ref) => {
     <form className="create-comment" onSubmit={onSubmit}>
       <div className="profile-icon profile-icon--sm">
         <SimpleProfileCircle
+        photo={localStorage.getItem("userPhoto")}
+        
           initials={initials} size={40} />
         {/* <p>{initials}</p> */}
       </div>
