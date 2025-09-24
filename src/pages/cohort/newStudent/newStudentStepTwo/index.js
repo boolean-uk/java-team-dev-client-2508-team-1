@@ -41,6 +41,6 @@ const NewStudentStepTwo = ({ data, setData }) => {
       </Form>
     </>
   );
-};
+};  
 
 export default NewStudentStepTwo;

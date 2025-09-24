@@ -1,30 +1,11 @@
-import { useEffect, useState } from "react"
+
 import Card from "../../../components/card"
-import { get } from "../../../service/apiClient"
 import SoftwareLogo from "../../../assets/icons/software-logo"
 import FrontEndLogo from "../../../assets/icons/frontEndLogo"
 import DataAnalyticsLogo from "../../../assets/icons/dataAnalyticsLogo"
 import './style.css';
 
-const Cohorts = () => {
-    const [cohorts, setCohorts] = useState(null) 
-
-    
-    useEffect(() => {
-    async function fetchCohorts() {
-        try {
-        const response = await get("cohorts");
-        setCohorts(response.data.cohorts);
-        } catch (error) {
-        console.error("Error fetching cohorts:", error);
-        }
-    }
-
-    fetchCohorts(); 
-    }, []);
-
-    
-
+const Cohorts = ({cohorts}) => {
 
         return (
             <>
@@ -36,6 +17,7 @@ const Cohorts = () => {
         {cohorts.map((cohort, index) => {
           return (
             <li key={index} className="dashboard-cohort-item">
+              {cohort.course === null ? <></> : 
               <div className="cohort-header">
                
                   <div className={`course-icon ${
@@ -52,6 +34,7 @@ const Cohorts = () => {
                   <p className="dashboard-cohort-name">Cohort {cohort.id}</p>
                 </div>
                 </div>
+          }
             </li>
           );
         })}

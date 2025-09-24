@@ -116,7 +116,7 @@
 
 .add-student-button button {
   height: 56px;
-  width: 300px !important;
+  width: 166px;
   padding: 0 24px;
   background-color: #F0F5FA;
   border: none;
@@ -127,6 +127,7 @@
   justify-content: center;
   gap: 8px;
   box-sizing: border-box;
+  margin-right: 40px;
 }
 
 
@@ -187,4 +188,16 @@
 .cohort-teacher-loading {
   margin-top: 20px;
   margin-left: 20px;
+}
+
+.search-bar-in-cohorts {
+  margin-bottom:10px;
+  overflow: visible;
+}
+
+.profile-icon-cohorts {
+  position: absolute !important;
+  top: 100%;
+  left: 0;
+  width: "100%";
 }

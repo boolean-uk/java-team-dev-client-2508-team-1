@@ -13,7 +13,6 @@ const NewStudent = () => {
   const { formData } = useFormData();
 
   const [profile, setProfile] = useState({
-    // userId: '',
     first_name: '',
     last_name: '',
     username: '',
@@ -23,25 +22,26 @@ const NewStudent = () => {
     password: '',
     bio: '',
     role: 'ROLE_STUDENT',
-    specialism: 'Software Development',
-    cohort: 1,
-    start_date: '2025-09-14',
-    end_date: '2025-10-15',
+    specialism: '',
+    cohort: '',
+    start_date: '',
+    end_date: '',
     photo: ''
   });
 
   const onChange = (event) => {
     const { name, value } = event.target;
-
+    
     setProfile({
       ...profile,
       [name]: value
     });
+    console.log("Profile: ", profile);
+
   };
 
   const onComplete = () => {
     onCreateNewStudent(
-      // profile.userId,
       profile.first_name,
       profile.last_name,
       profile.username,
@@ -75,15 +75,10 @@ const NewStudent = () => {
 
   return (
     <main className="welcome">
-      <div className="welcome-titleblock">
-        <h1 className="h2">Welcome to Cohort Manager</h1>
-        <p className="text-blue1">Create your profile to get started</p>
-      </div>
-
       <Stepper data={profile} header={<WelcomeHeader />} onComplete={onComplete}>
         <NewStudentStepOne data={profile} setData={onChange} handleFileChange={handleFileChange}/>
         <NewStudentStepTwo data={profile} setData={onChange} formData={formData}/>
-        <NewStudentStepThree data={profile} setData={onChange} />
+        <NewStudentStepThree data={profile} setData={onChange} setProfile={setProfile} />
         <NewStudentStepFour data={profile} setData={onChange} />
       </Stepper>
     </main>

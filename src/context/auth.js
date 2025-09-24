@@ -4,7 +4,7 @@ import Header from '../components/header';
 import Modal from '../components/modal';
 import Navigation from '../components/navigation';
 import useAuth from '../hooks/useAuth';
-import { createNewStudent, createProfile, login, register } from '../service/apiClient';
+import { createNewStudent, createProfile, login, refreshToken, register } from '../service/apiClient';
 
 // eslint-disable-next-line camelcase
 import jwt_decode from 'jwt-decode';
@@ -43,6 +43,20 @@ const AuthProvider = ({ children }) => {
     setToken(null);
   };
 
+  // Force a token refresh by setting the token again to trigger useEffect in other contexts
+  const forceTokenRefresh = () => {
+    const currentToken = token || localStorage.getItem('token');
+    if (currentToken) {
+      console.log("token is found and trying to refresh, but not refreshed?");
+      // Force re-render and context updates by setting token again
+      setToken(null);
+
+      setTimeout(() => {
+        setToken(currentToken);
+      }, 100);
+    }
+  };
+
   const handleRegister = async (email, password) => {
     const res = await register(email, password);
     
@@ -56,10 +70,38 @@ const AuthProvider = ({ children }) => {
   const handleCreateProfile = async (first_name, last_name, username, github_username, mobile, bio, role, specialism, cohort, start_date, end_date, photo) => {
     const { userId } = jwt_decode(token);
 
-    await createProfile(userId, first_name, last_name, username, github_username, mobile, bio, role, specialism, cohort, start_date, end_date, photo);
-
-    localStorage.setItem('token', token);
-    navigate('/');
+    try {
+      const response = await createProfile(userId, first_name, last_name, username, github_username, mobile, bio, role, specialism, cohort, start_date, end_date, photo);
+      
+      // Check if the backend returned a new token with updated user info
+      if (response.data?.token) {
+        // Use the new token from the response
+        localStorage.setItem('token', response.data.token);
+        setToken(response.data.token);
+      } else {
+        // Try to refresh the token to get updated user information
+        try {
+          const refreshResponse = await refreshToken();
+          if (refreshResponse.token) {
+            localStorage.setItem('token', refreshResponse.token);
+            setToken(refreshResponse.token);
+            console.log('Token refreshed successfully after profile creation');
+          } else {
+            // If token refresh is not available, force a refresh of contexts
+            forceTokenRefresh();
+          }
+        } catch (refreshError) {
+          console.log('Token refresh not available, forcing context refresh');
+          // Force a refresh of all contexts that depend on the token
+          forceTokenRefresh();
+        }
+      }
+      
+      navigate('/');
+    } catch (error) {
+      console.error('Error creating profile:', error);
+      throw error;
+    }
   };
 
   const handleCreateNewStudent = async (first_name, last_name, username, github_username, email, mobile, password, bio, role, specialism, cohort, start_date, end_date, photo) => {

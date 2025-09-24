@@ -11,6 +11,17 @@ async function register(email, password) {
   await post('signup', { email, password }, false);
   return await login(email, password);
 }
+
+// Refresh token to get updated user information
+async function refreshToken() {
+  try {
+    return await post('auth/refresh', {}, true); // Assuming there's a refresh endpoint
+  } catch (error) {
+    console.error('No refresh endpoint available or token refresh failed:', error);
+    throw error;
+  }
+}
+
 /* eslint-disable camelcase */
 
 async function createProfile(userId, 
@@ -25,11 +36,11 @@ async function createProfile(userId,
   cohort, 
   start_date, 
   end_date, 
-  photo) {
+  photo
+) {
 
   cohort = parseInt(cohort)
-  photo = JSON.stringify(photo)
-
+  
   return await post(`profiles`, { userId, 
     first_name, 
     last_name, 
@@ -130,11 +141,21 @@ async function updateUserProfile(userId, formValues) {
     mobile: formValues.mobile || "",
     password: formValues.password || "",
     bio: formValues.bio || ""
-  };
+  };  
 
-  return await patch(`students/${userId}`, payload);
+  const token = localStorage.getItem('token');
+  const decoded = jwt_decode(token);
+  const role = decoded?.roleId; // eller hent fra formData.profile.role.name hvis du har det
+  console.log(role)
+  let endpoint = '';
+  if (role === 2) {
+    endpoint = `students/${userId}`;
+  } else {
+    endpoint = `teachers/${userId}`; // for ROLE_TEACHER og andre
+  }
+
+  return await patch(endpoint, payload);
 }
-
 
 async function post(endpoint, data, auth = true) {
   return await request('POST', endpoint, data, auth);
@@ -186,6 +207,6 @@ async function request(method, endpoint, data, auth = true) {
 }
 
 
-export { login, getPosts, register, createProfile, get, getUserById, getComments, post, patch, put, getMyCohortProfiles, updateUserProfile, postTo, del, createNewStudent };
+export { login, getPosts, register, createProfile, get, getUserById, getComments, post, patch, put, getMyCohortProfiles, updateUserProfile, postTo, del, refreshToken,createNewStudent };
 
 

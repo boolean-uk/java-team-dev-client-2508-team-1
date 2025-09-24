@@ -2,7 +2,7 @@ import EditIconTeacher from './editIconTeacher';
 import './style.css';
 
 
-const ProfileIconTeacher = ({initials, firstname, lastname, role}) => {
+const ProfileIconTeacher = ({id, initials, firstname, lastname, role}) => {
 
     const styleGuideColors = [
     "#28C846", 
@@ -44,7 +44,7 @@ const ProfileIconTeacher = ({initials, firstname, lastname, role}) => {
                 <p className = "user-name">{firstname} {lastname}</p> 
                 <p className = "user-role" >{role}</p>
             </div>
-            <EditIconTeacher/>
+            <EditIconTeacher id={id}/>
            </div>
     )   
 }

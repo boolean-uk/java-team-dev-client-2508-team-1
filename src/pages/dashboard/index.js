@@ -1,6 +1,8 @@
 
-import { useState, useRef, useEffect } from 'react';
-import SearchIcon from '../../assets/icons/searchIcon';
+
+import { useState, useEffect } from 'react';
+
+
 
 import Button from '../../components/button';
 import Card from '../../components/card';
@@ -15,15 +17,18 @@ import TeachersDashboard from './teachers';
 import useAuth from '../../hooks/useAuth';
 import jwtDecode from 'jwt-decode';
 import Search from './search';
-import Student from '../cohort/students/student';
+
 import { getUserById, get } from '../../service/apiClient';
+import UserIcon from '../../components/profile-icon';
+
 
 const Dashboard = () => {
-  const onPostAddedRef = useRef(null);
   const { token } = useAuth();
   const [students, setStudents] = useState([]);
   const [cohort, setCohort] = useState([]);
   const [course, setCourse] = useState([]);
+  
+   const [cohorts, setCohorts] = useState(null) 
   
   // Safely decode token with fallback
   let decodedToken = {};
@@ -73,10 +78,6 @@ const Dashboard = () => {
   const  { userRole, setUserRole } = useUserRoleData();
 
 
-  
-  const onChange = (e) => {
-    setSearchVal(e.target.value);
-  };
 
 
   // Use the useModal hook to get the openModal and setModal functions
@@ -85,46 +86,53 @@ const Dashboard = () => {
   // Create a function to run on user interaction
   const showModal = () => {
     // Use setModal to set the header of the modal and the component the modal should render
-    setModal('Create a post', <CreatePostModal onPostAdded={handlePostAdded} />); // CreatePostModal is just a standard React component, nothing special
+    setModal('Create a post', <CreatePostModal />); // CreatePostModal is just a standard React component, nothing special
 
     // Open the modal!
     openModal();
   };
 
-  const handlePostAdded = (newPost) => {
-    // Call the Posts component's add function
-    if (onPostAddedRef.current) {
-      onPostAddedRef.current(newPost);
-    }
-  };
-
-
   useEffect(() => {
-      setUserRole(decodedToken.roleId)
-  })
-
-/*  TODO TRIED ADDING CORRECT INITALS TO PROFILE CIRCLE, DIDN'T WORK 
-useEffect(() => {
-    async function fetchUser() {
+    async function fetchAndSetUserRole() {
+      const storedToken = token || localStorage.getItem('token');
+      if (!storedToken) return;
       try {
-        const { userId } = jwt_decode(token || localStorage.getItem('token')) || {};
-        if (!userId) {
-          console.log('Could not determine user. Please log in again.');
-          return;
-        }
-      const fetchedUser = await get(`users/${userId}`);
-      setUser(fetchedUser);
-    } catch (error) {
-      console.error('Error fetching user:', error);
-      setUser([]);
+        const decoded = jwtDecode(storedToken);
+        const user = await getUserById(decoded.userId);
+        // check the role from backend
+        const roleName = user.profile.role.name;
+        if (roleName === 'ROLE_TEACHER') setUserRole(1);
+        else if (roleName === 'ROLE_STUDENT') setUserRole(2);
+        else setUserRole(null);
+      } catch (error) {
+        console.error('Error fetching user role from backend:', error);
+      }
     }
-    const authorName = post.user.profile
-    ? `${post.user.profile.firstName || 'Unknown'} ${post.user.profile.lastName || 'User'}`
-    : 'Unknown User';
-    setUserInitials(authorName.match(/\b(\w)/g));
-  }
-      fetchUser();
-    }, []); */
+    fetchAndSetUserRole();
+  }, [token, setUserRole]);
+
+    useEffect(() => {
+    async function fetchCohorts() {
+        try {
+        const response = await get("cohorts");
+        setCohorts(response.data.cohorts);
+        } catch (error) {
+        console.error("Error fetching cohorts:", error);
+        }
+    }
+
+    fetchCohorts(); 
+    }, []);
+
+  function getInitials(profile) {
+        if (!profile.firstName || !profile.lastName) return "NA";
+        const firstNameParts = profile.firstName.trim().split(/\s+/) || ''; // split by any number of spaces
+        const lastNameInitial = profile.lastName.trim().charAt(0);
+        
+        const firstNameInitials = firstNameParts.map(name => name.charAt(0));
+        
+        return (firstNameInitials.join('') + lastNameInitial).toUpperCase();
+    }
 
   return (
     <>
@@ -139,41 +147,43 @@ useEffect(() => {
           </div>
         </Card>
 
-        <Posts onPostAdded={onPostAddedRef} />
+        <Posts />
       </main>
 
       <aside>
+        <Card>
         <Search />
-
-        { userRole === 2 ? (
-           <Card>
-            <h3>My Cohort</h3>
-            <p className='padding-top'>{course.name}, Cohort {cohort.id}</p>
-            <section className='cohort-teachers-container border-top'>
-              
-              {students.map((student) => (
-                <Student
-                  key={student.id || 0}
-                  id ={student.id}
-                  initials={`${student.firstName} ${student.lastName}`
-                      .trim()
-                      .split(/\s+/)
-                      .map(word => word[0].toUpperCase())
-                      .join('')}
-                  firstName={student.firstName}
-                  lastName={student.lastName}
-                />
-              ))}
-            </section>
-          </Card>
+        </Card>
+        { userRole === null || userRole === undefined ? (
+          <div>Loading...</div>
         ) : (
-          <>
-          <Cohorts/>
+
+          userRole === 2 ? (
+            <Card>
+              <h3>My Cohort</h3>
+              <p className='padding-top'>{course.name}, Cohort {cohort.id}</p>
+              <section className='cohort-teachers-container border-top'>
+                
+                {students.map((student) => (
+                  <UserIcon
+                    key={student.id}
+                    id={student.id}
+                    initials={getInitials(student)}
+                    firstname={student.firstName}
+                    lastname={student.lastName}
+                  />
+                ))}
+              </section>
+            </Card>
+          ) : (
+            <>
+          <Cohorts cohorts={cohorts}/>
           <Students/>
           <TeachersDashboard/>
           </>
+          )
         )}
-       
+         
       </aside>
     </>
   );

@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { CascadingMenu } from '../../profileCircle';
 
-const EditIconTeacher = ({ initials, menuVisible }) => {
+const EditIconTeacher = ({ id, initials, menuVisible }) => {
   const [isMenuVisible, setIsMenuVisible] = useState(menuVisible || false);
   const menuRef = useRef(null);
 
@@ -29,7 +29,7 @@ const EditIconTeacher = ({ initials, menuVisible }) => {
   </span>
   </div>
   <div className='menu-left'> 
-  {isMenuVisible && <CascadingMenu />}
+  {isMenuVisible && <CascadingMenu id={id} />}
   </div>
 </div>
 

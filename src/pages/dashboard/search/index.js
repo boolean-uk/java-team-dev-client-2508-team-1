@@ -47,7 +47,6 @@ const Search = () => {
 
 
       return (
-        <Card>
             <div style={{ position: "relative", width: "100%" }}> 
                 <form onSubmit={handleSubmit}>
                     <TextInput
@@ -102,9 +101,7 @@ const Search = () => {
                         </Card>
                     </div>
                 )}
-
             </div>
-        </Card>
     );
 
 }
