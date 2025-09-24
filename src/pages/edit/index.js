@@ -156,9 +156,8 @@ const EditPage = () => {
     const updatedValues = { ...formValues, password: showPasswordFields ? newPassword : "" };
 
     try {
-      await updateUserProfile(userId, updatedValues);
+      const refreshed = await updateUserProfile(userId, updatedValues);
       alert("Profile is updated!");
-      const refreshed = await getUserById(userId);
       setFormData(refreshed);
       const refreshedProfile = refreshed.profile || {};
       
