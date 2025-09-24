@@ -18,6 +18,8 @@ import EditPage from './pages/edit';
 import SearchPage from './pages/search';
 import { SearchResultsProvider } from './context/searchResults';
 import NewStudent from './pages/cohort/newStudent';
+import AddStudent from './pages/addStudent';
+import EditCohort from './pages/editCohort';
 
 const App = () => {
   return (
@@ -66,6 +68,20 @@ const App = () => {
                         </ProtectedRoute>
                       }
                     />
+                    <Route 
+                    path="cohorts/add"
+                    element={
+                      <ProtectedRoute>
+                        <AddStudent />
+                      </ProtectedRoute>
+                    }/>
+                      <Route 
+                        path="cohorts/edit"
+                        element={
+                          <ProtectedRoute>
+                            <EditCohort/>
+                          </ProtectedRoute>
+                        }/>
                     <Route
                       path="profile"
                       element={

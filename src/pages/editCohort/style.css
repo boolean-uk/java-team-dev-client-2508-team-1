@@ -1,0 +1,7 @@
+
+.welcome-form-inputs {
+  display: grid;
+  grid-template-rows: repeat(auto, auto);
+  gap: 5px;
+  margin-bottom: 48px;
+}
