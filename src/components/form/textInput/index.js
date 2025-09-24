@@ -9,7 +9,8 @@ const TextInput = ({
   placeholder,
   readOnly = false,
   icon,
-  iconRight = false
+  onBlur,
+  iconRight = true
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const isPasswordField = type === 'password';
@@ -28,6 +29,7 @@ const TextInput = ({
           placeholder={placeholder}
           onChange={onChange}
           readOnly={readOnly}
+          onBlur={onBlur}
         />
 
         {icon && (

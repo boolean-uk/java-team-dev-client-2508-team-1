@@ -98,7 +98,6 @@ const App = () => {
                         </ProtectedRoute>
                       }
                     />
-                  
                   </Routes>
                 </ModalProvider>
               </CommentsProvider>

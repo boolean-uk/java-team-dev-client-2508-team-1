@@ -13,6 +13,7 @@ button:disabled:hover {
   background-color: var(--color-offwhite) !important;
   color: var(--color-blue1) !important;
 }
+
 button:not(.formbutton):not(.socialbutton),
 .button {
   font-family: 'Lexend';
@@ -31,7 +32,7 @@ button:not(.formbutton):not(.socialbutton),
 @media only screen and (min-width: 568px) {
   button:not(.formbutton):not(.socialbutton):not(.width-full),
   .button:not(.formbutton):not(.socialbutton):not(.width-full) {
-    max-width: 1000px;
+    max-width: 10000px;
   }
 }
 
