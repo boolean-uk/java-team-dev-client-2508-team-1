@@ -81,7 +81,7 @@ const TeacherCohort = ({cohorts}) => {
                 <hr className="divider"/>
 
                 
-                    <StudentList profiles={selectedProfiles} />
+                    <StudentList profiles={selectedProfiles} cohorts={cohorts} />
 
             </section>
         </div>
