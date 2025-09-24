@@ -10,7 +10,7 @@ const StudentList = ({ profiles, refresh, setRefresh, setSnackBarMessage }) => {
   useEffect(() => {
     async function fetchStudents() {
         try {
-        const response = await get("students");
+        const response = await get("profiles");
         const studs = response.data.profiles;
         profiles = studs.filter(stud => profiles.some(p => p.id === stud.id));
         } catch (error) {
