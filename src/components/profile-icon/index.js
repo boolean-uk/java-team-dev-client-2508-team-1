@@ -1,8 +1,11 @@
 
-import Popup from 'reactjs-popup';
 import './style.css';
 import SeeProfile from '../seeProfile';
+import { useState } from 'react';
 const UserIcon = ({ id, initials, firstname, lastname, role}) => {
+    
+  const [isOpen, setIsOpen] = useState(false);
+
 
     const styleGuideColors = [
     "#28C846", 
@@ -27,6 +30,8 @@ const UserIcon = ({ id, initials, firstname, lastname, role}) => {
 
     const backgroundColor = getColorFromInitials(initials);
 
+    
+
     return (
             <div className="user">
 
@@ -39,8 +44,8 @@ const UserIcon = ({ id, initials, firstname, lastname, role}) => {
                 <p className = "user-name">{firstname} {lastname}</p> 
                 <p className = "user-role" >{role}</p>
             </div>
-            <Popup trigger= { 
-                <div className="edit-icon-wrapper">
+            
+                <div className="edit-icon-wrapper" onClick={() => setIsOpen(true)}>
                 <div className="icon-button">
                     <span className="dots">
                     <span className="dot">•</span>
@@ -50,9 +55,8 @@ const UserIcon = ({ id, initials, firstname, lastname, role}) => {
                 </div>
                 </div>
                  
-                } position="left center"
-                closeOnDocumentClick
-                arrow={false}>
+                {isOpen && (
+                    <div>
                 <SeeProfile 
                         id = {id}
                         initials={initials} 
@@ -60,10 +64,10 @@ const UserIcon = ({ id, initials, firstname, lastname, role}) => {
                         lastname = {lastname} 
                         role = {role}   
                         />
-                        
-            </Popup>
-            </div> 
-    )   
+            </div>              
+    )   }
+    </div>
+    )
 }
 
 
