@@ -56,6 +56,8 @@
 
 .add-search {
     margin-top: 25px;
+    font-family: 'Lexend', sans-serif;
+
 }
 
 .dropdown-section {
@@ -66,7 +68,7 @@
   position: relative;
   width: 100%;
   margin-top: 16px;
-  font-family: inherit;
+  font-family: 'Lexend', sans-serif;
 }
 
 .dropbtn {
@@ -207,4 +209,10 @@ button.offwhite-button:focus,
 
 .no-course {
     margin-bottom: 100px;
+}
+
+.select-course-title-selected{
+  font-size: 18px;
+    font-family: 'Lexend', sans-serif;  
+  font-weight: 400;
 }

@@ -47,7 +47,9 @@ const SearchTeacher = () => {
 
 
       return (
+
             <div style={{ position: "relative", width: "450px" }}> 
+
                 <form onSubmit={handleSubmit}>
                     <TextInput
                         icon={<SearchIcon />}
