@@ -115,20 +115,20 @@ const MenuItem = ({ cohort, icon, text, children, linkTo = '#nogo', clickable, p
     }, 2100); // slightly longer than autoHideDuration
   };
 
-  const moveStudent = async () => {
+  const handleMoveStudent = async () => {
     try {
+      const cohortName = cohort.name;
       await updateStudentCohort(profileId, cohort);
-      /*
-      setSnackbarMessage('Reported');
+      setSnackbarMessage('Student successfully moved to ' + cohortName + '!');
       setSnackbarOpen(true);
       setTimeout(() => {
         setIsMenuVisible(false);
       }, 2100);
       setRefresh(prev => !prev);
-            */
     } catch (error) {
       console.error("Error moving student to cohort:", error);
       setSnackBarMessage?.("Failed to move student.");
+      setRefresh(prev => !prev);
     }
   }
 
@@ -151,7 +151,7 @@ const MenuItem = ({ cohort, icon, text, children, linkTo = '#nogo', clickable, p
       case "Clicked":
         return handleClick;
       case "MoveStudent":
-        return moveStudent;
+        return handleMoveStudent;
       default:
         return undefined;
     }
