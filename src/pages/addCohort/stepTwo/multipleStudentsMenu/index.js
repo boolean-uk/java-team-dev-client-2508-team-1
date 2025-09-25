@@ -18,10 +18,7 @@ const MultipleStudentsMenu = ({ students, handleSelectStudent, selectedStudents 
         </section>
       ) : (
         <div>
-          <h3 className="add-student-loading">Loading...</h3>
-          <div className="loadingscreen-loader">
-            <span></span>
-          </div>
+          <p className="selected-students">No students selected</p>
         </div>
       )}
       </>
