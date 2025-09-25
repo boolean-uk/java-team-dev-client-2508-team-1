@@ -1,4 +1,4 @@
-import {  useState } from "react"
+import { useEffect, useState } from "react"
 // import SearchIcon from "../../../assets/icons/searchIcon"
 import EditIconCohortTeacher from "../../../components/editIconCohortTeacher"
 // import TextInput from "../../../components/form/textInput"
@@ -17,13 +17,12 @@ const TeacherCohort = ({cohorts}) => {
     const[selectedCohort, setSelectedCohort] = useState(null);
     const navigate = useNavigate()
 
-
-
     // const onChange = (e) => {
     //     setSearchVal(e.target.value);
     // };
-        
 
+    useEffect(() => {}, [selectedProfiles]);
+        
     return (
         <>
         {cohorts.length > 0 ? ( <div className="cohort-card">
@@ -35,9 +34,6 @@ const TeacherCohort = ({cohorts}) => {
 
                 <div className="search-bar-in-cohorts">
                 <SearchTeacher />
-                {/* <form className="search-bar"  onSubmit={(e) => e.preventDefault()}>
-                    <TextInput  placeholder="  Search for people" icon={<SearchIcon />} value={searchVal} name="Search" onChange={onChange} />
-                </form> */}
                 </div>
             </div>
 
@@ -82,9 +78,7 @@ const TeacherCohort = ({cohorts}) => {
                     </div>
                 </div>
                 <hr className="divider"/>
-
-                
-                    <StudentList profiles={selectedProfiles} />
+                    <StudentList profiles={selectedProfiles} setSelectedProfiles={setSelectedProfiles}/>
 
             </section>
         </div>

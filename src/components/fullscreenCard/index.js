@@ -5,8 +5,8 @@ import ProfileData from '../../pages/profile/profile-data';
 import useAuth from '../../hooks/useAuth';
 import jwtDecode from 'jwt-decode';
 import { getUserById } from '../../service/apiClient';
-import ProfileCircle from '../../components/profileCircle';
 import '../../pages/loading';
+import SimpleProfileCircle from '../simpleProfileCircle';
 
 const FullScreenCard = () => {
   const [user, setUser] = useState(null);
@@ -61,7 +61,9 @@ const FullScreenCard = () => {
 
   return (
     <div className="fullscreen-card">
-      <div className="top-bar"> <ProfileCircle initials={name.split(" ").map((n)=>n[0]).join("").toUpperCase()}/> 
+      <div className="top-bar"> 
+        <SimpleProfileCircle photo={user.profile.photo} initials={name.split(" ").map((n)=>n[0]).join("").toUpperCase()}/> 
+        {/* <ProfileCircle initials={name.split(" ").map((n)=>n[0]).join("").toUpperCase()}/>  */}
         <div> 
           <p className="name-text">{name}</p> 
         </div> 

@@ -49,8 +49,9 @@ function Students({ students, getInitials, course, cohort }) {
         <section className="cohort-students-container border-top">
           {students.map((student) => (
             <Student
+              photo={student.photo}
               key={student.id || 0}
-              id ={student.id}
+              id ={student.user.id}
               initials={getInitials(student)}
               firstName={student.firstName}
               lastName={student.lastName}

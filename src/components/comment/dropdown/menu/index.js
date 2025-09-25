@@ -5,6 +5,7 @@ import Menu from '../../../menu';
 import MenuItem from '../../../menu/menuItem';
 import './style.css';
 import ReportIcon from '../../../../assets/icons/reporticon';
+import SimpleProfileCircle from '../../../simpleProfileCircle';
 
 const ProfileCircleComment = ({ initials, menuVisible, commentText, postId, commentId, name }) => {
   const [isMenuVisible, setIsMenuVisible] = useState(menuVisible || false);
@@ -23,7 +24,10 @@ const ProfileCircleComment = ({ initials, menuVisible, commentText, postId, comm
       )}
 
       <div className="profile-icon">
-        <p>{initials}</p>
+          <SimpleProfileCircle
+          photo={localStorage.getItem("userPhoto")}
+          initials={initials} />
+        {/* <p>{initials}</p> */}
       </div>
     </div>
   );
