@@ -4,15 +4,17 @@ import FrontEndLogo from "../../../../assets/icons/frontEndLogo";
 import DataAnalyticsLogo from "../../../../assets/icons/dataAnalyticsLogo";
 import './style.css';
 import { useState } from "react";
+import { useSelectedCohortId } from "../../../../context/selectedCohort";
 
 
 const CohortsList= ({ onSelect, setSelectedCohort , cohorts}) => {
   const [selectedCohortId, setSelectedCohortId] = useState(null);
-
+  const {setCohortId} = useSelectedCohortId();
 
     const handleClick = (cohort) => {
         setSelectedCohortId(cohort.id);
         setSelectedCohort(cohort)
+        setCohortId(cohort.id);
         if (onSelect) {
           onSelect(cohort.profiles); 
         }

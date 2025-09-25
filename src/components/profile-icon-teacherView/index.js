@@ -1,8 +1,9 @@
+import SimpleProfileCircle from '../simpleProfileCircle';
 import EditIconTeacher from './editIconTeacher';
 import './style.css';
 
 
-const ProfileIconTeacher = ({id, initials, firstname, lastname, role, setRefresh, setSnackBarMessage}) => {
+const ProfileIconTeacher = ({id, initials, firstname, lastname, role, setRefresh, photo=null}) => {
 
     const styleGuideColors = [
     "#28C846", 
@@ -37,14 +38,17 @@ const ProfileIconTeacher = ({id, initials, firstname, lastname, role, setRefresh
 
                 <div className="profile-circle">
                 <div className="profile-icon" style={{background: backgroundColor}}>
-                    <p>{initials}</p>
+                    <SimpleProfileCircle 
+                    photo={photo}
+                    initials={initials} />
+                    {/* <p>{initials}</p> */}
                 </div>
             </div>
             <div className="user-info">
                 <p className = "user-name">{firstname} {lastname}</p> 
                 <p className = "user-role" >{role}</p>
             </div>
-            <EditIconTeacher id={id} setRefresh={setRefresh} setSnackBarMessage={setSnackBarMessage}/>
+            <EditIconTeacher id={id} setRefresh={setRefresh}/>
            </div>
     )   
 }

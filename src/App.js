@@ -18,6 +18,7 @@ import EditPage from './pages/edit';
 import SearchPage from './pages/search';
 import { SearchResultsProvider } from './context/searchResults';
 import NewStudent from './pages/cohort/newStudent';
+import { CohortProvider } from './context/selectedCohort';
 
 const App = () => {
   return (
@@ -54,7 +55,9 @@ const App = () => {
                       path="cohorts"
                       element={
                         <ProtectedRoute>
+                          <CohortProvider>
                           <Cohort />
+                          </CohortProvider>
                         </ProtectedRoute>
                       }
                     />

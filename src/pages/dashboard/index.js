@@ -20,15 +20,13 @@ import Search from './search';
 
 import { getUserById, get } from '../../service/apiClient';
 import UserIcon from '../../components/profile-icon';
-
+import SimpleProfileCircle from '../../components/simpleProfileCircle';
 
 const Dashboard = () => {
   const { token } = useAuth();
   const [students, setStudents] = useState([]);
   const [cohort, setCohort] = useState([]);
   const [course, setCourse] = useState([]);
-  const [snackBarMessage, setSnackBarMessage] = useState('');
-  
   const [cohorts, setCohorts] = useState(null) 
   
   // Safely decode token with fallback
@@ -62,7 +60,6 @@ const Dashboard = () => {
         
         const user = await getUserById(userId);
         const data = await get(`cohorts/${user.profile.cohort.id}`);
-
         setCohort(data.data.cohort)
         setCourse(data.data.cohort.course);
         setStudents(data.data.cohort.profiles)
@@ -123,7 +120,6 @@ const Dashboard = () => {
         console.error("Error fetching cohorts:", error);
         }
     }
-
     fetchCohorts(); 
     }, []);
 
@@ -137,28 +133,26 @@ const Dashboard = () => {
         return (firstNameInitials.join('') + lastNameInitial).toUpperCase();
     }
 
-  useEffect(() => {
-  if (snackBarMessage) {
-    const timer = setTimeout(() => {
-      setSnackBarMessage('');
-    }, 3000); // 3 sekunder
-    return () => clearTimeout(timer);
-  }
-  }, [snackBarMessage]);
-
   return (
     <>
-    {snackBarMessage && (
-      <div className="snackbar">
-        {snackBarMessage}
-      </div>
-    )}
       <main>
         <Card>
           <div className="create-post-input">
-            <div className="profile-icon">
-              <p>{initials}</p>
-            </div>
+            {/* <div className="profile-icon"> */}
+            <SimpleProfileCircle
+            photo={localStorage.getItem("userPhoto")}
+            initials={initials} />
+
+{/*                 <UserIcon
+                    menu={false}
+                    id={decodedToken.userId}
+                    initials={initials}
+                    firstname={decodedToken.firstName}
+                    lastname={decodedToken.lastName}
+                    role={decodedToken.role || 'User'}
+                  /> */}
+              {/* <p>{initials}</p> */}
+            {/* </div> */}
 
             <Button text="What's on your mind?" onClick={showModal} />
           </div>
@@ -185,6 +179,8 @@ const Dashboard = () => {
                     <li key={index} className="student-item">
                       <div>
                         <UserIcon
+                          photo={student.photo}
+
                           key={student.id}
                           id={student.id}
                           initials={getInitials(student)}
@@ -201,7 +197,7 @@ const Dashboard = () => {
           ) : (
             <>
               <Cohorts cohorts={cohorts}/>
-              <Students refresh={refresh} setRefresh={setRefresh} setSnackBarMessage={setSnackBarMessage}/>
+              <Students refresh={refresh} setRefresh={setRefresh}/>
               <TeachersDashboard/>
             </>
 

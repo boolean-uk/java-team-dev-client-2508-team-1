@@ -10,14 +10,16 @@ import Portal from '@mui/material/Portal';
 import { useState } from 'react';
 import CheckCircleIcon from '../../../assets/icons/checkCircleIcon';
 import { del, get } from '../../../service/apiClient';
+import { useSelectedCohortId } from '../../../context/selectedCohort';
 
-const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText, postId, name, isMenuVisible, setIsMenuVisible, commentText, commentId, onCommentDeleted, onPostDeleted, profileId, clicked, setClicked, setRefresh, setSnackBarMessage}) => {
+const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText, postId, name, isMenuVisible, setIsMenuVisible, commentText, commentId, onCommentDeleted, onPostDeleted, profileId, clicked, setClicked, setRefresh, selectedCohortId}) => {
   const { openModal, setModal } = useModal();
 
   const { deletePost } = usePosts();
   const { deleteComment } = useComments();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
+  const {cohortId} = useSelectedCohortId();
   
   
   const showModal = () => {
@@ -59,17 +61,40 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
     setClicked(!clicked);
   }
 
+  const handleDeleteCohort = async () => {
+    console.log('deleteCohort function called');
+    try {
+      const response = await get('cohorts/' + cohortId);
+      console.log('Cohort data:', response);
+      await del('cohorts/' + cohortId); 
+      setSnackbarMessage('Cohort deleted successfully');
+      setSnackbarOpen(true);
+      setTimeout(() => {
+        setIsMenuVisible(false);
+        setRefresh(prev => !prev);
+      }, 2100);
+    } catch(error) {
+      console.log("couldnt delete cohort", error)
+      setIsMenuVisible(false);
+      setRefresh(prev => !prev);
+    }
+  }
   const handleDeleteUser = async () => {
-    setIsMenuVisible(false);
     console.log('deleteUser function called');
     try {
       const profile = await get('profiles/' + profileId);
       await del('users/' + profile.data.profile.user.id);
-      setSnackBarMessage('User deleted successfully');
+      setSnackbarMessage('User deleted successfully');
+      setSnackbarOpen(true);
+      setTimeout(() => {
+        setIsMenuVisible(false);
+        setRefresh(prev => !prev);
+      }, 2100);
     } catch(error) {
       console.log("couldnt delete user", error)
+      setIsMenuVisible(false);
+      setRefresh(prev => !prev);
     }
-    setRefresh(prev => !prev);
   }
 
   const handleDeleteComment = async () => {
@@ -131,6 +156,8 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
         return handleReport;
       case "DeleteUser":
         return handleDeleteUser;
+      case "DeleteCohort":
+        return handleDeleteCohort;
       case "Clicked":
         return handleClick;
       default:

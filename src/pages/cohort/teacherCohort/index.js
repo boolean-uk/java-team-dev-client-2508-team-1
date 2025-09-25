@@ -1,4 +1,4 @@
-import {  useState } from "react"
+import { useEffect, useState } from "react"
 // import SearchIcon from "../../../assets/icons/searchIcon"
 import EditIconCohortTeacher from "../../../components/editIconCohortTeacher"
 // import TextInput from "../../../components/form/textInput"
@@ -11,19 +11,18 @@ import { useNavigate } from "react-router-dom"
 import SearchTeacher from "./searchTeacher";
 
 
-const TeacherCohort = ({cohorts}) => {
+const TeacherCohort = ({cohorts, setRefresh}) => {
     // const [searchVal, setSearchVal] = useState('');
     const [selectedProfiles, setSelectedProfiles] = useState([]);
     const[selectedCohort, setSelectedCohort] = useState(null);
     const navigate = useNavigate()
 
-
-
     // const onChange = (e) => {
     //     setSearchVal(e.target.value);
     // };
-        
 
+    useEffect(() => {}, [selectedProfiles]);
+        
     return (
         <>
         {cohorts.length > 0 ? ( <div className="cohort-card">
@@ -74,14 +73,12 @@ const TeacherCohort = ({cohorts}) => {
                         <button onClick={() => navigate("/cohorts/add")}>Add student</button>
                     </div>
                     <div className="edit-icon-course">
-                        <EditIconCouse/>
+                        <EditIconCouse setRefresh={setRefresh}/>
                     </div>
                     </div>
                 </div>
                 <hr className="divider"/>
-
-                
-                    <StudentList profiles={selectedProfiles} />
+                    <StudentList profiles={selectedProfiles} setSelectedProfiles={setSelectedProfiles}/>
 
             </section>
         </div>
