@@ -52,8 +52,6 @@ const ProfileCircle = ({ id, initials, menuVisible, clickable, photo=null }) => 
 export const CascadingMenu = ({ id, setIsMenuVisible, setRefresh, cohorts}) => {
 
   const [clicked, setClicked] = useState(false);
-  console.log("CASCADING ID", id)
-  console.log("CASCADING cohort", cohorts)
 
   return (
     <Menu className="profile-circle-menu">
