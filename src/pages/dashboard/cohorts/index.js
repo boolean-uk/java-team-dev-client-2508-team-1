@@ -20,7 +20,7 @@ const Cohorts = ({cohorts}) => {
               {cohort.course === null ? <></> : 
               <div className="cohort-header">
                
-                  <div className={`course-icon ${
+                <div className={`course-icon ${
                     cohort.course.name === "Software Development" ? "software-icon" :
                     cohort.course.name === "Front-End Development" ? "front-icon" :
                     cohort.course.name === "Data Analytics" ? "data-icon" : ""
@@ -28,12 +28,12 @@ const Cohorts = ({cohorts}) => {
                     {cohort.course.name === "Software Development" && <SoftwareLogo />}
                     {cohort.course.name === "Front-End Development" && <FrontEndLogo />}
                     {cohort.course.name === "Data Analytics" && <DataAnalyticsLogo />}
-                  </div>
-                  <div className="course-text">
+                </div>
+                <div className="course-text">
                   <span className="dashboard-course-name">{cohort.course.name}</span>
                   <p className="dashboard-cohort-name">Cohort {cohort.id}</p>
                 </div>
-                </div>
+              </div>
           }
             </li>
           );

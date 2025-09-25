@@ -9,7 +9,7 @@ import { Snackbar, SnackbarContent } from '@mui/material';
 import Portal from '@mui/material/Portal';
 import { useState } from 'react';
 import CheckCircleIcon from '../../../assets/icons/checkCircleIcon';
-import { del, get } from '../../../service/apiClient';
+import { del, get, updateStudentCohort } from '../../../service/apiClient';
 import { useSelectedCohortId } from '../../../context/selectedCohort';
 
 const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText, postId, name, isMenuVisible, setIsMenuVisible, commentText, commentId, onCommentDeleted, onPostDeleted, profileId, clicked, setClicked, setRefresh}) => {
@@ -140,6 +140,23 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
     }, 2100); // slightly longer than autoHideDuration
   };
 
+  const moveStudent = async () => {
+    try {
+      await updateStudentCohort(profileId, cohort);
+      /*
+      setSnackbarMessage('Reported');
+      setSnackbarOpen(true);
+      setTimeout(() => {
+        setIsMenuVisible(false);
+      }, 2100);
+      setRefresh(prev => !prev);
+            */
+    } catch (error) {
+      console.error("Error moving student to cohort:", error);
+      setSnackBarMessage?.("Failed to move student.");
+    }
+  }
+
   const getClickHandler = () => {
     switch (clickable) {
       case "Modal":
@@ -160,6 +177,8 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
         return handleDeleteCohort;
       case "Clicked":
         return handleClick;
+      case "MoveStudent":
+        return moveStudent;
       default:
         return undefined;
     }

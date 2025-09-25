@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { CascadingMenu } from '../../profileCircle';
 
-const EditIconTeacher = ({ id, initials, menuVisible, setRefresh}) => {
+const EditIconTeacher = ({ id, initials, menuVisible, setRefresh, cohorts}) => {
   const [isMenuVisible, setIsMenuVisible] = useState(menuVisible || false);
   const menuRef = useRef(null);
   // Lukk meny ved klikk utenfor
@@ -28,7 +28,7 @@ const EditIconTeacher = ({ id, initials, menuVisible, setRefresh}) => {
   </span>
   </div>
   <div className='menu-left'> 
-  {isMenuVisible && <CascadingMenu id={id} setRefresh={setRefresh} setIsMenuVisible={setIsMenuVisible}/>}
+  {isMenuVisible && <CascadingMenu id={id} setRefresh={setRefresh} setIsMenuVisible={setIsMenuVisible} cohorts={cohorts}/>}
   </div>
 </div>
 

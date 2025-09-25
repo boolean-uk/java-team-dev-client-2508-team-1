@@ -145,13 +145,30 @@ async function updateUserProfile(userId, formValues) {
 
   const token = localStorage.getItem('token');
   const decoded = jwt_decode(token);
-  const role = decoded?.roleId; // eller hent fra formData.profile.role.name hvis du har det
+  const role = decoded?.roleId; 
   console.log(role)
   let endpoint = '';
   if (role === 2) {
     endpoint = `students/${userId}`;
   } else {
-    endpoint = `teachers/${userId}`; // for ROLE_TEACHER og andre
+    endpoint = `teachers/${userId}`;
+  }
+
+  return await patch(endpoint, payload);
+}
+
+async function updateStudentCohort(pId, newCohort) {
+  const payload = {
+    cohortId: newCohort.id
+  };  
+
+  const token = localStorage.getItem('token');
+  const decoded = jwt_decode(token);
+  const role = decoded?.roleId;
+  console.log(role)
+  let endpoint = '';
+  if (role === 1) {
+    endpoint = `students/${pId}`;
   }
 
   return await patch(endpoint, payload);
@@ -207,6 +224,6 @@ async function request(method, endpoint, data, auth = true) {
 }
 
 
-export { login, getPosts, register, createProfile, get, getUserById, getComments, post, patch, put, getMyCohortProfiles, updateUserProfile, postTo, del, refreshToken, createNewStudent };
+export { login, getPosts, register, createProfile, get, getUserById, getComments, post, patch, put, getMyCohortProfiles, updateUserProfile, updateStudentCohort, postTo, del, refreshToken, createNewStudent };
 
 
