@@ -45,7 +45,7 @@ const TeacherCohort = ({cohorts}) => {
                         <button onClick={() => navigate("/cohorts/new")}>Add cohort</button>
                     </div>
                 <div className="edit-icon">
-                    <EditIconCohortTeacher />
+                    <EditIconCohortTeacher/>
                 </div>
                 </div>                    
             
@@ -62,7 +62,9 @@ const TeacherCohort = ({cohorts}) => {
                     <div className="selected-course">
                         {selectedCohort !== null ? (
                             <>
-                            <CourseIcon courseName={selectedCohort.course.name} cohort={selectedCohort.name} startDate={selectedCohort.course.startDate} endDate={selectedCohort.course.endDate}/>
+
+                            <CourseIcon courseName={selectedCohort.course.name} cohort={selectedCohort.id} startDate={selectedCohort.startDate} endDate={selectedCohort.endDate}/>
+
                             </>
                         ): (<><p>Select a course</p></>)}
                         
@@ -73,7 +75,7 @@ const TeacherCohort = ({cohorts}) => {
                         <button onClick={() => navigate("/cohorts/add")}>Add student</button>
                     </div>
                     <div className="edit-icon-course">
-                        <EditIconCouse/>
+                        <EditIconCouse cohort={selectedCohort ? selectedCohort.id : 1}/>
                     </div>
                     </div>
                 </div>

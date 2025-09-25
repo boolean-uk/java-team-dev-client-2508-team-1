@@ -21,6 +21,8 @@ import AddStudent from './pages/addStudent';
 import AddCohort from './pages/addCohort';
 
 import NewStudent from './pages/cohort/newStudent';
+import AddStudent from './pages/addStudent';
+import EditCohort from './pages/editCohort';
 
 
 const App = () => {
@@ -87,6 +89,20 @@ const App = () => {
                       }
                     />
 
+                    <Route 
+                    path="cohorts/add"
+                    element={
+                      <ProtectedRoute>
+                        <AddStudent />
+                      </ProtectedRoute>
+                    }/>
+                      <Route 
+                        path="cohorts/:id/edit"
+                        element={
+                          <ProtectedRoute>
+                            <EditCohort/>
+                          </ProtectedRoute>
+                        }/>
                     <Route
                       path="profile"
                       element={

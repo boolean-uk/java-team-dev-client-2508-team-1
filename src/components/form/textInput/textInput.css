@@ -2,6 +2,17 @@
     position: relative;
   }
   
+  .showpasswordbutton {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+=======
 .showpasswordbutton {
   position: absolute;
   top: 50%;

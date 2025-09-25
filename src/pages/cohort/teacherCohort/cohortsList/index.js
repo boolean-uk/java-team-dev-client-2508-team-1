@@ -44,7 +44,7 @@ const CohortsList= ({ onSelect, setSelectedCohort , cohorts}) => {
                 </div>
                 <div className="cohort-info">
                   <div className="course-name">{cohort.course.name}</div>
-                  <div className="cohort-name-course">Cohort {cohort.id}</div>
+                  <div className="cohort-name-course"> {cohort.name}</div>
                 </div>
               </li>
             ))
