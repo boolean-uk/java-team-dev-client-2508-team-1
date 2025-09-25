@@ -64,15 +64,13 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
   const handleDeleteCohort = async () => {
     console.log('deleteCohort function called');
     try {
-      const response = await get('cohorts/' + cohortId);
-      console.log('Cohort data:', response);
       await del('cohorts/' + cohortId); 
       setSnackbarMessage('Cohort deleted successfully');
       setSnackbarOpen(true);
       setTimeout(() => {
         setIsMenuVisible(false);
         setRefresh(prev => !prev);
-      }, 2100);
+      }, 2500);
     } catch(error) {
       console.log("couldnt delete cohort", error)
       setIsMenuVisible(false);
