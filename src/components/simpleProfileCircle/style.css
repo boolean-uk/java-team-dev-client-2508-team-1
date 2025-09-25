@@ -12,6 +12,7 @@
 .simple-profile-circle p {
     margin: 0;
     line-height: 1;
+    /* font-size: inherit; */
 }
 
 /* Image variant styling */

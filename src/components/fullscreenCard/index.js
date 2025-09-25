@@ -11,6 +11,7 @@ import SimpleProfileCircle from '../simpleProfileCircle';
 const FullScreenCard = () => {
   const [user, setUser] = useState(null);
   const { token } = useAuth();
+
   
   // Safely decode token with fallback
   let userId;
@@ -57,12 +58,13 @@ const FullScreenCard = () => {
   const firstname = user.profile.firstName;
   const lastname = user.profile.lastName;
   const name = firstname + " " + lastname;
-  
+    const initials = name.split(" ").map((n)=>n[0]).join("").toUpperCase()
+
 
   return (
     <div className="fullscreen-card">
       <div className="top-bar"> 
-        <SimpleProfileCircle photo={user.profile.photo} initials={name.split(" ").map((n)=>n[0]).join("").toUpperCase()}/> 
+        <SimpleProfileCircle photo={user.profile.photo} initials={initials}/> 
         {/* <ProfileCircle initials={name.split(" ").map((n)=>n[0]).join("").toUpperCase()}/>  */}
         <div> 
           <p className="name-text">{name}</p> 
@@ -73,7 +75,7 @@ const FullScreenCard = () => {
         </div>
       <section className="post-interactions-container border-top"></section>
 
-      <ProfileData user={user}/>
+      <ProfileData user={user} initials={initials} />
     </div>
   );
 };
