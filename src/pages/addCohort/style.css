@@ -64,3 +64,9 @@ width: 100%;
     font-size:32px;
     margin-left:10px;
 }
+
+.selected-students {
+  margin-left:50px;
+  margin-top:10px;
+  font-size: 18px;
+}
