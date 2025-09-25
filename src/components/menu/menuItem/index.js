@@ -13,6 +13,7 @@ import { del, get, updateStudentCohort } from '../../../service/apiClient';
 import { useSelectedCohortId } from '../../../context/selectedCohort';
 
 const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText, postId, name, isMenuVisible, setIsMenuVisible, commentText, commentId, onCommentDeleted, onPostDeleted, profileId, clicked, setClicked, setRefresh, cohort }) => {
+
   const { openModal, setModal } = useModal();
 
   const { deletePost } = usePosts();
