@@ -3,7 +3,8 @@ import Popup from 'reactjs-popup';
 import './style.css';
 import SeeProfile from '../seeProfile';
 import { useNavigate } from 'react-router-dom';
-const UserIconStudentView = ({ id, initials, firstname, lastname, role}) => {
+import SimpleProfileCircle from '../simpleProfileCircle';
+const UserIconStudentView = ({ id, initials, firstname, lastname, role, photo=null}) => {
     const navigate = useNavigate();
 
     const styleGuideColors = [
@@ -38,7 +39,8 @@ const UserIconStudentView = ({ id, initials, firstname, lastname, role}) => {
 
                 <div className="profile-circle">
                 <div className="profile-icon" style={{background: backgroundColor}}>
-                    <p>{initials}</p>
+                    <SimpleProfileCircle initials={initials} photo={photo} />
+                    {/* <p>{initials}</p> */}
                 </div>
                 </div>
                 <div className="user-info">
@@ -64,6 +66,7 @@ const UserIconStudentView = ({ id, initials, firstname, lastname, role}) => {
                 closeOnDocumentClick
                 arrow={false}>
                 <SeeProfile 
+                        photo={photo}
                         id = {id}
                         initials={initials} 
                         firstname = {firstname} 

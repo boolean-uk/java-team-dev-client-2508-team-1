@@ -18,7 +18,7 @@ const NewStudentStepThree = ({ data, setData, setProfile }) => {
     const [ selectedCourse, setSelectedCourse ] = useState(null)
     const [ selectedCohort, setSelectedCohort ] = useState(null)
 
-     useEffect(() => {
+    useEffect(() => {
    
     async function fetchCourses() {
         try {
@@ -34,8 +34,6 @@ const NewStudentStepThree = ({ data, setData, setProfile }) => {
 
 
     const handleSelectCourse = (course) => {
-    console.log("selected course" + course)
-    setIsOpenCourses(false)
     setSelectedCourse(course)
     setCohorts(course.cohorts)
 

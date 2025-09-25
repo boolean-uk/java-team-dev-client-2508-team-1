@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import "./edit.css";
 import Popup from "reactjs-popup";
 import imageCompression from "browser-image-compression";
-import { getUserById, updateUserProfile } from "../../service/apiClient";
+import { getUserById, updateUserProfile, refreshToken } from "../../service/apiClient";
 import useAuth from "../../hooks/useAuth";
 import jwtDecode from "jwt-decode";
 import TextInput from "../../components/form/textInput";
-import ProfileCircle from "../../components/profileCircle";
 import Card from "../../components/card";
 import { validatePassword, validateEmail } from '../register';
 import LockIcon from '../../assets/icons/lockIcon'
+import SimpleProfileCircle from "../../components/simpleProfileCircle";
 
 const EditPage = () => {
   const [formData, setFormData] = useState(null);
@@ -155,11 +155,26 @@ const EditPage = () => {
     const updatedValues = { ...formValues, password: showPasswordFields ? newPassword : "" };
 
     try {
-      await updateUserProfile(userId, updatedValues);
+      const refreshed = await updateUserProfile(userId, updatedValues);
       alert("Profile is updated!");
-      const refreshed = await getUserById(userId);
       setFormData(refreshed);
       const refreshedProfile = refreshed.profile || {};
+      
+      // Update localStorage with new photo
+      if (refreshedProfile.photo) {
+        localStorage.setItem('userPhoto', refreshedProfile.photo);
+      }
+
+      // Refresh the token to get updated user information
+      try {
+        const refreshResponse = await refreshToken();
+        if (refreshResponse.token) {
+          localStorage.setItem('token', refreshResponse.token);
+        }
+      } catch (tokenError) {
+        console.error('Token refresh failed:', tokenError);
+      }
+      
       setFormValues({
         photo: refreshedProfile.photo || "", 
         firstName: refreshedProfile.firstName || "",
@@ -182,7 +197,10 @@ const EditPage = () => {
         <h2>Profile</h2>
         <form className="edit-profile-form" onSubmit={handleSave}>
           <div className="top-bar">
-            <ProfileCircle initials={name.split(" ").map(n => n[0]).join("").toUpperCase()} />
+            <SimpleProfileCircle
+              photo={localStorage.getItem("userPhoto")}
+              initials={name.split(" ").map(n => n[0]).join("").toUpperCase()}
+            />
             <p className="name-text">{name}</p>
           </div>
           <section className="post-interactions-container border-top"></section>

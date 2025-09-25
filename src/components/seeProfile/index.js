@@ -2,15 +2,19 @@ import Card from '../card';
 import './style.css';
 import { NavLink } from 'react-router-dom';
 import ProfileIcon from '../../assets/icons/profileIcon';
+import SimpleProfileCircle from '../simpleProfileCircle';
 
 
-const SeeProfile = ({ id, initials, firstname, lastname, role }) => {
+const SeeProfile = ({ id, initials, firstname, lastname, role, photo=null }) => {
     return (
         <div className="user-panel">
           <Card>
             <section className="post-details">
               <div className="profile-icon">
-                <p>{initials}</p>
+                <SimpleProfileCircle 
+                photo={photo}
+                initials={initials} />
+                {/* <p>{initials}</p> */}
               </div>
 
               <div className="post-user-name">

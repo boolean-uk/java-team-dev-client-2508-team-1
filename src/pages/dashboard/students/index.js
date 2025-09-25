@@ -7,7 +7,7 @@ import Card from "../../../components/card"
 
 import ProfileIconTeacher from "../../../components/profile-icon-teacherView";
 
-const Students = ({refresh, setRefresh, setSnackBarMessage}) => {
+const Students = ({refresh, setRefresh }) => {
    const [students, setStudents] = useState(null) 
     
     
@@ -45,13 +45,13 @@ const Students = ({refresh, setRefresh, setSnackBarMessage}) => {
                             <li key={index} className="student-item">
                                 <div>
                                 <ProfileIconTeacher 
+                                photo={student.photo}
                                    id={student.id}
                                    initials={getInitials(student)}
                                    firstname={student.firstName}
                                    lastname={student.lastName}
                                    role={"Student"}
                                    setRefresh={setRefresh}
-                                   setSnackBarMessage={setSnackBarMessage}
                                />
                                 </div>
                             </li>

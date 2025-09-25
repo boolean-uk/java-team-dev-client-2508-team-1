@@ -34,6 +34,7 @@ const Cohort = () => {
     const [course, setcourse] = useState([]);
     const [cohort, setCohort] = useState("");
     const [cohorts, setCohorts] = useState([])
+    const [refresh, setRefresh] = useState(false)   
     
         useEffect(() => {
             setCohortsLoading(true)
@@ -49,7 +50,7 @@ const Cohort = () => {
     }
 
     fetchCohorts();
-  }, []);
+  }, [refresh]);
 
 
     useEffect(() => {
@@ -73,6 +74,9 @@ const Cohort = () => {
                 }
                 
                 const user = await getUserById(userId);
+                if (user.profile.cohort === null) {
+                    return;
+                }
                 const data = await get(`cohorts/${user.profile.cohort.id}`);
 
                 // set cohort
@@ -83,9 +87,12 @@ const Cohort = () => {
                 const teachers = data.data.cohort.profiles.filter((userid) => userid?.role?.name === "ROLE_TEACHER");
                 setTeachers(teachers || []);
 
+                console.log(teachers, "teachers in cohort");
+
                 // students
                 const students = data.data.cohort.profiles.filter((profileid) => profileid?.role?.name === "ROLE_STUDENT");
                 setStudents(students || []);
+                console.log(students, "students in cohort");
 
                 // course
                 const course = data.data.cohort.course;
@@ -138,7 +145,7 @@ const Cohort = () => {
                 <Exercises />
             </aside>
             </>):(
-                <TeacherCohort cohorts={cohorts}/>
+                <TeacherCohort cohorts={cohorts} setRefresh={setRefresh}/>
                 )
             }
            

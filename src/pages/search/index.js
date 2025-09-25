@@ -89,6 +89,7 @@ const SearchPage = () => {
                         <li key={index} className="student-item">
                         {userRole === 1 ? (
                             <UserIconTeacherView
+                            photo={student.photo}
                             userId={student.id}
                             initials={student.firstName.charAt(0) + student.lastName.charAt(0)}
                             firstname={student.firstName}
@@ -97,6 +98,7 @@ const SearchPage = () => {
                             />
                         ) : userRole === 2 ? (
                             <UserIconStudentView
+                            photo={student.photo}
                             userId={student.id}
                             initials={student.firstName.charAt(0) + student.lastName.charAt(0)}
                             firstname={student.firstName}

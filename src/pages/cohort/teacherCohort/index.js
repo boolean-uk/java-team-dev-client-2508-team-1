@@ -1,4 +1,4 @@
-import {  useState } from "react"
+import { useEffect, useState } from "react"
 // import SearchIcon from "../../../assets/icons/searchIcon"
 import EditIconCohortTeacher from "../../../components/editIconCohortTeacher"
 // import TextInput from "../../../components/form/textInput"
@@ -11,19 +11,18 @@ import { useNavigate } from "react-router-dom"
 import SearchTeacher from "./searchTeacher";
 
 
-const TeacherCohort = ({cohorts}) => {
+const TeacherCohort = ({cohorts, setRefresh}) => {
     // const [searchVal, setSearchVal] = useState('');
     const [selectedProfiles, setSelectedProfiles] = useState([]);
     const[selectedCohort, setSelectedCohort] = useState(null);
     const navigate = useNavigate()
 
-
-
     // const onChange = (e) => {
     //     setSearchVal(e.target.value);
     // };
-        
 
+    useEffect(() => {}, [selectedProfiles]);
+        
     return (
         <>
         {cohorts.length > 0 ? ( <div className="cohort-card">
@@ -43,10 +42,10 @@ const TeacherCohort = ({cohorts}) => {
             <section className="cohorts-section">
                 <div className="add-cohort">
                     <div className="add-cohort-button">
-                        <button>Add cohort</button>
+                        <button onClick={() => navigate("/cohorts/new")}>Add cohort</button>
                     </div>
                 <div className="edit-icon">
-                    <EditIconCohortTeacher />
+                    <EditIconCohortTeacher/>
                 </div>
                 </div>                    
             
@@ -63,7 +62,9 @@ const TeacherCohort = ({cohorts}) => {
                     <div className="selected-course">
                         {selectedCohort !== null ? (
                             <>
-                            <CourseIcon courseName={selectedCohort.course.name} cohort={selectedCohort.id} startDate={selectedCohort.course.startDate} endDate={selectedCohort.course.endDate}/>
+
+                            <CourseIcon courseName={selectedCohort.course.name} cohort={selectedCohort.id} startDate={selectedCohort.startDate} endDate={selectedCohort.endDate}/>
+
                             </>
                         ): (<><p>Select a course</p></>)}
                         
@@ -74,7 +75,8 @@ const TeacherCohort = ({cohorts}) => {
                         <button onClick={() => navigate("/cohorts/add")}>Add student</button>
                     </div>
                     <div className="edit-icon-course">
-                        <EditIconCouse/>
+                        <EditIconCouse setRefresh={setRefresh}/>
+
                     </div>
                     </div>
                 </div>
@@ -82,7 +84,6 @@ const TeacherCohort = ({cohorts}) => {
 
                 
                     <StudentList profiles={selectedProfiles} cohorts={cohorts} />
-
             </section>
         </div>
         </div>):(
