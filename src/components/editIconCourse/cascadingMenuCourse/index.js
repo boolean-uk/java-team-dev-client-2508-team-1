@@ -8,13 +8,11 @@ import AddStudentIcon from "../../../assets/icons/addStudentIcon"
 import { useState } from "react"
 import { useSelectedCohortId } from "../../../context/selectedCohort"
 
-const CascadingMenuCourse = ({ id, setIsMenuVisible, setRefresh }) => {
+const CascadingMenuCourse = ({ id, setIsMenuVisible, setRefresh, cohort }) => {
 
     const [clicked, setClicked] = useState(false);
     const {cohortId} = useSelectedCohortId();
 
-const CascadingMenuCourse = ({cohort}) => {
-  console.log(cohort, "CascadingMenuCourse")
     return (
         
         <Menu className="course-menu">
