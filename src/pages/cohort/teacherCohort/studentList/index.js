@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
 import ProfileIconTeacher from "../../../../components/profile-icon-teacherView";
-import { get } from "../../../../service/apiClient";
 
-const StudentList = ({ profiles, cohorts }) => {
+const StudentList = ({ profiles, cohorts, setRefresh }) => {
 
   if (!profiles || profiles.length === 0) {
     return <p></p>;

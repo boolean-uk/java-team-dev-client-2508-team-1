@@ -82,7 +82,6 @@ export const CascadingMenu = ({ id, setIsMenuVisible, setRefresh, cohorts}) => {
               profileId={id}
               cohort={cohort}
               setIsMenuVisible={setIsMenuVisible}
-              setSnackBarMessage={setSnackBarMessage}
               setRefresh={setRefresh}
             />
           ))}

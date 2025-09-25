@@ -30,7 +30,6 @@ const EditIconCouse = ({ initials, menuVisible, cohort, setRefresh }) => {
     <span className="dot">•</span>
   </span>
   </div>
-        {console.log(cohort, "EditIconCouse")}
   <div className='menu-left'> 
   {isMenuVisible && <CascadingMenuCourse cohort={cohort} setIsMenuVisible={setIsMenuVisible} setRefresh={setRefresh}/>}
   </div>
