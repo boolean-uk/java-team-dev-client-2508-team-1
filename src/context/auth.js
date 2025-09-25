@@ -37,6 +37,7 @@ const AuthProvider = ({ children }) => {
     localStorage.setItem('token', res.data.token);
 
     setToken(res.data.token);
+
     navigate(location.state?.from?.pathname || '/');  
 
     // After successful login, fetch and store user data
@@ -52,6 +53,7 @@ const AuthProvider = ({ children }) => {
     } catch (error) {
       console.error('Error fetching user photo:', error);
     }
+
   };
 
   const handleLogout = () => {

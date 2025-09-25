@@ -1,0 +1,72 @@
+.add-cohort-card {
+  width: 700px !important;
+  height: auto;
+  background-color: #FFFFFF;
+  border: 1px solid #E6EBF5; 
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25); 
+  padding: 24px; 
+  box-sizing: border-box;
+  margin-left: 50px; 
+  margin-top: 50px; 
+}
+
+.cohort-name-input,
+.cohort-start-date-input {
+width: 100%;
+  margin: 0;
+  height: 56px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  opacity: 1;
+  background-color: #E6EBF5;
+  border: 1px solid #E6EBF5;
+  font-size: 18px;
+  color: #000046;
+  flex: 1;
+  box-sizing: border-box;
+  font-family: 'Lexend', sans-serif;  
+  font-weight: 400;
+}
+
+.s,
+.selected-students-view {
+  overflow-y: auto;
+  height: auto;
+  height: 350px;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 0;
+}
+
+.three-buttons {
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  justify-content: space-between;   
+}
+
+.cohort-details-group{
+  margin-top:20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cohort-details-title {
+    font-size:32px;
+    margin-left:10px;
+}
+
+.selected-students {
+  margin-left:50px;
+  margin-top:10px;
+  font-size: 18px;
+}

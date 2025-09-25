@@ -10,6 +10,7 @@ const TextInput = ({
   readOnly = false,
   icon,
   onBlur,
+
   iconRight = true
 }) => {
   const [showPassword, setShowPassword] = useState(false);

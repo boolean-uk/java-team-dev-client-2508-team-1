@@ -17,9 +17,13 @@ import { UserRoleProvider } from './context/userRole.';
 import EditPage from './pages/edit';
 import SearchPage from './pages/search';
 import { SearchResultsProvider } from './context/searchResults';
+import AddStudent from './pages/addStudent';
+import AddCohort from './pages/addCohort';
+
 import NewStudent from './pages/cohort/newStudent';
 import AddStudent from './pages/addStudent';
 import EditCohort from './pages/editCohort';
+
 
 const App = () => {
   return (
@@ -60,6 +64,22 @@ const App = () => {
                         </ProtectedRoute>
                       }
                     />
+
+                    <Route 
+                    path="cohorts/add"
+                    element={
+                      <ProtectedRoute>
+                        <AddStudent />
+                      </ProtectedRoute>
+                    }/>
+                    <Route 
+                    path="cohorts/new"
+                    element={
+                      <ProtectedRoute>
+                        <AddCohort/>
+                      </ProtectedRoute>
+                    }/>
+
                     <Route
                       path="cohorts/newStudent"
                       element={
@@ -68,6 +88,7 @@ const App = () => {
                         </ProtectedRoute>
                       }
                     />
+
                     <Route 
                     path="cohorts/add"
                     element={

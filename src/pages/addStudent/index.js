@@ -42,7 +42,6 @@ const AddStudent = () => {
     async function fetchCourses() {
         try {
             const response = await get("courses");
-            console.log(response)
             setCourses(response.data.courses);
         } catch (error) {
             console.error("Error fetching courses:", error);
@@ -56,21 +55,18 @@ const AddStudent = () => {
     
 
     const handleSelectStudent = (student) => {
-        console.log("Selected student:", student);
         setIsOpenStudents(false); 
         setSelectedStudent(student)
   };
 
 
   const handleSelectCourse = (course) => {
-    console.log("selected course" + course)
     setIsOpenCourses(false)
     setSelectedCourse(course)
     setCohorts(course.cohorts)
   }
 
    const handleSelectCohort = (cohort) => {
-    console.log("selected course" + cohort)
     setIsOpenCohorts(false)
     setSelectedCohort(cohort)
   }
@@ -78,7 +74,6 @@ const AddStudent = () => {
     const handleAdd = () => {
       async function addStudentToCohort() {
         try {
-            console.log(selectedCohort.id)
             const response = await patch(`cohorts/teacher/${selectedCohort.id}`, {profileId: parseInt(selectedStudent.id)});
             console.log(response)
         } catch (error) {
@@ -191,7 +186,7 @@ const AddStudent = () => {
         <hr className="line"></hr>
         <div className="bottom">
         <p className="paragraph">Or</p>
-        <button className="offwhite-button">Add new student</button>
+        <button className="offwhite-button" onClick={() => navigate("/cohorts/newStudent")}>Add new student</button>
         </div>
 
       </div>

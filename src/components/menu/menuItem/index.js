@@ -11,7 +11,7 @@ import { useState } from 'react';
 import CheckCircleIcon from '../../../assets/icons/checkCircleIcon';
 import { del, get } from '../../../service/apiClient';
 
-const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText, postId, name, isMenuVisible, setIsMenuVisible, commentText, commentId, onCommentDeleted, onPostDeleted, profileId, clicked, setClicked, setRefresh, setSnackBarMessage}) => {
+const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText, postId, name, isMenuVisible, setIsMenuVisible, commentText, commentId, onCommentDeleted, onPostDeleted, profileId, clicked, setClicked, setRefresh}) => {
   const { openModal, setModal } = useModal();
 
   const { deletePost } = usePosts();
@@ -60,16 +60,21 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
   }
 
   const handleDeleteUser = async () => {
-    setIsMenuVisible(false);
     console.log('deleteUser function called');
     try {
       const profile = await get('profiles/' + profileId);
       await del('users/' + profile.data.profile.user.id);
-      setSnackBarMessage('User deleted successfully');
+      setSnackbarMessage('User deleted successfully');
+      setSnackbarOpen(true);
+      setTimeout(() => {
+        setIsMenuVisible(false);
+        setRefresh(prev => !prev);
+      }, 2100);
     } catch(error) {
       console.log("couldnt delete user", error)
+      setIsMenuVisible(false);
+      setRefresh(prev => !prev);
     }
-    setRefresh(prev => !prev);
   }
 
   const handleDeleteComment = async () => {
