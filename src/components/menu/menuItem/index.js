@@ -12,7 +12,7 @@ import CheckCircleIcon from '../../../assets/icons/checkCircleIcon';
 import { del, get, updateStudentCohort } from '../../../service/apiClient';
 import { useSelectedCohortId } from '../../../context/selectedCohort';
 
-const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText, postId, name, isMenuVisible, setIsMenuVisible, commentText, commentId, onCommentDeleted, onPostDeleted, profileId, clicked, setClicked, setRefresh}) => {
+const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText, postId, name, isMenuVisible, setIsMenuVisible, commentText, commentId, onCommentDeleted, onPostDeleted, profileId, clicked, setClicked, setRefresh, cohort}) => {
   const { openModal, setModal } = useModal();
 
   const { deletePost } = usePosts();
@@ -140,20 +140,20 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
     }, 2100); // slightly longer than autoHideDuration
   };
 
-  const moveStudent = async () => {
+  const handleMoveStudent = async () => {
     try {
+      const cohortName = cohort.name;
       await updateStudentCohort(profileId, cohort);
-      /*
-      setSnackbarMessage('Reported');
+      setSnackbarMessage('Student successfully moved to ' + cohortName + '!');
       setSnackbarOpen(true);
       setTimeout(() => {
         setIsMenuVisible(false);
       }, 2100);
       setRefresh(prev => !prev);
-            */
     } catch (error) {
       console.error("Error moving student to cohort:", error);
-      setSnackBarMessage?.("Failed to move student.");
+      setSnackbarMessage?.("Failed to move student.");
+      setRefresh(prev => !prev);
     }
   }
 
@@ -178,7 +178,7 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
       case "Clicked":
         return handleClick;
       case "MoveStudent":
-        return moveStudent;
+        return handleMoveStudent;
       default:
         return undefined;
     }
