@@ -20,15 +20,13 @@ import Search from './search';
 
 import { getUserById, get } from '../../service/apiClient';
 import UserIcon from '../../components/profile-icon';
-
+import SimpleProfileCircle from '../../components/simpleProfileCircle';
 
 const Dashboard = () => {
   const { token } = useAuth();
   const [students, setStudents] = useState([]);
   const [cohort, setCohort] = useState([]);
   const [course, setCourse] = useState([]);
-  const [snackBarMessage, setSnackBarMessage] = useState('');
-  
   const [cohorts, setCohorts] = useState(null) 
   
   // Safely decode token with fallback
@@ -61,8 +59,10 @@ const Dashboard = () => {
         }
         
         const user = await getUserById(userId);
+        if (user.profile.cohort === null) {
+          return;
+        }
         const data = await get(`cohorts/${user.profile.cohort.id}`);
-
         setCohort(data.data.cohort)
         setCourse(data.data.cohort.course);
         setStudents(data.data.cohort.profiles)
@@ -123,7 +123,6 @@ const Dashboard = () => {
         console.error("Error fetching cohorts:", error);
         }
     }
-
     fetchCohorts(); 
     }, []);
 
@@ -137,28 +136,26 @@ const Dashboard = () => {
         return (firstNameInitials.join('') + lastNameInitial).toUpperCase();
     }
 
-  useEffect(() => {
-  if (snackBarMessage) {
-    const timer = setTimeout(() => {
-      setSnackBarMessage('');
-    }, 3000); // 3 sekunder
-    return () => clearTimeout(timer);
-  }
-  }, [snackBarMessage]);
-
   return (
     <>
-    {snackBarMessage && (
-      <div className="snackbar">
-        {snackBarMessage}
-      </div>
-    )}
       <main>
         <Card>
           <div className="create-post-input">
-            <div className="profile-icon">
-              <p>{initials}</p>
-            </div>
+            {/* <div className="profile-icon"> */}
+            <SimpleProfileCircle
+            photo={localStorage.getItem("userPhoto")}
+            initials={initials} />
+
+{/*                 <UserIcon
+                    menu={false}
+                    id={decodedToken.userId}
+                    initials={initials}
+                    firstname={decodedToken.firstName}
+                    lastname={decodedToken.lastName}
+                    role={decodedToken.role || 'User'}
+                  /> */}
+              {/* <p>{initials}</p> */}
+            {/* </div> */}
 
             <Button text="What's on your mind?" onClick={showModal} />
           </div>
@@ -178,13 +175,17 @@ const Dashboard = () => {
           userRole === 2 ? (
             <Card>
               <h3>My Cohort</h3>
-              <p className='padding-top'>{course.name}, Cohort {cohort.id}</p>
+              {cohort.length !== 0 ? ( 
+                <div>
+                <p className='padding-top'>{course.name}, Cohort {cohort.id}</p>
               <section className='cohort-teachers-container border-top'>
                 <ul className="students-list-teacher-view">
                   {students.map((student, index) => (
                     <li key={index} className="student-item">
                       <div>
                         <UserIcon
+                          photo={student.photo}
+
                           key={student.id}
                           id={student.id}
                           initials={getInitials(student)}
@@ -195,13 +196,26 @@ const Dashboard = () => {
                       </div>
                     </li>
                   ))}
-                </ul>
-              </section>
+                </ul> 
+              </section> 
+              </div> ):(
+                
+                <div className="">
+                  <p className='padding-top'></p>
+                <h3 className="loading-cohorts">Loading...</h3>
+                <div className="loadingscreen-loader">
+                <span></span>
+                </div>
+                </div>
+               
+               
+              )}
+              {console.log(cohort)}
             </Card>
           ) : (
             <>
               <Cohorts cohorts={cohorts}/>
-              <Students refresh={refresh} setRefresh={setRefresh} setSnackBarMessage={setSnackBarMessage}/>
+              <Students refresh={refresh} setRefresh={setRefresh}/>
               <TeachersDashboard/>
             </>
 

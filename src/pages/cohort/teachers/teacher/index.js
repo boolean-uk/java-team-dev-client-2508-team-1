@@ -1,12 +1,13 @@
 import UserIcon from "../../../../components/profile-icon";
 
-const Teacher = ({ id, initials, firstName, lastName, role }) => {
+const Teacher = ({ id, initials, firstName, lastName, role, photo=null }) => {
     
     return (
     <>
     <div className="user-icon">
         <UserIcon
-          id={id} 
+          photo={photo}
+          id={id}
           initials={initials}
           firstname={firstName}
           lastname={lastName}

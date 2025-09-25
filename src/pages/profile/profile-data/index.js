@@ -1,10 +1,12 @@
+import SimpleProfileCircle from '../../../components/simpleProfileCircle';
 import './profile-data.css'
 
-const ProfileData = ({ user }) => {
+const ProfileData = ({ user, initials}) => {
   const {email} = user;
   const roleName = user.profile.role.name;
   const { firstName, lastName, githubUrl, mobile, specialism, bio, photo } = user.profile;
-
+  
+  console.log(user, "user in profile data");
   const getReadableRole = (role) => {
     switch (role) {
       case 'ROLE_STUDENT':
@@ -21,11 +23,16 @@ const ProfileData = ({ user }) => {
   return (
     <main className="profile-container">
       <div className="photo-section-edit">
+        {photo ? 
         <img
           src={photo || "https://placeholderimage.org/api/image/150x150?text=User"}
           alt=""
           className="profile-photo-edit"
         />
+
+        :
+        <SimpleProfileCircle photo={photo} initials={initials} size={400} />
+}
         {(firstName || lastName) && (
           <p className="name-text">{firstName} {lastName}</p>
         )}

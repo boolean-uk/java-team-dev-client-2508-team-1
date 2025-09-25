@@ -13,7 +13,11 @@
   flex-direction: column;
   gap: 1.5rem; 
 }
-
+.profile-container .photo-section-edit .simple-profile-circle p {
+    margin: 0;
+    line-height: 1;
+    font-size: 9rem;
+}
 .info-row {
   display: flex;
   flex-wrap: wrap;

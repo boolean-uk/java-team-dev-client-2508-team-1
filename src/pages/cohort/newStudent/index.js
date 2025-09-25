@@ -37,7 +37,6 @@ const NewStudent = () => {
       ...profile,
       [name]: value
     });
-    console.log("Profile: ", profile);
 
   };
 
