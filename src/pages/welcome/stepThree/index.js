@@ -6,11 +6,6 @@ import { get } from '../../../service/apiClient';
 
 const StepThree = ({ data, setData, setProfile }) => {
 
-    // Random generated
-    // Hente en Specialism: Software Engineering
-    // Også hente en random Cohort fra den Specialism
-    // Også fylle inn start date og end date fra den Cohort
-
     const [selectedCourse, setSelectedCourse] = useState(null);
 
     useEffect(() => {

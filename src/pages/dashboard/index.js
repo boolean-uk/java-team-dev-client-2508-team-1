@@ -59,6 +59,9 @@ const Dashboard = () => {
         }
         
         const user = await getUserById(userId);
+        if (user.profile.cohort === null) {
+          return;
+        }
         const data = await get(`cohorts/${user.profile.cohort.id}`);
         setCohort(data.data.cohort)
         setCourse(data.data.cohort.course);
@@ -172,7 +175,9 @@ const Dashboard = () => {
           userRole === 2 ? (
             <Card>
               <h3>My Cohort</h3>
-              <p className='padding-top'>{course.name}, Cohort {cohort.id}</p>
+              {cohort.length !== 0 ? ( 
+                <div>
+                <p className='padding-top'>{course.name}, Cohort {cohort.id}</p>
               <section className='cohort-teachers-container border-top'>
                 <ul className="students-list-teacher-view">
                   {students.map((student, index) => (
@@ -191,8 +196,21 @@ const Dashboard = () => {
                       </div>
                     </li>
                   ))}
-                </ul>
-              </section>
+                </ul> 
+              </section> 
+              </div> ):(
+                
+                <div className="">
+                  <p className='padding-top'></p>
+                <h3 className="loading-cohorts">Loading...</h3>
+                <div className="loadingscreen-loader">
+                <span></span>
+                </div>
+                </div>
+               
+               
+              )}
+              {console.log(cohort)}
             </Card>
           ) : (
             <>

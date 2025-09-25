@@ -53,7 +53,6 @@ const AuthProvider = ({ children }) => {
     } catch (error) {
       console.error('Error fetching user photo:', error);
     }
-
   };
 
   const handleLogout = () => {
