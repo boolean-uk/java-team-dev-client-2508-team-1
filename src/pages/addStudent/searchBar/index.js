@@ -51,6 +51,7 @@ const SearchBar = ({setSelectedStudent, selectedStudent}) => {
             onKeyDown={(e) => {
             if (e.key === "Enter") handleSubmit(e);
             }}
+            iconRight={true}
         />
         </form>
 

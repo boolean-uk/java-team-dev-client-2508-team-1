@@ -15,7 +15,7 @@ const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [token, setToken] = useState(null);
-  const [user] = useState(null);
+  const [user, setUser] = useState(null);
   const [userPhoto, setUserPhoto] = useState(localStorage.getItem('userPhoto'));
 
   useEffect(() => {
@@ -150,10 +150,9 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  const handleCreateNewStudent = async (first_name, last_name, username, github_username, email, mobile, password, bio, role, specialism, cohort, start_date, end_date, photo) => {
 
-  const handleCreateNewStudent = async (first_name, last_name, username, github_username, email, mobile, password, bio, role, specialism, cohort, photo) => {
-
-    await createNewStudent(first_name, last_name, username, github_username, email, mobile, password, bio, role, specialism, cohort, photo);
+    await createNewStudent(first_name, last_name, username, github_username, email, mobile, password, bio, role, specialism, cohort, start_date, end_date, photo);
 
     // Store the photo in localStorage if it was provided during student creation
     if (photo) {
@@ -162,7 +161,7 @@ const AuthProvider = ({ children }) => {
     }
 
     localStorage.setItem('token', token);
-    navigate('/cohorts');
+    navigate('/');
   };
 
   const value = {
@@ -174,7 +173,7 @@ const AuthProvider = ({ children }) => {
     onLogout: handleLogout,
     onRegister: handleRegister,
     onCreateProfile: handleCreateProfile,
-    onCreateNewStudent: handleCreateNewStudent,
+    onCreateNewStudent: handleCreateNewStudent
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -10,7 +10,7 @@ import { useFormData } from '../../../context/form';
 import { validateEmail, validatePassword } from '../../register';
 
 const NewStudent = () => {
-  const { onCreateNewStudent } = useAuth();
+  const { onRegister, onCreateNewStudent } = useAuth();
   const { formData } = useFormData();
 
   const [profile, setProfile] = useState({
@@ -37,11 +37,12 @@ const NewStudent = () => {
       ...profile,
       [name]: value
     });
-    console.log("Profile: ", profile);
 
   };
 
-  const onComplete =  () => {
+  const onComplete = async () => {
+    const ok = await validateEP(profile.email, profile.password);
+      if (!ok) return;
 
     onCreateNewStudent(
       profile.first_name,
@@ -87,11 +88,23 @@ const NewStudent = () => {
       }
   }
 
+  const validateEP = async (email, password) => {
+
+  try {
+    await onRegister(email, password);
+    return true;
+  } catch (err) {
+    if (err.status === 400) {
+      alert("Email is already in use");
+    }
+  }
+};
+
   return (
     <main className="welcome">
       <Stepper data={profile} header={<WelcomeHeader />} onComplete={onComplete}>
         <NewStudentStepOne data={profile} setData={onChange} handleFileChange={handleFileChange}/>
-        <NewStudentStepTwo data={profile} setData={onChange} formData={formData} validateEmail={validateE} validatePassword={validateP}/>
+        <NewStudentStepTwo data={profile} setData={onChange} formData={formData} validateEmail={validateE} validatePassword={validateP} validateEmailPassword={validateEP}/>
         <NewStudentStepThree data={profile} setData={onChange} setProfile={setProfile} />
         <NewStudentStepFour data={profile} setData={onChange} />
       </Stepper>
