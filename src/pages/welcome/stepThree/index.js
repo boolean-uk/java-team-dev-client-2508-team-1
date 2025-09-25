@@ -6,8 +6,6 @@ import { get } from '../../../service/apiClient';
 
 const StepThree = ({ data, setData, setProfile }) => {
 
-   
-
     const [selectedCourse, setSelectedCourse] = useState(null);
 
     useEffect(() => {
@@ -58,7 +56,7 @@ const StepThree = ({ data, setData, setProfile }) => {
                 <TextInput 
                     name="specialism" 
                     label={'Specialism'} 
-                    value={selectedCourse?.name || ''}
+                    value={selectedCourse?.name}
                     readOnly={true}
                     icon={<LockIcon/>}
                     iconRight={true}

@@ -15,7 +15,7 @@ const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [token, setToken] = useState(null);
-  const [user] = useState(null);
+  const [user, setUser] = useState(null);
   const [userPhoto, setUserPhoto] = useState(localStorage.getItem('userPhoto'));
 
   useEffect(() => {
@@ -37,6 +37,7 @@ const AuthProvider = ({ children }) => {
     localStorage.setItem('token', res.data.token);
 
     setToken(res.data.token);
+
     navigate(location.state?.from?.pathname || '/');  
 
     // After successful login, fetch and store user data

@@ -42,10 +42,10 @@ const TeacherCohort = ({cohorts, setRefresh}) => {
             <section className="cohorts-section">
                 <div className="add-cohort">
                     <div className="add-cohort-button">
-                        <button>Add cohort</button>
+                        <button onClick={() => navigate("/cohorts/new")}>Add cohort</button>
                     </div>
                 <div className="edit-icon">
-                    <EditIconCohortTeacher />
+                    <EditIconCohortTeacher/>
                 </div>
                 </div>                    
             
@@ -62,7 +62,9 @@ const TeacherCohort = ({cohorts, setRefresh}) => {
                     <div className="selected-course">
                         {selectedCohort !== null ? (
                             <>
-                            <CourseIcon courseName={selectedCohort.course.name} cohort={selectedCohort.id} startDate={selectedCohort.course.startDate} endDate={selectedCohort.course.endDate}/>
+
+                            <CourseIcon courseName={selectedCohort.course.name} cohort={selectedCohort.id} startDate={selectedCohort.startDate} endDate={selectedCohort.endDate}/>
+
                             </>
                         ): (<><p>Select a course</p></>)}
                         
@@ -74,6 +76,7 @@ const TeacherCohort = ({cohorts, setRefresh}) => {
                     </div>
                     <div className="edit-icon-course">
                         <EditIconCouse setRefresh={setRefresh}/>
+
                     </div>
                     </div>
                 </div>

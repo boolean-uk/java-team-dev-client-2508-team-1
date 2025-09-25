@@ -3,7 +3,7 @@ import './style.css';
 import CascadingMenuCourse from './cascadingMenuCourse';
 
 
-const EditIconCouse = ({ initials, menuVisible, setRefresh }) => {
+const EditIconCouse = ({ initials, menuVisible, cohort, setRefresh }) => {
   const [isMenuVisible, setIsMenuVisible] = useState(menuVisible || false);
   const menuRef = useRef(null);
 
@@ -30,8 +30,9 @@ const EditIconCouse = ({ initials, menuVisible, setRefresh }) => {
     <span className="dot">•</span>
   </span>
   </div>
+        {console.log(cohort, "EditIconCouse")}
   <div className='menu-left'> 
-  {isMenuVisible && <CascadingMenuCourse setIsMenuVisible={setIsMenuVisible} setRefresh={setRefresh}/>}
+  {isMenuVisible && <CascadingMenuCourse cohort={cohort} setIsMenuVisible={setIsMenuVisible} setRefresh={setRefresh}/>}
   </div>
 </div>
 

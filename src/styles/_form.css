@@ -6,6 +6,9 @@ form input {
   font-size: 18px;
   line-height: 1.33;
   width: 100%;
+  font-family: 'Lexend', sans-serif;
+
+
 }
 form input:focus {
   border: 1px solid var(--color-blue2);
@@ -19,6 +22,7 @@ form label {
 
 .inputwrapper {
   position: relative;
+  
 }
 
 .input-icon {

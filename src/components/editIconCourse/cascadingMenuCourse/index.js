@@ -13,12 +13,14 @@ const CascadingMenuCourse = ({ id, setIsMenuVisible, setRefresh }) => {
     const [clicked, setClicked] = useState(false);
     const {cohortId} = useSelectedCohortId();
 
+const CascadingMenuCourse = ({cohort}) => {
+  console.log(cohort, "CascadingMenuCourse")
     return (
         
         <Menu className="course-menu">
             <MenuItem icon={<AddCohortIcon />} text="Add student to cohort" linkTo="/cohorts/add" />
             <MenuItem icon={<AddStudentIcon />} linkTo="newStudent" text = "Add new student"/>
-            <MenuItem icon={<EditCohortIcon/>} text="Edit cohort"/>
+            <MenuItem icon={<EditCohortIcon/>} text="Edit cohort" linkTo={`${cohort}/edit`}/>
             {clicked ? 
             <MenuItem 
                 icon={<DeleteIcon />} 
