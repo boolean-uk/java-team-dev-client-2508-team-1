@@ -7,6 +7,7 @@ const StudentList = ({ profiles, setSelectedProfiles }) => {
 
   
   useEffect(() => {
+    if (!profiles || profiles.length === 0) return;
     async function fetchStudents() {
       try {
         const response = await get("profiles");
