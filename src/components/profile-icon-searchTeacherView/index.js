@@ -3,7 +3,8 @@ import './style.css';
 import { useNavigate } from 'react-router-dom';
 import CascadingMenuSearch from './cascadinuMenuSearch';
 import { useEffect, useRef, useState } from 'react';
-const UserIconTeacherView = ({ id, initials, firstname, lastname, role, menuVisible}) => {
+import SimpleProfileCircle from '../simpleProfileCircle';
+const UserIconTeacherView = ({ id, initials, firstname, lastname, role, menuVisible, photo=null}) => {
 
     const [isMenuVisible, setIsMenuVisible] = useState(menuVisible || false);
     const menuRef = useRef(null);
@@ -53,7 +54,8 @@ const UserIconTeacherView = ({ id, initials, firstname, lastname, role, menuVisi
 
                 <div className="profile-circle">
                 <div className="profile-icon" style={{background: backgroundColor}}>
-                    <p>{initials}</p>
+                    <SimpleProfileCircle initials={initials} photo={photo} />
+
                 </div>
                 </div>
                 <div className="user-info">

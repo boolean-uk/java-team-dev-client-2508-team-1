@@ -22,6 +22,16 @@ const Students = ({refresh, setRefresh }) => {
     }
     fetchStudents(); 
     }, [refresh]);
+
+    function getInitials(profile) {
+        if (!profile.firstName || !profile.lastName) return "NA";
+        const firstNameParts = profile.firstName.trim().split(/\s+/) || ''; // split by any number of spaces
+        const lastNameInitial = profile.lastName.trim().charAt(0);
+        
+        const firstNameInitials = firstNameParts.map(name => name.charAt(0));
+        
+        return (firstNameInitials.join('') + lastNameInitial).toUpperCase();
+    }
     
     return(
         <>
@@ -37,11 +47,7 @@ const Students = ({refresh, setRefresh }) => {
                                 <ProfileIconTeacher 
                                 photo={student.photo}
                                    id={student.id}
-                                   initials={`${student.firstName} ${student.lastName}`
-                                       .trim()
-                                       .split(/\s+/)
-                                       .map(word => word[0].toUpperCase())
-                                       .join('')}
+                                   initials={getInitials(student)}
                                    firstname={student.firstName}
                                    lastname={student.lastName}
                                    role={"Student"}

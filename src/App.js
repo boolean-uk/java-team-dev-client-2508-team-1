@@ -20,6 +20,7 @@ import { SearchResultsProvider } from './context/searchResults';
 import AddStudent from './pages/addStudent';
 import AddCohort from './pages/addCohort';
 import NewStudent from './pages/cohort/newStudent';
+
 import { CohortProvider } from './context/selectedCohort';
 import EditCohort from './pages/editCohort';
 

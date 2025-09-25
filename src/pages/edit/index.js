@@ -76,6 +76,7 @@ const EditPage = () => {
   const firstName = formData.profile.firstName;
   const lastName = formData.profile.lastName;
   const name = `${firstName} ${lastName}`;
+  const initials = name.split(" ").map(n => n[0]).join("").toUpperCase();
 
   const getReadableRole = (role) => {
     switch (role) {
@@ -199,7 +200,7 @@ const EditPage = () => {
           <div className="top-bar">
             <SimpleProfileCircle
               photo={localStorage.getItem("userPhoto")}
-              initials={name.split(" ").map(n => n[0]).join("").toUpperCase()}
+              initials={initials}
             />
             <p className="name-text">{name}</p>
           </div>
@@ -211,12 +212,19 @@ const EditPage = () => {
               <h2>Basic Info</h2>
 
               <div className="photo-row">
-                <div className="photo-wrapper">
+                
+                  {(formValues.photo || formData.profile.photo) ? (
+                  <>
+                  <div className="photo-wrapper">
                   <img
-                    src={formValues.photo || formData.profile.photo || ""}
+                    src={formValues.photo || formData.profile.photo || <SimpleProfileCircle />}
                     className="profile-photo"
-                  />
-                </div>
+                  /></div>
+                </>
+                ) : (
+                    <SimpleProfileCircle initials={initials} />
+                  )}
+                
 
                 <div className="photo-actions">
                   <Popup

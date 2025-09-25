@@ -9,10 +9,11 @@ import { Snackbar, SnackbarContent } from '@mui/material';
 import Portal from '@mui/material/Portal';
 import { useState } from 'react';
 import CheckCircleIcon from '../../../assets/icons/checkCircleIcon';
-import { del, get } from '../../../service/apiClient';
+import { del, get, updateStudentCohort } from '../../../service/apiClient';
 import { useSelectedCohortId } from '../../../context/selectedCohort';
 
-const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText, postId, name, isMenuVisible, setIsMenuVisible, commentText, commentId, onCommentDeleted, onPostDeleted, profileId, clicked, setClicked, setRefresh}) => {
+const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText, postId, name, isMenuVisible, setIsMenuVisible, commentText, commentId, onCommentDeleted, onPostDeleted, profileId, clicked, setClicked, setRefresh, cohort }) => {
+
   const { openModal, setModal } = useModal();
 
   const { deletePost } = usePosts();
@@ -140,6 +141,23 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
     }, 2100); // slightly longer than autoHideDuration
   };
 
+  const handleMoveStudent = async () => {
+    try {
+      const cohortName = cohort.name;
+      await updateStudentCohort(profileId, cohort);
+      setSnackbarMessage('Student successfully moved to ' + cohortName + '!');
+      setSnackbarOpen(true);
+      setTimeout(() => {
+        setIsMenuVisible(false);
+        setRefresh(prev => !prev);
+      }, 2100);
+    } catch (error) {
+      console.error("Error moving student to cohort:", error);
+      setSnackbarMessage("Failed to move student.");
+      setRefresh(prev => !prev);
+    }
+  }
+
   const getClickHandler = () => {
     switch (clickable) {
       case "Modal":
@@ -160,6 +178,8 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
         return handleDeleteCohort;
       case "Clicked":
         return handleClick;
+      case "MoveStudent":
+        return handleMoveStudent;
       default:
         return undefined;
     }

@@ -44,9 +44,6 @@ const TeacherCohort = ({cohorts, setRefresh}) => {
                     <div className="add-cohort-button">
                         <button onClick={() => navigate("/cohorts/new")}>Add cohort</button>
                     </div>
-                <div className="edit-icon">
-                    <EditIconCohortTeacher/>
-                </div>
                 </div>                    
             
             <hr className="divider" />
@@ -81,8 +78,9 @@ const TeacherCohort = ({cohorts, setRefresh}) => {
                     </div>
                 </div>
                 <hr className="divider"/>
-                    <StudentList profiles={selectedProfiles} setSelectedProfiles={setSelectedProfiles}/>
 
+                
+                    <StudentList profiles={selectedProfiles} setRefresh={setRefresh} cohorts={cohorts} />
             </section>
         </div>
         </div>):(

@@ -2,8 +2,7 @@ import SimpleProfileCircle from '../simpleProfileCircle';
 import EditIconTeacher from './editIconTeacher';
 import './style.css';
 
-
-const ProfileIconTeacher = ({id, initials, firstname, lastname, role, setRefresh, photo=null}) => {
+const ProfileIconTeacher = ({id, initials, firstname, lastname, role, setRefresh, photo=null, cohorts}) => {
 
     const styleGuideColors = [
     "#28C846", 
@@ -48,7 +47,7 @@ const ProfileIconTeacher = ({id, initials, firstname, lastname, role, setRefresh
                 <p className = "user-name">{firstname} {lastname}</p> 
                 <p className = "user-role" >{role}</p>
             </div>
-            <EditIconTeacher id={id} setRefresh={setRefresh}/>
+            <EditIconTeacher id={id} setRefresh={setRefresh} cohorts={cohorts}/>
            </div>
     )   
 }

@@ -6,7 +6,11 @@ import EditCohortIcon from "../../../assets/icons/editCohortIcon"
 import DeleteIcon from "../../../assets/icons/deleteIcon"
 import AddStudentIcon from "../../../assets/icons/addStudentIcon"
 
-const CascadingMenuCourse = () => {
+const CascadingMenuCourse = ({ id, setIsMenuVisible, setRefresh, cohort }) => {
+
+    const [clicked, setClicked] = useState(false);
+    const {cohortId} = useSelectedCohortId();
+
     return (
         <>
         <Menu className="course-menu">

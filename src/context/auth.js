@@ -20,12 +20,18 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
+    const storedPhoto = localStorage.getItem('userPhoto');
 
     if (storedToken && !token) {
       setToken(storedToken);
       navigate(location.state?.from?.pathname || '/');
     }
-  }, [location.state?.from?.pathname, navigate]);
+
+    // Set the user photo if it exists in localStorage
+    if (storedPhoto && !userPhoto) {
+      setUserPhoto(storedPhoto);
+    }
+  }, [location.state?.from?.pathname, navigate, token, userPhoto]);
 
   const handleLogin = async (email, password) => {
     const res = await login(email, password);
@@ -44,14 +50,27 @@ const AuthProvider = ({ children }) => {
     try {
       const { userId } = jwt_decode(res.data.token);
       const userData = await getUserById(userId);
-      const photo = userData.profile?.photo;
+      const photo = userData.data.user.profile?.photo;
       
+      // Only update localStorage and state if we got a photo from the server
+      // This preserves any photo that might already be stored from registration
       if (photo) {
         localStorage.setItem('userPhoto', photo);
         setUserPhoto(photo);
+      } else {
+        // If no photo from server, check if we already have one in localStorage
+        const existingPhoto = localStorage.getItem('userPhoto');
+        if (existingPhoto) {
+          setUserPhoto(existingPhoto);
+        }
       }
     } catch (error) {
       console.error('Error fetching user photo:', error);
+      // If there's an error fetching from server, try to use existing localStorage photo
+      const existingPhoto = localStorage.getItem('userPhoto');
+      if (existingPhoto) {
+        setUserPhoto(existingPhoto);
+      }
     }
   };
 
@@ -79,6 +98,7 @@ const AuthProvider = ({ children }) => {
   const handleRegister = async (email, password) => {
     const res = await register(email, password);
     
+
     localStorage.setItem('token', res.data.token);
 
     setToken(res.data.token);
@@ -91,6 +111,12 @@ const AuthProvider = ({ children }) => {
 
     try {
       const response = await createProfile(userId, first_name, last_name, username, github_username, mobile, bio, role, specialism, cohort, start_date, end_date, photo);
+      
+      // Always store the photo in localStorage if provided, regardless of token response
+      if (photo) {
+        localStorage.setItem('userPhoto', photo);
+        setUserPhoto(photo);
+      }
       
       // Check if the backend returned a new token with updated user info
       if (response.data?.token) {
@@ -109,6 +135,7 @@ const AuthProvider = ({ children }) => {
             // If token refresh is not available, force a refresh of contexts
             forceTokenRefresh();
           }
+
         } catch (refreshError) {
           console.log('Token refresh not available, forcing context refresh');
           // Force a refresh of all contexts that depend on the token
@@ -127,6 +154,12 @@ const AuthProvider = ({ children }) => {
   const handleCreateNewStudent = async (first_name, last_name, username, github_username, email, mobile, password, bio, role, specialism, cohort, photo) => {
 
     await createNewStudent(first_name, last_name, username, github_username, email, mobile, password, bio, role, specialism, cohort, photo);
+
+    // Store the photo in localStorage if it was provided during student creation
+    if (photo) {
+      localStorage.setItem('userPhoto', photo);
+      setUserPhoto(photo);
+    }
 
     localStorage.setItem('token', token);
     navigate('/cohorts');

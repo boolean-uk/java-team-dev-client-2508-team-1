@@ -65,6 +65,7 @@ const UserIcon = ({ id, initials = '', firstname = '', lastname = '', role = '',
       {isOpen && (
         <div>
           <SeeProfile
+            photo={photo}
             id={id}
             initials={initials}
             firstname={firstname}
