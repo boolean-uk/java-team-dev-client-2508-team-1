@@ -21,7 +21,6 @@ import AddStudent from './pages/addStudent';
 import AddCohort from './pages/addCohort';
 
 import NewStudent from './pages/cohort/newStudent';
-import AddStudent from './pages/addStudent';
 import EditCohort from './pages/editCohort';
 
 

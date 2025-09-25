@@ -1,7 +1,8 @@
+/* eslint-disable object-shorthand */
 import { Snackbar, SnackbarContent } from "@mui/material";
 import { useState } from "react";
 import CheckCircleIcon from "../../../assets/icons/checkCircleIcon";
-import { patch, post } from "../../../service/apiClient";
+import { patch} from "../../../service/apiClient";
 import { useNavigate } from "react-router-dom";
 
 
