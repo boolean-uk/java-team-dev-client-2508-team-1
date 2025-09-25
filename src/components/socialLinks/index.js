@@ -1,12 +1,41 @@
+import React, { useState } from 'react';
 import './socialinks.css';
 
 const SocialLinks = () => {
+  const [showGallery, setShowGallery] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const images = [
+    'https://i.imgur.com/m03ohUW.png',
+    'https://i.imgur.com/CiWtEZw.png',
+    'https://i.imgur.com/wYqvu2p.png',
+  ];
+
+  const handleButtonClick = (e) => {
+    e.preventDefault();
+    setShowGallery(true);
+    setCurrentImageIndex(0);
+  };
+
+  const handleImageClick = () => {
+    if (currentImageIndex < images.length - 1) {
+      setCurrentImageIndex(currentImageIndex + 1);
+    } else {
+      setShowGallery(false);
+      setCurrentImageIndex(0);
+    }
+  };
+
+  const handleOverlayClick = (e) => {
+    if (e.target === e.currentTarget) {
+      setShowGallery(false);
+      setCurrentImageIndex(0);
+    }
+  };
   return (
     <>
       <button
-        onClick={(e) => {
-          e.preventDefault();
-        }}
+        onClick={handleButtonClick}
         className="socialbutton"
       >
         <svg width="56" height="56" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -28,10 +57,62 @@ const SocialLinks = () => {
             <linearGradient id="paint2_linear_790_307" x1="49.8004" y1="7.34035" x2="83.5526" y2="97.2588" gradientUnits="userSpaceOnUse"><stop stopColor="#3CCBF4"/><stop offset="1" stopColor="#2892DF"/>
             </linearGradient>
           </defs>
-        </svg> 
-    </button>
-  </>
-    
+        </svg>
+      </button>
+      
+      {showGallery && (
+        <div 
+          className="fullscreen-gallery-overlay" 
+          onClick={handleOverlayClick}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            backgroundColor: 'rgba(0, 0, 0, 0.9)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 1000,
+            cursor: 'pointer'
+          }}
+        >
+          <div 
+            style={{
+              position: 'relative',
+              maxWidth: '90vw',
+              maxHeight: '90vh',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center'
+            }}
+          >
+            <img 
+              src={images[currentImageIndex]} 
+              alt={`Gallery image ${currentImageIndex + 1}`}
+              onClick={handleImageClick}
+              style={{
+                maxWidth: '100%',
+                maxHeight: '80vh',
+                objectFit: 'contain',
+                borderRadius: '8px',
+                boxShadow: '0 4px 20px rgba(0, 0, 0, 0.5)'
+              }}
+            />
+            <div 
+              style={{
+                marginTop: '20px',
+                color: 'white',
+                fontSize: '16px',
+                textAlign: 'center'
+              }}
+            >
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
