@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 // import SearchIcon from "../../../assets/icons/searchIcon"
-import EditIconCohortTeacher from "../../../components/editIconCohortTeacher"
+// import EditIconCohortTeacher from "../../../components/editIconCohortTeacher"
 // import TextInput from "../../../components/form/textInput"
 import CohortsList from "./cohortsList"
 import './style.css';

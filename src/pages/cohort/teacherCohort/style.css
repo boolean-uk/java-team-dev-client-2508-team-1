@@ -80,7 +80,7 @@
   min-height: auto;
   overflow-y: auto;
   scrollbar-width: thin;
-  
+  max-height: 740px;
 }
 
 .students-section {

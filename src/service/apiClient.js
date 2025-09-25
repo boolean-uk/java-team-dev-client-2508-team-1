@@ -69,9 +69,7 @@ async function createNewStudent(
   bio,  
   role, 
   specialism, 
-  cohort, 
-  start_date, 
-  end_date, 
+  cohort,  
   photo) {
 
   cohort = parseInt(cohort)
@@ -88,9 +86,7 @@ async function createNewStudent(
     bio,  
     role, 
     specialism, 
-    cohort, 
-    start_date, 
-    end_date, 
+    cohort,  
     photo }
   );
 }
