@@ -6,7 +6,6 @@ import { getUserById, updateUserProfile, refreshToken } from "../../service/apiC
 import useAuth from "../../hooks/useAuth";
 import jwtDecode from "jwt-decode";
 import TextInput from "../../components/form/textInput";
-import ProfileCircle from "../../components/profileCircle";
 import Card from "../../components/card";
 import { validatePassword, validateEmail } from '../register';
 import LockIcon from '../../assets/icons/lockIcon'
