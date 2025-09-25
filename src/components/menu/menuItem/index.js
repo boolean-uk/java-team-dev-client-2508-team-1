@@ -12,15 +12,14 @@ import CheckCircleIcon from '../../../assets/icons/checkCircleIcon';
 import { del, get } from '../../../service/apiClient';
 import { useSelectedCohortId } from '../../../context/selectedCohort';
 
-const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText, postId, name, isMenuVisible, setIsMenuVisible, commentText, commentId, onCommentDeleted, onPostDeleted, profileId, clicked, setClicked, setRefresh, selectedCohortId}) => {
+const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText, postId, name, isMenuVisible, setIsMenuVisible, commentText, commentId, onCommentDeleted, onPostDeleted, profileId, clicked, setClicked, setRefresh}) => {
   const { openModal, setModal } = useModal();
 
   const { deletePost } = usePosts();
   const { deleteComment } = useComments();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
-  const {cohortId} = useSelectedCohortId();
-  
+  const cohortId  = useSelectedCohortId();
   
   const showModal = () => {
       setModal('Edit post', <EditPostModal postText={postText} postId={postId} name={name} />);
@@ -62,9 +61,11 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
   }
 
   const handleDeleteCohort = async () => {
+    console.log("deleteCohort function called, cohortId:", cohortId)
+    
     console.log('deleteCohort function called');
     try {
-      await del('cohorts/' + cohortId); 
+      await del(`cohorts/${cohortId.cohortId}`); 
       setSnackbarMessage('Cohort deleted successfully');
       setSnackbarOpen(true);
       setTimeout(() => {
@@ -77,6 +78,7 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
       setRefresh(prev => !prev);
     }
   }
+
   const handleDeleteUser = async () => {
     console.log('deleteUser function called');
     try {

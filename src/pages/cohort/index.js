@@ -74,6 +74,9 @@ const Cohort = () => {
                 }
                 
                 const user = await getUserById(userId);
+                if (user.profile.cohort === null) {
+                    return;
+                }
                 const data = await get(`cohorts/${user.profile.cohort.id}`);
 
                 // set cohort
