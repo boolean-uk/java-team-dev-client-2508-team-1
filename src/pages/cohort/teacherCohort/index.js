@@ -80,7 +80,7 @@ const TeacherCohort = ({cohorts, setRefresh}) => {
                 <hr className="divider"/>
 
                 
-                    <StudentList profiles={selectedProfiles} cohorts={cohorts} />
+                    <StudentList profiles={selectedProfiles} setRefresh={setRefresh} cohorts={cohorts} />
             </section>
         </div>
         </div>):(

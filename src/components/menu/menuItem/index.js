@@ -12,7 +12,8 @@ import CheckCircleIcon from '../../../assets/icons/checkCircleIcon';
 import { del, get, updateStudentCohort } from '../../../service/apiClient';
 import { useSelectedCohortId } from '../../../context/selectedCohort';
 
-const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText, postId, name, isMenuVisible, setIsMenuVisible, commentText, commentId, onCommentDeleted, onPostDeleted, profileId, clicked, setClicked, setRefresh, cohort}) => {
+const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText, postId, name, isMenuVisible, setIsMenuVisible, commentText, commentId, onCommentDeleted, onPostDeleted, profileId, clicked, setClicked, setRefresh, cohort }) => {
+
   const { openModal, setModal } = useModal();
 
   const { deletePost } = usePosts();
@@ -148,11 +149,11 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
       setSnackbarOpen(true);
       setTimeout(() => {
         setIsMenuVisible(false);
+        setRefresh(prev => !prev);
       }, 2100);
-      setRefresh(prev => !prev);
     } catch (error) {
       console.error("Error moving student to cohort:", error);
-      setSnackbarMessage?.("Failed to move student.");
+      setSnackbarMessage("Failed to move student.");
       setRefresh(prev => !prev);
     }
   }
