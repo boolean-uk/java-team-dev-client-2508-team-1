@@ -7,6 +7,23 @@
   position: relative;
 }
 
-.profile-circle-menu {
-  margin-left: 65px;
+.profile-circle-menu {        
+  margin: 0;
+  padding: 0.25rem 0;      
+  box-sizing: border-box;       
+  overflow: hidden;         
+}
+
+.profile-circle-menu .menu-item {
+  padding: 0.25rem 0.5rem;   
+  box-sizing: border-box;
+  width: 100%;               
+  display: flex;            
+  align-items: center;
+  gap: 0.5rem;               
+  cursor: pointer;
+}
+
+.profile-circle-menu .menu-item:hover {
+  background-color: #f5f5f5;
 }
