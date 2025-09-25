@@ -5,7 +5,7 @@ import { patch, post } from "../../../service/apiClient";
 import { useNavigate } from "react-router-dom";
 
 
-const StepperCohort = ({ header, children, cohortName, startDate, endDate, selectedCourse, selectedStudents, setSelectedCourse,setEndDate,setStartDate,setCohortName }) => {
+const StepperCohort = ({ header, children, cohortName, startDate, endDate, selectedCourse, selectedStudents, setSelectedCourse,setEndDate,setStartDate,setCohortName, cohortId }) => {
     const [currentStep, setCurrentStep] = useState(0);
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const navigate = useNavigate()
@@ -32,30 +32,26 @@ const StepperCohort = ({ header, children, cohortName, startDate, endDate, selec
     setStartDate("")
     setCohortName("")
     navigate(-1)
-
-
   }
 
   const onComplete = () =>{
-    async function addNewCohort() {
+    async function updateCohort() {
         try {
-            const response = await post("cohorts", 
-                {
-                    name: cohortName,
-                    courseId: selectedCourse.id
-                 });
+        console.log(selectedStudents)
             const studentIds = selectedStudents.map(student => student.id);
-            const response2 = await patch(`cohorts/${response.id}`, 
+            const response2 = await patch(`cohorts/${cohortId}`, 
                 {
                     name: cohortName,
                     courseId: selectedCourse.id,
+                    startDate: startDate,
+                    endDate: endDate,
                     profileIds: studentIds
                  });
             console.log(response2)
         } catch (error) {
             console.error("Error adding new cohort:", error);
         }
-    } addNewCohort()
+    } updateCohort()
 
     setSnackbarOpen(true)
      setTimeout(()=> {
@@ -86,7 +82,7 @@ const StepperCohort = ({ header, children, cohortName, startDate, endDate, selec
         ) : (
         <div className="buttons-at-bottom">
         <button className="offwhite" onClick={onBackClick}>Back</button>
-        <button className="blue" onClick={onComplete}>Add cohort</button>
+        <button className="blue" onClick={onComplete}>Update cohort</button>
 
           <Snackbar open={snackbarOpen} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} 
   autoHideDuration={2000}

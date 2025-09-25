@@ -47,7 +47,7 @@ const MultipleStudentsSearch = ({ students, handleSelectStudent , selectedStuden
                 <p className = "user-name">{student.firstName} {student.lastName}</p> 
             </div>
             </div>
-            {isSelected && <span className="avatar-checkmark"><CheckIcon/></span>}
+            {isSelected && <span className="avatar-checkmark"></span>}
           </li>
         );
       })}

@@ -43,7 +43,7 @@ const TeacherCohort = ({cohorts}) => {
             <section className="cohorts-section">
                 <div className="add-cohort">
                     <div className="add-cohort-button">
-                        <button>Edit cohort</button>
+                        <button>Add cohort</button>
                     </div>
                 <div className="edit-icon">
                     <EditIconCohortTeacher/>
@@ -63,7 +63,7 @@ const TeacherCohort = ({cohorts}) => {
                     <div className="selected-course">
                         {selectedCohort !== null ? (
                             <>
-                            <CourseIcon courseName={selectedCohort.course.name} cohort={selectedCohort.id} startDate={selectedCohort.course.startDate} endDate={selectedCohort.course.endDate}/>
+                            <CourseIcon courseName={selectedCohort.course.name} cohort={selectedCohort.id} startDate={selectedCohort.startDate} endDate={selectedCohort.endDate}/>
                             </>
                         ): (<><p>Select a course</p></>)}
                         

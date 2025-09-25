@@ -27,6 +27,17 @@ const EditCohort = () =>{
 
 
   useEffect(() => {
+    async function fetchCohortById() {
+
+      try {
+        const response = await get(`cohorts/${id}`);
+        setCohort(response.data.cohort);
+        console.log("Cohort: " , response)
+      } catch (error) {
+        console.error("Error fetching cohort by ID:", error);
+      }
+
+    }
     async function fetchStudents() {
       try {
         const response = await get("students");
@@ -44,18 +55,6 @@ const EditCohort = () =>{
         console.error("Error fetching courses:", error);
       }
     }
-    async function fetchCohortById() {
-
-      try {
-        const response = await get(`cohorts/${id}`);
-        setCohort(response.data.cohorts);
-        console.log("Cohort: " , response)
-        setCohortName(response.data.cohort.name)
-      } catch (error) {
-        console.error("Error fetching students:", error);
-      }
-
-    }
     fetchStudents(); 
     fetchCourses();
     fetchCohortById();
@@ -64,6 +63,24 @@ const EditCohort = () =>{
 
     //TODO
     //Prelaod informasjon fra cohorten
+    
+  console.log(cohort)
+  
+  useEffect(()=>{
+
+    if(cohort){
+      setCohortName(cohort.name)
+      setSelectedStudents(cohort.profiles) 
+      setSelectedCourse(cohort.course)
+      setStartDate(cohort.startDate) 
+      setEndDate(cohort.endDate) 
+
+      console.log(selectedCourse)
+    }
+
+
+
+  },[cohort])
 
 
     return (
@@ -78,7 +95,10 @@ const EditCohort = () =>{
             setEndDate={setEndDate}
             courses={courses}
             selectedCourse={selectedCourse}
-            setSelectedCourse={setSelectedCourse}>
+            selectedStudents={selectedStudents}
+            setSelectedCourse={setSelectedCourse}
+            setSelectedStudents={setSelectedStudents}
+            cohortId = {id}>
                 <StepOneCohort 
                     cohortName={cohortName}
                     setCohortName={setCohortName}
