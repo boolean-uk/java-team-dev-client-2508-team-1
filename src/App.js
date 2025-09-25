@@ -23,129 +23,132 @@ import NewStudent from './pages/cohort/newStudent';
 
 import { CohortProvider } from './context/selectedCohort';
 import EditCohort from './pages/editCohort';
-
-
+import { LoadingProvider } from './context/loading';
+import GlobalLoading from './components/GlobalLoading';
 
 const App = () => {
   return (
     <>
-      <AuthProvider>
-        <FormProvider>
-          <UserRoleProvider>
-           <SearchResultsProvider>
-            <PostsProvider>
-              <CommentsProvider>
-                <ModalProvider>
-                  <Routes>
-                    <Route path="login" element={<Login />} />
-                    <Route path="register" element={<Register />} />
-                    <Route path="loading" element={<Loading />} />
-                    <Route path="verification" element={<Verification />} />
-                    <Route
-                      index
-                      element={
-                        <ProtectedRoute>
-                          <Dashboard />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="welcome"
-                      element={
-                        <ProtectedRoute disabledNav={true}>
-                          <Welcome />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="cohorts"
-                      element={
-                        <ProtectedRoute>
-                          <CohortProvider>
-                          <Cohort />
-                          </CohortProvider>
-                        </ProtectedRoute>
-                      }
-                    />
-
-                    <Route 
-                    path="cohorts/add"
-                    element={
-                      <ProtectedRoute>
-                        <AddStudent />
-                      </ProtectedRoute>
-                    }/>
-                    <Route 
-                    path="cohorts/new"
-                    element={
-                      <ProtectedRoute>
-                        <AddCohort/>
-                      </ProtectedRoute>
-                    }/>
-
-                    <Route
-                      path="cohorts/newStudent"
-                      element={
-                        <ProtectedRoute>
-                          <NewStudent />
-                        </ProtectedRoute>
-                      }
-                    />
-
-                    <Route 
-                    path="cohorts/add"
-                    element={
-                      <ProtectedRoute>
-                        <AddStudent />
-                      </ProtectedRoute>
-                    }/>
-                      <Route 
-                        path="cohorts/:id/edit"
+      <LoadingProvider>
+        <AuthProvider>
+          <FormProvider>
+            <UserRoleProvider>
+             <SearchResultsProvider>
+              <PostsProvider>
+                <CommentsProvider>
+                  <ModalProvider>
+                    <GlobalLoading />
+                    <Routes>
+                      <Route path="login" element={<Login />} />
+                      <Route path="register" element={<Register />} />
+                      <Route path="loading" element={<Loading />} />
+                      <Route path="verification" element={<Verification />} />
+                      <Route
+                        index
                         element={
                           <ProtectedRoute>
-                            <EditCohort/>
+                            <Dashboard />
                           </ProtectedRoute>
-                        }/>
-                    <Route
-                      path="profile"
+                        }
+                      />
+                      <Route
+                        path="welcome"
+                        element={
+                          <ProtectedRoute disabledNav={true}>
+                            <Welcome />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route
+                        path="cohorts"
+                        element={
+                          <ProtectedRoute>
+                            <CohortProvider>
+                            <Cohort />
+                            </CohortProvider>
+                          </ProtectedRoute>
+                        }
+                      />
+
+                      <Route 
+                      path="cohorts/add"
                       element={
-                      <ProtectedRoute>
-                        <ProfilePage />
-                      </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="profile/:id"
+                        <ProtectedRoute>
+                          <AddStudent />
+                        </ProtectedRoute>
+                      }/>
+                      <Route 
+                      path="cohorts/new"
                       element={
+                        <ProtectedRoute>
+                          <AddCohort/>
+                        </ProtectedRoute>
+                      }/>
+
+                      <Route
+                        path="cohorts/newStudent"
+                        element={
+                          <ProtectedRoute>
+                            <NewStudent />
+                          </ProtectedRoute>
+                        }
+                      />
+
+                      <Route 
+                      path="cohorts/add"
+                      element={
+                        <ProtectedRoute>
+                          <AddStudent />
+                        </ProtectedRoute>
+                      }/>
+                        <Route 
+                          path="cohorts/:id/edit"
+                          element={
+                            <ProtectedRoute>
+                              <EditCohort/>
+                            </ProtectedRoute>
+                          }/>
+                      <Route
+                        path="profile"
+                        element={
                         <ProtectedRoute>
                           <ProfilePage />
                         </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="profile/:id/edit"
-                      element={
-                        <ProtectedRoute>
-                          <EditPage />
-                        </ProtectedRoute>
-                      }
-                    />
-                     <Route
-                      path="search/profiles"
-                      element={
-                        <ProtectedRoute>
-                          <SearchPage />
-                        </ProtectedRoute>
-                      }
-                    />
-                  </Routes>
-                </ModalProvider>
-              </CommentsProvider>
-            </PostsProvider>
-           </SearchResultsProvider>
-          </UserRoleProvider>
-        </FormProvider>
-      </AuthProvider>
+                        }
+                      />
+                      <Route
+                        path="profile/:id"
+                        element={
+                          <ProtectedRoute>
+                            <ProfilePage />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route
+                        path="profile/:id/edit"
+                        element={
+                          <ProtectedRoute>
+                            <EditPage />
+                          </ProtectedRoute>
+                        }
+                      />
+                       <Route
+                        path="search/profiles"
+                        element={
+                          <ProtectedRoute>
+                            <SearchPage />
+                          </ProtectedRoute>
+                        }
+                      />
+                    </Routes>
+                  </ModalProvider>
+                </CommentsProvider>
+              </PostsProvider>
+             </SearchResultsProvider>
+            </UserRoleProvider>
+          </FormProvider>
+        </AuthProvider>
+      </LoadingProvider>
     </>
   );
 };

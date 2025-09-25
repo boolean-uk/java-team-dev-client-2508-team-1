@@ -21,6 +21,8 @@ import Search from './search';
 import { getUserById, get } from '../../service/apiClient';
 import UserIcon from '../../components/profile-icon';
 import SimpleProfileCircle from '../../components/simpleProfileCircle';
+import { useLoading } from '../../context/loading';
+import { usePosts } from '../../context/posts';
 
 const Dashboard = () => {
   const { token } = useAuth();
@@ -39,10 +41,39 @@ const Dashboard = () => {
     console.error('Invalid token in Dashboard:', error);
   }
 
-  // to view people My Cohort
+  const fullName = `${decodedToken.firstName || decodedToken.first_name || 'Current'} ${decodedToken.lastName || decodedToken.last_name || 'User'}`;
+  const initials = fullName?.match(/\b(\w)/g)?.join('') || 'NO';
+  const  { userRole, setUserRole } = useUserRoleData();
+  const { openModal, setModal } = useModal();
+  const { showGlobalLoading, hideGlobalLoading } = useLoading();
+  const { loading: postsLoading, posts } = usePosts();
+
+  // Create a function to run on user interaction
+  const showModal = () => {
+    setModal('Create a post', <CreatePostModal />); 
+    openModal();
+  };
+
+  const [refresh, setRefresh] = useState(false);
+
+  // Handle global loading based on posts loading state
   useEffect(() => {
-    async function fetchCohortData() {
+    if (postsLoading && posts.length === 0) {
+      showGlobalLoading('Loading posts...');
+    } else {
+      hideGlobalLoading();
+    }
+  }, [postsLoading, posts.length, showGlobalLoading, hideGlobalLoading]);
+
+  // Combined useEffect for initial data fetching that only runs once on mount
+  useEffect(() => {
+    async function fetchInitialData() {
       try {
+        // Fetch cohorts
+        const cohortsResponse = await get("cohorts");
+        setCohorts(cohortsResponse.data.cohorts);
+
+        // Fetch cohort data for current user
         const token = localStorage.getItem('token');
         if (!token) {
           console.error('No token found.');
@@ -59,50 +90,31 @@ const Dashboard = () => {
         }
         
         const user = await getUserById(userId);
-        if (user.profile.cohort === null) {
+/*         if (user.profile.cohort === null) {
           return;
+        } */
+        if (user.profile.cohort !== null) {
+          const cohortData = await get(`cohorts/${user.profile.cohort.id}`);
+          setCohort(cohortData.data.cohort)
+          setCourse(cohortData.data.cohort.course);
+          setStudents(cohortData.data.cohort.profiles)
         }
-        const data = await get(`cohorts/${user.profile.cohort.id}`);
-        setCohort(data.data.cohort)
-        setCourse(data.data.cohort.course);
-        setStudents(data.data.cohort.profiles)
 
       } catch (error) {
-        console.error('fetchCohortData() in dashboard/index.js:', error);
+        console.error('Error fetching initial data in dashboard/index.js:', error);
       }
     }
-    fetchCohortData();
+    fetchInitialData();
   }, []);
-  
-  const fullName = `${decodedToken.firstName || decodedToken.first_name || 'Current'} ${decodedToken.lastName || decodedToken.last_name || 'User'}`;
-  const initials = fullName?.match(/\b(\w)/g)?.join('') || 'NO';
-  const  { userRole, setUserRole } = useUserRoleData();
-
-
-
-
-  // Use the useModal hook to get the openModal and setModal functions
-  const { openModal, setModal } = useModal();
-
-  // Create a function to run on user interaction
-  const showModal = () => {
-    // Use setModal to set the header of the modal and the component the modal should render
-    setModal('Create a post', <CreatePostModal />); // CreatePostModal is just a standard React component, nothing special
-
-    // Open the modal!
-    openModal();
-  };
-
-  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     async function fetchAndSetUserRole() {
       const storedToken = token || localStorage.getItem('token');
       if (!storedToken) return;
+      
       try {
         const decoded = jwtDecode(storedToken);
         const user = await getUserById(decoded.userId);
-        // check the role from backend
         const roleName = user.profile.role.name;
         if (roleName === 'ROLE_TEACHER') setUserRole(1);
         else if (roleName === 'ROLE_STUDENT') setUserRole(2);
@@ -114,21 +126,9 @@ const Dashboard = () => {
     fetchAndSetUserRole();
   }, [token, setUserRole]);
 
-    useEffect(() => {
-    async function fetchCohorts() {
-        try {
-        const response = await get("cohorts");
-        setCohorts(response.data.cohorts);
-        } catch (error) {
-        console.error("Error fetching cohorts:", error);
-        }
-    }
-    fetchCohorts(); 
-    }, []);
-
   function getInitials(profile) {
         if (!profile.firstName || !profile.lastName) return "NA";
-        const firstNameParts = profile.firstName.trim().split(/\s+/) || ''; // split by any number of spaces
+        const firstNameParts = profile.firstName.trim().split(/\s+/) || ''; 
         const lastNameInitial = profile.lastName.trim().charAt(0);
         
         const firstNameInitials = firstNameParts.map(name => name.charAt(0));
