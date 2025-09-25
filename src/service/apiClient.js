@@ -145,39 +145,30 @@ async function updateUserProfile(userId, formValues) {
 
   const token = localStorage.getItem('token');
   const decoded = jwt_decode(token);
-  const role = decoded?.roleId; // eller hent fra formData.profile.role.name hvis du har det
+  const role = decoded?.roleId; 
   console.log(role)
   let endpoint = '';
   if (role === 2) {
     endpoint = `students/${userId}`;
   } else {
-    endpoint = `teachers/${userId}`; // for ROLE_TEACHER og andre
+    endpoint = `teachers/${userId}`;
   }
 
   return await patch(endpoint, payload);
 }
 
-async function updateStudentCohort(userId, formValues) {
+async function updateStudentCohort(pId, newCohort) {
   const payload = {
-    photo: formValues.photo || "",
-    first_name: formValues.firstName || "",
-    last_name: formValues.lastName || "",
-    username: formValues.username || "",
-    github_username: formValues.githubUsername || "",
-    email: formValues.email || "",
-    mobile: formValues.mobile || "",
-    password: formValues.password || "",
-    bio: formValues.bio || "",
-    cohort: formValues.cohortId || ""
+    cohortId: newCohort.id
   };  
 
   const token = localStorage.getItem('token');
   const decoded = jwt_decode(token);
-  const role = decoded?.roleId; // eller hent fra formData.profile.role.name hvis du har det
+  const role = decoded?.roleId;
   console.log(role)
   let endpoint = '';
   if (role === 1) {
-    endpoint = `students/${userId}`;
+    endpoint = `students/${pId}`;
   }
 
   return await patch(endpoint, payload);

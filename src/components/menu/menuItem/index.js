@@ -11,7 +11,7 @@ import { useState } from 'react';
 import CheckCircleIcon from '../../../assets/icons/checkCircleIcon';
 import { del, get, updateStudentCohort } from '../../../service/apiClient';
 
-const MenuItem = ({ cohortId, icon, text, children, linkTo = '#nogo', clickable, postText, postId, name, isMenuVisible, setIsMenuVisible, commentText, commentId, onCommentDeleted, onPostDeleted, profileId, clicked, setClicked, setRefresh, setSnackBarMessage}) => {
+const MenuItem = ({ cohort, icon, text, children, linkTo = '#nogo', clickable, postText, postId, name, isMenuVisible, setIsMenuVisible, commentText, commentId, onCommentDeleted, onPostDeleted, profileId, clicked, setClicked, setRefresh, setSnackBarMessage}) => {
   const { openModal, setModal } = useModal();
 
   const { deletePost } = usePosts();
@@ -116,15 +116,16 @@ const MenuItem = ({ cohortId, icon, text, children, linkTo = '#nogo', clickable,
   };
 
   const moveStudent = async () => {
-    console.log("COHORT ID FROM PROP", cohortId)
     try {
-      const profile = await get('profiles/' + profileId);
-      console.log("PROFILE",profile)
-      const userId = profile.data.profile.user.id;
-      const newCohortId = profile.data.profile.cohort.id
-      console.log("NEW COHORT ID", newCohortId)
-      console.log("USER ID",userId)
-      await updateStudentCohort(userId, { cohort: newCohortId })
+      await updateStudentCohort(profileId, cohort);
+      /*
+      setSnackbarMessage('Reported');
+      setSnackbarOpen(true);
+      setTimeout(() => {
+        setIsMenuVisible(false);
+      }, 2100);
+      setRefresh(prev => !prev);
+            */
     } catch (error) {
       console.error("Error moving student to cohort:", error);
       setSnackBarMessage?.("Failed to move student.");

@@ -56,7 +56,7 @@ export const CascadingMenu = ({ id, setIsMenuVisible, setRefresh, setSnackBarMes
       <MenuItem icon={<ProfileIcon />} text="Profile" linkTo={`/profile/${id}`} />
       <MenuItem icon={<AddIcon />} text="Add note" />
 
-      <MenuItem icon={<CohortIcon />} text="Move to cohort" userId = {id}>
+      <MenuItem icon={<CohortIcon />} text="Move to cohort">
         {Array.from(new Map(
           cohorts.map(cohort => [cohort.course.name, cohort.course])).values())
             .map((course, index) => (
@@ -78,7 +78,7 @@ export const CascadingMenu = ({ id, setIsMenuVisible, setRefresh, setSnackBarMes
               text={cohort.name}
               clickable="MoveStudent"
               profileId={id}
-              cohortId={cohort.id}
+              cohort={cohort}
               setIsMenuVisible={setIsMenuVisible}
               setSnackBarMessage={setSnackBarMessage}
               setRefresh={setRefresh}
