@@ -59,39 +59,16 @@ async function createProfile(userId,
 
 
 async function createNewStudent(
-  first_name, 
-  last_name, 
-  username, 
-  github_username, 
-  email,
-  mobile, 
-  password,
-  bio,  
-  role, 
-  specialism, 
-  cohort, 
-  start_date, 
-  end_date, 
-  photo) {
+  first_name, last_name, username, github_username, email, mobile, password, bio, role, specialism, cohort, photo) {
 
   cohort = parseInt(cohort)
   photo = JSON.stringify(photo)
-
+    console.log("First name:", first_name)
+    console.log("Cohort id:", cohort)
+    console.log("Photo:", photo)
+    console.log()
   return await post(`students/create`, {
-    first_name, 
-    last_name, 
-    username, 
-    github_username, 
-    email,
-    mobile, 
-    password,
-    bio,  
-    role, 
-    specialism, 
-    cohort, 
-    start_date, 
-    end_date, 
-    photo }
+   first_name, last_name, username, github_username, email, mobile, password, bio, role, specialism, cohort, photo }
   );
 }
 

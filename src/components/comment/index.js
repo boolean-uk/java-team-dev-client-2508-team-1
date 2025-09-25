@@ -1,7 +1,6 @@
 import MenuComment from './dropdown';
 import { useComments } from '../../context/comments';
 import './style.css';
-import UserIcon from '../profile-icon';
 import SimpleProfileCircle from '../simpleProfileCircle';
 
 const Comment = ({ id,userId, name, content, postId, commentId, photo, onCommentDeleted }) => {
