@@ -12,15 +12,11 @@ const NewStudentStepThree = ({ data, setData, setProfile }) => {
     const [ courses, setCourses ] = useState([])
     const [ cohorts, setCohorts ] = useState([])
 
-    // const [finalCohort, setfinalCohort] = useState([])
-
     const [ isOpenCourses, setIsOpenCourses ] = useState(false);
     const [ isOpenCohorts, setIsOpenCohorts ] = useState(false);
 
     const [ selectedCourse, setSelectedCourse ] = useState(null)
     const [ selectedCohort, setSelectedCohort ] = useState(null)
-    const [startDate, setStartDate] = useState('');
-    const [endDate, setEndDate] = useState('');
 
     useEffect(() => {
    
@@ -33,43 +29,29 @@ const NewStudentStepThree = ({ data, setData, setProfile }) => {
             console.error("Error fetching courses:", error);
         }
     }
-    
-    
-    async function fetchCohorts() {
-        try {
-            const response = await get(`cohorts`);
-            console.log(response)
-            setCohorts(response.data.cohorts);
-        } catch (error) {
-            console.error("Error fetching courses:", error);
-        }
-    }
     fetchCourses()
-    fetchCohorts()
     }, []);
+
 
     const handleSelectCourse = (course) => {
     setSelectedCourse(course)
-    setIsOpenCourses(false)
     setCohorts(course.cohorts)
 
     setProfile(prev => ({
         ...prev,
         specialism: course?.name,
+        start_date: course?.startDate,
+        end_date: course?.endDate,
     }));
   }
 
-   const handleSelectCohort = (theCohort) => {
+   const handleSelectCohort = (cohort) => {
     setIsOpenCohorts(false)
-    setSelectedCohort(theCohort)
-    const selected = cohorts.find(c => c.id === theCohort.id);
-    if (!selected) return;
-    setStartDate(selected.startDate)
-    setEndDate(selected.endDate)
-    
+    setSelectedCohort(cohort)
+
     setProfile(prev => ({
         ...prev,
-        cohort: theCohort.id
+        cohort: cohort?.id
     }));
   }
 
@@ -116,7 +98,7 @@ const NewStudentStepThree = ({ data, setData, setProfile }) => {
                     name="start_date"
                     label="Start Date"
                     placeholder=""
-                    value={startDate || ''}
+                    value={selectedCourse?.startDate || ''}
                     readOnly
                     required
                 />
@@ -125,7 +107,7 @@ const NewStudentStepThree = ({ data, setData, setProfile }) => {
                     name="end_date"
                     label="End Date"
                     placeholder=""
-                    value={endDate || ''}
+                    value={selectedCourse?.startDate || ''}
                     readOnly
                     required
                 />
