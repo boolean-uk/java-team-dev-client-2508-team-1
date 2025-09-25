@@ -61,8 +61,8 @@ const EditCohort = () =>{
   }, []);
 
 
-    //TODO
-    //Prelaod informasjon fra cohorten
+    // TODO
+    // Prelaod informasjon fra cohorten
     
   console.log(cohort)
   
