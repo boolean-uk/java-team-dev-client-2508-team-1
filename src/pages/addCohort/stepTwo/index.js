@@ -12,7 +12,6 @@ const [isOpenSearchBar, setIsOpenSearchBar] = useState(false);
 
 const handleSelectStudent = (student) => {
     
-  console.log("Klikket på student:", student);
 
   setSelectedStudents((prevSelected) => {
     const alreadySelected = prevSelected.find((s) => s.id === student.id);

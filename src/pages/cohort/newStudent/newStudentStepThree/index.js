@@ -27,7 +27,6 @@ const NewStudentStepThree = ({ data, setData, setProfile }) => {
     async function fetchCourses() {
         try {
             const response = await get("courses");
-            console.log(response)
             setCourses(response.data.courses);
         } catch (error) {
             console.error("Error fetching courses:", error);
@@ -36,7 +35,6 @@ const NewStudentStepThree = ({ data, setData, setProfile }) => {
     async function fetchCohorts() {
         try {
             const response = await get(`cohorts`);
-            console.log(response)
             setFetchedCohorts(response.data.cohorts);
         } catch (error) {
             console.error("Error fetching courses:", error);

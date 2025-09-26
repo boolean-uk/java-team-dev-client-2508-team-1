@@ -31,7 +31,6 @@ const EditCommentModal = ({ postText, postId, name, commentId}) => {
       }
 
     const postResponse = await put(`posts/${String(postId)}/comments/${String(commentId)}`, { body: text, userId });
-      console.log('Post updated successfully:', postResponse);
       setMessage('Posted! Closing modal in 1.5 seconds...');
       setTimeout(() => {
         setMessage(null);
@@ -45,7 +44,6 @@ const EditCommentModal = ({ postText, postId, name, commentId}) => {
     
     window.location.reload();
 
-    console.log('Submitting comment:', text);
   };
 
   return (

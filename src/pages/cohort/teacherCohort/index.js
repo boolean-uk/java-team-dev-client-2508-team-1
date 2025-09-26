@@ -1,7 +1,4 @@
 import { useEffect, useState } from "react"
-// import SearchIcon from "../../../assets/icons/searchIcon"
-// import EditIconCohortTeacher from "../../../components/editIconCohortTeacher"
-// import TextInput from "../../../components/form/textInput"
 import CohortsList from "./cohortsList"
 import './style.css';
 import StudentList from "./studentList"
@@ -22,6 +19,8 @@ const TeacherCohort = ({cohorts, setRefresh}) => {
     // };
 
     useEffect(() => {}, [selectedProfiles]);
+
+    const filteredProfiles = selectedProfiles.filter(profile => profile.role.id === 2)
         
     return (
         <>
@@ -48,6 +47,12 @@ const TeacherCohort = ({cohorts, setRefresh}) => {
                 
                     <hr className="divider" />
 
+                    <div className="actions">
+                    <div className="add-student-button">
+                        <button onClick={() => navigate("/cohorts/add")}>Add student</button>
+                    </div>
+                    <div className="edit-icon-course">
+                        <EditIconCouse setRefresh={setRefresh} cohort={selectedCohort ? selectedCohort.id : 1}/>
 
                     <div className="cohort-list">     
                         <CohortsList cohorts={cohorts} setSelectedCohort={setSelectedCohort} onSelect={(profiles) => setSelectedProfiles(profiles)} />
@@ -80,10 +85,10 @@ const TeacherCohort = ({cohorts, setRefresh}) => {
                     </div>
                     <hr className="divider"/>
 
-                    
-                        <StudentList profiles={selectedProfiles} setRefresh={setRefresh} cohorts={cohorts} />
-                </section>
-            </div>
+                
+                    <StudentList profiles={filteredProfiles} setRefresh={setRefresh} cohorts={cohorts} />
+            </section>
+        </div>
         </div>):(
             <div>
         <div className="">

@@ -69,7 +69,6 @@ const StepThree = ({ data, setData, setProfile }) => {
                     icon={<LockIcon/>}
                     iconRight={true}
                 />
-                {console.log("Cohort: ", selectedCourse?.cohorts?.[0]?.id)}
                 <TextInput
                     name="start_date"
                     label={'Start Date'}

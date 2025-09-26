@@ -20,7 +20,7 @@ const SearchTeacher = () => {
         if (!query.trim())  return;
         try {
                 const response = await get(`search/profiles/${query}`);
-                setSearchResults(response.data.profiles);
+                setSearchResults(response.data.profiles.filter(profile => profile.role.id === 2));
                 setIsOpen(true);
             } catch (error) {
                 console.error("Error fetching search results:", error);

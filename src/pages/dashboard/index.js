@@ -210,7 +210,6 @@ const Dashboard = () => {
                
                
               )}
-              {console.log(cohort)}
             </Card>
           ) : (
             <>
