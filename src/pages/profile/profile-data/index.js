@@ -6,7 +6,6 @@ const ProfileData = ({ user, initials}) => {
   const roleName = user.profile.role.name;
   const { firstName, lastName, githubUrl, mobile, specialism, bio, photo } = user.profile;
   
-  console.log(user, "user in profile data");
   const getReadableRole = (role) => {
     switch (role) {
       case 'ROLE_STUDENT':

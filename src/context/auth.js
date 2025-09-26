@@ -85,7 +85,6 @@ const AuthProvider = ({ children }) => {
   const forceTokenRefresh = () => {
     const currentToken = token || localStorage.getItem('token');
     if (currentToken) {
-      console.log("token is found and trying to refresh, but not refreshed?");
       // Force re-render and context updates by setting token again
       setToken(null);
 
@@ -130,14 +129,13 @@ const AuthProvider = ({ children }) => {
           if (refreshResponse.token) {
             localStorage.setItem('token', refreshResponse.token);
             setToken(refreshResponse.token);
-            console.log('Token refreshed successfully after profile creation');
           } else {
             // If token refresh is not available, force a refresh of contexts
             forceTokenRefresh();
           }
 
         } catch (refreshError) {
-          console.log('Token refresh not available, forcing context refresh');
+          console.error('Token refresh not available, forcing context refresh');
           // Force a refresh of all contexts that depend on the token
           forceTokenRefresh();
         }

@@ -28,7 +28,6 @@ const MultipleStudentsSearch = ({ students, handleSelectStudent , selectedStuden
  <ul>
       {students.map((student) => {
         const isSelected = selectedStudents.some((s) => String(s.id) === String(student.id))        
-        console.log("Valgte studenter:", selectedStudents);
 
 
         return (
