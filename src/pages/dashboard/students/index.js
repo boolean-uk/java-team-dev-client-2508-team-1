@@ -26,7 +26,7 @@ const Students = ({students}) => {
         <Card>
             <h3 className="border-line">Students</h3>
             <section>
-                {students !== null ? (
+                {students.length > 0  ? (
                     <div>
                     <ul className="students-list-teacher-view">
                         {students.map((student, index) => (

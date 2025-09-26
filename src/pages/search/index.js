@@ -9,30 +9,18 @@ import { useNavigate } from "react-router-dom";
 import { useSearchResults } from "../../context/searchResults";
 import UserIconTeacherView from "../../components/profile-icon-searchTeacherView";
 import UserIconStudentView from "../../components/profile-icon-searchStudentView";
-import { useUserRoleData } from "../../context/userRole.";
-import useAuth from "../../hooks/useAuth";
-import jwtDecode from "jwt-decode";
+
+import { useData } from "../../context/data";
 
 const SearchPage = () => {
     const [query, setQuery] = useState("");
     const [newresults, setNewResults] = useState(null);
     const {searchResults} = useSearchResults();
     const navigate = useNavigate();
-    const { token } = useAuth();
+    const {userRole} = useData()
     
 
-    // Safely decode token with fallback
-    let decodedToken = {};
-    try {
-        if (token || localStorage.getItem('token')) {
-        decodedToken = jwtDecode(token || localStorage.getItem('token')) || {};
-        }
-    } catch (error) {
-        console.error('Invalid token in Dashboard:', error);
-    }
-
-    const  { userRole, setUserRole } = useUserRoleData();
-      setUserRole(decodedToken.roleId)
+  
 
     const handleGoBack = () => {
         navigate(-1);

@@ -45,7 +45,7 @@ const AuthProvider = ({ children }) => {
 
     setToken(res.data.token);
 
-    navigate(location.state?.from?.pathname || '/');  
+    navigate('/');  
 
     // After successful login, fetch and store user data
     try {
@@ -163,7 +163,11 @@ const AuthProvider = ({ children }) => {
 
     localStorage.setItem('token', token);
     setRefresh(prev => !prev)
-    navigate('/cohorts');
+
+    setTimeout(() => {
+        navigate('/cohorts');
+      }, 2000);
+    
   };
 
   const value = {

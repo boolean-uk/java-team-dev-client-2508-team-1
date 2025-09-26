@@ -62,7 +62,8 @@ const AddStudent = () => {
         } catch (error) {
             console.error("Error adding student to cohort:", error);
         }
-    } addStudentToCohort()
+    } setRefresh(prev => !prev)
+    addStudentToCohort()
     setSnackbarOpen(true);
 
     setTimeout(()=> {

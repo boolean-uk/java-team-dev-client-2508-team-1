@@ -11,7 +11,6 @@ import Posts from '../../components/posts';
 import useModal from '../../hooks/useModal';
 import './style.css';
 import Cohorts from './cohorts';
-import { useUserRoleData } from '../../context/userRole.';
 import Students from './students';
 import TeachersDashboard from './teachers';
 import Search from './search';
@@ -25,12 +24,11 @@ import useAuth from '../../hooks/useAuth';
 
 const Dashboard = () => {
  
-  const {cohorts,students, teachers, myCohort, studentsInMyCohort, myProfile} = useData()
+  const {cohorts,students, teachers, myCohort, studentsInMyCohort, myProfile, userRole} = useData()
   const{refresh} = useAuth()
   
   
 
-  const  { userRole} = useUserRoleData();
   const { openModal, setModal } = useModal();
   const { showGlobalLoading, hideGlobalLoading } = useLoading();
   const { loading: postsLoading, posts } = usePosts();
@@ -93,7 +91,7 @@ const Dashboard = () => {
           {userRole === 2 ? (
             <Card>
               <h3>My Cohort</h3>
-              {myCohort.length !== 0 ? ( 
+              {myCohort !== null ? ( 
                 <div>
                 <p className='padding-top'>{myCohort.course.name}, Cohort {myCohort.id}</p>
               <section className='cohort-teachers-container border-top'>

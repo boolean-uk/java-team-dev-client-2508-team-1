@@ -9,7 +9,7 @@ const TeachersDashboard = ({teachers}) => {
         <Card>
             <h3 className="border-line">Teachers</h3>
             <section>
-                {teachers !== null ? (
+                {teachers.length > 0 ? (
                 <ul className="students-list-teacher-view">
                     {teachers?.map((teacher, index) => (
                         <li key={index}>
