@@ -22,6 +22,8 @@ const TeacherCohort = ({cohorts, setRefresh}) => {
     // };
 
     useEffect(() => {}, [selectedProfiles]);
+
+    const filteredProfiles = selectedProfiles.filter(profile => profile.role.id === 2)
         
     return (
         <>
@@ -81,7 +83,7 @@ const TeacherCohort = ({cohorts, setRefresh}) => {
                 <hr className="divider"/>
 
                 
-                    <StudentList profiles={selectedProfiles} setRefresh={setRefresh} cohorts={cohorts} />
+                    <StudentList profiles={filteredProfiles} setRefresh={setRefresh} cohorts={cohorts} />
             </section>
         </div>
         </div>):(
