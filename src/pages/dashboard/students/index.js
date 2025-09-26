@@ -45,7 +45,7 @@ const Students = ({ refresh, setRefresh, cohorts }) => {
                             <li key={index}>
                                 <ProfileIconTeacher 
                                 photo={student.photo}
-                                   id={student.id}
+                                   id={student.user.id}
                                    initials={getInitials(student)}
                                    firstname={student.firstName}
                                    lastname={student.lastName}
