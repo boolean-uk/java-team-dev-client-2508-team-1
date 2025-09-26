@@ -5,6 +5,7 @@
   width: 100% !important;
   margin-bottom: 25px;
   border: 1px #e6ebf5 solid;
+  position: relative;
 }
 
 .card-shadow {
