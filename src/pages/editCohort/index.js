@@ -75,11 +75,8 @@ const EditCohort = () =>{
       setStartDate(cohort.startDate) 
       setEndDate(cohort.endDate) 
 
-      console.log(selectedCourse)
+      console.log(selectedCourse, "##############")
     }
-
-
-
   },[cohort])
 
 
