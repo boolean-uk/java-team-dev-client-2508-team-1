@@ -12,7 +12,7 @@ const Cohorts = ({cohorts}) => {
             <Card>
       <h3 className="border-line">Cohorts</h3>
     <section>
-      {cohorts !== null ? (
+      {cohorts.length > 0 ? (
     <ul>
         {cohorts.map((cohort, index) => {
           return (

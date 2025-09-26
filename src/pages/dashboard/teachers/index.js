@@ -1,23 +1,9 @@
-import { useEffect, useState } from "react"
-import { get } from "../../../service/apiClient"
+
 import Card from "../../../components/card"
 import UserIcon from "../../../components/profile-icon"
 
-const TeachersDashboard = () => {
-    const [teachers, setTeachers] = useState(null)
-
-    useEffect(() => {
-        async function fetchTeachers() {
-            try {
-                const response = await get("teachers")
-                setTeachers(Array.isArray(response.data.profiles) ? response.data.profiles : [])
-            } catch (error) {
-                console.error("Error fetching teachers: ", error)
-            }
-        }
-        fetchTeachers()
-    }, [])
-
+const TeachersDashboard = ({teachers}) => {
+   
     return (
         <>
         <Card>

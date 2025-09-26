@@ -49,7 +49,7 @@ const ProfileCircle = ({ id, initials, menuVisible, clickable, photo=null }) => 
 
 
 
-export const CascadingMenu = ({ id, setIsMenuVisible, setRefresh, cohorts = []}) => {
+export const CascadingMenu = ({ id, setIsMenuVisible, cohorts = []}) => {
 
   const [clicked, setClicked] = useState(false);
 
@@ -82,7 +82,7 @@ export const CascadingMenu = ({ id, setIsMenuVisible, setRefresh, cohorts = []})
               profileId={id}
               cohort={cohort}
               setIsMenuVisible={setIsMenuVisible}
-              setRefresh={setRefresh}
+              
             />
           ))}
           </MenuItem>
@@ -96,7 +96,7 @@ export const CascadingMenu = ({ id, setIsMenuVisible, setRefresh, cohorts = []})
         clickable="DeleteUser" 
         style={{color: 'red'}} 
         setIsMenuVisible={setIsMenuVisible} 
-        setRefresh={setRefresh} 
+        
       />
       :
       <MenuItem icon={<DeleteIcon />} 
@@ -105,7 +105,7 @@ export const CascadingMenu = ({ id, setIsMenuVisible, setRefresh, cohorts = []})
         clicked={clicked} 
         setClicked={setClicked} 
         setIsMenuVisible={setIsMenuVisible} 
-        setRefresh={setRefresh} 
+        
       />
       }
     </Menu>

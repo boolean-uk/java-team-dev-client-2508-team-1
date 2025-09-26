@@ -3,7 +3,7 @@ import './style.css';
 import Teacher from "./teacher";
 
 
-const Teachers = ({ teachers, getInitials }) => {
+const Teachers = ({ teachers }) => {
     console.log(teachers, "teachers in teachers component");
     return (
         <Card>
@@ -18,7 +18,7 @@ const Teachers = ({ teachers, getInitials }) => {
                             photo={teacher.photo}
                             key={teacher.id || 0} 
                             id = {teacher.user.id}
-                            initials={getInitials(teacher) || "NA"}
+                            initials={teacher.firstName.charAt(0) + teacher.lastName.charAt(0) || "NA"}
                             firstName={teacher.firstName || "N/A"}
                             lastName={teacher.lastName || "N/A"}
                             role={teacher.specialism || "N/A"}

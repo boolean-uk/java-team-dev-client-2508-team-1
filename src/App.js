@@ -25,12 +25,15 @@ import { CohortProvider } from './context/selectedCohort';
 import EditCohort from './pages/editCohort';
 import { LoadingProvider } from './context/loading';
 import GlobalLoading from './components/GlobalLoading';
+import { DataProvider } from './context/data';
 
 const App = () => {
   return (
     <>
+  
       <LoadingProvider>
-        <AuthProvider>
+        <AuthProvider>  
+          <DataProvider>
           <FormProvider>
             <UserRoleProvider>
              <SearchResultsProvider>
@@ -147,8 +150,10 @@ const App = () => {
              </SearchResultsProvider>
             </UserRoleProvider>
           </FormProvider>
+               </DataProvider>
         </AuthProvider>
       </LoadingProvider>
+ 
     </>
   );
 };

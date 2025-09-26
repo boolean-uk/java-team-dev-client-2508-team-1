@@ -9,7 +9,7 @@ import '../../../components/fullscreenCard/fullscreenCard.css';
 // import { useState } from "react";
 
 
-function Students({ students, getInitials, course, cohort }) {
+function Students({ students,  course, cohort }) {
 
     return (
     <Card>
@@ -52,7 +52,7 @@ function Students({ students, getInitials, course, cohort }) {
               photo={student.photo}
               key={student.id || 0}
               id ={student.user.id}
-              initials={getInitials(student)}
+              initials={student.firstName.charAt(0) + student.lastName.charAt(0)}
               firstName={student.firstName}
               lastName={student.lastName}
             />

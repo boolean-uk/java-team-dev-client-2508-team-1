@@ -11,11 +11,12 @@ import { useState } from 'react';
 import CheckCircleIcon from '../../../assets/icons/checkCircleIcon';
 import { del, get, updateStudentCohort } from '../../../service/apiClient';
 import { useSelectedCohortId } from '../../../context/selectedCohort';
+import { useData } from '../../../context/data';
 
-const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText, postId, name, isMenuVisible, setIsMenuVisible, commentText, commentId, onCommentDeleted, onPostDeleted, profileId, clicked, setClicked, setRefresh, cohort }) => {
+const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText, postId, name, isMenuVisible, setIsMenuVisible, commentText, commentId, onCommentDeleted, onPostDeleted, profileId, clicked, setClicked, cohort }) => {
 
   const { openModal, setModal } = useModal();
-
+  const {setRefresh} = useData()
   const { deletePost } = usePosts();
   const { deleteComment } = useComments();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
