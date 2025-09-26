@@ -185,7 +185,6 @@ const Dashboard = () => {
                       <div>
                         <UserIcon
                           photo={student.photo}
-
                           key={student.id}
                           id={student.id}
                           initials={getInitials(student)}

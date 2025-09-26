@@ -1,5 +1,8 @@
 .user-panel {
     position: absolute;
+    top: 100%;       /* plasseres rett under .edit-icon-wrapper */
+    right: 0;        /* høyrekant justert med prikkene */
+    margin-top: 8px; /* liten avstand ned fra knappene */
     z-index: 2000;
 }
 
