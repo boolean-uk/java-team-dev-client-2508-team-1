@@ -3,15 +3,15 @@ import ExitIcon from "../../assets/icons/exitIcon"
 import "./style.css"
 import StepperCohort from "./steps"
 import StepOneCohort from "./stepOne"
-import { useEffect, useState } from "react"
-import { get } from "../../service/apiClient"
+import {  useState } from "react"
 import StepTwoCohort from "./stepTwo"
 import StepThreeCohort from "./stepThree"
+import { useData } from "../../context/data"
 
 
 const AddCohort = () =>{
-    const [students, setStudents] = useState([])
-    const [courses, setCourses] = useState([])
+
+    const {students, courses} = useData()
 
     const [cohortName, setCohortName] = useState("")
     const[startDate, setStartDate] = useState("")
@@ -19,30 +19,6 @@ const AddCohort = () =>{
     const [selectedCourse, setSelectedCourse] = useState("")
     const [selectedStudents, setSelectedStudents] = useState([]);
 
-
-
-
-       useEffect(() => {
-        async function fetchStudents() {
-            try {
-                const response = await get("students");
-                setStudents(response.data.profiles);
-            } catch (error) {
-                console.error("Error fetching students:", error);
-            }
-        }
-        
-        async function fetchCourses() {
-            try {
-                const response = await get("courses");
-                setCourses(response.data.courses);
-            } catch (error) {
-                console.error("Error fetching courses:", error);
-            }
-        }
-        fetchStudents(); 
-        fetchCourses()
-        }, []);
 
     return (
         <>

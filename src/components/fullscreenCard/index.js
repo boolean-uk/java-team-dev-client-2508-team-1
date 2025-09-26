@@ -1,50 +1,52 @@
-import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './fullscreenCard.css';
 import ProfileData from '../../pages/profile/profile-data';
-import useAuth from '../../hooks/useAuth';
-import jwtDecode from 'jwt-decode';
-import { getUserById } from '../../service/apiClient';
+
 import '../../pages/loading';
 import SimpleProfileCircle from '../simpleProfileCircle';
+import { useData } from '../../context/data';
+import { useEffect, useState } from 'react';
+import { getUserById } from '../../service/apiClient';
 
 const FullScreenCard = () => {
-  const [user, setUser] = useState(null);
-  const { token } = useAuth();
 
-  
-  // Safely decode token with fallback
-  let userId;
-  try {
-    const decodedToken = jwtDecode(token || localStorage.getItem('token'));
-    userId = decodedToken?.userId;
-  } catch (error) {
-    console.error('Invalid token:', error);
-    userId = null;
-  }
-  
+  const { myProfile, userId, teachers } = useData();
+  const [user, setUser] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const navigate = useNavigate();
   const { id } = useParams();
   const targetId = id ?? userId;
   const isOwnProfile = String(targetId) === String(userId);
 
   useEffect(() => {
-    async function fetchUser() {
+    const fetchUser = async () => {
       try {
-        const data = await getUserById(targetId);
-        setUser(data);
+        const response = await getUserById(targetId);
+        setUser(response.profile);
       } catch (error) {
-        console.error('Error fetching user:', error);
-      }
+        console.error("Error fetching user:", error);
+      } finally {
+      setLoading(false); // ferdig med lasting
     }
-    fetchUser();
-  }, [targetId]);
+
+    };
+
+    if (!isOwnProfile) {
+      fetchUser();
+    } else {
+      setUser(myProfile)
+      setLoading(false);
+    }
+  }, [targetId, userId]);
+
+
 
   const goToEdit = () => {
     navigate(`/profile/${userId}/edit`);
   };
 
-  if (!user || !user.profile) {
+  if (loading) {
     return <div>
         <div className="">
             <h3>Loading...</h3>
@@ -55,16 +57,20 @@ const FullScreenCard = () => {
         </div>
   }
 
-  const firstname = user.profile.firstName;
-  const lastname = user.profile.lastName;
+  const firstname = user.firstName;
+  const lastname = user.lastName;
   const name = firstname + " " + lastname;
     const initials = name.split(" ").map((n)=>n[0]).join("").toUpperCase()
 
+  
+    const isTeacher = teachers.some(teacher => teacher.id === user.id);
+    const roleValue = isTeacher ? 1 : 2;
 
+  console.log(user)
   return (
     <div className="fullscreen-card">
       <div className="top-bar"> 
-        <SimpleProfileCircle photo={user.profile.photo} initials={initials}/> 
+        <SimpleProfileCircle photo={user.photo} initials={initials}/> 
         {/* <ProfileCircle initials={name.split(" ").map((n)=>n[0]).join("").toUpperCase()}/>  */}
         <div> 
           <p className="name-text">{name}</p> 
@@ -75,7 +81,7 @@ const FullScreenCard = () => {
         </div>
       <section className="post-interactions-container border-top"></section>
 
-      <ProfileData user={user} initials={initials} />
+      <ProfileData user={user} initials={initials} roleValue={roleValue} />
     </div>
   );
 };
