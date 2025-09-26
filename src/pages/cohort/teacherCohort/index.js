@@ -53,7 +53,8 @@ const TeacherCohort = ({cohorts, setRefresh}) => {
                     </div>
                     <div className="edit-icon-course">
                         <EditIconCouse setRefresh={setRefresh} cohort={selectedCohort ? selectedCohort.id : 1}/>
-
+                    </div>
+                    </div>
                     <div className="cohort-list">     
                         <CohortsList cohorts={cohorts} setSelectedCohort={setSelectedCohort} onSelect={(profiles) => setSelectedProfiles(profiles)} />
                     </div>
