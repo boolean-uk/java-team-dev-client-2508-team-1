@@ -43,11 +43,13 @@ const SearchPage = () => {
         if (!query.trim()) return;
         try {
             const response = await get(`search/profiles/${query}`);
-            setNewResults(response.data.profiles);
+            setNewResults(Array.isArray(response.data.profiles) ? response.data.profiles : []);
         } catch (error) {
             console.error("Error fetching search results:", error);
+            setNewResults([]); // fallback til tom array hvis feil
         }
     };
+
 
     return (
         <main className="search-page">
@@ -79,66 +81,47 @@ const SearchPage = () => {
             </Card>
 
             {searchResults && (
-            <div className="results-section">
-                <Card style={{ width: "500px", margin: "20px auto 0 auto" }}>
-                <p className="people">People</p>
+  <div className="results-section">
+    <Card style={{ width: "500px", margin: "20px auto 0 auto" }}>
+      <p className="people">People</p>
 
-                {searchResults.length > 0 && newresults === null ? (
-                    <ul>
-                    {searchResults.slice(0, 10).map((student, index) => (
-                        <li key={index} className="student-item">
-                        {userRole === 1 ? (
-                            <UserIconTeacherView
-                            photo={student.photo}
-                            userId={student.id}
-                            initials={student.firstName.charAt(0) + student.lastName.charAt(0)}
-                            firstname={student.firstName}
-                            lastname={student.lastName}
-                            role={student.specialism}
-                            />
-                        ) : userRole === 2 ? (
-                            <UserIconStudentView
-                            photo={student.photo}
-                            userId={student.id}
-                            initials={student.firstName.charAt(0) + student.lastName.charAt(0)}
-                            firstname={student.firstName}
-                            lastname={student.lastName}
-                            role={student.specialism}
-                            />
-                        ) : null}   
-                        </li>
-                    ))}
-                    </ul>
-                ) : newresults !== null ? (
-                    <ul>
-                    {newresults.slice(0, 10).map((student, index) => (
-                        <li key={index} className="student-item">
-                        {userRole === 1 ? (
-                            <UserIconTeacherView
-                            userId={student.id}
-                            initials={student.firstName.charAt(0) + student.lastName.charAt(0)}
-                            firstname={student.firstName}
-                            lastname={student.lastName}
-                            role={student.specialism}
-                            />
-                        ) : userRole === 2 ? (
-                            <UserIconStudentView
-                            userId={student.id}
-                            initials={student.firstName.charAt(0) + student.lastName.charAt(0)}
-                            firstname={student.firstName}
-                            lastname={student.lastName}
-                            role={student.specialism}
-                            />
-                        ) : null} 
-                        </li>
-                    ))}
-                    </ul>
-                ) : (
-                    <p>Sorry, no results found</p>
-                )}
-                </Card>
-            </div>
-            )}
+      {(() => {
+        const resultsToShow = newresults ?? searchResults;
+
+        return resultsToShow.length > 0 ? (
+          <ul>
+            {resultsToShow.slice(0, 10).map((student, index) => (
+              <li key={index} className="student-item">
+                {userRole === 1 ? (
+                  <UserIconTeacherView
+                    photo={student.photo}
+                    userId={student.id}
+                    initials={student.firstName.charAt(0) + student.lastName.charAt(0)}
+                    firstname={student.firstName}
+                    lastname={student.lastName}
+                    role={student.specialism}
+                  />
+                ) : userRole === 2 ? (
+                  <UserIconStudentView
+                    photo={student.photo}
+                    userId={student.id}
+                    initials={student.firstName.charAt(0) + student.lastName.charAt(0)}
+                    firstname={student.firstName}
+                    lastname={student.lastName}
+                    role={student.specialism}
+                  />
+                ) : null}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>Sorry, no results found</p>
+        );
+      })()}
+    </Card>
+  </div>
+)}
+
 
             </div>
         </main>
