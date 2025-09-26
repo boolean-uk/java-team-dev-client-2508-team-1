@@ -215,7 +215,7 @@ const Dashboard = () => {
           ) : (
             <>
               <Cohorts cohorts={cohorts}/>
-              <Students refresh={refresh} setRefresh={setRefresh}/>
+              <Students refresh={refresh} setRefresh={setRefresh} cohorts={cohorts} />
               <TeachersDashboard/>
             </>
 

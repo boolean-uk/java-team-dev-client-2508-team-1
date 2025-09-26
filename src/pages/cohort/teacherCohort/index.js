@@ -38,52 +38,52 @@ const TeacherCohort = ({cohorts, setRefresh}) => {
             </div>
 
 
-        <div className="sections-wrapper">
-            <section className="cohorts-section">
-                <div className="add-cohort">
-                    <div className="add-cohort-button">
-                        <button onClick={() => navigate("/cohorts/new")}>Add cohort</button>
-                    </div>
-                </div>                    
-            
-            <hr className="divider" />
-
-
-                <div className="cohort-list">     
-                    <CohortsList cohorts={cohorts} setSelectedCohort={setSelectedCohort} onSelect={(profiles) => setSelectedProfiles(profiles)} />
-                </div>
-            </section>    
-
-            <section className="students-section">
-                <div className="students">
-                    <div className="selected-course">
-                        {selectedCohort !== null ? (
-                            <>
-
-                            <CourseIcon courseName={selectedCohort.course.name} cohort={selectedCohort.id} startDate={selectedCohort.startDate} endDate={selectedCohort.endDate}/>
-
-                            </>
-                        ): (<><p>Select a course</p></>)}
-                        
-                    </div>
-
-                    <div className="actions">
-                    <div className="add-student-button">
-                        <button onClick={() => navigate("/cohorts/add")}>Add student</button>
-                    </div>
-                    <div className="edit-icon-course">
-                  {console.log(selectedCohort)}
-                        <EditIconCouse setRefresh={setRefresh} cohort={selectedCohort ? selectedCohort.id : 1}/>
-
-                    </div>
-                    </div>
-                </div>
-                <hr className="divider"/>
-
+            <div className="sections-wrapper">
+                <section className="cohorts-section">
+                    <div className="add-cohort">
+                        <div className="add-cohort-button">
+                            <button onClick={() => navigate("/cohorts/new")}>Add cohort</button>
+                        </div>
+                    </div>                    
                 
-                    <StudentList profiles={selectedProfiles} setRefresh={setRefresh} cohorts={cohorts} />
-            </section>
-        </div>
+                    <hr className="divider" />
+
+
+                    <div className="cohort-list">     
+                        <CohortsList cohorts={cohorts} setSelectedCohort={setSelectedCohort} onSelect={(profiles) => setSelectedProfiles(profiles)} />
+                    </div>
+                </section>    
+
+                <section className="students-section">
+                    <div className="students">
+                        <div className="selected-course">
+                            {selectedCohort !== null ? (
+                                <>
+
+                                <CourseIcon courseName={selectedCohort.course.name} cohort={selectedCohort.id} startDate={selectedCohort.startDate} endDate={selectedCohort.endDate}/>
+
+                                </>
+                            ): (<><p>Select a course</p></>)}
+                            
+                        </div>
+
+                        <div className="actions">
+                        <div className="add-student-button">
+                            <button onClick={() => navigate("/cohorts/add")}>Add student</button>
+                        </div>
+                        <div className="edit-icon-course">
+                    {console.log(selectedCohort)}
+                            <EditIconCouse setRefresh={setRefresh} cohort={selectedCohort ? selectedCohort.id : 1}/>
+
+                        </div>
+                        </div>
+                    </div>
+                    <hr className="divider"/>
+
+                    
+                        <StudentList profiles={selectedProfiles} setRefresh={setRefresh} cohorts={cohorts} />
+                </section>
+            </div>
         </div>):(
             <div>
         <div className="">

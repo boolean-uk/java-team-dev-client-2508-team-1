@@ -7,7 +7,7 @@ import Card from "../../../components/card"
 
 import ProfileIconTeacher from "../../../components/profile-icon-teacherView";
 
-const Students = ({refresh, setRefresh }) => {
+const Students = ({ refresh, setRefresh, cohorts }) => {
    const [students, setStudents] = useState(null) 
     
     
@@ -42,8 +42,7 @@ const Students = ({refresh, setRefresh }) => {
                     <div>
                     <ul className="students-list-teacher-view">
                         {students.map((student, index) => (
-                            <li key={index} className="student-item">
-                                <div>
+                            <li key={index}>
                                 <ProfileIconTeacher 
                                 photo={student.photo}
                                    id={student.id}
@@ -52,8 +51,8 @@ const Students = ({refresh, setRefresh }) => {
                                    lastname={student.lastName}
                                    role={"Student"}
                                    setRefresh={setRefresh}
+                                   cohorts={cohorts}
                                />
-                                </div>
                             </li>
                         ))}
                     </ul>
