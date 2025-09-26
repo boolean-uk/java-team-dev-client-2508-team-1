@@ -21,10 +21,12 @@ import SimpleProfileCircle from '../../components/simpleProfileCircle';
 import { useLoading } from '../../context/loading';
 import { usePosts } from '../../context/posts';
 import { useData } from '../../context/data';
+import useAuth from '../../hooks/useAuth';
 
 const Dashboard = () => {
  
-  const {cohorts,students, teachers, myCohort, studentsInMyCohort, myProfile, refresh} = useData()
+  const {cohorts,students, teachers, myCohort, studentsInMyCohort, myProfile} = useData()
+  const{refresh} = useAuth()
   
   
 
@@ -87,11 +89,8 @@ const Dashboard = () => {
         <Card>
         <Search />
         </Card>
-        { userRole === null || userRole === undefined ? (
-          <div>Loading...</div>
-        ) : (
 
-          userRole === 2 ? (
+          {userRole === 2 ? (
             <Card>
               <h3>My Cohort</h3>
               {myCohort.length !== 0 ? ( 
@@ -138,7 +137,7 @@ const Dashboard = () => {
             </>
 
           )
-        )}
+}
          
       </aside>
     </>

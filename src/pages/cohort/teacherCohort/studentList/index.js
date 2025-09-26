@@ -1,6 +1,6 @@
 import ProfileIconTeacher from "../../../../components/profile-icon-teacherView";
 
-const StudentList = ({ profiles, cohorts, setRefresh }) => {
+const StudentList = ({ profiles, cohorts}) => {
 
   if (!profiles || profiles.length === 0) {
     return <p></p>;
@@ -13,7 +13,7 @@ const StudentList = ({ profiles, cohorts, setRefresh }) => {
 
             <ProfileIconTeacher
             photo={student.photo}
-            id={student.user.id} initials={student.firstName.charAt(0) + student.lastName.charAt(0)} firstname={student.firstName} lastname={student.lastName} role={student.specialism} setRefresh={setRefresh} cohorts={cohorts}
+            id={student.user.id} initials={student.firstName.charAt(0) + student.lastName.charAt(0)} firstname={student.firstName} lastname={student.lastName} role={student.specialism} cohorts={cohorts}
 />
             </div>
         </li>

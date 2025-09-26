@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom"
 import SearchTeacher from "./searchTeacher";
 
 
-const TeacherCohort = ({cohorts, setRefresh}) => {
+const TeacherCohort = ({cohorts}) => {
     // const [searchVal, setSearchVal] = useState('');
     const [selectedProfiles, setSelectedProfiles] = useState([]);
     const[selectedCohort, setSelectedCohort] = useState(null);
@@ -72,7 +72,7 @@ const TeacherCohort = ({cohorts, setRefresh}) => {
                         <button onClick={() => navigate("/cohorts/add")}>Add student</button>
                     </div>
                     <div className="edit-icon-course">
-                        <EditIconCouse setRefresh={setRefresh}/>
+                        <EditIconCouse />
 
                     </div>
                     </div>
@@ -80,7 +80,7 @@ const TeacherCohort = ({cohorts, setRefresh}) => {
                 <hr className="divider"/>
 
                 
-                    <StudentList profiles={selectedProfiles} setRefresh={setRefresh} cohorts={cohorts} />
+                    <StudentList profiles={selectedProfiles} cohorts={cohorts} />
             </section>
         </div>
         </div>):(

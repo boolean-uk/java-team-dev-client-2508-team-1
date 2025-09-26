@@ -11,6 +11,7 @@ import CohortsMenu from "./cohortsMenu";
 import { Snackbar, SnackbarContent } from '@mui/material';
 import CheckCircleIcon from "../../assets/icons/checkCircleIcon";
 import { useData } from "../../context/data";
+import useAuth from "../../hooks/useAuth";
 
     
 
@@ -18,7 +19,8 @@ const AddStudent = () => {
 
    
 
-    const {students, courses, setRefresh} = useData()
+    const {students, courses} = useData()
+    const{setRefresh} = useAuth()
     const [cohorts, setCohorts] = useState([])
     const [isOpenCourses, setIsOpenCourses] = useState(false);
     const [isOpenStudents, setIsOpenStudents] = useState(false);

@@ -16,9 +16,9 @@ export const DataProvider = ({ children }) => {
   const [teachersInMyCohort, setTeachersInMyCohort] = useState([])
   const [studentsInMyCohort, setStudentsInMyCohort] = useState([])
 
-  const { token } = useAuth()
+  const { token, refresh } = useAuth()
   const [userId, setUserId] = useState("")
-  const [refresh, setRefresh] = useState(false)
+
 
   // 1. Hent bruker-ID når token er tilgjengelig
   useEffect(() => {
@@ -138,7 +138,6 @@ export const DataProvider = ({ children }) => {
         myCohort,
         teachersInMyCohort,
         studentsInMyCohort,
-        setRefresh
       }}
     >
       {children}

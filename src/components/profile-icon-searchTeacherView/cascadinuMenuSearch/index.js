@@ -7,7 +7,7 @@ import CohortIcon from "../../../assets/icons/cohortIcon"
 import ProfileIcon from "../../../assets/icons/profileIcon"
 import { useState } from "react"
 
-const CascadingMenuSearch = ({ id, setIsMenuVisible, setRefresh }) => {
+const CascadingMenuSearch = ({ id, setIsMenuVisible }) => {
 
     const [clicked, setClicked] = useState(false);
 
@@ -24,8 +24,7 @@ const CascadingMenuSearch = ({ id, setIsMenuVisible, setRefresh }) => {
                 cohortId = {id} 
                 clickable="DeleteCohort" 
                 style={{color: 'red'}} 
-                setIsMenuVisible={setIsMenuVisible} 
-                setRefresh={setRefresh} 
+                setIsMenuVisible={setIsMenuVisible}
             />
             :
             <MenuItem icon={<DeleteIcon />} 
@@ -33,8 +32,7 @@ const CascadingMenuSearch = ({ id, setIsMenuVisible, setRefresh }) => {
                 clickable="Clicked" 
                 clicked={clicked} 
                 setClicked={setClicked} 
-                setIsMenuVisible={setIsMenuVisible} 
-                setRefresh={setRefresh} 
+                setIsMenuVisible={setIsMenuVisible}
             />
             }
         </Menu>
