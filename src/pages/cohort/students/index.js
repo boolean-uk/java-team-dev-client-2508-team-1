@@ -6,7 +6,6 @@ import FrontEndLogo from "../../../assets/icons/frontEndLogo";
 import DataAnalyticsLogo from "../../../assets/icons/dataAnalyticsLogo";
 import '../../../components/profileCircle/style.css';
 import '../../../components/fullscreenCard/fullscreenCard.css';
-// import { useState } from "react";
 
 
 function Students({ students, getInitials, course, cohort }) {
