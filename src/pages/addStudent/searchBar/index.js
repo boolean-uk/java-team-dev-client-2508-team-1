@@ -40,7 +40,7 @@ const SearchBar = ({setSelectedStudent, selectedStudent}) => {
     <div className="add-search">
         <form onSubmit={handleSubmit}>
         <TextInput
-          placeholder="Search for people"
+          
             value={query}
             name="Search"
             onChange={(e) => setQuery(e.target.value)}

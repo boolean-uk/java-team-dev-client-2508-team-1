@@ -55,6 +55,7 @@ const SearchTeacher = () => {
                         icon={<SearchIcon />}
                         value={query}
                         name="Search"
+                        placeholder="Search for students"
                         onChange={(e) => setQuery(e.target.value)}
                         onKeyDown={(e) => {
                             if (e.key === "Enter") handleSubmit(e);

@@ -78,7 +78,6 @@ const TeacherCohort = ({cohorts, setRefresh}) => {
                             <button onClick={() => navigate("/cohorts/add")}>Add student</button>
                         </div>
                         <div className="edit-icon-course">
-                    {console.log(selectedCohort)}
                             <EditIconCouse setRefresh={setRefresh} cohort={selectedCohort ? selectedCohort.id : 1}/>
 
                         </div>
