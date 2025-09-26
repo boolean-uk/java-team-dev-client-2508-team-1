@@ -68,7 +68,7 @@ const TeacherCohort = ({cohorts, setRefresh}) => {
 
                                 <CourseIcon courseName={selectedCohort.course.name} cohort={selectedCohort.id} startDate={selectedCohort.startDate} endDate={selectedCohort.endDate}/>
 
-                                </>
+                             </>
                             ): (<><p>Select a course</p></>)}
                             
                         </div>

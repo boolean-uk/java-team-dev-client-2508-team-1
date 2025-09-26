@@ -1,3 +1,4 @@
+import SimpleProfileCircle from "../../../components/simpleProfileCircle";
 
 
 
@@ -37,7 +38,8 @@ const SearchResultsStudents = ({ students, onSelect }) => {
             <div className="user">
                 <div className="profile-circle">
                 <div className="profile-icon" style={{background: getColorFromInitials(student.firstName.charAt(0) + student.lastName.charAt(0))}}>
-                    <p>{student.firstName.charAt(0) + student.lastName.charAt(0)}</p>
+                    <SimpleProfileCircle initials={student.firstName.charAt(0) + student.lastName.charAt(0)} photo={student.photo} />
+                    {/* <p>{student.firstName.charAt(0) + student.lastName.charAt(0)}</p> */}
                 </div>
             </div>
             <div className="user-info">
