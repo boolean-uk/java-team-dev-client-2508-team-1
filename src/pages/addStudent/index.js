@@ -75,7 +75,6 @@ const AddStudent = () => {
       async function addStudentToCohort() {
         try {
             const response = await patch(`cohorts/teacher/${selectedCohort.id}`, {profileId: parseInt(selectedStudent.id)});
-            console.log(response)
         } catch (error) {
             console.error("Error adding student to cohort:", error);
         }

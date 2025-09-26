@@ -8,13 +8,11 @@ export const LoadingProvider = ({ children }) => {
   const dashboardInitializedRef = useRef(false); // Track dashboard initialization globally
 
   const showGlobalLoading = useCallback((message = 'Loading...') => {
-    console.log('Global loading started:', message);
     setLoadingMessage(message);
     setIsGlobalLoading(true);
   }, []);
 
   const hideGlobalLoading = useCallback(() => {
-    console.log('Global loading ended');
     setIsGlobalLoading(false);
   }, []);
 
@@ -23,12 +21,10 @@ export const LoadingProvider = ({ children }) => {
   }, []);
 
   const setDashboardInitialized = useCallback((value) => {
-    console.log('Dashboard initialization status:', value);
     dashboardInitializedRef.current = value;
   }, []);
 
   const resetDashboardInitialization = useCallback(() => {
-    console.log('Resetting dashboard initialization');
     dashboardInitializedRef.current = false;
   }, []);
 

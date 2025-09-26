@@ -1,7 +1,4 @@
 import { useEffect, useState } from "react"
-// import SearchIcon from "../../../assets/icons/searchIcon"
-// import EditIconCohortTeacher from "../../../components/editIconCohortTeacher"
-// import TextInput from "../../../components/form/textInput"
 import CohortsList from "./cohortsList"
 import './style.css';
 import StudentList from "./studentList"
@@ -72,7 +69,6 @@ const TeacherCohort = ({cohorts, setRefresh}) => {
                         <button onClick={() => navigate("/cohorts/add")}>Add student</button>
                     </div>
                     <div className="edit-icon-course">
-                  {console.log(selectedCohort)}
                         <EditIconCouse setRefresh={setRefresh} cohort={selectedCohort ? selectedCohort.id : 1}/>
 
                     </div>

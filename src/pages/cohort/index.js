@@ -87,12 +87,10 @@ const Cohort = () => {
                 const teachers = data.data.cohort.profiles.filter((userid) => userid?.role?.name === "ROLE_TEACHER");
                 setTeachers(teachers || []);
 
-                console.log(teachers, "teachers in cohort");
 
                 // students
                 const students = data.data.cohort.profiles.filter((profileid) => profileid?.role?.name === "ROLE_STUDENT");
                 setStudents(students || []);
-                console.log(students, "students in cohort");
 
                 // course
                 const course = data.data.cohort.course;

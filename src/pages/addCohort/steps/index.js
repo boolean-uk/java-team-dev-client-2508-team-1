@@ -47,7 +47,6 @@ const StepperCohort = ({ header, children, cohortName, startDa, endDa, selectedC
                     startDate: startDa,
                     endDate: endDa
                  });
-            console.log(response)
 
             const studentIds = selectedStudents.map(student => student.id);
             const response2 = await patch(`cohorts/${response.id}`, 
@@ -58,7 +57,6 @@ const StepperCohort = ({ header, children, cohortName, startDa, endDa, selectedC
                     endDate: endDa,
                     profileIds: studentIds
                  });
-            console.log(response2)
         } catch (error) {
             console.error("Error adding new cohort:", error);
         }
