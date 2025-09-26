@@ -3,7 +3,7 @@ import './profile-data.css'
 
 const ProfileData = ({ user, initials, roleValue}) => {
   const {email} = user;
-  const roleName = roleValue === 1 ? "Student" : "Teacher";
+  const roleName = roleValue === 2 ? "Student" : "Teacher";
   
   // console.log(user, "user in profile data");
   // const getReadableRole = (role) => {
