@@ -20,17 +20,17 @@ const EditIconTeacher = ({ id, initials, menuVisible, setRefresh, cohorts}) => {
 
   return (
     <div ref={menuRef} className="edit-icon-wrapper">
-   <div className="icon-button" onClick={() => setIsMenuVisible(!isMenuVisible)}>
-     <span className="dots">
-    <span className="dot">•</span>
-    <span className="dot">•</span>
-    <span className="dot">•</span>
-  </span>
-  </div>
-  <div className='menu-left'> 
-  {isMenuVisible && <CascadingMenu id={id} setRefresh={setRefresh} setIsMenuVisible={setIsMenuVisible} cohorts={cohorts}/>}
-  </div>
-</div>
+      <div className="icon-button" onClick={() => setIsMenuVisible(!isMenuVisible)}>
+        <span className="dots">
+          <span className="dot">•</span>
+          <span className="dot">•</span>
+          <span className="dot">•</span>
+        </span>
+      </div>
+      <div className='menu-left'> 
+        {isMenuVisible && <CascadingMenu id={id} setRefresh={setRefresh} setIsMenuVisible={setIsMenuVisible} cohorts={cohorts}/>}
+      </div>
+    </div>
 
 
   );
