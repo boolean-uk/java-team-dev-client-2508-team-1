@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./edit.css";
 import Popup from "reactjs-popup";
@@ -26,7 +26,6 @@ const EditPage = () => {
     type: "success",
     autoHideDuration: 3000,
   });  
-  const lastValuesBeforeDiscardRef = useRef(null);
   const navigate = useNavigate();
 
   function showSnackbar({ message, actionLabel = null, onAction = null, type = "success", autoHideDuration = 3000 }) {
