@@ -96,7 +96,7 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
     // If there's a callback provided, use it instead of calling the API directly
     if (onCommentDeleted) {
       // Show feedback first, then call the callback after delay
-      setSnackbarMessage('Comment deleted, wait two seconds');
+      setSnackbarMessage('Comment deleted, hang tight');
       setSnackbarOpen(true);
       setTimeout(() => {
         onCommentDeleted(commentId);
@@ -111,8 +111,7 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
     setTimeout(async () => {
       try {
         const success = await deleteComment(postId, commentId);
-        if (success) {
-        } else {
+        if (!success) {
           console.error('Failed to delete comment');
         }
       } catch (error) {
