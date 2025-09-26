@@ -1,9 +1,10 @@
 import CheckIcon from "../../../../../assets/icons/checkIcon";
+import SimpleProfileCircle from "../../../../../components/simpleProfileCircle";
 import "./style.css"
 
 const MultipleStudentsSearch = ({ students, handleSelectStudent , selectedStudents }) => {
- 
-    const styleGuideColors = [
+    
+    const styleGuideColors = [  
     "#28C846", 
     "#A0E6AA", 
     "#46DCD2", 
@@ -40,7 +41,8 @@ const MultipleStudentsSearch = ({ students, handleSelectStudent , selectedStuden
             <div className="user">
                 <div className="profile-circle">
                 <div className="profile-icon" style={{background: getColorFromInitials(student.firstName.charAt(0) + student.lastName.charAt(0))}}>
-                    <p>{student.firstName.charAt(0) + student.lastName.charAt(0)}</p>
+                    <SimpleProfileCircle initials={student.firstName.charAt(0) + student.lastName.charAt(0)} photo={student.photo} />
+                    {/* <p>{student.firstName.charAt(0) + student.lastName.charAt(0)}</p> */}
                 </div>
             </div>
             <div className="user-info">

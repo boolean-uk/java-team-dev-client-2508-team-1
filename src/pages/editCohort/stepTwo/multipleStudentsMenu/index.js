@@ -3,6 +3,7 @@
 import MultipleStudentsSearch from "./searchMultiple";
 
 const MultipleStudentsMenu = ({ students, handleSelectStudent, selectedStudents }) => {
+  console.log("students in menu", students)
   return (
    <>
  

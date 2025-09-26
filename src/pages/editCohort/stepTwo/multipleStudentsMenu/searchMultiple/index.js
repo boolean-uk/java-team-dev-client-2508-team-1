@@ -1,7 +1,7 @@
+import SimpleProfileCircle from "../../../../../components/simpleProfileCircle";
 import "./style.css"
 
 const MultipleStudentsSearch = ({ students, handleSelectStudent , selectedStudents }) => {
- 
     const styleGuideColors = [
     "#28C846", 
     "#A0E6AA", 
@@ -28,7 +28,7 @@ const MultipleStudentsSearch = ({ students, handleSelectStudent , selectedStuden
  <ul>
       {students.map((student) => {
         const isSelected = selectedStudents.some((s) => String(s.id) === String(student.id))        
-
+        console.log("isSelected", student)
 
         return (
         <li
@@ -39,7 +39,8 @@ const MultipleStudentsSearch = ({ students, handleSelectStudent , selectedStuden
             <div className="user">
                 <div className="profile-circle">
                 <div className="profile-icon" style={{background: getColorFromInitials(student.firstName.charAt(0) + student.lastName.charAt(0))}}>
-                    <p>{student.firstName.charAt(0) + student.lastName.charAt(0)}</p>
+                    <SimpleProfileCircle initials={student.firstName.charAt(0) + student.lastName.charAt(0)} photo={student.photo} />
+                    
                 </div>
             </div>
             <div className="user-info">
