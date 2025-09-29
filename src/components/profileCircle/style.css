@@ -10,3 +10,8 @@
 .profile-circle-menu {
   margin-left: 65px;
 }
+
+.profile-circle-menu menu{
+  margin-left: 65px;
+  position:absolute !important;
+}

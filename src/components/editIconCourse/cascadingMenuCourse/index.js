@@ -14,7 +14,6 @@ const CascadingMenuCourse = ({ id, setIsMenuVisible, cohort }) => {
     const {cohortId} = useSelectedCohortId();
 
     return (
-        
         <Menu className="course-menu">
             <MenuItem icon={<AddCohortIcon />} text="Add student to cohort" linkTo="/cohorts/add" />
             <MenuItem icon={<AddStudentIcon />} linkTo="newStudent" text = "Add new student"/>
