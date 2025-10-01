@@ -1,4 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect,  useState } from "react";
+// import { useNavigate } from "react-router-dom";
+import { Snackbar, SnackbarContent } from "@mui/material";
+import CheckCircleIcon from "../../assets/icons/checkCircleIcon";
 import "./edit.css";
 import Popup from "reactjs-popup";
 import imageCompression from "browser-image-compression";
@@ -14,6 +17,28 @@ import SimpleProfileCircle from "../../components/simpleProfileCircle";
 const EditPage = () => {
   const [formData, setFormData] = useState(null);
   const { token } = useAuth();
+
+    const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: "",
+    actionLabel: null,
+    onAction: null,
+    type: "success",
+    autoHideDuration: 3000,
+  });  
+  // const lastValuesBeforeDiscardRef = useRef(null);
+  // const navigate = useNavigate();
+
+  function showSnackbar({ message, actionLabel = null, onAction = null, type = "success", autoHideDuration = 3000 }) {
+    setSnackbar({
+      open: true,
+      message,
+      actionLabel,
+      onAction,
+      type,
+      autoHideDuration,
+    });
+  }
 
   let userId;
   try {
@@ -133,10 +158,19 @@ const EditPage = () => {
       password: "",
       bio: profile.bio || "",
     });
-    alert("The changes are discarded")
     setNewPassword("");
     setConfirmPassword("");
     setShowPasswordFields(false);
+
+      showSnackbar({
+      message: "Changes discarded",
+      actionLabel: "Edit",
+      onAction: () => { const el = document.querySelector("input, textarea, select"); if (el) el.focus(); },
+      type: "success",
+      autoHideDuration: 3000,
+    });
+  
+    
   };
 
   const handleSave = async (e) => {
@@ -157,8 +191,13 @@ const EditPage = () => {
 
     try {
       const refreshed = await updateUserProfile(userId, updatedValues);
-      alert("Profile is updated!");
       setFormData(refreshed);
+        showSnackbar({
+        message: "Profile saved",
+        actionLabel: "Edit",
+        onAction: () => { const el = document.querySelector("input, textarea, select"); if (el) el.focus(); },
+        type: "success",
+      });
       const refreshedProfile = refreshed.profile || {};
       
       // Update localStorage with new photo
@@ -401,6 +440,33 @@ const EditPage = () => {
             <button type="button" className="cancel" onClick={resetFormToSaved}>Cancel</button>
             <button type="submit" className="save">Save</button>
           </div>
+            <Snackbar
+            open={snackbar.open}
+            autoHideDuration={snackbar.autoHideDuration}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+          >
+            <SnackbarContent
+                sx={{
+                backgroundColor: '#000046',
+                color: '#fff',
+                width: '310px',
+                height: '70px',
+                padding: '4px 16px',
+                borderRadius: '8px',
+                boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '20px',
+                }}
+                message={
+                <span style={{ color: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <CheckCircleIcon style={{ marginRight: '8px', color: '#FFFFFF' }} />
+                    {snackbar.message}  
+                </span>
+                }
+            />
+          </Snackbar>
         </form>
       </main>
     </>

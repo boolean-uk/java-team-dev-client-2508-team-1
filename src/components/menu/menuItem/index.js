@@ -105,7 +105,7 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
     // If there's a callback provided, use it instead of calling the API directly
     if (onCommentDeleted) {
       // Show feedback first, then call the callback after delay
-      setSnackbarMessage('Comment deleted, wait two seconds');
+      setSnackbarMessage('Comment deleted, wait hang tight');
       setSnackbarOpen(true);
       setTimeout(() => {
         onCommentDeleted(commentId);

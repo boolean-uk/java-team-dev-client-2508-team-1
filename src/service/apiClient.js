@@ -73,7 +73,7 @@ async function createNewStudent(
   photo) {
 
   cohort = parseInt(cohort)
-  photo = JSON.stringify(photo)
+  photo = photo ? JSON.stringify(photo) : null
   
   return await post(`students/create`, {
     first_name, 
