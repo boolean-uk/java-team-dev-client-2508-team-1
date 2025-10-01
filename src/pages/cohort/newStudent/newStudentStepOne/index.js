@@ -13,7 +13,6 @@ const StepOne = ({ data, setData, handleFileChange }) => {
       </div>
       <Form className="welcome-form">
 
-     
         <div className="welcome-form-inputs">
           <TextInput
             onChange={setData}

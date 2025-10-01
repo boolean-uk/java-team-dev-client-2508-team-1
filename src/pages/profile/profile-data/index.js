@@ -5,19 +5,7 @@ const ProfileData = ({ user, initials, roleValue}) => {
   const {email} = user;
   const roleName = roleValue === 2 ? "Student" : "Teacher";
   
-  // console.log(user, "user in profile data");
-  // const getReadableRole = (role) => {
-  //   switch (role) {
-  //     case 'ROLE_STUDENT':
-  //       return 'Student';
-  //     case 'ROLE_TEACHER':
-  //       return 'Teacher';
-  //     case 'ROLE_ADMIN': 
-  //       return 'Administrator'  
-  //     default:
-  //       return role; 
-  //   }
-  // };
+
 
   return (
     <main className="profile-container">

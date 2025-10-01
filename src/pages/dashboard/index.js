@@ -101,7 +101,6 @@ const Dashboard = () => {
                       <div>
                         <UserIcon
                           photo={student.photo}
-
                           key={student.id}
                           id={student.id}
                           initials={student.firstName.charAt(0) + student.lastName.charAt(0)}
@@ -132,6 +131,7 @@ const Dashboard = () => {
               <Cohorts cohorts={cohorts}/>
               <Students students={students} />
               <TeachersDashboard teachers = {teachers}/>
+
             </>
 
           )

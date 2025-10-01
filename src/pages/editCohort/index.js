@@ -32,7 +32,6 @@ const EditCohort = () =>{
       try {
         const response = await get(`cohorts/${id}`);
         setCohort(response.data.cohort);
-        console.log("Cohort: " , response)
       } catch (error) {
         console.error("Error fetching cohort by ID:", error);
       }
@@ -46,7 +45,6 @@ const EditCohort = () =>{
     // TODO
     // Prelaod informasjon fra cohorten
     
-  console.log(cohort)
   
   useEffect(()=>{
 
@@ -57,11 +55,7 @@ const EditCohort = () =>{
       setStartDate(cohort.startDate) 
       setEndDate(cohort.endDate) 
 
-      console.log(selectedCourse)
     }
-
-
-
   },[cohort])
 
 

@@ -51,12 +51,10 @@ const CreatePostModal = ({ authorName, onPostAdded }) => {
       }
 
       const response = await post('posts', { content: text, userId });
-      console.log('Post created successfully:', response);
 
       // Get user info from token for immediate display
       const firstName = decodedToken.firstName || decodedToken.first_name || 'Current';
       const lastName = decodedToken.lastName || decodedToken.last_name || 'User';
-      console.log("response", response)
       // Create a properly structured post object for immediate display
       const newPost = {
         id: response.data?.post?.id || response.id || `temp-${Date.now()}-${Math.random()}`,

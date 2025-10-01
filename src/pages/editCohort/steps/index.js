@@ -40,7 +40,6 @@ const StepperCohort = ({ header, children, cohortName, startDate, endDate, selec
   const onComplete = () =>{
     async function updateCohort() {
         try {
-        console.log(selectedStudents)
             const studentIds = selectedStudents.map(student => student.id);
             const response2 = await patch(`cohorts/${cohortId}`, 
                 {
@@ -52,6 +51,7 @@ const StepperCohort = ({ header, children, cohortName, startDate, endDate, selec
                  });
             console.log(response2)
             setRefresh(prev => !prev)
+
         } catch (error) {
             console.error("Error adding new cohort:", error);
         }

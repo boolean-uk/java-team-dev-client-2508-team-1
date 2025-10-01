@@ -16,7 +16,6 @@ const StepOneCohort = ( {setCohortName, setStartDate, setEndDate, cohortName, st
     }
 
     const handleSelectCourse = (course) => {
-        console.log("selected course", course)
         setCourseIsOpen(false)
         setSelectedCourse(course)
   }

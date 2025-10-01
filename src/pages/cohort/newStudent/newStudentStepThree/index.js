@@ -23,6 +23,7 @@ const NewStudentStepThree = ({  setData, setProfile }) => {
 
   
 
+
     const handleSelectCourse = (course) => {
     setSelectedCourse(course)
     setIsOpenCourses(false)

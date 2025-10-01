@@ -15,7 +15,6 @@ const SearchBar = ({setSelectedStudent, selectedStudent}) => {
         if (!query.trim()) return;
         try {
         const response = await get(`search/profiles/${query}`);
-        console.log(response);
         setSearchResults(response.data.profiles);
         setIsOpen(true);
         } catch (error) {
@@ -24,7 +23,6 @@ const SearchBar = ({setSelectedStudent, selectedStudent}) => {
     };
 
     const handleSelectStudent = (student) => {
-        console.log("Selected student:", student);
         setSelectedStudent(student); 
         setQuery(`    ${student.firstName} ${student.lastName}`); 
         setIsOpen(false);
@@ -42,7 +40,7 @@ const SearchBar = ({setSelectedStudent, selectedStudent}) => {
     <div className="add-search">
         <form onSubmit={handleSubmit}>
         <TextInput
-          placeholder="Search for people"
+          
             value={query}
             name="Search"
             onChange={(e) => setQuery(e.target.value)}

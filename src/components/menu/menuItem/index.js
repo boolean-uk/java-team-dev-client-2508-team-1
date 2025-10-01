@@ -36,7 +36,6 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
   };
 
   const handleDeletePost = async () => {
-    console.log('deletePost function called');
     // Show feedback first so the component stays mounted for the Snackbar
     setSnackbarMessage('Post deleted, wait two seconds');
     setSnackbarOpen(true);
@@ -45,7 +44,6 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
       try {
         const success = await deletePost(postId);
         if (success) {
-          console.log('Post deleted successfully');
           if (onPostDeleted) onPostDeleted(postId);
         } else {
           console.error('Failed to delete post');
@@ -63,9 +61,7 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
   }
 
   const handleDeleteCohort = async () => {
-    console.log("deleteCohort function called, cohortId:", cohortId)
     
-    console.log('deleteCohort function called');
     try {
       await del(`cohorts/${cohortId.cohortId}`); 
       setSnackbarMessage('Cohort deleted successfully');
@@ -75,14 +71,12 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
         setRefresh(prev => !prev);
       }, 2500);
     } catch(error) {
-      console.log("couldnt delete cohort", error)
       setIsMenuVisible(false);
       setRefresh(prev => !prev);
     }
   }
 
   const handleDeleteUser = async () => {
-    console.log('deleteUser function called');
     try {
       const profile = await get('profiles/' + profileId);
       await del('users/' + profile.data.profile.user.id);
@@ -93,19 +87,18 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
         setRefresh(prev => !prev);
       }, 2100);
     } catch(error) {
-      console.log("couldnt delete user", error)
       setIsMenuVisible(false);
       setRefresh(prev => !prev);
     }
   }
 
   const handleDeleteComment = async () => {
-    console.log('deleteComment function called');
     
     // If there's a callback provided, use it instead of calling the API directly
     if (onCommentDeleted) {
       // Show feedback first, then call the callback after delay
-      setSnackbarMessage('Comment deleted, wait hang tight');
+
+      setSnackbarMessage('Comment deleted, hang tight');
       setSnackbarOpen(true);
       setTimeout(() => {
         onCommentDeleted(commentId);
@@ -120,9 +113,7 @@ const MenuItem = ({ icon, text, children, linkTo = '#nogo', clickable, postText,
     setTimeout(async () => {
       try {
         const success = await deleteComment(postId, commentId);
-        if (success) {
-          console.log('Comment deleted successfully');
-        } else {
+        if (!success) {
           console.error('Failed to delete comment');
         }
       } catch (error) {

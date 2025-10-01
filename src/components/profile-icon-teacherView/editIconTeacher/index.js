@@ -33,6 +33,7 @@ const EditIconTeacher = ({ id, initials, menuVisible, cohorts}) => {
 </div>
 
 
+
   );
 };
 

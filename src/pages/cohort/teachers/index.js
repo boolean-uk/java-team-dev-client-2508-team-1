@@ -5,6 +5,7 @@ import Teacher from "./teacher";
 
 const Teachers = ({ teachers }) => {
     console.log(teachers, "teachers in teachers component");
+
     return (
         <Card>
             <article className="cohort">

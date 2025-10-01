@@ -2,7 +2,6 @@
 
 import Card from "../../../components/card"
 
-// import UserIcon from "../../../components/profile-icon";
 
 import ProfileIconTeacher from "../../../components/profile-icon-teacherView";
 
@@ -30,18 +29,17 @@ const Students = ({students}) => {
                     <div>
                     <ul className="students-list-teacher-view">
                         {students.map((student, index) => (
-                            <li key={index} className="student-item">
-                                <div>
+                            <li key={index}>
                                 <ProfileIconTeacher 
                                 photo={student.photo}
-                                   id={student.id}
+                                   id={student.user.id}
                                    initials={getInitials(student)}
                                    firstname={student.firstName}
                                    lastname={student.lastName}
                                    role={"Student"}
                                 
+
                                />
-                                </div>
                             </li>
                         ))}
                     </ul>

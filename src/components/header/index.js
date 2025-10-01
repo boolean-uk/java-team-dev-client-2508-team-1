@@ -6,7 +6,7 @@ import ProfileIcon from '../../assets/icons/profileIcon';
 import CogIcon from '../../assets/icons/EditIcon';
 import LogoutIcon from '../../assets/icons/logoutIcon';
 import { NavLink } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import jwtDecode from 'jwt-decode';
 import SimpleProfileCircle from '../simpleProfileCircle';
 
@@ -14,6 +14,22 @@ import SimpleProfileCircle from '../simpleProfileCircle';
 const Header = () => {
   const { token, onLogout } = useAuth();
   const [isMenuVisible, setIsMenuVisible] = useState(false);
+  const menuRef = useRef(null);
+
+  useEffect(() => {
+  const handleClickOutside = (event) => {
+    if (menuRef.current && !menuRef.current.contains(event.target)) {
+      setIsMenuVisible(null);
+    }
+  };
+
+  document.addEventListener("mousedown", handleClickOutside);
+
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+}, []);
+
   
   // Safely decode token with fallback
   let decodedToken = {};
@@ -54,7 +70,7 @@ const Header = () => {
       </div>
 
       {isMenuVisible && (
-        <div className="user-panel">
+        <div ref={menuRef} className="user-panel">
           <Card>
             <section className="post-details">
               <div className="profile-icon">

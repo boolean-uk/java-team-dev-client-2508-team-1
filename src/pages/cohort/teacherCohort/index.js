@@ -1,7 +1,4 @@
 import { useEffect, useState } from "react"
-// import SearchIcon from "../../../assets/icons/searchIcon"
-// import EditIconCohortTeacher from "../../../components/editIconCohortTeacher"
-// import TextInput from "../../../components/form/textInput"
 import CohortsList from "./cohortsList"
 import './style.css';
 import StudentList from "./studentList"
@@ -22,6 +19,8 @@ const TeacherCohort = ({cohorts}) => {
     // };
 
     useEffect(() => {}, [selectedProfiles]);
+
+    const filteredProfiles = selectedProfiles.filter(profile => profile.role.id === 2)
         
     return (
         <>
@@ -67,6 +66,7 @@ const TeacherCohort = ({cohorts}) => {
                         
                     </div>
 
+
                     <div className="actions">
                     <div className="add-student-button">
                         <button onClick={() => navigate("/cohorts/add")}>Add student</button>
@@ -74,10 +74,38 @@ const TeacherCohort = ({cohorts}) => {
                     <div className="edit-icon-course">
                         <EditIconCouse cohort = {selectedCohort ? selectedCohort.id : 1}  />
 
+
                     </div>
                     </div>
-                </div>
-                <hr className="divider"/>
+                    <div className="cohort-list">     
+                        <CohortsList cohorts={cohorts} setSelectedCohort={setSelectedCohort} onSelect={(profiles) => setSelectedProfiles(profiles)} />
+                    </div>
+                </section>    
+
+                <section className="students-section">
+                    <div className="students">
+                        <div className="selected-course">
+                            {selectedCohort !== null ? (
+                                <>
+
+                                <CourseIcon courseName={selectedCohort.course.name} cohort={selectedCohort.id} startDate={selectedCohort.startDate} endDate={selectedCohort.endDate}/>
+
+                             </>
+                            ): (<><p>Select a course</p></>)}
+                            
+                        </div>
+
+                        <div className="actions">
+                        <div className="add-student-button">
+                            <button onClick={() => navigate("/cohorts/add")}>Add student</button>
+                        </div>
+                        <div className="edit-icon-course">
+                            <EditIconCouse setRefresh={setRefresh} cohort={selectedCohort ? selectedCohort.id : 1}/>
+
+                        </div>
+                        </div>
+                    </div>
+                    <hr className="divider"/>
 
                 
                     <StudentList profiles={selectedProfiles} cohorts={cohorts} />

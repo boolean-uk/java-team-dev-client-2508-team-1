@@ -2,8 +2,10 @@
     display: flex;
     align-items: center; 
     padding: 8px 12px;
+    position: relative; /* viktig for absolutt-posisjonering av popup */
     gap: 12px;
 }
+
 
 .user-info {
   display: flex;
@@ -32,11 +34,15 @@
 } 
 
 .pop-up {
-    position: absolute;
-    top: 100%;    /* under .edit-icon */
-    right: 0;     /* høyrejustert med ikonet */
-    margin-top: 8px;
-    z-index: 100;
+  position: absolute;
+  top: 0; /* juster etter behov */
+  left: 100%; /* vises til høyre for knappen */
+  margin-left: 10px;
+  z-index: 10;
+  background: white;
+  border: 1px solid #ddd;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+  border-radius: 8px;
 }
 
 

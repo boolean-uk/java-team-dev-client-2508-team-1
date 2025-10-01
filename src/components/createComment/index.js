@@ -45,7 +45,6 @@ const CreateComment = forwardRef(({ postId, onCommentAdded }, ref) => {
       }
 
       const response = await addComment(postId, { body: text, userId });
-      console.log('Comment created successfully:', response);
       
       // Store the comment text before clearing
       const commentText = text;
