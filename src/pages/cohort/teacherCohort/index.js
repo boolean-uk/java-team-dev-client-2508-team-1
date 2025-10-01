@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom"
 import SearchTeacher from "./searchTeacher";
 
 
-const TeacherCohort = ({cohorts}) => {
+const TeacherCohort = ({cohorts, setRefresh}) => {
     // const [searchVal, setSearchVal] = useState('');
     const [selectedProfiles, setSelectedProfiles] = useState([]);
     const[selectedCohort, setSelectedCohort] = useState(null);
@@ -20,7 +20,7 @@ const TeacherCohort = ({cohorts}) => {
 
     useEffect(() => {}, [selectedProfiles]);
 
-    const filteredProfiles = selectedProfiles.filter(profile => profile.role.id === 2)
+    // const filteredProfiles = selectedProfiles.filter(profile => profile.role.id === 2)
         
     return (
         <>
@@ -52,35 +52,6 @@ const TeacherCohort = ({cohorts}) => {
                     <CohortsList cohorts={cohorts} setSelectedCohort={setSelectedCohort} onSelect={(profiles) => setSelectedProfiles(profiles)} />
                 </div>
             </section>    
- 
-            <section className="students-section">
-                <div className="students">
-                    <div className="selected-course">
-                        {selectedCohort !== null ? (
-                            <>
-
-                            <CourseIcon courseName={selectedCohort.course.name} cohort={selectedCohort.id} startDate={selectedCohort.startDate} endDate={selectedCohort.endDate}/>
-
-                            </>
-                        ): (<><p>Select a course</p></>)}
-                        
-                    </div>
-
-
-                    <div className="actions">
-                    <div className="add-student-button">
-                        <button onClick={() => navigate("/cohorts/add")}>Add student</button>
-                    </div>
-                    <div className="edit-icon-course">
-                        <EditIconCouse cohort = {selectedCohort ? selectedCohort.id : 1}  />
-
-
-                    </div>
-                    </div>
-                    <div className="cohort-list">     
-                        <CohortsList cohorts={cohorts} setSelectedCohort={setSelectedCohort} onSelect={(profiles) => setSelectedProfiles(profiles)} />
-                    </div>
-                </section>    
 
                 <section className="students-section">
                     <div className="students">

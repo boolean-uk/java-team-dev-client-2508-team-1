@@ -13,33 +13,11 @@ import Card from "../../components/card";
 import { validatePassword, validateEmail } from '../register';
 import LockIcon from '../../assets/icons/lockIcon'
 import SimpleProfileCircle from "../../components/simpleProfileCircle";
-import { Snackbar, SnackbarContent } from "@mui/material";
-import CheckCircleIcon from "../../assets/icons/checkCircleIcon";
 
 
 const EditPage = () => {
   const [formData, setFormData] = useState(null);
   const { token } = useAuth();
-  const [snackbar, setSnackbar] = useState({
-    open: false,
-    message: "",
-    actionLabel: null,
-    onAction: null,
-    type: "success",
-    autoHideDuration: 3000,
-  });  
-  const navigate = useNavigate();
-
-  function showSnackbar({ message, actionLabel = null, onAction = null, type = "success", autoHideDuration = 3000 }) {
-    setSnackbar({
-      open: true,
-      message,
-      actionLabel,
-      onAction,
-      type,
-      autoHideDuration,
-    });
-  }
 
     const [snackbar, setSnackbar] = useState({
     open: false,
