@@ -1,8 +1,8 @@
 import ExitIcon from "../../assets/icons/exitIcon";
 import "./style.css";
 import SearchBar from "./searchBar";
-import { useEffect, useState } from "react";
-import { get, patch } from "../../service/apiClient";
+import {useState } from "react";
+import {  patch } from "../../service/apiClient";
 import ArrowDownIcon from "../../assets/icons/arrowDownIcon";
 import StudentsMenu from "./studentsMenu";
 import CoursesMenu from "./coursesMenu";
@@ -10,14 +10,18 @@ import { useNavigate } from "react-router-dom";
 import CohortsMenu from "./cohortsMenu";
 import { Snackbar, SnackbarContent } from '@mui/material';
 import CheckCircleIcon from "../../assets/icons/checkCircleIcon";
+import { useData } from "../../context/data";
+import useAuth from "../../hooks/useAuth";
 
     
 
 const AddStudent = () => {
-    const [students, setStudents] = useState([])
-    const [courses, setCourses] = useState([])
-    const [cohorts, setCohorts] = useState([])
 
+   
+
+    const {students, courses} = useData()
+    const{setRefresh} = useAuth()
+    const [cohorts, setCohorts] = useState([])
     const [isOpenCourses, setIsOpenCourses] = useState(false);
     const [isOpenStudents, setIsOpenStudents] = useState(false);
     const [isOpenCohorts, setIsOpenCohorts] = useState(false)
@@ -28,28 +32,6 @@ const AddStudent = () => {
     const [selectedCohort, setSelectedCohort] = useState(null)
     const navigate = useNavigate()
 
-
-    useEffect(() => {
-    async function fetchStudents() {
-        try {
-            const response = await get("students");
-            setStudents(response.data.profiles);
-        } catch (error) {
-            console.error("Error fetching students:", error);
-        }
-    }
-    
-    async function fetchCourses() {
-        try {
-            const response = await get("courses");
-            setCourses(response.data.courses);
-        } catch (error) {
-            console.error("Error fetching courses:", error);
-        }
-    }
-    fetchStudents(); 
-    fetchCourses()
-    }, []);
 
 
     
@@ -75,15 +57,18 @@ const AddStudent = () => {
       async function addStudentToCohort() {
         try {
             const response = await patch(`cohorts/teacher/${selectedCohort.id}`, {profileId: parseInt(selectedStudent.id)});
+            setRefresh(prev => !prev)
+            console.log(response)
         } catch (error) {
             console.error("Error adding student to cohort:", error);
         }
-    } addStudentToCohort()
+    } setRefresh(prev => !prev)
+    addStudentToCohort()
     setSnackbarOpen(true);
 
     setTimeout(()=> {
         navigate(-1)
-    }, 3000)
+    }, 4000)
   }
   return (
     <>
@@ -154,7 +139,7 @@ const AddStudent = () => {
             <button className="blue" onClick={handleAdd}>Add to cohort</button>
                                 
             <Snackbar open={snackbarOpen} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} 
-  autoHideDuration={2000}
+  autoHideDuration={3000}
 >
             <SnackbarContent
                 sx={{

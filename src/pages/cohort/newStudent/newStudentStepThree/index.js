@@ -1,17 +1,16 @@
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import Form from '../../../../components/form';
 import TextInput from '../../../../components/form/textInput';
-import { get } from '../../../../service/apiClient';
 import ArrowDownIcon from '../../../../assets/icons/arrowDownIcon';
 import CoursesMenu from '../../../addStudent/coursesMenu';
 import CohortsMenu from '../../../addStudent/cohortsMenu';
 import LockIcon from '../../../../assets/icons/lockIcon';
+import { useData } from '../../../../context/data';
 
-const NewStudentStepThree = ({ data, setData, setProfile }) => {
+const NewStudentStepThree = ({  setData, setProfile }) => {
+    const {courses, cohorts} = useData()
 
-    const [ courses, setCourses ] = useState([])
-    const [ cohorts, setCohorts ] = useState([])
-    const [fetchedCohorts, setFetchedCohorts] = useState([])
+    const [ cohortsInCourse, setCohorts ] = useState([])
 
     const [ isOpenCourses, setIsOpenCourses ] = useState(false);
     const [ isOpenCohorts, setIsOpenCohorts ] = useState(false);
@@ -22,27 +21,7 @@ const NewStudentStepThree = ({ data, setData, setProfile }) => {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
 
-    useEffect(() => {
-   
-    async function fetchCourses() {
-        try {
-            const response = await get("courses");
-            setCourses(response.data.courses);
-        } catch (error) {
-            console.error("Error fetching courses:", error);
-        }
-    }
-    async function fetchCohorts() {
-        try {
-            const response = await get(`cohorts`);
-            setFetchedCohorts(response.data.cohorts);
-        } catch (error) {
-            console.error("Error fetching courses:", error);
-        }
-    }
-    fetchCourses()
-    fetchCohorts()
-    }, []);
+  
 
 
     const handleSelectCourse = (course) => {
@@ -59,7 +38,7 @@ const NewStudentStepThree = ({ data, setData, setProfile }) => {
    const handleSelectCohort = (cohort) => {
     setIsOpenCohorts(false)
     setSelectedCohort(cohort)
-    const selected = fetchedCohorts.find(c => c.id === cohort.id);
+    const selected = cohorts.find(c => c.id === cohort.id);
     if (!selected) return;
     setStartDate(selected.startDate)
     setEndDate(selected.endDate)
@@ -107,7 +86,7 @@ const NewStudentStepThree = ({ data, setData, setProfile }) => {
                         </button> 
                 </div>
 
-                {isOpenCohorts && (<CohortsMenu cohorts={cohorts} onSelect={handleSelectCohort}/>)}
+                {isOpenCohorts && (<CohortsMenu cohorts={cohortsInCourse} onSelect={handleSelectCohort}/>)}
                 <TextInput
                     onChange={setData}
                     name="start_date"

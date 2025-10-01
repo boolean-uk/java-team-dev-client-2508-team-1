@@ -4,17 +4,12 @@ import TextInput from '../../components/form/textInput';
 import useAuth from '../../hooks/useAuth';
 import CredentialsCard from '../../components/credentials';
 import './login.css';
-import { useUserRoleData } from '../../context/userRole.';
-import { get } from '../../service/apiClient';
-// eslint-disable-next-line camelcase
-import jwt_decode from 'jwt-decode';
-import { useNavigate } from 'react-router-dom';
+
 
 const Login = () => {
   const { onLogin} = useAuth();
   const [formData, setFormData] = useState({ email: '', password: '' });
-  const {setUserRole} = useUserRoleData()
-  const navigate = useNavigate()
+
 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -45,11 +40,7 @@ const Login = () => {
             text="Log in"
             onClick={async () => {
               try {
-              await onLogin(formData.email, formData.password);
-              const { userId } = jwt_decode(localStorage.getItem('token'));
-              const role = await get(`users/${userId}`)
-              setUserRole(role.data.user.profile.role.id)
-              navigate("/")
+              await onLogin(formData.email, formData.password);      
               }  
               catch (err) {
                 if (err.status === 401) {

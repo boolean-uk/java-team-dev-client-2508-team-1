@@ -17,6 +17,7 @@ const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [user] = useState(null);
   const [userPhoto, setUserPhoto] = useState(localStorage.getItem('userPhoto'));
+  const [refresh, setRefresh] = useState(false)
 
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
@@ -44,7 +45,7 @@ const AuthProvider = ({ children }) => {
 
     setToken(res.data.token);
 
-    navigate(location.state?.from?.pathname || '/');  
+    navigate('/');  
 
     // After successful login, fetch and store user data
     try {
@@ -159,13 +160,20 @@ const AuthProvider = ({ children }) => {
     }
 
     localStorage.setItem('token', token);
-    navigate('/cohorts');
+    setRefresh(prev => !prev)
+
+    setTimeout(() => {
+        navigate('/cohorts');
+      }, 2000);
+    
   };
 
   const value = {
     token,
     user,
     userPhoto,
+    refresh,
+    setRefresh,
     setUserPhoto,
     onLogin: handleLogin,
     onLogout: handleLogout,

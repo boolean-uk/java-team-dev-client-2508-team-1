@@ -1,9 +1,6 @@
-import Popup from 'reactjs-popup';
-import ProfileIcon from '../../../../assets/icons/profileIcon';
 
 import Form from '../../../../components/form';
 import TextInput from '../../../../components/form/textInput';
-import Card from '../../../../components/card';
 
 
 const StepOne = ({ data, setData, handleFileChange }) => {
@@ -15,6 +12,7 @@ const StepOne = ({ data, setData, handleFileChange }) => {
         <h3>Basic info</h3>
       </div>
       <Form className="welcome-form">
+
         <div className="welcome-form-inputs">
           <TextInput
             onChange={setData}

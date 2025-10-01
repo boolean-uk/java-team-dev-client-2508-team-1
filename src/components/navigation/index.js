@@ -15,12 +15,12 @@ import NotesIcon from '../../assets/icons/notesIcon';
 import LogsIconFilled from '../../assets/icons/logsIconFilled';
 import LogsIcon from '../../assets/icons/logsIcon';
 import jwtDecode from 'jwt-decode';
-import { useUserRoleData } from '../../context/userRole.';
+import { useData } from '../../context/data';
 
 const Navigation = () => {
   const { token } = useAuth();
   const [active, setActive] = useState(1)
-  const{userRole} = useUserRoleData()
+  const{userRole} = useData()
   
   if (!token) {
     return null;

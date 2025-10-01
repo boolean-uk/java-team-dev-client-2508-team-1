@@ -84,7 +84,7 @@ const NewStudent = () => {
 
   return (
     <main className="welcome">
-      <Stepper data={profile} header={<WelcomeHeader />} onComplete={onComplete}>
+      <Stepper data={profile} header={<WelcomeHeader />} onComplete={onComplete} message={"Added new student"}>
         <NewStudentStepOne data={profile} setData={onChange} handleFileChange={handleFileChange}/>
         <NewStudentStepTwo data={profile} setData={onChange} formData={formData} validateEmail={validateE} validatePassword={validateP}/>
         <NewStudentStepThree data={profile} setData={onChange} setProfile={setProfile} />

@@ -1,26 +1,14 @@
-import { useEffect, useState } from "react";
-import { get } from "../../../service/apiClient";
+
 
 import Card from "../../../components/card"
 
 
 import ProfileIconTeacher from "../../../components/profile-icon-teacherView";
 
-const Students = ({ refresh, setRefresh, cohorts }) => {
-   const [students, setStudents] = useState(null) 
-    
-    
-    useEffect(() => {
-    async function fetchStudents() {
-        try {
-        const response = await get("students");
-        setStudents(response.data.profiles);
-        } catch (error) {
-        console.error("Error fetching students:", error);
-        }
-    }
-    fetchStudents(); 
-    }, [refresh]);
+const Students = ({students}) => {
+
+   
+  
 
     function getInitials(profile) {
         if (!profile.firstName || !profile.lastName) return "NA";
@@ -37,7 +25,7 @@ const Students = ({ refresh, setRefresh, cohorts }) => {
         <Card>
             <h3 className="border-line">Students</h3>
             <section>
-                {students !== null ? (
+                {students.length > 0  ? (
                     <div>
                     <ul className="students-list-teacher-view">
                         {students.map((student, index) => (
@@ -49,8 +37,8 @@ const Students = ({ refresh, setRefresh, cohorts }) => {
                                    firstname={student.firstName}
                                    lastname={student.lastName}
                                    role={"Student"}
-                                   setRefresh={setRefresh}
-                                   cohorts={cohorts}
+                                
+
                                />
                             </li>
                         ))}

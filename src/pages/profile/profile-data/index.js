@@ -1,48 +1,36 @@
 import SimpleProfileCircle from '../../../components/simpleProfileCircle';
 import './profile-data.css'
 
-const ProfileData = ({ user, initials}) => {
+const ProfileData = ({ user, initials, roleValue}) => {
   const {email} = user;
-  const roleName = user.profile.role.name;
-  const { firstName, lastName, githubUrl, mobile, specialism, bio, photo } = user.profile;
+  const roleName = roleValue === 2 ? "Student" : "Teacher";
   
-  const getReadableRole = (role) => {
-    switch (role) {
-      case 'ROLE_STUDENT':
-        return 'Student';
-      case 'ROLE_TEACHER':
-        return 'Teacher';
-      case 'ROLE_ADMIN': 
-        return 'Administrator'  
-      default:
-        return role; 
-    }
-  };
+
 
   return (
     <main className="profile-container">
       <div className="photo-section-edit">
-        {photo ? 
+        {user.photo ? 
         <img
-          src={photo || "https://placeholderimage.org/api/image/150x150?text=User"}
+          src={user.photo || "https://placeholderimage.org/api/image/150x150?text=User"}
           alt=""
           className="profile-photo-edit"
         />
 
         :
-        <SimpleProfileCircle photo={photo} initials={initials} size={400} />
+        <SimpleProfileCircle photo={user.photo} initials={initials} size={400} />
 }
-        {(firstName || lastName) && (
-          <p className="name-text">{firstName} {lastName}</p>
+        {(user.firstName || user.lastName) && (
+          <p className="name-text">{user.firstName} {user.lastName}</p>
         )}
-        {bio && <p className="bio-text">{bio}</p>}
+        {user.bio && <p className="bio-text">{user.bio}</p>}
       </div>
 
       <div className="info-section">
-        {(firstName || lastName) && (
+        {(user.firstName || user.lastName) && (
           <div className="info-row">
             <span className="label">Full Name:</span>
-            <span className="value">{firstName} {lastName}</span>
+            <span className="value">{user.firstName} {user.lastName}</span>
           </div>
         )}
 
@@ -53,40 +41,40 @@ const ProfileData = ({ user, initials}) => {
           </div>
         )}
 
-        {mobile && (
+        {user.mobile && (
           <div className="info-row">
             <span className="label">Mobile:</span>
-            <span className="value">{mobile}</span>
+            <span className="value">{user.mobile}</span>
           </div>
         )}
 
-        {githubUrl && githubUrl.trim() !== '' && (
+        {user.githubUrl && user.githubUrl.trim() !== '' && (
           <div className="info-row">
             <span className="label">Github URL:</span>
             <span className="value">
               <a
-                href={githubUrl}
+                href={user.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-              {githubUrl}
+              {user.githubUrl}
               </a>
           </span>
           </div>
         )}
 
 
-        {specialism && (
+        {user.specialism && (
           <div className="info-row">
             <span className="label">Specialism:</span>
-            <span className="value">{specialism}</span>
+            <span className="value">{user.specialism}</span>
           </div>
         )}
 
         {roleName && (
           <div className="info-row">
             <span className="label">Role:</span>
-            <span className="value">{getReadableRole(roleName)}</span>
+            <span className="value">{roleName}</span>
           </div>
         )}
       </div>

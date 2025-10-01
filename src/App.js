@@ -13,7 +13,6 @@ import Welcome from './pages/welcome';
 import { FormProvider } from './context/form';
 import Cohort from './pages/cohort';
 import ProfilePage from './pages/profile';
-import { UserRoleProvider } from './context/userRole.';
 import EditPage from './pages/edit';
 import SearchPage from './pages/search';
 import { SearchResultsProvider } from './context/searchResults';
@@ -25,14 +24,16 @@ import { CohortProvider } from './context/selectedCohort';
 import EditCohort from './pages/editCohort';
 import { LoadingProvider } from './context/loading';
 import GlobalLoading from './components/GlobalLoading';
+import { DataProvider } from './context/data';
 
 const App = () => {
   return (
     <>
+  
       <LoadingProvider>
-        <AuthProvider>
+        <AuthProvider>  
+          <DataProvider>
           <FormProvider>
-            <UserRoleProvider>
              <SearchResultsProvider>
               <PostsProvider>
                 <CommentsProvider>
@@ -145,10 +146,11 @@ const App = () => {
                 </CommentsProvider>
               </PostsProvider>
              </SearchResultsProvider>
-            </UserRoleProvider>
           </FormProvider>
+               </DataProvider>
         </AuthProvider>
       </LoadingProvider>
+ 
     </>
   );
 };

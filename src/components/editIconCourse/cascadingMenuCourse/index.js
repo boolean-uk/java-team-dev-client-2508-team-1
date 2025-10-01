@@ -8,13 +8,12 @@ import AddStudentIcon from "../../../assets/icons/addStudentIcon"
 import { useState } from "react"
 import { useSelectedCohortId } from "../../../context/selectedCohort"
 
-const CascadingMenuCourse = ({ id, setIsMenuVisible, setRefresh, cohort }) => {
+const CascadingMenuCourse = ({ id, setIsMenuVisible, cohort }) => {
 
     const [clicked, setClicked] = useState(false);
     const {cohortId} = useSelectedCohortId();
 
     return (
-        
         <Menu className="course-menu">
             <MenuItem icon={<AddCohortIcon />} text="Add student to cohort" linkTo="/cohorts/add" />
             <MenuItem icon={<AddStudentIcon />} linkTo="newStudent" text = "Add new student"/>
@@ -26,7 +25,7 @@ const CascadingMenuCourse = ({ id, setIsMenuVisible, setRefresh, cohort }) => {
                 selectedCohortId = {cohortId} 
                 clickable="DeleteCohort" 
                 style={{color: 'red'}} 
-                setRefresh={setRefresh} 
+                
                 setIsMenuVisible={setIsMenuVisible}
             />
             :
@@ -35,7 +34,7 @@ const CascadingMenuCourse = ({ id, setIsMenuVisible, setRefresh, cohort }) => {
                 clickable="Clicked" 
                 clicked={clicked} 
                 setClicked={setClicked} 
-                setRefresh={setRefresh} 
+                
                 setIsMenuVisible={setIsMenuVisible}
             />
             }

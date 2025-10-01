@@ -4,12 +4,14 @@ import { useState } from "react";
 import CheckCircleIcon from "../../../assets/icons/checkCircleIcon";
 import { patch} from "../../../service/apiClient";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
 
 
 const StepperCohort = ({ header, children, cohortName, startDate, endDate, selectedCourse, selectedStudents, setSelectedCourse,setEndDate,setStartDate,setCohortName, cohortId }) => {
     const [currentStep, setCurrentStep] = useState(0);
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const navigate = useNavigate()
+    const {setRefresh} = useAuth()
     
 
 
@@ -47,11 +49,14 @@ const StepperCohort = ({ header, children, cohortName, startDate, endDate, selec
                     endDate: endDate,
                     profileIds: studentIds
                  });
+            console.log(response2)
+            setRefresh(prev => !prev)
+
         } catch (error) {
             console.error("Error adding new cohort:", error);
         }
     } updateCohort()
-
+    setRefresh(prev => !prev)
     setSnackbarOpen(true)
      setTimeout(()=> {
         navigate("/cohorts")

@@ -98,7 +98,7 @@ const Welcome = () => {
         <p className="text-blue1">Create your profile to get started</p>
       </div>
 
-      <Stepper data={profile} header={<WelcomeHeader />} onComplete={onComplete}>
+      <Stepper data={profile} header={<WelcomeHeader />} onComplete={onComplete} message={"Registered new user"}>
         <StepOne data={profile} setData={onChange} handleFileChange={handleFileChange}/>
         <StepTwo data={profile} setData={onChange} formData={formData}/>
         <StepThree data={profile} setData={onChange} setProfile={setProfile}/>

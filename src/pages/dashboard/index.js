@@ -1,6 +1,6 @@
 
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
 
 
@@ -11,39 +11,24 @@ import Posts from '../../components/posts';
 import useModal from '../../hooks/useModal';
 import './style.css';
 import Cohorts from './cohorts';
-import { useUserRoleData } from '../../context/userRole.';
 import Students from './students';
 import TeachersDashboard from './teachers';
-import useAuth from '../../hooks/useAuth';
-import jwtDecode from 'jwt-decode';
 import Search from './search';
 
-import { getUserById, get } from '../../service/apiClient';
 import UserIcon from '../../components/profile-icon';
 import SimpleProfileCircle from '../../components/simpleProfileCircle';
 import { useLoading } from '../../context/loading';
 import { usePosts } from '../../context/posts';
+import { useData } from '../../context/data';
+import useAuth from '../../hooks/useAuth';
 
 const Dashboard = () => {
-  const { token } = useAuth();
-  const [students, setStudents] = useState([]);
-  const [cohort, setCohort] = useState([]);
-  const [course, setCourse] = useState([]);
-  const [cohorts, setCohorts] = useState(null) 
+ 
+  const {cohorts,students, teachers, myCohort, studentsInMyCohort, myProfile, userRole} = useData()
+  const{refresh} = useAuth()
   
-  // Safely decode token with fallback
-  let decodedToken = {};
-  try {
-    if (token || localStorage.getItem('token')) {
-      decodedToken = jwtDecode(token || localStorage.getItem('token')) || {};
-    }
-  } catch (error) {
-    console.error('Invalid token in Dashboard:', error);
-  }
+  
 
-  const fullName = `${decodedToken.firstName || decodedToken.first_name || 'Current'} ${decodedToken.lastName || decodedToken.last_name || 'User'}`;
-  const initials = fullName?.match(/\b(\w)/g)?.join('') || 'NO';
-  const  { userRole, setUserRole } = useUserRoleData();
   const { openModal, setModal } = useModal();
   const { showGlobalLoading, hideGlobalLoading } = useLoading();
   const { loading: postsLoading, posts } = usePosts();
@@ -54,7 +39,6 @@ const Dashboard = () => {
     openModal();
   };
 
-  const [refresh, setRefresh] = useState(false);
 
   // Handle global loading based on posts loading state
   useEffect(() => {
@@ -65,76 +49,7 @@ const Dashboard = () => {
     }
   }, [postsLoading, posts.length, showGlobalLoading, hideGlobalLoading]);
 
-  // Combined useEffect for initial data fetching that only runs once on mount
-  useEffect(() => {
-    async function fetchInitialData() {
-      try {
-        // Fetch cohorts
-        const cohortsResponse = await get("cohorts");
-        setCohorts(cohortsResponse.data.cohorts);
-
-        // Fetch cohort data for current user
-        const token = localStorage.getItem('token');
-        if (!token) {
-          console.error('No token found.');
-          return;
-        }
-                        
-        let userId;
-        try {
-            const decodedToken = jwtDecode(token);
-            userId = decodedToken.userId;
-        } catch (decodeError) {
-            console.error('Invalid token:', decodeError);
-            return;
-        }
-        
-        const user = await getUserById(userId);
-/*         if (user.profile.cohort === null) {
-          return;
-        } */
-        if (user.profile.cohort !== null) {
-          const cohortData = await get(`cohorts/${user.profile.cohort.id}`);
-          setCohort(cohortData.data.cohort)
-          setCourse(cohortData.data.cohort.course);
-          setStudents(cohortData.data.cohort.profiles)
-        }
-
-      } catch (error) {
-        console.error('Error fetching initial data in dashboard/index.js:', error);
-      }
-    }
-    fetchInitialData();
-  }, []);
-
-  useEffect(() => {
-    async function fetchAndSetUserRole() {
-      const storedToken = token || localStorage.getItem('token');
-      if (!storedToken) return;
-      
-      try {
-        const decoded = jwtDecode(storedToken);
-        const user = await getUserById(decoded.userId);
-        const roleName = user.profile.role.name;
-        if (roleName === 'ROLE_TEACHER') setUserRole(1);
-        else if (roleName === 'ROLE_STUDENT') setUserRole(2);
-        else setUserRole(null);
-      } catch (error) {
-        console.error('Error fetching user role from backend:', error);
-      }
-    }
-    fetchAndSetUserRole();
-  }, [token, setUserRole]);
-
-  function getInitials(profile) {
-        if (!profile.firstName || !profile.lastName) return "NA";
-        const firstNameParts = profile.firstName.trim().split(/\s+/) || ''; 
-        const lastNameInitial = profile.lastName.trim().charAt(0);
-        
-        const firstNameInitials = firstNameParts.map(name => name.charAt(0));
-        
-        return (firstNameInitials.join('') + lastNameInitial).toUpperCase();
-    }
+  
 
   return (
     <>
@@ -144,7 +59,11 @@ const Dashboard = () => {
             {/* <div className="profile-icon"> */}
             <SimpleProfileCircle
             photo={localStorage.getItem("userPhoto")}
-            initials={initials} />
+              initials={
+  myProfile && myProfile.firstName && myProfile.lastName
+      ? myProfile.firstName.charAt(0) + myProfile.lastName.charAt(0)
+      : ""
+             } />
 
 {/*                 <UserIcon
                     menu={false}
@@ -168,26 +87,23 @@ const Dashboard = () => {
         <Card>
         <Search />
         </Card>
-        { userRole === null || userRole === undefined ? (
-          <div>Loading...</div>
-        ) : (
 
-          userRole === 2 ? (
+          {userRole === 2 ? (
             <Card>
               <h3>My Cohort</h3>
-              {cohort.length !== 0 ? ( 
+              {myCohort !== null ? ( 
                 <div>
-                <p className='padding-top'>{course.name}, Cohort {cohort.id}</p>
+                <p className='padding-top'>{myCohort.course.name}, Cohort {myCohort.id}</p>
               <section className='cohort-teachers-container border-top'>
                 <ul className="students-list-teacher-view">
-                  {students.map((student, index) => (
+                  {studentsInMyCohort.map((student, index) => (
                     <li key={index} className="student-item">
                       <div>
                         <UserIcon
                           photo={student.photo}
                           key={student.id}
                           id={student.id}
-                          initials={getInitials(student)}
+                          initials={student.firstName.charAt(0) + student.lastName.charAt(0)}
                           firstname={student.firstName}
                           lastname={student.lastName}
                           role={"Student"}
@@ -213,12 +129,13 @@ const Dashboard = () => {
           ) : (
             <>
               <Cohorts cohorts={cohorts}/>
-              <Students refresh={refresh} setRefresh={setRefresh} cohorts={cohorts} />
-              <TeachersDashboard/>
+              <Students students={students} />
+              <TeachersDashboard teachers = {teachers}/>
+
             </>
 
           )
-        )}
+}
          
       </aside>
     </>

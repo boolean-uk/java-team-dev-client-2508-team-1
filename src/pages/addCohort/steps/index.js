@@ -1,15 +1,16 @@
-import {  Snackbar, SnackbarContent } from "@mui/material";
+import {   Snackbar, SnackbarContent } from "@mui/material";
 import { useState } from "react";
 import CheckCircleIcon from "../../../assets/icons/checkCircleIcon";
 import { patch, post } from "../../../service/apiClient";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
 
 
-const StepperCohort = ({ header, children, cohortName, startDa, endDa, selectedCourse, selectedStudents, setSelectedCourse,setEndDate,setStartDate,setCohortName }) => {
+const StepperCohort = ({ header, children, cohortName, startDa, endDa, selectedCourse, selectedStudents, setSelectedCourse,setEndDate,setStartDate,setCohortName, }) => {
     const [currentStep, setCurrentStep] = useState(0);
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const navigate = useNavigate()
-    
+    const {setRefresh} = useAuth()
 
 
   const onBackClick = () => {
@@ -57,11 +58,14 @@ const StepperCohort = ({ header, children, cohortName, startDa, endDa, selectedC
                     endDate: endDa,
                     profileIds: studentIds
                  });
+            console.log(response2)
+            setRefresh(prev => !prev)
+
         } catch (error) {
             console.error("Error adding new cohort:", error);
         }
     } addNewCohort()
-
+    setRefresh(prev => !prev)
     setSnackbarOpen(true)
      setTimeout(()=> {
         navigate("/cohorts")

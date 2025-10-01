@@ -7,11 +7,11 @@ import { useEffect, useState} from "react"
 import { get } from "../../service/apiClient"
 import StepTwoCohort from "./stepTwo"
 import StepThreeCohort from "./stepThree"
+import { useData } from "../../context/data"
 
 
 const EditCohort = () =>{
-    const [students, setStudents] = useState([])
-    const [courses, setCourses] = useState([])
+    const{students, courses} = useData()
 
     const [cohortName, setCohortName] = useState("")
     const[startDate, setStartDate] = useState("")
@@ -37,25 +37,7 @@ const EditCohort = () =>{
       }
 
     }
-    async function fetchStudents() {
-      try {
-        const response = await get("students");
-        setStudents(response.data.profiles);
-      } catch (error) {
-        console.error("Error fetching students:", error);
-      }
-    }
-
-    async function fetchCourses() {
-      try {
-        const response = await get("courses");
-        setCourses(response.data.courses);
-      } catch (error) {
-        console.error("Error fetching courses:", error);
-      }
-    }
-    fetchStudents(); 
-    fetchCourses();
+    
     fetchCohortById();
   }, []);
 
